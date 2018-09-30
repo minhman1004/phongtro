@@ -10,3 +10,17 @@
 
 # Views
 1. Chứa các file hiển thị thông tin.
+
+
+
+# Các lưu ý
+1. Thêm base_url trong application/config/config.php
+	a. http://localhost:8000/phongtro
+HOẶC
+	b. http://localhost/phongtro
+Tùy vào port hiện tại được sử dụng trên localhost
+
+2. Thêm base_url trong system/core/Config.php
+	a. http://localhost:8000/
+HOẶC
+	b. http://localhost/
