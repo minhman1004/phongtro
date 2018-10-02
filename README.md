@@ -1,5 +1,5 @@
 # phongtro
-# Những lưu ý quan trọng
+# Những lưu ý quan trọng sẽ hiển thị ở đây
 # Controllers
 1. Tên controllers luôn luôn viết hoa chữ cái đầu tiên
 2. Phải luôn luôn có hàm index() để khởi chạy.
