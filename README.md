@@ -24,3 +24,5 @@ Tùy vào port hiện tại được sử dụng trên localhost
 	a. http://localhost:8000/
 HOẶC
 	b. http://localhost/
+	
+# Thư mục third-party : Chứa dữ liệu bên thứ 3 như plugins, css, less, sass, ... mục đích là thiết kế giao diện là chính
