@@ -1,4 +1,5 @@
 # phongtro
+# Những lưu ý quan trọng
 # Controllers
 1. Tên controllers luôn luôn viết hoa chữ cái đầu tiên
 2. Phải luôn luôn có hàm index() để khởi chạy.
@@ -24,5 +25,3 @@ Tùy vào port hiện tại được sử dụng trên localhost
 	a. http://localhost:8000/
 HOẶC
 	b. http://localhost/
-	
-# Thư mục third-party : Chứa dữ liệu bên thứ 3 như plugins, css, less, sass, ... mục đích là thiết kế giao diện là chính
