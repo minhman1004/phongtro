@@ -11,6 +11,7 @@
 
 # Views
 1. Chứa các file hiển thị thông tin.
+2. Khi muốn sử dụng icon -> google: font awsome icon
 
 
 
