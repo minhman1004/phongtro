@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ela Admin - HTML5 Admin Template</title>
+    <title>Trang Admin - Quản Lý Phòng Trọ</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/themify-icons.css">
     <link rel="stylesheet" href="assets/css/pe-icon-7-filled.css">
+    <link rel="stylesheet" href="assets/css/mystyle.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
 
     <!-- -------------------------------- -->
     <!-- Script -->
@@ -41,45 +44,8 @@
     <script src="assets/calendar/fullcalendar.min.js"></script>
     <script src="assets/calendar/fullcalendar-init.js"></script>
 
-    <style>
-    #weatherWidget .currentDesc {
-        color: #ffffff!important;
-    }
-        .traffic-chart { 
-            min-height: 335px; 
-        }
-        #flotPie1  {
-            height: 150px;
-        } 
-        #flotPie1 td {
-            padding:3px;
-        }
-        #flotPie1 table {
-            top: 20px!important;
-            right: -10px!important;
-        }
-        .chart-container {
-            display: table;
-            min-width: 270px ;
-            text-align: left;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-        #flotLine5  {
-             height: 105px;
-        } 
-
-        #flotBarChart {
-            height: 150px;
-        }
-        #cellPaiChart{
-            height: 160px;
-        }
-
-    </style>
-
 </head>
-<body>
+<body style="font-family: 'Nunito', sans-serif;">
     <!-- Left Panel --> 
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default"> 
@@ -89,7 +55,7 @@
                         <a href="#"><i class="menu-icon fa fa-arrow-left"></i>Về trang chủ</a>
                     </li>
                     <li class="active">
-                        <a href="dasboard.html"><i class="menu-icon fa fa-laptop"></i>Trang điều khiển </a>
+                        <a href="#"><i class="menu-icon fa fa-laptop"></i>Trang điều khiển </a>
                     </li>
                     <li class="menu-title">QUẢN LÍ</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
@@ -140,7 +106,7 @@
             <div class="top-left">
                 <div class="navbar-header"> 
                     <!-- <a class="navbar-brand" style="width:100%; height:100%;" href="./"><img src="images/logo.png" alt="Logo"></a> -->
-                    <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a> 
+                    <a class="navbar-brand hidden" href="#"><img src="assets/images/avartar.png" alt="Logo"></a> 
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a> 
                 </div> 
             </div>
@@ -182,7 +148,7 @@
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                            <img class="user-avatar rounded-circle" src="assets/images/avartar.png" alt="User Avatar">
                         </a>
 
                         <div class="user-menu dropdown-menu">
@@ -198,8 +164,78 @@
                 </div>  
             </div>
         </header>
-    </div>
-    <div id="container">  
+        <div class="content" style="background: #f0f1f6;">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-1">
+                                    <i class="pe-7f-cash"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="text-left dib"> 
+                                        <div class="stat-text">$<span>23569</span></div>
+                                        <div class="stat-heading">Revenue</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-1">
+                                    <i class="pe-7f-cash"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="text-left dib"> 
+                                        <div class="stat-text">$<span class="count">23569</span></div>
+                                        <div class="stat-heading">Revenue</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-1">
+                                    <i class="pe-7f-cash"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="text-left dib"> 
+                                        <div class="stat-text">$<span class="count">23569</span></div>
+                                        <div class="stat-heading">Revenue</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-1">
+                                    <i class="pe-7f-cash"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="text-left dib"> 
+                                        <div class="stat-text">$<span class="count">23569</span></div>
+                                        <div class="stat-heading">Revenue</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
