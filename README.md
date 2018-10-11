@@ -26,3 +26,8 @@ Tùy vào port hiện tại được sử dụng trên localhost
 	a. http://localhost:8000/
 HOẶC
 	b. http://localhost/
+
+3. Khi một người lên đăng tin nhà ở hoặc phòng trọ
+	- Lưu địa chỉ đó lại thành một object
+	- Lưu những bình luận về địa điểm này
+	=> That's good shit !!!!!!!!
