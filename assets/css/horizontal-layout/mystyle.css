@@ -47,3 +47,19 @@ body > div > div.container-fluid.page-body-wrapper > div > div > div > div.col-9
 .right-side-list > li >a:hover, .right-side-list > li >a:visited, .right-side-list > li >a:active {
 	color: #292a26;
 }
+
+.card .card-description {
+	margin-bottom: 0.5rem;
+}
+
+.card .card-title {
+	margin-bottom: 0.5rem;
+}
+
+.row #detail-post {
+	justify-content: center;
+}
+
+body > div > div.container-fluid.page-body-wrapper > div > div > div > div.col-9 > div {
+	margin-bottom: 2%;
+}

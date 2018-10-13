@@ -5,8 +5,8 @@
             <div class="nav-top flex-grow-1">
               <div class="container d-flex flex-row h-100 align-items-center">
                 <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                    <a class="navbar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo"/></a>
-                    <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo"/></a>
+                    <a class="navbar-brand brand-logo" href="index.html"><img src="<?php echo base_url(); ?>assets/images/logo.svg" alt="logo"/></a>
+                    <a class="navbar-brand brand-logo-mini" href="index.html"><img src="<?php echo base_url(); ?>assets/images/logo-mini.svg" alt="logo"/></a>
                 </div>
                 <!-- Menu -->
                 <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end flex-grow-1">
@@ -80,7 +80,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="assets/images/faces/face4.jpg" alt="image" class="profile-pic">
+                                    <img src="<?php echo base_url(); ?>assets/images/faces/face4.jpg" alt="image" class="profile-pic">
                                 </div>
                                 <div class="preview-item-content flex-grow">
                                     <h6 class="preview-subject ellipsis font-weight-medium">David Grey
@@ -94,7 +94,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="assets/images/faces/face2.jpg" alt="image" class="profile-pic">
+                                    <img src="<?php echo base_url(); ?>assets/images/faces/face2.jpg" alt="image" class="profile-pic">
                                 </div>
                                 <div class="preview-item-content flex-grow">
                                     <h6 class="preview-subject ellipsis font-weight-medium">Tim Cook
@@ -108,7 +108,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                               <div class="preview-thumbnail">
-                                  <img src="assets/images/faces/face3.jpg" alt="image" class="profile-pic">
+                                  <img src="<?php echo base_url(); ?>assets/images/faces/face3.jpg" alt="image" class="profile-pic">
                               </div>
                               <div class="preview-item-content flex-grow">
                                 <h6 class="preview-subject ellipsis font-weight-medium"> Johnson
@@ -123,7 +123,7 @@
                         </li>
                         <li class="nav-item nav-profile dropdown">
                           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                            <img src="assets/images/faces/face5.jpg" alt="profile"/>
+                            <img src="<?php echo base_url(); ?>assets/images/faces/face5.jpg" alt="profile"/>
                           </a>
                           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                             <a class="dropdown-item">
