@@ -8688,7 +8688,7 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Nunito, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -8717,7 +8717,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Nunito, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -10380,7 +10380,8 @@ select.form-control:not([size]):not([multiple]), select.asColorPicker-input:not(
 .jsgrid .jsgrid-table .jsgrid-filter-row select:not([size]):not([multiple]), .select2-container--default select.select2-selection--single:not([size]):not([multiple]), .select2-container--default .select2-selection--single select.select2-search__field:not([size]):not([multiple]), select.typeahead:not([size]):not([multiple]),
 select.tt-query:not([size]):not([multiple]),
 select.tt-hint:not([size]):not([multiple]) {
-  height: calc(2.25rem + 2px);
+  height: calc(2.55rem + 2px);
+  margin-top: 1px;
 }
 
 select.form-control:focus::-ms-value, select.asColorPicker-input:focus::-ms-value, .dataTables_wrapper select:focus::-ms-value,
@@ -14694,7 +14695,7 @@ button.close {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Nunito, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -14807,7 +14808,7 @@ button.close {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Nunito, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -18287,41 +18288,41 @@ input:focus {
 }
 
 @font-face {
-  font-family: 'Roboto';
-  src: url("../../fonts/Roboto/Roboto-Light.eot");
-  src: url("../../fonts/Roboto/Roboto-Lightd41d.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto/Roboto-Light.html") format("woff2"), url("../../fonts/Roboto/Roboto-Light.woff") format("woff"), url("../../fonts/Roboto/Roboto-Light.ttf") format("truetype");
+  font-family: 'Nunito';
+  src: url("../../fonts/Nunito/Nunito-Light.eot");
+  src: url("../../fonts/Nunito/Nunito-Lightd41d.eot?#iefix") format("embedded-opentype"), url("../../fonts/Nunito/Nunito-Light.html") format("woff2"), url("../../fonts/Nunito/Nunito-Light.woff") format("woff"), url("../../fonts/Nunito/Nunito-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Roboto';
-  src: url("../../fonts/Roboto/Roboto-Bold.eot");
-  src: url("../../fonts/Roboto/Roboto-Boldd41d.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto/Roboto-Bold.html") format("woff2"), url("../../fonts/Roboto/Roboto-Bold.woff") format("woff"), url("../../fonts/Roboto/Roboto-Bold.ttf") format("truetype");
+  font-family: 'Nunito';
+  src: url("../../fonts/Nunito/Nunito-Bold.eot");
+  src: url("../../fonts/Nunito/Nunito-Boldd41d.eot?#iefix") format("embedded-opentype"), url("../../fonts/Nunito/Nunito-Bold.html") format("woff2"), url("../../fonts/Nunito/Nunito-Bold.woff") format("woff"), url("../../fonts/Nunito/Nunito-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Roboto';
-  src: url("../../fonts/Roboto/Roboto-Medium.eot");
-  src: url("../../fonts/Roboto/Roboto-Mediumd41d.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto/Roboto-Medium.html") format("woff2"), url("../../fonts/Roboto/Roboto-Medium.woff") format("woff"), url("../../fonts/Roboto/Roboto-Medium.ttf") format("truetype");
+  font-family: 'Nunito';
+  src: url("../../fonts/Nunito/Nunito-Medium.eot");
+  src: url("../../fonts/Nunito/Nunito-Mediumd41d.eot?#iefix") format("embedded-opentype"), url("../../fonts/Nunito/Nunito-Medium.html") format("woff2"), url("../../fonts/Nunito/Nunito-Medium.woff") format("woff"), url("../../fonts/Nunito/Nunito-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Roboto';
-  src: url("../../fonts/Roboto/Roboto-Regular.eot");
-  src: url("../../fonts/Roboto/Roboto-Regulard41d.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto/Roboto-Regular.html") format("woff2"), url("../../fonts/Roboto/Roboto-Regular.woff") format("woff"), url("../../fonts/Roboto/Roboto-Regular.ttf") format("truetype");
+  font-family: 'Nunito';
+  src: url("../../fonts/Nunito/Nunito-Regular.eot");
+  src: url("../../fonts/Nunito/Nunito-Regulard41d.eot?#iefix") format("embedded-opentype"), url("../../fonts/Nunito/Nunito-Regular.html") format("woff2"), url("../../fonts/Nunito/Nunito-Regular.woff") format("woff"), url("../../fonts/Nunito/Nunito-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Roboto';
-  src: url("../../fonts/Roboto/Roboto-Black.eot");
-  src: url("../../fonts/Roboto/Roboto-Blackd41d.eot?#iefix") format("embedded-opentype"), url("../../fonts/Roboto/Roboto-Black.html") format("woff2"), url("../../fonts/Roboto/Roboto-Black.woff") format("woff"), url("../../fonts/Roboto/Roboto-Black.ttf") format("truetype");
+  font-family: 'Nunito';
+  src: url("../../fonts/Nunito/Nunito-Black.eot");
+  src: url("../../fonts/Nunito/Nunito-Blackd41d.eot?#iefix") format("embedded-opentype"), url("../../fonts/Nunito/Nunito-Black.html") format("woff2"), url("../../fonts/Nunito/Nunito-Black.woff") format("woff"), url("../../fonts/Nunito/Nunito-Black.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
 }
@@ -18401,7 +18402,7 @@ input:focus {
 /* Typography */
 body {
   font-size: 1rem;
-  font-family: "Roboto", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: initial;
   line-height: normal;
   -webkit-font-smoothing: antialiased;
@@ -18657,7 +18658,7 @@ pre {
 code {
   padding: 5px;
   color: #ff5e5e;
-  font-family: "Roboto", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 300;
   font-size: 0.875rem;
   border-radius: 4px;
@@ -18672,7 +18673,7 @@ code {
   -webkit-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   font-size: calc(0.875rem - 0.05rem);
-  font-family: "Roboto", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 400;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
@@ -20727,7 +20728,7 @@ code {
 }
 
 .card .card-body {
-  padding: 1.88rem 1.81rem;
+  
 }
 
 .card .card-body + .card-body {
@@ -27401,9 +27402,9 @@ div.tagsinput span.tag a {
   -moz-transition-property: position, left, right, top, z-index;
   -o-transition-property: position, left, right, top, z-index;
   transition-property: position, left, right, top, z-index;
-  box-shadow: 0 19px 34px -15px #d2d2f2;
-  -webkit-box-shadow: 0 19px 34px -15px #d2d2f2;
-  -moz-box-shadow: 0 19px 34px -15px #d2d2f2;
+  box-shadow: 0 10px 60px -18px #d2d2f2;
+  -webkit-box-shadow: 0 10px 60px -18px #d2d2f2;
+  -moz-box-shadow: 0 10px 60px -18px #d2d2f2;
 }
 
 @media (max-width: 991.98px) {
@@ -27421,8 +27422,8 @@ div.tagsinput span.tag a {
   position: relative;
   width: 100%;
   z-index: 99;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
   -o-transition-duration: 0.2s;
@@ -27589,7 +27590,7 @@ div.tagsinput span.tag a {
   content: "";
   left: 0;
   bottom: -2px;
-  width: 100%;
+  width: 89%;
   height: 5px;
   background: #5f6be3;
 }

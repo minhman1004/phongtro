@@ -1,0 +1,49 @@
+.menu-item-header {
+	font: 20px/20px;
+	color: #9b9b9b;
+	font-weight: bold;
+}
+
+.menu-item-header:hover {
+	color: #666666;
+	text-decoration: none;
+}
+
+img.thumnail {
+	width:200px;
+	height:200px;
+}
+
+.col-md-4 {
+	max-width: 27.34%;
+}
+
+hr {
+	margin-top: 0 !important;
+}
+
+body > div > div.container-fluid.page-body-wrapper > div > div > div > div.col-9 > nav {
+	justify-content: center;
+	display: flex;
+}
+
+.card {
+	width: 100%;
+	margin-bottom: 5%;
+	border-radius: 0;
+}
+
+.right-side-list {
+	list-style-type: circle;
+}
+.right-side-list > li {
+	font-size: 16px;
+}
+
+.right-side-list > li >a {
+	text-decoration: none;
+	color: #9b9b9b;
+}
+.right-side-list > li >a:hover, .right-side-list > li >a:visited, .right-side-list > li >a:active {
+	color: #292a26;
+}
