@@ -157,9 +157,11 @@
                 <div class="d-flex flex-row flex-wrap">
                   <img src="../../../../images/faces/face11.jpg" class="img-lg rounded" alt="profile image">
                   <div class="ml-3">
-                    <h6>Maria</h6>
-                    <p class="text-muted">maria@gmail.com</p>
-                    <p class="mt-2 text-success font-weight-bold">Designer</p>
+                    <h6>Tên</h6>
+                    <p class="text-muted">Loại thành viên</p>
+                    <p class="mt-2 text-success font-weight-bold">Trạng thái</p>
+                    <p class="text-muted">Điện thoại</p>
+                    <button type="button" class="btn btn-primary btn-sm">Nhắn tin</button>
                   </div>
                 </div>
               </div>
