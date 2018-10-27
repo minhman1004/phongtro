@@ -1,8 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class MainDangNhap extends CI_Controller {
+class Login extends CI_Controller {
 	public function index() {
-		
+		$this->load->helper('url');
+		$this->load->view('primary/meta');
+		$this->load->view('main/login/login');
 	}
 }
