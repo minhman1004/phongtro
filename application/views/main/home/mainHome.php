@@ -12,11 +12,18 @@
         <div class="col-md-2">
           <select class="form-control" id="search-tinh-thanh-pho">
             <option selected>Tỉnh/Thành phố</option>
+            <?php foreach($tinhtp as $tinhtptk) { ?>
+              <option value=<?=$tinhtptk->MATTP?>><?=$tinhtptk->TEN?></option>
+            <?php } ?>
           </select>
+
         </div>
         <div class="col-md-2">
           <select class="form-control" id="search-quan-huyen">
             <option selected>Quận huyện</option>
+            <?php foreach($quanhuyen as $quanhuyen) { ?>
+              <option value=<?=$quanhuyen->MAQH?>><?=$quanhuyen->TEN?></option>
+            <?php } ?>
           </select>
         </div>
         <div class="col-md-2">
@@ -98,12 +105,14 @@
                 <ul class="right-side-list">
                   <!-- List here -->
                   <!-- --------------------------------------------------- -->
-                  <!-- Start -->
-                  <li>
-                    <a href="index.html">
-                      <span class="menu-title">Tp Hồ Chí Minh</span>
-                    </a>
-                  </li>
+                  <?php foreach($tinhtp as $tinhtp) { ?>
+                    <li>
+                      <a href=<?="/phongtro/khuvuc=".$tinhtp->MATTP?>>
+                        <span class="menu-title"><?=$tinhtp->TEN?></span>
+                        <!-- Lệnh lấy nội dung phải được viết liền <?=$tinhtp->TEN?> -->
+                      </a>
+                    </li>
+                  <?php } ?>
                   <!-- End -->
                 </ul>
               </div>

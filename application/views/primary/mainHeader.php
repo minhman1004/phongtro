@@ -5,8 +5,8 @@
             <div class="nav-top flex-grow-1">
               <div class="container d-flex flex-row h-100 align-items-center">
                 <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                    <a class="navbar-brand brand-logo" href="index.html"><img src="<?php echo base_url(); ?>assets/images/logo.svg" alt="logo"/></a>
-                    <a class="navbar-brand brand-logo-mini" href="index.html"><img src="<?php echo base_url(); ?>assets/images/logo-mini.svg" alt="logo"/></a>
+                    <a class="navbar-brand brand-logo" href="/phongtro/"><img src="<?php echo base_url(); ?>assets/images/logo.svg" alt="logo"/></a>
+                    <a class="navbar-brand brand-logo-mini" href="/phongtro/"><img src="<?php echo base_url(); ?>assets/images/logo-mini.svg" alt="logo"/></a>
                 </div>
                 <!-- Menu -->
                 <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end flex-grow-1">
