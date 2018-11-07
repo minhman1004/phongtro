@@ -6,12 +6,12 @@
         <input type="text" class="form-control" id="search-tukhoa-duong-quan-duan" maxlength="100" placeholder="Từ khóa, Đường, Quận, Dự án"></div>
         <div class="col-md-2">
           <select class="form-control" id="search-loai-bds">
-            <option selected>Loại bất động sản</option>
+            <option selected disabled>Loại bất động sản</option>
           </select>
         </div>
         <div class="col-md-2">
           <select class="form-control" id="search-tinh-thanh-pho">
-            <option selected>Tỉnh/Thành phố</option>
+            <option selected disabled>Tỉnh/Thành phố</option>
             <?php foreach($tinhtp as $tinhtptk) { ?>
               <option value=<?=$tinhtptk->MATTP?>><?=$tinhtptk->TEN?></option>
             <?php } ?>
@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-2">
           <select class="form-control" id="search-quan-huyen">
-            <option selected>Quận huyện</option>
+            <option selected disabled>Quận huyện</option>
             <?php foreach($quanhuyen as $quanhuyen) { ?>
               <option value=<?=$quanhuyen->MAQH?>><?=$quanhuyen->TEN?></option>
             <?php } ?>
@@ -28,7 +28,7 @@
         </div>
         <div class="col-md-2">
           <select class="form-control" id="search-gia-thue">
-            <option selected>Giá</option>
+            <option selected disabled>Giá</option>
           </select>
         </div>
         <div class="col-md-1" style="padding:0px !important">
@@ -87,7 +87,6 @@
                 <ul class="right-side-list">
                   <!-- List here -->
                   <!-- --------------------------------------------------- -->
-                  <!-- Start -->
                   <li>
                     <a href="index.html">
                       <span class="menu-title">Nhà</span>

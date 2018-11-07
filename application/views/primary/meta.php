@@ -33,4 +33,5 @@
   <script src="<?php echo base_url(); ?>assets/js/dropify.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/dropzone.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/jquery-file-upload.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/lodash.js"></script>
 </head>
