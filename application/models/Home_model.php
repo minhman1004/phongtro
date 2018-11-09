@@ -5,6 +5,10 @@ class Home_model extends CI_Model {
         $this->load->database();
     }
 
+    // Lấy danh sách Loại tin
+    public function getLoaiTin() {
+    }
+
     // Lấy danh sách Tỉnh / Thành phố
     public function getTinhTp() {
     	$query = $this->db->get("tinhtp");

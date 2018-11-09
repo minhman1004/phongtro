@@ -33,7 +33,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="./login" class="nav-link">
               <span class="menu-title">Đăng nhập</span>
             </a>
           </li>

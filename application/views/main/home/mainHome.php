@@ -1,38 +1,55 @@
+<!-- Nội dung -->
 <div class="container-fluid page-body-wrapper">
   <div class="main-panel">
     <div class="content-wrapper">
       <div class="row">
         <div class="col-md-3">
-        <input type="text" class="form-control" id="search-tukhoa-duong-quan-duan" maxlength="100" placeholder="Từ khóa, Đường, Quận, Dự án"></div>
-        <div class="col-md-2">
-          <select class="form-control" id="search-loai-bds">
-            <option selected disabled>Loại bất động sản</option>
-          </select>
+          <div class="form-group">
+            <label>Loại tin</label>
+            <select class="form-control" id="search-loai-tin">
+              <option value="all" selected>Tất cả</option>
+            </select>
+          </div>
         </div>
         <div class="col-md-2">
-          <select class="form-control" id="search-tinh-thanh-pho">
-            <option selected disabled>Tỉnh/Thành phố</option>
-            <?php foreach($tinhtp as $tinhtptk) { ?>
-              <option value=<?=$tinhtptk->MATTP?>><?=$tinhtptk->TEN?></option>
-            <?php } ?>
-          </select>
-
+          <div class="form-group">
+            <label>Tỉnh / TP</label>
+            <select class="form-control" id="search-tinh-thanh-pho">
+              <option value="all" selected>Tất cả</option>
+              <?php foreach($tinhtp as $tinhtp_select) { ?>
+                <option value=<?=$tinhtp_select->MATTP?>><?=$tinhtp_select->TEN?></option>
+              <?php } ?>
+            </select>
+          </div>
         </div>
         <div class="col-md-2">
-          <select class="form-control" id="search-quan-huyen">
-            <option selected disabled>Quận huyện</option>
-            <?php foreach($quanhuyen as $quanhuyen) { ?>
-              <option value=<?=$quanhuyen->MAQH?>><?=$quanhuyen->TEN?></option>
-            <?php } ?>
-          </select>
+          <div class="form-group">
+            <label>Quận, huyện</label>
+            <select class="form-control" id="search-quan-huyen">
+              <option value="all" selected>Tất cả</option>
+            </select>
+          </div>
         </div>
         <div class="col-md-2">
-          <select class="form-control" id="search-gia-thue">
-            <option selected disabled>Giá</option>
-          </select>
+          <div class="form-group">
+            <label>Phường, xã</label>
+            <select class="form-control" id="search-phuong-xa">
+              <option value="all" selected>Tất cả</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>Mức giá</label>
+            <select class="form-control" id="search-gia-thue">
+              <option value="all" selected>Tất cả</option>
+            </select>
+          </div>
         </div>
         <div class="col-md-1" style="padding:0px !important">
-          <button type="button" class="btn btn-primary">Tìm</button>
+          <div class="form-group">
+          <button type="button" style="margin-top: 22px;" class="btn btn-primary">Tìm</button>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -83,31 +100,14 @@
           <div class="row">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title" id="title-reuslt">Loại bất động sản</h4>
-                <ul class="right-side-list">
-                  <!-- List here -->
-                  <!-- --------------------------------------------------- -->
-                  <li>
-                    <a href="index.html">
-                      <span class="menu-title">Nhà</span>
-                    </a>
-                  </li>
-                  <!-- End -->
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="card">
-              <div class="card-body">
                 <h4 class="card-title" id="title-reuslt">Các khu vực khác</h4>
                 <ul class="right-side-list">
                   <!-- List here -->
                   <!-- --------------------------------------------------- -->
-                  <?php foreach($tinhtp as $tinhtp) { ?>
+                  <?php foreach($tinhtp as $tinhtp_right_side) { ?>
                     <li>
-                      <a href=<?="/phongtro/khuvuc=".$tinhtp->MATTP?>>
-                        <span class="menu-title"><?=$tinhtp->TEN?></span>
+                      <a href=<?="/phongtro/khuvuc=".$tinhtp_right_side->MATTP?>>
+                        <span class="menu-title"><?=$tinhtp_right_side->TEN?></span>
                         <!-- Lệnh lấy nội dung phải được viết liền <?=$tinhtp->TEN?> -->
                       </a>
                     </li>
@@ -122,6 +122,16 @@
     </div>
   </div>
 </div>
+
+<!-- Gán biến PHP cho hàm javascript -->
+<script type="text/javascript">
+  var tinhtp = <?php echo json_encode($tinhtp) ?>;
+  var quanhuyen = <?php echo json_encode($quanhuyen) ?>;
+  var phuongxa = <?php echo json_encode($phuongxa) ?>;
+</script>
+<!-- Khai báo javascript cho từng trang riêng -->
+<script src="<?php echo base_url(); ?>assets/main/home.js"></script>
+<!--------------------------------------------------------------------->
 
 <!-- End Body Content -->
 <!-- Start Footer -->

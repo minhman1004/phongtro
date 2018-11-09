@@ -16,7 +16,7 @@ class Home extends CI_Controller {
         $dsPhuongXa = $this->Home_model->getPhuongXa();
         // $dsBaiViet = $this->Home_model->getBaiViet();
 
-        $metadata = array('title' => 'Trang chủ - Nhà Trọ Việt', 'page' => 'home');
+        $metadata = array('title' => 'Nhà Trọ Việt - Trang Chủ', 'page' => 'home');
         $dataDisplay['tinhtp'] = $dsTinhTp;
         $dataDisplay['quanhuyen'] = $dsQuanHuyen;
         $dataDisplay['phuongxa'] = $dsPhuongXa;
@@ -27,6 +27,5 @@ class Home extends CI_Controller {
 		$this->load->view('primary/mainMenu');
 		$this->load->view('main/home/mainHome', $dataDisplay);
 		$this->load->view('primary/mainFooter');
-        // print_r($dataDisplay);
 	}
 }
