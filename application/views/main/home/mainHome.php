@@ -128,6 +128,8 @@
   var tinhtp = <?php echo json_encode($tinhtp) ?>;
   var quanhuyen = <?php echo json_encode($quanhuyen) ?>;
   var phuongxa = <?php echo json_encode($phuongxa) ?>;
+  var baiviet = <?php echo json_encode($baiviet) ?>;
+  console.log("bai viet: ", baiviet);
 </script>
 <!-- Khai báo javascript cho từng trang riêng -->
 <script src="<?php echo base_url(); ?>assets/main/home.js"></script>

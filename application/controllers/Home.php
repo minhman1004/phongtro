@@ -14,12 +14,13 @@ class Home extends CI_Controller {
         $dsTinhTp = $this->Home_model->getTinhTp();
         $dsQuanHuyen = $this->Home_model->getQuanHuyen();
         $dsPhuongXa = $this->Home_model->getPhuongXa();
-        // $dsBaiViet = $this->Home_model->getBaiViet();
+        $dsBaiViet = $this->Home_model->getBaiViet();
 
         $metadata = array('title' => 'Nhà Trọ Việt - Trang Chủ', 'page' => 'home');
         $dataDisplay['tinhtp'] = $dsTinhTp;
         $dataDisplay['quanhuyen'] = $dsQuanHuyen;
         $dataDisplay['phuongxa'] = $dsPhuongXa;
+        $dataDisplay['baiviet'] = $dsBaiViet;
 
 		$this->load->helper('url');
 		$this->load->view('primary/meta', $metadata);

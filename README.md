@@ -31,3 +31,11 @@ HOẶC
 	- Lưu địa chỉ đó lại thành một object
 	- Lưu những bình luận về địa điểm này
 	=> That's good shit !!!!!!!!
+4. Khi tạo một file javascript, nội dung bao gồm:
+
+(function($) {
+  'use strict';
+
+  YOUR CODE HERE
+
+})(jQuery);

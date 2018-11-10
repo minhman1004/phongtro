@@ -3,12 +3,12 @@
       <div class="container">
         <ul class="nav page-navigation">
           <li class="nav-item">
-            <a class="nav-link" href="./post/publish">
+            <a class="nav-link" href="<?php echo base_url(); ?>post/publish">
               <span class="menu-title">Đăng tin</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./">
+            <a class="nav-link" href="<?php echo base_url(); ?>">
               <span class="menu-title">Tìm mua</span>
             </a>
           </li>
@@ -33,7 +33,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="./login" class="nav-link">
+            <a href="<?php echo base_url(); ?>login" class="nav-link">
               <span class="menu-title">Đăng nhập</span>
             </a>
           </li>
