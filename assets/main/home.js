@@ -22,6 +22,7 @@
 
   // Hàm phân loại quận huyện theo Tỉnh/Tp
   function plQuanHuyen(tinhtp) {
+  	// _.filter(array, {'thuoctinh':giatri}) Trả về một mảng được lọc theo 'thuoctinh' có giá trị là 'giatri'
   	return _.filter(quanhuyen, {'MATTP':tinhtp});
   }
 
