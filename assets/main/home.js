@@ -1,7 +1,7 @@
 (function($) {
   'use strict';
   quanhuyen = _.orderBy(quanhuyen, ['TEN'], ['asc']);
-  phuongxa = _.orderBy(phuongxa, ['TEN'], ['asc']);
+  phuongxa = _.orderBy(phuongxa, ['TEN'], ['asc']);	
   // console.log("tinhtp: ", tinhtp);
   // console.log("quanhuyen: ", quanhuyen);
   // console.log("phuongxa: ", phuongxa);
@@ -29,6 +29,7 @@
   // Hien thi quan huyen ra Select
   function showQuanHuyen(dsQuanHuyen) {
 	$("#search-quan-huyen").html("<option selected>Tất cả</option>");
+	$("#search-phuong-xa").html("<option selected>Tất cả</option>");
   	if(dsQuanHuyen.length > 0) {
   		var content;
   		content += "<option selected>Tất cả</option>";
@@ -65,5 +66,36 @@
 	});
 	$("#search-phuong-xa").html(content);
   }
+
+  // ---------------------------------------------------------------------------------------------
+  // Hien thi danh sach bai viet
+  function showBaiViet(dsBaiViet) {
+  	if(dsBaiViet.length > 0) {
+	  	console.log("dsBaiViet: ", dsBaiViet);
+	  	var content = '';
+	  	_.forEach(dsBaiViet, function(baiviet, key) {
+	  		content += '<div class="row">\n';
+	        	content += '<div class="col-md-4">\n';
+	      			content += '<img class="thumnail" src="" alt="">\n';
+	      			content += '<p>Giá: ' + baiviet.Gia + ' VND</p>\n';
+	        	content += '</div>\n';
+	        	content += '<div class="col-md-8">\n';
+      				content += '<h4>' + baiviet.TIEUDE + '</h4>\n';
+	      			content += '<p>' + baiviet.DCTD + '</p>\n';
+	      			content += '<p>' + baiviet.GhiChu + '</p>\n';
+	      			content += '<p>' + baiviet.MOTATHEM + '</p>\n';
+	      			content += '<p>' + baiviet.TGDANG + '</p>\n';
+	        	content += '</div>\n';
+	      	content += '</div>\n';
+	      	if(dsBaiViet.length - 1 != key) {
+	      		content += '<hr>\n';
+	      	}
+	  	});
+  		$("#danh-sach-bai-viet").html(content);
+  		console.log("content: ", content);
+  	}
+  }
+
+  // showBaiViet(baiviet);
 
 })(jQuery);

@@ -18,4 +18,14 @@ class Detail_model extends CI_Model {
     	}
     	return false;
     }
+
+    // Lấy thông tin bài viết
+    public function getBaiViet($id) {
+        $query = $this->db->query("select * from baiviet join ctbv on baiviet.MABV = ctbv.MABV
+                                    join nguoidung on nguoidung.MAND = ctbv.MAND
+                                    join nhatro on nhatro.MANT = ctbv.MANT
+                                    join phongtro on phongtro.MAPT = ctbv.MAPT
+                                    where baiviet.MABV = ".$id.";");
+        return $query->result();
+    }
 }

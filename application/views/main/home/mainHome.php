@@ -65,22 +65,28 @@
         <div class="col-9">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title" id="title-find">Kết quả tìm kiếm</h4>
+              <h4 class="card-title" id="search-danh-sach-bai-viet">Kết quả tìm kiếm</h4>
               <!-- Result list here -->
-              <div class="row">
-                <div class="col-md-4">
-                  <img class="thumnail" src="<?php echo base_url(); ?>assets/images/faces/face1.jpg" alt="">
-                  <p>Giá: </p>
-                </div>
-                <div class="col-md-8">
-                  <h4>Tiêu đề</h4>
-                  <p>Địa chỉ</p>
-                  <p>Thông tin phòng</p>
-                  <p>Mô tả</p>
-                  <p>Ngày đăng</p>
-                </div>
+              <div id="danh-sach-bai-viet">
+                <?php foreach($baiviet as $ketqua_baiviet) { ?>
+                  <a href="<?php echo base_url(); ?><?='post/detail?ten='.$ketqua_baiviet->slug?>">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <img class="thumnail" src="<?php echo base_url(); ?>assets/images/faces/face1.jpg" alt="">
+                        <p>Giá: <?=$ketqua_baiviet->Gia?></p>
+                      </div>
+                      <div class="col-md-8">
+                        <h4><?=$ketqua_baiviet->TIEUDE?></h4>
+                        <p>Địa chỉ: <?=$ketqua_baiviet->DCTD?></p>
+                        <p>Tình trạng: <?=$ketqua_baiviet->GhiChu?></p>
+                        <p>Mô tả: <?=$ketqua_baiviet->MOTATHEM?></p>
+                        <p>Ngày đăng: <?php echo date_format(new Datetime($ketqua_baiviet->TGDANG), 'd/m/Y'); ?></p>
+                      </div>
+                    </div>
+                  </a>
+                  <hr>
+                <?php } ?>
               </div>
-              <hr>
               <!-- End post -->
             </div>
           </div>
@@ -106,7 +112,7 @@
                   <!-- --------------------------------------------------- -->
                   <?php foreach($tinhtp as $tinhtp_right_side) { ?>
                     <li>
-                      <a href=<?="/phongtro/khuvuc=".$tinhtp_right_side->MATTP?>>
+                      <a href=<?="/phongtro?khuvuc=".$tinhtp_right_side->MATTP?>>
                         <span class="menu-title"><?=$tinhtp_right_side->TEN?></span>
                         <!-- Lệnh lấy nội dung phải được viết liền <?=$tinhtp->TEN?> -->
                       </a>
@@ -129,7 +135,7 @@
   var quanhuyen = <?php echo json_encode($quanhuyen) ?>;
   var phuongxa = <?php echo json_encode($phuongxa) ?>;
   var baiviet = <?php echo json_encode($baiviet) ?>;
-  console.log("bai viet: ", baiviet);
+  console.log("baiviet: ", baiviet);
 </script>
 <!-- Khai báo javascript cho từng trang riêng -->
 <script src="<?php echo base_url(); ?>assets/main/home.js"></script>

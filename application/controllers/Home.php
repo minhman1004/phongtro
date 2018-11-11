@@ -4,12 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Home extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
+		$this->load->Model("Home_model");
 	}
 
 	public function index() {
-		// Gọi model Home_model
-		$this->load->Model("Home_model");
-
 		// Gọi hàm trong Home_model
         $dsTinhTp = $this->Home_model->getTinhTp();
         $dsQuanHuyen = $this->Home_model->getQuanHuyen();
