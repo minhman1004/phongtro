@@ -256,6 +256,4 @@
     </div>
   </div>
 </div>
-
-<!-- End Body Content -->
-<!-- Start Footer -->
+<script src="<?php echo base_url(); ?>assets/main/create_update.js"></script>

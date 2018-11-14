@@ -1,4 +1,3 @@
-<!-- Nội dung -->
 <div class="container-fluid page-body-wrapper">
   <div class="main-panel">
     <div class="content-wrapper">
@@ -52,41 +51,47 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Library</li>
-          </ol>
-        </nav>
-      </div>
+      <?php if(isset($tentinh)) { ?>
+        <div class="row">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Khu vực: <?=$tentinh->TEN?></li>
+              <!-- <li class="breadcrumb-item active" aria-current="page">Library</li> -->
+            </ol>
+          </nav>
+        </div>
+      <?php } ?>
       <div class="row">
         <!-- Left side -->
         <div class="col-9">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title" id="search-danh-sach-bai-viet">Kết quả tìm kiếm</h4>
-              <!-- Result list here -->
-              <div id="danh-sach-bai-viet">
-                <?php foreach($baiviet as $ketqua_baiviet) { ?>
-                  <a href="<?php echo base_url(); ?><?='post/detail?ten='.$ketqua_baiviet->slug?>">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <img class="thumnail" src="<?php echo base_url(); ?>assets/images/faces/face1.jpg" alt="">
-                        <p>Giá: <?=$ketqua_baiviet->Gia?></p>
+              <?php if(!@$baiviet) { ?>
+                <h4 class="card-title" id="search-danh-sach-bai-viet">Không có kết quả nào</h4>
+              <?php } else { ?>
+                <h4 class="card-title" id="search-danh-sach-bai-viet">Kết quả tìm kiếm</h4>
+                <!-- Result list here -->
+                <div id="danh-sach-bai-viet">
+                  <?php foreach($baiviet as $ketqua_baiviet) { ?>
+                    <a href="<?php echo base_url(); ?><?='post/detail?name='.$ketqua_baiviet->slug?>">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <img class="thumnail" src="<?php echo base_url(); ?>assets/images/faces/face1.jpg" alt="">
+                          <p>Giá: <?=$ketqua_baiviet->Gia?></p>
+                        </div>
+                        <div class="col-md-8">
+                          <h4><?=$ketqua_baiviet->TIEUDE?></h4>
+                          <p>Địa chỉ: <?=$ketqua_baiviet->DCTD?></p>
+                          <p>Tình trạng: <?=$ketqua_baiviet->GhiChu?></p>
+                          <p>Mô tả: <?=$ketqua_baiviet->MOTATHEM?></p>
+                          <p>Ngày đăng: <?php echo date_format(new Datetime($ketqua_baiviet->TGDANG), 'd/m/Y'); ?></p>
+                        </div>
                       </div>
-                      <div class="col-md-8">
-                        <h4><?=$ketqua_baiviet->TIEUDE?></h4>
-                        <p>Địa chỉ: <?=$ketqua_baiviet->DCTD?></p>
-                        <p>Tình trạng: <?=$ketqua_baiviet->GhiChu?></p>
-                        <p>Mô tả: <?=$ketqua_baiviet->MOTATHEM?></p>
-                        <p>Ngày đăng: <?php echo date_format(new Datetime($ketqua_baiviet->TGDANG), 'd/m/Y'); ?></p>
-                      </div>
-                    </div>
-                  </a>
-                  <hr>
-                <?php } ?>
-              </div>
+                    </a>
+                    <hr>
+                  <?php } ?>
+                </div>
+              <?php } ?>
               <!-- End post -->
             </div>
           </div>
@@ -112,7 +117,7 @@
                   <!-- --------------------------------------------------- -->
                   <?php foreach($tinhtp as $tinhtp_right_side) { ?>
                     <li>
-                      <a href=<?="/phongtro?khuvuc=".$tinhtp_right_side->MATTP?>>
+                      <a href=<?="/phongtro/".$page."/location/".$tinhtp_right_side->MATTP?>>
                         <span class="menu-title"><?=$tinhtp_right_side->TEN?></span>
                         <!-- Lệnh lấy nội dung phải được viết liền <?=$tinhtp->TEN?> -->
                       </a>
@@ -139,7 +144,3 @@
 </script>
 <!-- Khai báo javascript cho từng trang riêng -->
 <script src="<?php echo base_url(); ?>assets/main/home.js"></script>
-<!--------------------------------------------------------------------->
-
-<!-- End Body Content -->
-<!-- Start Footer -->

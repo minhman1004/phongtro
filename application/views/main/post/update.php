@@ -3,14 +3,6 @@
     <div class="content-wrapper">
       <!-- Bread Crumb -->
       <div class="row">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Library</li>
-          </ol>
-        </nav>
-      </div>
-      <div class="row">
         <!-- Left side -->
         <div class="col-9">
           <!-- Thông tin cơ bản -->
@@ -41,7 +33,7 @@
                   <div class="col-6">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Số điện thoại</label>
-                      <input type="email" class="form-control" id="so-dien-thoai-dang-tin" placeholder="Số điện thoại">
+                      <input type="text" disabled class="form-control" id="so-dien-thoai-dang-tin">
                     </div>
                   </div>
                 </div>
@@ -58,8 +50,8 @@
                     <div class="form-group">
                     <label for="exampleFormControlSelect2">Đơn vị</label>
                     <select class="form-control" id="don-vi-dang-tin">
-                      <option selected="selected">Triệu/Tháng</option>
-                      <option>Nghìn/Tháng</option>
+                      <option selected="selected" value="trieuthang">Triệu/Tháng</option>
+                      <option value="nghinthang">Nghìn/Tháng</option>
                     </select>
                   </div>
                   </div>
@@ -78,7 +70,9 @@
                     <div class="form-group">
                       <label for="exampleFormControlSelect2">Tỉnh/Thành phố</label>
                       <select class="form-control" id="tinh-thanh-pho-dang-tin">
-                        <option disabled="disabled" selected="selected">Chọn Tỉnh/Tp</option>
+                        <?php foreach(@$tinhtp as $tinhtp_update) { ?>
+                          <option value=<?=$tinhtp_update->MATTP?>><?=$tinhtp_update->TEN?></option>
+                        <?php } ?>
                       </select>
                     </div>
                   </div>
@@ -86,7 +80,7 @@
                     <div class="form-group">
                       <label for="exampleFormControlSelect2">Quận/Huyện</label>
                       <select class="form-control" id="quan-huyen-dang-tin">
-                        <option disabled="disabled" selected="selected">Chọn Quận / Huyện</option>
+                        <option  value="non">Chọn Quận / Huyện</option>
                       </select>
                     </div>
                   </div>
@@ -96,7 +90,7 @@
                     <div class="form-group">
                       <label for="exampleFormControlSelect2">Phường, Xã</label>
                       <select class="form-control" id="phuong-xa-dang-tin">
-                        <option disabled="disabled" selected="selected">Chọn Phường, Xã</option>
+                        <option  value="non">Chọn Phường, Xã</option>
                       </select>
                   </div>
                   </div>
@@ -104,7 +98,7 @@
                     <div class="form-group">
                       <label for="exampleFormControlSelect2">Đường</label>
                       <select class="form-control" id="duong-dang-tin">
-                        <option disabled="disabled" selected="selected">Chọn Đường</option>
+                        <option value="non">Chọn Đường</option>
                       </select>
                     </div>
                   </div>
@@ -211,7 +205,7 @@
 
           <!-- Publish Button -->
           <div class="row" style="margin-left: 0">
-            <button type="submit" class="btn btn-primary mr-2">Đăng tin</button>
+            <button type="submit" class="btn btn-primary mr-2">Cập nhật</button>
           </div>
         </div>
 
@@ -256,6 +250,17 @@
     </div>
   </div>
 </div>
-
-<!-- End Body Content -->
-<!-- Start Footer -->
+<script type="text/javascript">
+  var baiviet = <?php echo json_encode($baiviet)?>;
+  var tinhtp = <?php echo json_encode($tinhtp) ?>;
+  var quanhuyen = <?php echo json_encode($quanhuyen) ?>;
+  var phuongxa = <?php echo json_encode($phuongxa) ?>;
+  var diachitt = <?php echo json_encode($diachitt) ?>;
+  console.log("baiviet: ", baiviet);
+  console.log("tinhtp: ", tinhtp);
+  console.log("quanhuyen: ", quanhuyen);
+  console.log("phuongxa: ", phuongxa);
+  console.log("diachitt: ", diachitt);
+  console.log("thanh pho select: ", $("#tinh-thanh-pho-dang-tin").val());
+</script>
+<script src="<?php echo base_url(); ?>assets/main/create_update.js"></script>

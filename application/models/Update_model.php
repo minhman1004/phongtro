@@ -1,5 +1,5 @@
 <?php
-class Home_model extends CI_Model {
+class Update_model extends CI_Model {
 	public function __construct(){
         parent::__construct();
         $this->load->database();
@@ -49,8 +49,15 @@ class Home_model extends CI_Model {
     	return false;
     }
 
-    // Lấy danh sách Loại bất động sản
-    public function getLoaiBDS() {
+    // Lay danh sach diachitt
+    public function getDiaChiTT() {
+    	$query = $this->db->get("diachitt");
+    	$data = array();
+    	foreach(@$query->result() as $row) {
+    		$data[] = $row;
+    	}
+    	if(count($data)) return $data;
+    	return false;
     }
 
     // Lấy danh sách Bảng giá tìm kiếm
@@ -59,21 +66,15 @@ class Home_model extends CI_Model {
     }
 
     // Lấy danh sách bài viết
-    public function getBaiViet() {
-    	$query = $this->db->query('select * from baiviet join ctbv on baiviet.MABV = ctbv.MABV
+    public function getBaiViet($id, $name) {
+    	$query = $this->db->query("select * from baiviet join ctbv on baiviet.MABV = ctbv.MABV
                                     join nguoidung on nguoidung.MAND = ctbv.MAND
                                     join nhatro on nhatro.MANT = ctbv.MANT
-                                    join phongtro on phongtro.MAPT = ctbv.MAPT;');
-    	$data = array();
-    	foreach(@$query->result() as $row) {
-            $row->slug = $row->MABV.'-'.$row->TIEUDE;
-            $row->slug = postSlug($row->slug);
-    		$data[] = $row;
-    	}
-    	if(count($data)) {
-    		return $data;
-    	}
-    	return false;
+                                    join phongtro on phongtro.MAPT = ctbv.MAPT
+                                    where baiviet.MABV = ".$id.";");
+        if(postSlug($query->result()[0]->TIEUDE) == $name)
+            return $query->result();
+        return false;
     }
 
     // Lấy danh sách bài viết theo tỉnh/tp

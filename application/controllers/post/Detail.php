@@ -8,15 +8,17 @@ class Detail extends CI_Controller {
 	}
 
 	public function index() {
-		$slug = $_GET['ten'];
+		$slug = $_GET['name'];
 		$id = getId($slug);
+		$name = getName($slug);
 
-		$baiviet = $this->Detail_model->getBaiViet($id);
-		if(sizeof($baiviet) > 0) {
+		$baiviet = $this->Detail_model->getBaiViet($id, $name);
+		if($baiviet != false) {
 			$dsTinhTp = $this->Detail_model->getTinhTp();
 			
 			$data['chitiet'] = $baiviet;
 			$data['tinhtp'] = $dsTinhTp;
+			$data['slug'] = $slug;
 			$metadata = array('title' => 'NTV - '.$baiviet[0]->TIEUDE);
 
 			$this->load->helper('url');
@@ -42,4 +44,10 @@ function getId($slug) {
 		$i ++;
 	}
 	return $id;
+}
+
+// Hàm lấy tên bài viết trong đường dẫn
+function getName($slug) {
+	$id = getId($slug).'-';
+	return str_replace($id, '', $slug);
 }

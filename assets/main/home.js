@@ -1,7 +1,7 @@
 (function($) {
   'use strict';
-  quanhuyen = _.orderBy(quanhuyen, ['TEN'], ['asc']);
-  phuongxa = _.orderBy(phuongxa, ['TEN'], ['asc']);	
+  quanhuyen = _.orderBy(quanhuyen, ['TEN'], ['DESC']);
+  phuongxa = _.orderBy(phuongxa, ['TEN'], ['DESC']);
   // console.log("tinhtp: ", tinhtp);
   // console.log("quanhuyen: ", quanhuyen);
   // console.log("phuongxa: ", phuongxa);

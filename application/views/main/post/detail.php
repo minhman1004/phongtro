@@ -3,20 +3,14 @@
     <div class="content-wrapper">
       <!-- Bread Crumb -->
         <div class="row">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Library</li>
-            </ol>
-          </nav>
-        </div>
-        <div class="row">
           <!-- Left side -->
           <div class="col-9">
             <!-- Hình ảnh, Tên bài đăng, giá tiền, địa chỉ -->
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title" id="detail-ten-bai-viet"><?php echo $chitiet[0]->TIEUDE?></h4>
+                <h4 class="card-title" id="detail-ten-bai-viet"><?php echo $chitiet[0]->TIEUDE?>
+                  <a href="<?php echo base_url(); ?><?="post/update?name=".$slug?>" style="font-size: 12px;"> [Chỉnh sửa]</a>
+                </h4>
                 <p class="card-description">Địa chỉ: <?=$chitiet[0]->DCTD?></p>
                 <p class="card-description">Giá: <?=$chitiet[0]->Gia?></p>
                 <div class="row" id="detail-post">
@@ -156,7 +150,7 @@
                     <!-- --------------------------------------------------- -->
                     <?php foreach($tinhtp as $tinhtp_right_side) { ?>
                       <li>
-                        <a href=<?="/phongtro?khuvuc=".$tinhtp_right_side->MATTP?>>
+                        <a href=<?="/phongtro/home/location/".$tinhtp_right_side->MATTP?>>
                         <span class="menu-title"><?=$tinhtp_right_side->TEN?></span>
                       </a>
                       </li>
@@ -173,7 +167,9 @@
 </div>
 <script type="text/javascript">
   var baiviet = <?php echo json_encode($chitiet)?>;
+  var slug = <?php echo json_encode($slug)?>;
   console.log("baiviet: ", baiviet);
+  console.log("baiviet: ", slug);
 </script>
 <!-- End Body Content -->
 <!-- Start Footer -->
