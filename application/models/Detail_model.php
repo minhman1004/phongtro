@@ -47,6 +47,7 @@ function postSlug($tenbv) {
     $tenbv = preg_replace("/(Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ)/", "U", $tenbv);
     $tenbv = preg_replace("/(Ỳ|Ý|Ỵ|Ỷ|Ỹ)/", "Y", $tenbv);
     $tenbv = preg_replace("/(Đ)/", "D", $tenbv);
+    $tenbv = preg_replace("/\s+/u", " ", $tenbv);
     $tenbv = str_replace(" ", "-", $tenbv);
     $tenbv = strtolower($tenbv);
     return $tenbv;

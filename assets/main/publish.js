@@ -142,9 +142,6 @@
 	showDiaChiTD();
   });
 
-  // Nếu địa chỉ tại đây chưa có thì sẽ chạy hàm
-  if($("#dia-chi-chinh-xac-dang-tin").val() == null) {
-  	showDiaChiTD();
-  }
+  showDiaChiTD();
 
 })(jQuery);

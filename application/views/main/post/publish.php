@@ -3,68 +3,57 @@
     <div class="content-wrapper">
       <!-- Bread Crumb -->
       <div class="row">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Library</li>
-          </ol>
-        </nav>
-      </div>
-      <div class="row">
         <!-- Left side -->
         <div class="col-9">
           <!-- Thông tin cơ bản -->
           <div class="card">
             <div class="card-body">
               <h4 class="card-title" id="title-find">Thông tin cơ bản</h4>
-              <hr>
-              <form class="forms-sample">
-                <div class="form-group">
-                  <label for="exampleInputUsername1">Tiêu đề tin</label>
-                  <input type="text" class="form-control" id="tieu-de-tin-dang-tin" placeholder="Tiêu đề tin" required="required">
-                </div>
+              <div class="form-group">
+                <label for="exampleInputUsername1">Tiêu đề tin</label>
+                <input type="text" class="form-control" id="tieu-de-tin-dang-tin" placeholder="Tiêu đề tin" required="required">
+              </div>
 
-                <!-- Chuyên mục / Số điện thoại -->
-                <div class="row">
-                  <div class="col-6">
-                    <div class="form-group">
-                    <label for="exampleFormControlSelect2">Chuyên mục tin</label>
-                    <select class="form-control" id="chuyen-muc-tin-dang-tin">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </select>
-                  </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Số điện thoại</label>
-                      <input type="email" class="form-control" id="so-dien-thoai-dang-tin" placeholder="Số điện thoại">
-                    </div>
+              <!-- Chuyên mục / Số điện thoại -->
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                  <label for="exampleFormControlSelect2">Chuyên mục tin</label>
+                  <select class="form-control" id="chuyen-muc-tin-dang-tin">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Số điện thoại</label>
+                    <input type="email" class="form-control" id="so-dien-thoai-dang-tin" placeholder="Số điện thoại">
                   </div>
                 </div>
+              </div>
 
-                <!-- Giá cho thuê / Đơn vị -->
-                <div class="row">
-                  <div class="col-6">
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Giá cho thuê</label>
-                      <input type="number" class="form-control" id="gia-cho-thue-dang-tin" placeholder="Số điện thoại">
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-group">
-                    <label for="exampleFormControlSelect2">Đơn vị</label>
-                    <select class="form-control" id="don-vi-dang-tin">
-                      <option selected="selected">Triệu/Tháng</option>
-                      <option>Nghìn/Tháng</option>
-                    </select>
-                  </div>
+              <!-- Giá cho thuê / Đơn vị -->
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Giá cho thuê</label>
+                    <input type="number" class="form-control" id="gia-cho-thue-dang-tin" placeholder="Số điện thoại">
                   </div>
                 </div>
-              </form>
+                <div class="col-6">
+                  <div class="form-group">
+                  <label for="exampleFormControlSelect2">Đơn vị</label>
+                  <select class="form-control" id="don-vi-dang-tin">
+                    <option selected="selected">Triệu/Tháng</option>
+                    <option>Nghìn/Tháng</option>
+                  </select>
+                </div>
+                </div>
+              </div>
             </div>
           </div>
           <!-- Địa chỉ -->
@@ -72,52 +61,165 @@
             <div class="card-body">
               <h4 class="card-title" id="title-find">Địa chỉ</h4>
               <!-- Chọn địa chỉ -->
-              <form class="forms-sample">
-                <div class="row">
-                  <div class="col-6">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect2">Tỉnh/Thành phố</label>
-                      <select class="form-control" id="tinh-thanh-pho-dang-tin">
-                        <option disabled="disabled" selected="selected">Chọn Tỉnh/Tp</option>
-                      </select>
-                    </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect2">Tỉnh/Thành phố</label>
+                    <select class="form-control" id="tinh-thanh-pho-dang-tin">
+                      <?php foreach(@$tinhtp as $tinhtp_publish) { ?>
+                        <option value=<?=$tinhtp_publish->MATTP?>><?=$tinhtp_publish->TEN?></option>
+                      <?php } ?>
+                    </select>
                   </div>
-                  <div class="col-6">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect2">Quận/Huyện</label>
-                      <select class="form-control" id="quan-huyen-dang-tin">
-                        <option disabled="disabled" selected="selected">Chọn Quận / Huyện</option>
-                      </select>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect2">Quận/Huyện</label>
+                    <select required class="form-control" id="quan-huyen-dang-tin">
+                      <?php foreach(@$quanhuyen as $quanhuyen_publish) {
+                        if($quanhuyen_publish->MATTP == $tinhtp[0]->MATTP) { ?>
+                          <option value=<?=$quanhuyen_publish->MAQH?>><?=$quanhuyen_publish->TEN?></option>
+                        <?php } ?>
+                      <?php } ?>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect2">Phường, Xã</label>
+                    <select class="form-control" id="phuong-xa-dang-tin">
+                      <?php foreach(@$phuongxa as $phuongxa_publish) {
+                        if($phuongxa_publish->MAQH == $quanhuyen[0]->MAQH) { ?>
+                          <option value=<?=$phuongxa_publish->MAPX?>><?=$phuongxa_publish->TEN?></option>
+                        <?php } ?>
+                      <?php } ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect2">Đường</label>
+                    <select class="form-control" id="duong-dang-tin">
+                      <option value="non">Chọn Đường</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputUsername1">Địa chỉ chính xác</label>
+                <input type="text" class="form-control" id="dia-chi-chinh-xac-dang-tin" placeholder="Địa chỉ chính xác" required="required">
+              </div>
+              <!-- Bản đồ -->
+              <!-- <div class="map-container">
+                <div id="map-with-marker" class="google-map"></div>
+              </div> -->
+            </div>
+          </div>
+
+          <!-- Thông tin nhà trọ -->
+          <div class="card">
+            <div class="card-body">
+              <?php if($nhatro == false) { ?>
+                <!-- Thêm nhà trọ mới nếu chưa có -->
+                <h4 class="card-title" id="title-find">Nhà trọ</h4>
+                <label for="">Bạn chưa có nhà trọ nào trong danh sách</label>
+                <div class="modal fade" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                  <div class="modal-dialog  modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLabel">Thông tin nhà trọ</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form>
+                          <div class="form-group">
+                            <label for="exampleInputUsername1">Tên nhà trọ</label>
+                            <input type="text" class="form-control" id="ten-nha-tro-modal" placeholder="Tên nhà trọ" required="required">
+                          </div>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="exampleFormControlSelect2">Tỉnh/Thành phố</label>
+                                <select class="form-control" id="tinh-thanh-pho-modal">
+                                  <?php foreach(@$tinhtp as $tinhtp_publish) { ?>
+                                    <option value=<?=$tinhtp_publish->MATTP?>><?=$tinhtp_publish->TEN?></option>
+                                  <?php } ?>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="exampleFormControlSelect2">Quận/Huyện</label>
+                                <select required class="form-control" id="quan-huyen-modal">
+                                  <?php foreach(@$quanhuyen as $quanhuyen_publish) {
+                                    if($quanhuyen_publish->MATTP == $tinhtp[0]->MATTP) { ?>
+                                      <option value=<?=$quanhuyen_publish->MAQH?>><?=$quanhuyen_publish->TEN?></option>
+                                    <?php } ?>
+                                  <?php } ?>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="exampleFormControlSelect2">Phường, Xã</label>
+                                <select class="form-control" id="phuong-xa-modal">
+                                  <?php foreach(@$phuongxa as $phuongxa_publish) {
+                                    if($phuongxa_publish->MAQH == $quanhuyen[0]->MAQH) { ?>
+                                      <option value=<?=$phuongxa_publish->MAPX?>><?=$phuongxa_publish->TEN?></option>
+                                    <?php } ?>
+                                  <?php } ?>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="exampleFormControlSelect2">Đường</label>
+                                <select class="form-control" id="duong-modal">
+                                  <option value="non">Chọn Đường</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputUsername1">Địa chỉ chính xác</label>
+                            <input type="text" class="form-control" id="dia-chi-chinh-xac-modal" placeholder="Địa chỉ chính xác" required="required">
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="them-nha-tro-moi-modal">Thêm mới</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-6">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect2">Phường, Xã</label>
-                      <select class="form-control" id="phuong-xa-dang-tin">
-                        <option disabled="disabled" selected="selected">Chọn Phường, Xã</option>
-                      </select>
-                  </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect2">Đường</label>
-                      <select class="form-control" id="duong-dang-tin">
-                        <option disabled="disabled" selected="selected">Chọn Đường</option>
-                      </select>
-                    </div>
-                  </div>
+                <button style="display: block" type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Thêm nhà trọ mới</button>
+              <?php } else { ?>
+              <!-- Chọn địa chỉ -->
+                <div class="form-group">
+                  <label for="">Chọn nhà trọ</label>
+                  <select required class="form-control" id="nha-tro-dang-tin">
+                    <option value="" required>Chọn nhà trọ</option>
+                    <?php foreach(@$nhatro as $nhatro_publish) { ?>
+                      <option value=<?=$nhatro_publish->MANT?>><?=$nhatro_publish->TENNT?> - <?=$nhatro_publish->DCTD?></option>
+                    <?php } ?>
+                  </select>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputUsername1">Địa chỉ chính xác</label>
-                  <input type="text" class="form-control" id="dia-chi-chinh-xac-dang-tin" placeholder="Địa chỉ chính xác" required="required">
+                  <label for="exampleInputUsername1">Địa chỉ nhà trọ</label>
+                  <input type="text" class="form-control" id="dia-chi-nha-tro" placeholder="Địa chỉ nhà trọ" required="required" disabled>
                 </div>
-              </form>
+              <?php } ?>
               <!-- Bản đồ -->
-              <div class="map-container">
-                <div id="map-with-marker" class="google-map"></div>
-              </div>
+              <!-- <div class="map-container">
+                <div id="map-with-marker_nha_tro" class="google-map"></div>
+              </div> -->
             </div>
           </div>
 
@@ -175,34 +277,32 @@
               <h5 class="card-title" id="title-find">Bảng giá</h5>
               <!-- Hình thức đăng tin -->
               <h5 class="card-title" id="title-find">Hình thức</h5>
-              <form class="forms-sample">
-                <div class="row">
-                  <div class="col-4">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect2">Loại tin</label>
-                      <select class="form-control" id="loai-tin-dang-tin">
-                        <option disabled="disabled" selected="selected">Chọn loại tin</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-4">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect2">Gói thời gian</label>
-                      <select class="form-control" id="goi-thoi-gian-dang-tin">
-                        <option disabled="disabled" selected="selected">Chọn gói thời gian</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-4">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect2">Số tháng</label>
-                      <select class="form-control" id="so-thang-dang-tin">
-                        <option disabled="disabled" selected="selected">Chọn số tháng</option>
-                      </select>
-                    </div>
+              <div class="row">
+                <div class="col-4">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect2">Loại tin</label>
+                    <select class="form-control" id="loai-tin-dang-tin">
+                      <option disabled="disabled" selected="selected">Chọn loại tin</option>
+                    </select>
                   </div>
                 </div>
-              </form>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect2">Gói thời gian</label>
+                    <select class="form-control" id="goi-thoi-gian-dang-tin">
+                      <option disabled="disabled" selected="selected">Chọn gói thời gian</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect2">Số tháng</label>
+                    <select class="form-control" id="so-thang-dang-tin">
+                      <option disabled="disabled" selected="selected">Chọn số tháng</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
 
               <!-- Thông tin thanh toán -->
               <h5 class="card-title" id="title-find">Thông tin thanh toán</h5>
@@ -256,4 +356,10 @@
     </div>
   </div>
 </div>
-<script src="<?php echo base_url(); ?>assets/main/create_update.js"></script>
+<script type="text/javascript">
+  var tinhtp = <?php echo json_encode($tinhtp) ?>;
+  var quanhuyen = <?php echo json_encode($quanhuyen) ?>;
+  var phuongxa  = <?php echo json_encode($phuongxa) ?>;
+  var diachitt = <?php echo json_encode($diachitt) ?>;
+</script>
+<script src="<?php echo base_url(); ?>assets/main/publish.js"></script>

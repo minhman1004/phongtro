@@ -17,6 +17,39 @@ class Update extends CI_Controller {
         $dsQuanHuyen = $this->Update_model->getQuanHuyen();
         $dsPhuongXa = $this->Update_model->getPhuongXa();
         $dsDiaChiTT = $this->Update_model->getDiaChiTT();
+
+        // Sắp xếp danh sách địa điểm
+        usort($dsQuanHuyen, "cmp");
+        usort($dsPhuongXa, "cmp");
+        usort($dsDiaChiTT, "cmp");
+
+        // Cập nhật bài viết
+        if(isset($_POST['capnhat'])) {
+	        // Lay thong tin duoc nhap
+	        $tieude = $this->input->post("tieude");
+	        $gia = $this->input->post("gia");
+	        $ma_tinhtp = $_POST["tinhtp"];
+	        $ma_quanhuyen = $this->input->post("quanhuyen");
+	        $ma_phuongxa = $this->input->post("phuongxa");
+	        $ma_duong = $this->input->post("duong");
+	        $dctd = $this->input->post("dctd");
+	        $mota = $this->input->post("motathem");
+
+	        $data['tieude'] = $tieude;
+	        $data['gia'] = $gia;
+	        $data['tinhtp'] = $ma_tinhtp;
+	        $data['quanhuyen'] = $ma_quanhuyen;
+	        $data['phuongxa'] = $ma_phuongxa;
+	        $data['duong'] = $ma_duong;
+	        $data['dctd'] = $dctd;
+	        $data['mota'] = $mota;
+
+	        // print_r($data['tieude']);
+	        // Update bai viet
+	        // $this->Update_model->updateBaiViet($data);
+        }
+
+        // Lấy thông tin chi tiết bài viết cụ thể
         $baiviet = $this->Update_model->getBaiViet($id, $name);
 
         if($baiviet != false) {
@@ -56,4 +89,9 @@ function getId($slug) {
 function getName($slug) {
 	$id = getId($slug).'-';
 	return str_replace($id, '', $slug);
+}
+
+// Hàm sắp xếp đối tượng
+function cmp($a, $b) {
+	return strcmp($a->TEN, $b->TEN);
 }

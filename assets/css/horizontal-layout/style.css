@@ -10382,6 +10382,7 @@ select.tt-query:not([size]):not([multiple]),
 select.tt-hint:not([size]):not([multiple]) {
   height: calc(2.55rem + 2px);
   margin-top: 1px;
+  color: #000;
 }
 
 select.form-control:focus::-ms-value, select.asColorPicker-input:focus::-ms-value, .dataTables_wrapper select:focus::-ms-value,
@@ -21341,6 +21342,7 @@ select.border-dark.tt-hint:focus {
   line-height: 1;
   vertical-align: top;
   margin-bottom: .5rem;
+  font-weight: bold;
 }
 
 .form-group.has-danger .form-control, .form-group.has-danger .asColorPicker-input, .form-group.has-danger .dataTables_wrapper select, .dataTables_wrapper .form-group.has-danger select, .form-group.has-danger .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text], .jsgrid .jsgrid-table .jsgrid-filter-row .form-group.has-danger input[type=text], .form-group.has-danger

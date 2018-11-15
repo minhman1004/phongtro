@@ -71,6 +71,7 @@ class Update_model extends CI_Model {
                                     join nguoidung on nguoidung.MAND = ctbv.MAND
                                     join nhatro on nhatro.MANT = ctbv.MANT
                                     join phongtro on phongtro.MAPT = ctbv.MAPT
+                                    join diachitt on diachitt.MAD = nhatro.DCTT
                                     where baiviet.MABV = ".$id.";");
         if(postSlug($query->result()[0]->TIEUDE) == $name)
             return $query->result();
@@ -103,6 +104,10 @@ class Update_model extends CI_Model {
             return $query->result();
         return false;
     }
+
+    // Cap nhat bai viet
+    public function updateBaiViet($baiviet) {
+    }
 }
 
 function postSlug($tenbv) {
@@ -120,6 +125,7 @@ function postSlug($tenbv) {
     $tenbv = preg_replace("/(Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ)/", "U", $tenbv);
     $tenbv = preg_replace("/(Ỳ|Ý|Ỵ|Ỷ|Ỹ)/", "Y", $tenbv);
     $tenbv = preg_replace("/(Đ)/", "D", $tenbv);
+    $tenbv = preg_replace("/\s+/u", " ", $tenbv);
     $tenbv = str_replace(" ", "-", $tenbv);
     $tenbv = strtolower($tenbv);
     return $tenbv;
