@@ -8,6 +8,9 @@ class Update extends CI_Controller {
 	}
 
 	public function index() {
+		$chucvu = $this->session->userdata("ChuVu");
+		print_r($chucvu);
+		
 		$slug = $_GET['name'];
 		$id = getId($slug);
 		$name = getName($slug);
@@ -23,6 +26,9 @@ class Update extends CI_Controller {
         usort($dsPhuongXa, "cmp");
         usort($dsDiaChiTT, "cmp");
 
+        // Lấy thông tin chi tiết bài viết cụ thể
+        $baiviet = $this->Update_model->getBaiViet($id, $name);
+
         // Cập nhật bài viết
         if(isset($_POST['capnhat'])) {
 	        // Lay thong tin duoc nhap
@@ -35,22 +41,29 @@ class Update extends CI_Controller {
 	        $dctd = $this->input->post("dctd");
 	        $mota = $this->input->post("motathem");
 
-	        $data['tieude'] = $tieude;
-	        $data['gia'] = $gia;
-	        $data['tinhtp'] = $ma_tinhtp;
-	        $data['quanhuyen'] = $ma_quanhuyen;
-	        $data['phuongxa'] = $ma_phuongxa;
-	        $data['duong'] = $ma_duong;
-	        $data['dctd'] = $dctd;
-	        $data['mota'] = $mota;
+	        $dtBaiViet['mabv'] = $baiviet[0]->MABV;
+	        $dtBaiViet['tieude'] = $tieude;
+
+	        $dtPT['gia'] = $gia;
+	        $dtPT['mapt'] = $baiviet[0]->MAPT;
+	        
+	        $dtNT['dctd'] = $dctd;
+	        $dtNT['mant'] = $baiviet[0]->MANT;
+	        
+	        $dtCTBV['mota'] = $mota;
+	        $dtCTBV['mabv'] = $baiviet[0]->MABV;
 
 	        // print_r($data['tieude']);
 	        // Update bai viet
-	        // $this->Update_model->updateBaiViet($data);
-        }
+	        $this->Update_model->updateBaiViet($dtBaiViet);
 
-        // Lấy thông tin chi tiết bài viết cụ thể
-        $baiviet = $this->Update_model->getBaiViet($id, $name);
+	        $newSlug = $baiviet[0]->MABV.'-'.postSlug($tieude);
+	        $this->Update_model->updateCTBV($dtCTBV);
+	        $this->Update_model->updateNhaTro($dtNT);
+	        $this->Update_model->updatePhongTro($dtPT);
+
+			header("Location: ".base_url().'post/detail?name='.$newSlug, true);
+        }
 
         if($baiviet != false) {
 			$metadata = array('title' => 'Chỉnh sửa: '.$baiviet[0]->TIEUDE);

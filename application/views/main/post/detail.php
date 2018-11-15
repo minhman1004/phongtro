@@ -25,33 +25,33 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="row">
-                      <div class="col-md-5">
+                      <div class="col-md-5" style="text-align: right;">
                         <p>Giá</p>
                         <p>Diện tích</p>
                         <p>Ngày đăng</p>
-                        <p>Mã BĐS</p>
+                        <p>Camera</p>
                       </div>
                       <div class="col-md-7">
                         <p><?=$chitiet[0]->Gia?></p>
                         <p><?=$chitiet[0]->DienTich?> m2</p>
                         <p><?=date_format(new Datetime($chitiet[0]->TGDANG), 'd/m/Y')?></p>
-                        <p>abcsd</p>
+                        <p>Có</p>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="row">
-                      <div class="col-md-5">
-                        <p>Phòng ngủ</p>
-                        <p>Nhà tắm</p>
-                        <p>Pháp lý</p>
-                        <p>Hướng</p>
+                      <div class="col-md-5" style="text-align: right;">
+                        <p>Số người tối đa</p>
+                        <p>Đang ở</p>
+                        <p>Bảo vệ</p>
+                        <p>Yêu cầu giới tính</p>
                       </div>
                       <div class="col-md-7">
-                        <p>Giá</p>
-                        <p>Diện tích sử dụng</p>
-                        <p>Diện tích đất</p>
-                        <p>Ngày đăng</p>
+                        <p><?=$chitiet[0]->SLTD?> người</p>
+                        <p><?=$chitiet[0]->SLNDO?> người</p>
+                        <p>Có</p>
+                        <p>Tất cả</p>
                       </div>
                     </div>
                   </div>
@@ -103,9 +103,9 @@
             <div class="card">
               <div class="card-body">
                 <h4 class="card-title" id="title-find">Tiện ích xung quanh</h4>
-                <div class="map-container">
+                <!-- <div class="map-container">
                   <div id="map-with-marker" class="google-map"></div>
-                </div>
+                </div> -->
               </div>
             </div>
 

@@ -1,241 +1,150 @@
-<!doctype html>
-<html class="no-js" lang="">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Trang Admin - Quản Lý Phòng Trọ</title>
-    <meta name="description" content="Ela Admin - HTML5 Admin Template">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Style Sheet -->
-    <link rel="apple-touch-icon" href="images/favicon.png">
-    <link rel="shortcut icon" href="images/favicon.png">
-
-    <link rel="stylesheet" href="assets/css/normalize.css">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/themify-icons.css">
-    <link rel="stylesheet" href="assets/css/pe-icon-7-filled.css">
-    <link rel="stylesheet" href="assets/css/mystyle.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
-
-    <!-- -------------------------------- -->
-    <!-- Script -->
-    <link href="assets/weather/css/weather-icons.css" rel="stylesheet" />
-    <link href="assets/calendar/fullcalendar.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link href="assets/css/charts/chartist.min.css" rel="stylesheet"> 
-    <link href="assets/css/lib/vector-map/jqvmap.min.css" rel="stylesheet">
-    <script src="assets/js/vendor/jquery-2.1.4.min.js"></script>
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/plugins.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/lib/chart-js/Chart.bundle.js"></script>
-    <!--Chartist Chart-->
-    <script src="assets/js/lib/chartist/chartist.min.js"></script>
-    <script src="assets/js/lib/chartist/chartist-plugin-legend.js"></script>    
-    <script src="assets/js/lib/flot-chart/jquery.flot.js"></script>
-    <script src="assets/js/lib/flot-chart/jquery.flot.pie.js"></script>
-    <script src="assets/js/lib/flot-chart/jquery.flot.spline.js"></script>
-    <script src="assets/weather/js/jquery.simpleWeather.min.js"></script>
-    <script src="assets/weather/js/weather-init.js"></script>
-    <script src="assets/js/lib/moment/moment.js"></script>
-    <script src="assets/calendar/fullcalendar.min.js"></script>
-    <script src="assets/calendar/fullcalendar-init.js"></script>
-
-</head>
-<body style="font-family: 'Roboto', sans-serif;">
-    <!-- Left Panel --> 
-    <aside id="left-panel" class="left-panel">
-        <nav class="navbar navbar-expand-sm navbar-default"> 
-            <div id="main-menu" class="main-menu collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#"><i class="menu-icon fa fa-arrow-left"></i>Về trang chủ</a>
-                    </li>
-                    <li class="active">
-                        <a href="#"><i class="menu-icon fa fa-laptop"></i>Trang điều khiển </a>
-                    </li>
-                    <li class="menu-title">QUẢN LÍ</li><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users-cog"></i>Thành viên</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-users"></i><a href="#">Tất cả</a></li>
-                            <li><i class="fas fa-user-tie"></i><a href="#">Nổi bật</a></li>
-                            <li><i class="fas fa-user-edit"></i><a href="#">Người cho thuê</a></li>
-                            <li><i class="fas fa-user-check"></i><a href="#">Người thuê</a></li>
-                            <li><i class="fas fa-user-lock"></i><a href="#">Người môi giới</a></li>
-                            <li><i class="fas fa-user-alt-slash"></i><a href="#">Danh sách cấm</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fab fa-readme"></i>Bài đăng</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fas fa-list-alt"></i><a href="#">Tất cả</a></li>
-                            <li><i class="far fa-eye-slash"></i><a href="#">Danh sách ẩn</a></li>
-                            <li><i class="far fa-trash-alt"></i><a href="#">Thùng rác</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fas fa-database"></i>Dữ liệu nền</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fas fa-info"></i><a href="#">Thông tin chung</a></li>
-                            <li><i class="fas fa-map-marker-alt"></i><a href="#">Tỉnh thành</a></li>
-                            <li><i class="far fa-building"></i></i><a href="#">Kiểu BĐS</a></li>
-                            <li><i class="fas fa-filter"></i><a href="#">Kiểu Lọc</a></li>
-                            <li><i class="fas fa-cube"></i><a href="#">Khác</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-title">HỆ THỐNG</li>
-
-                    <li>
-                        <a href="widgets.html"><i class="menu-icon fas fa-user-circle"></i></i>Phân quyền</a>
-                    </li>
-                    <li>
-                        <a href="widgets.html"><i class="menu-icon fas fa-cogs"></i>Cài đặt</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </aside>
-
-    <div id="right-panel" class="right-panel">
-        <header id="header" class="header">  
-            <div class="top-left">
-                <div class="navbar-header"> 
-                    <!-- <a class="navbar-brand" style="width:100%; height:100%;" href="./"><img src="images/logo.png" alt="Logo"></a> -->
-                    <a class="navbar-brand hidden" href="#"><img src="assets/images/avartar.png" alt="Logo"></a> 
-                    <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a> 
-                </div> 
-            </div>
-            <div class="top-right"> 
-                <div class="header-menu"> 
-                    <div class="header-left">
-                        <div class="dropdown for-notification">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-bell"></i>
-                                <span class="count bg-danger"></span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="notification">
-                                <p class="red">You have -- Notification</p>
-                                <a class="dropdown-item media" href="#">
-                                    <i class="fa fa-check"></i>
-                                    <p>Server #1 overloaded.</p>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="dropdown for-message">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-envelope"></i>
-                                <span class="count bg-primary"></span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="message">
-                                <p class="red">You have -- Mails</p>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src=""></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left"></span>
-                                        <span class="time float-right"></span>
-                                        <p></p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="assets/images/avartar.png" alt="User Avatar">
-                        </a>
-
-                        <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i>Hồ sơ</a>
-
-                            <a class="nav-link" href="#"><i class="fa fa-bell"></i>Thông báo<span class="count"></span></a>
-
-                            <a class="nav-link" href="#"><i class="fa fa-cog"></i>Cài đặt</a>
-
-                            <a class="nav-link" href="#"><i class="fa fa-power-off"></i>Đăng xuất</a>
-                        </div>
-                    </div> 
-                </div>  
-            </div>
-        </header>
-        <div class="content" style="background: #f0f1f6;">
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="stat-widget-five">
-                                <div class="stat-icon dib flat-color-1">
-                                    <i class="pe-7f-cash"></i>
-                                </div>
-                                <div class="stat-content">
-                                    <div class="text-left dib"> 
-                                        <div class="stat-text">$<span>23569</span></div>
-                                        <div class="stat-heading">Revenue</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo" href="index.html"><img src="<?php echo base_url(); ?>assets/images/logo.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="<?php echo base_url(); ?>assets/images/logo-mini.svg" alt="logo"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="mdi mdi-menu"></span>
+        </button>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+              <i class="mdi mdi-bell-outline mx-0"></i>
+              <span class="count"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+              <a class="dropdown-item">
+                <p class="mb-0 font-weight-normal float-left">You have 4 new notifications
+                </p>
+                <span class="badge badge-pill badge-warning float-right">View all</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-success">
+                    <i class="mdi mdi-information mx-0"></i>
+                  </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="stat-widget-five">
-                                <div class="stat-icon dib flat-color-1">
-                                    <i class="pe-7f-cash"></i>
-                                </div>
-                                <div class="stat-content">
-                                    <div class="text-left dib"> 
-                                        <div class="stat-text">$<span class="count">23569</span></div>
-                                        <div class="stat-heading">Revenue</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-medium">Application Error</h6>
+                  <p class="font-weight-light small-text mb-0">
+                    Just now
+                  </p>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="stat-widget-five">
-                                <div class="stat-icon dib flat-color-1">
-                                    <i class="pe-7f-cash"></i>
-                                </div>
-                                <div class="stat-content">
-                                    <div class="text-left dib"> 
-                                        <div class="stat-text">$<span class="count">23569</span></div>
-                                        <div class="stat-heading">Revenue</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-warning">
+                    <i class="mdi mdi-settings mx-0"></i>
+                  </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="stat-widget-five">
-                                <div class="stat-icon dib flat-color-1">
-                                    <i class="pe-7f-cash"></i>
-                                </div>
-                                <div class="stat-content">
-                                    <div class="text-left dib"> 
-                                        <div class="stat-text">$<span class="count">23569</span></div>
-                                        <div class="stat-heading">Revenue</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-medium">Settings</h6>
+                  <p class="font-weight-light small-text mb-0">
+                    Private message
+                  </p>
                 </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-info">
+                    <i class="mdi mdi-account-box mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-medium">New user registration</h6>
+                  <p class="font-weight-light small-text mb-0">
+                    2 days ago
+                  </p>
+                </div>
+              </a>
             </div>
-        </div>
-    </div>
-</body>
-</html>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <i class="mdi mdi-email-outline mx-0"></i>
+              <span class="count"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+              <div class="dropdown-item">
+                <p class="mb-0 font-weight-normal float-left">You have 7 unread mails
+                </p>
+                <span class="badge badge-info badge-pill float-right">View all</span>
+              </div>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="<?php echo base_url(); ?>assets/images/faces/face4.jpg" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium">David Grey
+                    <span class="float-right font-weight-light small-text">1 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text mb-0">
+                    The meeting is cancelled
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="<?php echo base_url(); ?>assets/images/faces/face2.jpg" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium">Tim Cook
+                    <span class="float-right font-weight-light small-text">15 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text mb-0">
+                    New product launch
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="<?php echo base_url(); ?>assets/images/faces/face3.jpg" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium"> Johnson
+                    <span class="float-right font-weight-light small-text">18 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text mb-0">
+                    Upcoming board meeting
+                  </p>
+                </div>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+              <img src="<?php echo base_url(); ?>assets/images/faces/face5.jpg" alt="profile"/>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+              <a class="dropdown-item">
+                <i class="mdi mdi-settings text-primary"></i>
+                Settings
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item">
+                <i class="mdi mdi-logout text-primary"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+          <li class="nav-item nav-settings d-none d-lg-block">
+            <a class="nav-link" href="#">
+              <i class="mdi mdi-apps"></i>
+            </a>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>

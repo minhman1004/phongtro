@@ -107,6 +107,30 @@ class Update_model extends CI_Model {
 
     // Cap nhat bai viet
     public function updateBaiViet($baiviet) {
+        $data = array('TIEUDE'=>$baiviet['tieude']);
+        $this->db->where('MABV', $baiviet['mabv']);
+        $this->db->update('baiviet', $data);
+    }
+
+    // Cao nhat Chi tiet bai viet
+    public function updateCTBV($ctbv) {
+        $data = array('MOTATHEM'=>$ctbv['mota']);
+        $this->db->where('MABV', $ctbv['mabv']);
+        $this->db->update('ctbv', $data);
+    }
+
+    // Cap nhat nha tro
+    public function updateNhaTro($nhatro) {
+        $data = array('DCTD'=>$nhatro['dctd']);
+        $this->db->where('MANT', $nhatro['mant']);
+        $this->db->update('nhatro', $data);
+    }
+
+    // Cap nhat phong tro
+    public function updatePhongTro($phongtro) {
+        $data = array('Gia'=>$phongtro['gia']);
+        $this->db->where('MAPT', $phongtro['mapt']);
+        $this->db->update('phongtro', $data);
     }
 }
 

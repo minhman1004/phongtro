@@ -14,13 +14,15 @@ class Publish extends CI_Controller {
 		$dsQuanHuyen = $this->Publish_model->getQuanHuyen();
 		$dsPhuongXa = $this->Publish_model->getPhuongXa();
 		$dsDuong = $this->Publish_model->getDiaChiTT();
-		$dsNhaTro = $this->Publish_model->getNhaTro();
+		$dsNhaTro = $this->Publish_model->getNhaTro(2);
+		$nguoidung = $this->Publish_model->getNguoiDung(2);
 
 		// Sap xep du lieu dia diem
 		usort($dsQuanHuyen, 'cmp');
 		usort($dsPhuongXa, 'cmp');
 		usort($dsDuong, 'cmp');
 
+		// Lay du lieu
 		$datadisplay['tinhtp'] = $dsTinhTp;
 		$datadisplay['quanhuyen'] = $dsQuanHuyen;
 		$datadisplay['phuongxa'] = $dsPhuongXa;
@@ -28,6 +30,7 @@ class Publish extends CI_Controller {
 		$datadisplay['nhatro'] = $dsNhaTro;
 		$datadisplay['filterQH'] = array_filter($dsQuanHuyen, 'filterQuanHuyen');
 		$datadisplay['filterPX'] = array_filter($dsPhuongXa, 'filterPhuongXa');
+		$datadisplay['nguoidung'] = $nguoidung[0];
 
 		$metadata = array('title' => 'Đăng tin');
 		$this->load->helper('url');
@@ -36,6 +39,31 @@ class Publish extends CI_Controller {
 		$this->load->view('primary/mainMenu');
 		$this->load->view('main/post/publish', $datadisplay);
 		$this->load->view('primary/mainFooter');
+
+		// Publish bai viet
+		// if(isset($_POST['dangtin'])) {
+		// 	// Lay du lieu torng input
+		// 	$date = date_format(new Datetime(), 'd/m/Y H:i:s');
+		// 	$inTieuDe = $this->input->post('tieude');
+		// 	$inGia = $this->input->post('giachothue');
+		// 	$inTinhTp = $this->input->post('tinhtp');
+		// 	$inQuanHuyen = $this->input->post('quanhuyen');
+		// 	$inPhuongXa = $this->input->post('phuongxa');
+		// 	$inDuong = $this->input->post('duong');
+		// 	$inDCTD = $this->input->post('dctd');
+		// 	$inMoTa = $this->input->post('mota');
+
+		// 	// Bai viet
+		// 	$dtBaiViet['TIEUDE'] = $inTieuDe;
+		// 	$dtBaiViet['TRANGTHAI'] = 'Đang kiểm duyệt';
+		// 	$dtBaiViet['TGDANG'] = $date;
+
+		// 	// Chi tiet bai viet
+
+		// 	// Nha tro
+
+		// 	// Phong tro
+		// }
 	}
 }
 

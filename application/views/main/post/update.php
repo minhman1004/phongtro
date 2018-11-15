@@ -28,7 +28,7 @@
                   <div class="col-6">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Số điện thoại</label>
-                      <input type="text" value=<?='"'.$baiviet->SDT.'"'?> class="form-control" id="so-dien-thoai-dang-tin" name="sdt">
+                      <input type="text" disabled value=<?='"'.$baiviet->SDT.'"'?> class="form-control" id="so-dien-thoai-dang-tin" name="sdt">
                     </div>
                   </div>
                 </div>

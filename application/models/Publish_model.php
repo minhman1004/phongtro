@@ -91,14 +91,21 @@ class Publish_model extends CI_Model {
     }
 
     // Lấy danh sách nhà trọ
-    public function getNhaTro() {
-    	$query = $this->db->get("nhatro");
+    public function getNhaTro($id) {
+    	$query = $this->db->get_where("nhatro", array("MAND"=>$id));
     	$data = array();
     	foreach(@$query->result() as $row) {
     		$data[] = $row;
     	}
     	if(count($data)) return $data;
     	return false;
+    }
+
+    // Get nguoidung
+    public function getNguoiDung($id) {
+        $query = $this->db->get_where('nguoidung', array('MAND'=>$id));
+        if(count($query->result())) return $query->result();
+        return false;
     }
 }
 

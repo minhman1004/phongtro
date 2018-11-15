@@ -3,29 +3,36 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="../../vendors/iconfonts/mdi/font/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
-  <link rel="stylesheet" href="../../vendors/css/vendor.bundle.addons.css">
-  <link rel="stylesheet" href="../../css/vertical-layout-light/style.css">
-  <link rel="shortcut icon" href="../../images/favicon.png" />
-
-  <script src="../../vendors/js/vendor.bundle.base.js"></script>
-  <script src="../../vendors/js/vendor.bundle.addons.js"></script>
-  <script src="../../js/off-canvas.js"></script>
-  <script src="../../js/hoverable-collapse.js"></script>
-  <script src="../../js/template.js"></script>
-  <script src="../../js/settings.js"></script>
-  <script src="../../js/todolist.js"></script>
-  <script src="../../js/dashboard.js"></script>
+  <title>Serein Admin</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendors/iconfonts/mdi/font/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendors/css/vendor.bundle.addons.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/vertical-layout-light/style.css">
+  <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" />
+  <!-- plugins:js -->
+  <script src="<?php echo base_url(); ?>assets/vendors/js/vendor.bundle.base.js"></script>
+  <script src="<?php echo base_url(); ?>assets/vendors/js/vendor.bundle.addons.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="<?php echo base_url(); ?>assets/js/off-canvas.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/hoverable-collapse.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/template.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/settings.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="<?php echo base_url(); ?>assets/js/dashboard.js"></script>
 </head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="index.html"><img src="../../images/logo.svg" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../../images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="index.html"><img src="<?php echo base_url(); ?>assets/images/logo.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="<?php echo base_url(); ?>assets/images/logo-mini.svg" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -101,7 +108,7 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
-                    <img src="../../images/faces/face4.jpg" alt="image" class="profile-pic">
+                    <img src="<?php echo base_url(); ?>assets/images/faces/face4.jpg" alt="image" class="profile-pic">
                 </div>
                 <div class="preview-item-content flex-grow">
                   <h6 class="preview-subject ellipsis font-weight-medium">David Grey
@@ -115,7 +122,7 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
-                    <img src="../../images/faces/face2.jpg" alt="image" class="profile-pic">
+                    <img src="<?php echo base_url(); ?>assets/images/faces/face2.jpg" alt="image" class="profile-pic">
                 </div>
                 <div class="preview-item-content flex-grow">
                   <h6 class="preview-subject ellipsis font-weight-medium">Tim Cook
@@ -129,7 +136,7 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
-                    <img src="../../images/faces/face3.jpg" alt="image" class="profile-pic">
+                    <img src="<?php echo base_url(); ?>assets/images/faces/face3.jpg" alt="image" class="profile-pic">
                 </div>
                 <div class="preview-item-content flex-grow">
                   <h6 class="preview-subject ellipsis font-weight-medium"> Johnson
@@ -144,7 +151,7 @@
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="../../images/faces/face5.jpg" alt="profile"/>
+              <img src="<?php echo base_url(); ?>assets/images/faces/face5.jpg" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
@@ -286,7 +293,7 @@
             </div>
             <ul class="chat-list">
               <li class="list active">
-                <div class="profile"><img src="../../images/faces/face1.jpg" alt="image"><span class="online"></span></div>
+                <div class="profile"><img src="<?php echo base_url(); ?>assets/images/faces/face1.jpg" alt="image"><span class="online"></span></div>
                 <div class="info">
                   <p>Thomas Douglas</p>
                   <p>Available</p>
@@ -294,7 +301,7 @@
                 <small class="text-muted my-auto">19 min</small>
               </li>
               <li class="list">
-                <div class="profile"><img src="../../images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
+                <div class="profile"><img src="<?php echo base_url(); ?>assets/images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
                 <div class="info">
                   <div class="wrapper d-flex">
                     <p>Catherine</p>
@@ -305,7 +312,7 @@
                 <small class="text-muted my-auto">23 min</small>
               </li>
               <li class="list">
-                <div class="profile"><img src="../../images/faces/face3.jpg" alt="image"><span class="online"></span></div>
+                <div class="profile"><img src="<?php echo base_url(); ?>assets/images/faces/face3.jpg" alt="image"><span class="online"></span></div>
                 <div class="info">
                   <p>Daniel Russell</p>
                   <p>Available</p>
@@ -313,7 +320,7 @@
                 <small class="text-muted my-auto">14 min</small>
               </li>
               <li class="list">
-                <div class="profile"><img src="../../images/faces/face4.jpg" alt="image"><span class="offline"></span></div>
+                <div class="profile"><img src="<?php echo base_url(); ?>assets/images/faces/face4.jpg" alt="image"><span class="offline"></span></div>
                 <div class="info">
                   <p>James Richardson</p>
                   <p>Away</p>
@@ -321,7 +328,7 @@
                 <small class="text-muted my-auto">2 min</small>
               </li>
               <li class="list">
-                <div class="profile"><img src="../../images/faces/face5.jpg" alt="image"><span class="online"></span></div>
+                <div class="profile"><img src="<?php echo base_url(); ?>assets/images/faces/face5.jpg" alt="image"><span class="online"></span></div>
                 <div class="info">
                   <p>Madeline Kennedy</p>
                   <p>Available</p>
@@ -329,7 +336,7 @@
                 <small class="text-muted my-auto">5 min</small>
               </li>
               <li class="list">
-                <div class="profile"><img src="../../images/faces/face6.jpg" alt="image"><span class="online"></span></div>
+                <div class="profile"><img src="<?php echo base_url(); ?>assets/images/faces/face6.jpg" alt="image"><span class="online"></span></div>
                 <div class="info">
                   <p>Sarah Graves</p>
                   <p>Available</p>
@@ -670,35 +677,35 @@
                     <h6 class="card-title">Activity</h6>
                   </div>
                   <div class="list d-flex align-items-center border-bottom pb-3">
-                    <img class="img-sm rounded-circle" src="../../images/faces/face8.jpg" alt="">
+                    <img class="img-sm rounded-circle" src="<?php echo base_url(); ?>assets/images/faces/face8.jpg" alt="">
                     <div class="wrapper w-100 ml-3">
                       <p><b>Dobrick </b>published an article</p>
                       <small class="text-muted">2 hours ago</small>
                     </div>
                   </div>
                   <div class="list d-flex align-items-center border-bottom py-3">
-                    <img class="img-sm rounded-circle" src="../../images/faces/face5.jpg" alt="">
+                    <img class="img-sm rounded-circle" src="<?php echo base_url(); ?>assets/images/faces/face5.jpg" alt="">
                     <div class="wrapper w-100 ml-3">
                       <p><b>Stella </b>created an event</p>
                       <small class="text-muted">3 hours ago</small>                      
                     </div>
                   </div>
                   <div class="list d-flex align-items-center border-bottom py-3">
-                    <img class="img-sm rounded-circle" src="../../images/faces/face7.jpg" alt="">
+                    <img class="img-sm rounded-circle" src="<?php echo base_url(); ?>assets/images/faces/face7.jpg" alt="">
                     <div class="wrapper w-100 ml-3">
                       <p><b>Peter </b>submitted the reports</p>
                       <small class="text-muted">1 hours ago</small>                      
                     </div>
                   </div>
                   <div class="list d-flex align-items-center border-bottom py-3">
-                    <img class="img-sm rounded-circle" src="../../images/faces/face6.jpg" alt="">
+                    <img class="img-sm rounded-circle" src="<?php echo base_url(); ?>assets/images/faces/face6.jpg" alt="">
                     <div class="wrapper w-100 ml-3">
                       <p><b>Nateila </b>updated the docs</p>
                       <small class="text-muted">1 hours ago</small>                      
                     </div>
                   </div>
                   <div class="list d-flex align-items-center pt-3">
-                    <img class="img-sm rounded-circle" src="../../images/faces/face9.jpg" alt="">
+                    <img class="img-sm rounded-circle" src="<?php echo base_url(); ?>assets/images/faces/face9.jpg" alt="">
                     <div class="wrapper w-100 ml-3">
                       <p><b>Tom </b>uploaded the demo</p>
                       <small class="text-muted">3 hours ago</small>                      
@@ -831,7 +838,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="wrapper d-flex align-items-center justify-content-start justify-content-sm-center flex-wrap">
-                    <img class="img-md rounded" src="../../images/faces/face1.jpg" alt="">
+                    <img class="img-md rounded" src="<?php echo base_url(); ?>assets/images/faces/face1.jpg" alt="">
                     <div class="wrapper ml-4">
                       <p class="font-weight-medium">Tim Cook</p>
                       <p class="text-muted">timcook@gmail.com</p>
@@ -845,7 +852,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="wrapper d-flex align-items-center justify-content-start justify-content-sm-center flex-wrap">
-                    <img class="img-md rounded" src="../../images/faces/face2.jpg" alt="">
+                    <img class="img-md rounded" src="<?php echo base_url(); ?>assets/images/faces/face2.jpg" alt="">
                     <div class="wrapper ml-4">
                       <p class="font-weight-medium">Sarah Graves</p>
                       <p class="text-muted">Sarah@gmail.com</p>
@@ -859,7 +866,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="wrapper d-flex align-items-center justify-content-start justify-content-sm-center flex-wrap">
-                    <img class="img-md rounded" src="../../images/faces/face3.jpg" alt="">
+                    <img class="img-md rounded" src="<?php echo base_url(); ?>assets/images/faces/face3.jpg" alt="">
                     <div class="wrapper ml-4">
                       <p class="font-weight-medium">David Grey</p>
                       <p class="text-muted">David@gmail.com</p>
@@ -887,7 +894,6 @@
   </div>
   <!-- container-scroller -->
 
-  <!-- plugins:js -->
   <!-- End custom js for this page-->
 </body>
 
