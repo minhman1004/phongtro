@@ -89,9 +89,11 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array();
+$autoload['helper'] = array('html', 'url', 'file');
 
-/*
+$autoload['libraries'] = array('database','session','session_1');
+
+/*$autoload['libraries'] = array('database', 'session', 'security', 'user_l');
 | -------------------------------------------------------------------
 |  Auto-load Config files
 | -------------------------------------------------------------------
@@ -132,4 +134,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array();
+$autoload['model'] = array('nguoidung');

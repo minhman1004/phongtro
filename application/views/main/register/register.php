@@ -1,4 +1,5 @@
 <body>
+  <form action="<?php echo base_url(); ?>register/index" method="post"> 
   <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
       <div class="main-panel">
@@ -10,21 +11,25 @@
                   <img src="<?php echo base_url(); ?>assets/images/logo.svg" alt="logo">
                 </div>
                 <h6 class="font-weight-light">Vui lòng nhập đầy đủ và chính xác thông tin</h6>
+                <h6 class="font-weight-light"><?=$error_message?></h6>
                 <form class="pt-3">
                   <div class="form-group">
-                    <input type="text" class="form-control form-control-sm" id="exampleInputUsername1" placeholder="Tài khoản">
+                    <input type="text" class="form-control form-control-sm" id="Tên tài khoản"  name ="username" placeholder="Tài khoản">
                   </div>
                   <div class="form-group">
-                    <input type="email" class="form-control form-control-sm" id="exampleInputEmail1" placeholder="Email">
+                    <input type="email" class="form-control form-control-sm" id="Email"  name ="email" placeholder="  Email">
                   </div>
                   <div class="form-group">
-                    <input type="number" class="form-control form-control-sm" id="exampleInputEmail1" placeholder="Số điện thoại">
+                    <input type="tel" class="form-control form-control-sm" id="Số điện thoại" name ="sdt" placeholder="Số điện thoại">
                   </div>
                   <div class="form-group">
-                    <input type="password" class="form-control form-control-sm" id="exampleInputPassword1" placeholder="Mật khẩu">
+                    <input type="password" class="form-control form-control-sm" id="Mật khẩu" name = "matkhau" placeholder="Mật khẩu">
                   </div>
                   <div class="form-group">
-                    <input type="password" class="form-control form-control-sm" id="exampleInputPassword1" placeholder="Nhập lại mật khẩu">
+                    <input type="password" class="form-control form-control-sm" id="Nhập lại mật khẩu" name = "matkhaulai" placeholder="Nhập lại mật khẩu">
+                  </div>
+                     <div class="form-group">
+                    <input type="password" class="form-control form-control-sm" id="Giới tính" name = "gioitinh" placeholder="Giới tính">
                   </div>
                   <div class="mb-4">
                     <div class="form-check">
@@ -35,9 +40,10 @@
                     </div>
                   </div>
                   <div class="mt-3">
-                    <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="./">Đăng ký</a>
-                  </div>
-                  <div class="text-center mt-4 font-weight-light">
+                      <button style ="width: 120px" class="button btn btn-success btn-large" id="dangki">Đăng kí</button>
+                      <button style ="margin-left:50px; width: 120px" type ="reset" class="button btn btn-success btn-large" id="dangki">Đặt lại </button>
+                    </div>
+                    <div class="text-center mt-4 font-weight-light">
                     Nếu đã có tài khoản, đăng nhập tại đây <a href="login" class="text-primary">Đăng nhập</a>
                   </div>
                 </form>
@@ -48,5 +54,6 @@
       </div>
     </div>
   </div>
+</form>
 </body>
-</html>
+

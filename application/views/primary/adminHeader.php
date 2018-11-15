@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="assets/css/themify-icons.css">
     <link rel="stylesheet" href="assets/css/pe-icon-7-filled.css">
     <link rel="stylesheet" href="assets/css/mystyle.css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
 
     <!-- -------------------------------- -->
@@ -45,7 +45,7 @@
     <script src="assets/calendar/fullcalendar-init.js"></script>
 
 </head>
-<body style="font-family: 'Nunito', sans-serif;">
+<body style="font-family: 'Roboto', sans-serif;">
     <!-- Left Panel --> 
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default"> 

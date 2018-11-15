@@ -1,4 +1,15 @@
   <body>
+    <script type="text/javascript">
+      $(function() {
+        $("#dangnhap").click( function()
+         {
+
+           
+         }
+        );
+      });
+    </script>
+    <form action="<?php echo base_url(); ?>login" method="post"> 
     <div class="container-scroller">
       <div class="container-fluid page-body-wrapper full-page-wrapper">
         <div class="main-panel">
@@ -9,16 +20,21 @@
                   <div class="brand-logo">
                     <img src="<?php echo base_url(); ?>assets/images/logo.svg" alt="logo">
                   </div>
+                  <?php
+                        if(@$error) {
+                        ?>
+                        <div class="alert"><button type="button" class="close" data-dismiss="alert">×</button>Username hoặc password bị sai</div>
+                        <?php } ?>
                   <h6 class="font-weight-light">Đăng nhập để tiếp tục.</h6>
                   <form class="pt-3">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Tài khoản">
+                      <input type="text" class="form-control form-control-lg" id="taikhoan" name = "taikhoan" placeholder="Tài khoản">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Mật khẩu">
+                      <input type="password" class="form-control form-control-lg" id="matkhau" name ="matkhau" placeholder="Mật khẩu">
                     </div>
                     <div class="mt-3">
-                      <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="../../index.html">Đăng nhập</a>
+                      <button class="button btn btn-success btn-large" id="dangnhap">Đăng nhập</button>
                     </div>
                     <div class="my-2 d-flex justify-content-between align-items-center">
                       <div class="form-check">
@@ -45,5 +61,6 @@
         </div>
       </div>
     </div>
+  </form>
   </body>
 </html>

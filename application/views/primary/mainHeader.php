@@ -131,7 +131,7 @@
                               Settings
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item">
+                            <a class="dropdown-item" href="<?php echo base_url('login/logout'); ?>">
                               <i class="mdi mdi-logout text-primary"></i>
                               Logout
                             </a>
