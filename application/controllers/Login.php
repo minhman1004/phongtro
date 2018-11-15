@@ -30,10 +30,9 @@ class Login extends CI_Controller {
 					if($user = $this->nguoidung->checkLogin($taikhoan,$matkhau))
 					{
 						   $this->session_1->login($user);
-						   $TenDN = $this->session->userdata("TenDN");
 						   $chucvu = $this->session->userdata("ChuVu");
-
-					       redirect(base_url() );
+						   echo ($chucvu);
+						   //redirect(base_url() ."member/info");
 					}
 					else
 						 $viewdata["error"] = true;

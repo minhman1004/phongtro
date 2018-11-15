@@ -19,7 +19,7 @@ class session_1{
 		$ci->session->set_userdata($data);
 		$ci->session->userdata("TenDN");
 		$ci->session->userdata("ChuVu");
-		
+		$ci->session->userdata("MAND");
 	}
 	public function logout()
 	{
