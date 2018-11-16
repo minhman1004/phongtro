@@ -22,7 +22,7 @@ class Login extends CI_Controller {
 				$viewdata= array();
 				if($taikhoan == null && $matkhau == null)
 				{
-					echo ("aaaaa");
+					//echo ("aaaaa");
 				}
 				else
 				{
@@ -31,8 +31,8 @@ class Login extends CI_Controller {
 					{
 						   $this->session_1->login($user);
 						   $chucvu = $this->session->userdata("ChuVu");
-						   echo ($chucvu);
-						   //redirect(base_url() ."member/info");
+						   //echo ($chucvu);
+						   redirect(base_url() ."member/info");
 					}
 					else
 						 $viewdata["error"] = true;
@@ -51,7 +51,7 @@ class Login extends CI_Controller {
 		    }
 		    
 		    public function logout() {
-		        $this->session_info_login->logout();
+		    $this->session->logout();
 			redirect(base_url()."login" );
 		    }
 

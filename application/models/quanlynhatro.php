@@ -9,6 +9,7 @@ class quanlynhatro extends CI_Model {
 
         $MAND = $this->session->userdata("MAND");
         $query =$this->db->query("select * FROM nguoidung JOIN nhatro ON nguoidung.MAND = nhatro.MAND JOIN chiphi ON chiphi.MANT = nhatro.MANT where nguoidung.MAND=".$MAND.';');
+
         $data = array();
         foreach (@$query->result() as $row) {
             $data[] =$row;
@@ -16,6 +17,23 @@ class quanlynhatro extends CI_Model {
         }
         if(count($data))
         {
+
+            return $data;
+        }
+        return false;
+    }
+    public function getPhongtro(){
+
+        $MAND = $this->session->userdata("MAND");
+        $query =$this->db->query("select phongtro.* from phongtro join nhatro on phongtro.MANT = nhatro.MANT join nguoidung on nguoidung.MAND = nhatro.MAND where nguoidung.MAND=".$MAND.';');
+        $data = array();
+        foreach (@$query->result() as $row) {
+            $data[] =$row;
+
+        }
+        if(count($data))
+        {
+
             return $data;
         }
         return false;
