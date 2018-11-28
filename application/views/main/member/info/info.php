@@ -7,10 +7,10 @@
                   <p class="card-description"></p>
                   <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link" id="home-tab" data-toggle="tab" href="#home-1" role="tab" aria-controls="home-1" aria-selected="false">Chi phí</a>
+                      <a class="nav-link "  id="home-tab" data-toggle="tab" href="#home-1" role="tab" aria-controls="home-1" aria-selected="false">Chi phí</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile-1" role="tab" aria-controls="profile-1" aria-selected="false">Phòng trọ</a>
+                      <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile-1" role="tab" aria-controls="profile-1" aria-selected="false">Phòng trọ</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile-2" role="tab" aria-controls="profile-1" aria-selected="false">Thành viên</a>
@@ -24,7 +24,7 @@
                                    
                   </ul>
                   <div class="tab-content">
-                    <div class="tab-pane fade" id="home-1" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="tab-pane fade " id="home-1" role="tabpanel" aria-labelledby="home-tab">
                       <div class="media">
                         <!-- <img class="mr-3 w-25 rounded" src="../../../../images/samples/300x300/13.jpg" alt="sample image"> -->
                         <div class="media-body">
@@ -113,7 +113,7 @@
                       </div>
                     </div>
                   </div>
-                    <div class="tab-pane fade" id="profile-1" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="tab-pane fade active show" id="profile-1" role="tabpanel" aria-labelledby="profile-tab">
                       <div class="media">
                         <!-- <img class="mr-3 w-25 rounded" src="../../../../images/samples/300x300/13.jpg" alt="sample image"> -->
                         <div class="media-body">
@@ -141,8 +141,7 @@
                                       </tr>
                                       </thead>
                                       <tbody>
-                                      <?php if(sizeof($phongtro) != 0) { 
-                                        $count = 0; foreach(@$phongtro as $phongtro_info) { $count += 1; ?>
+                                       <?php $count = 0; foreach(@$pt as $phongtro_info) { $count += 1; ?>
                                         <tr>
                                         <td><?=$count?></td>
                                         <td><?=$phongtro_info->Ten?></td>
@@ -178,7 +177,7 @@
                                           </div>
                                         </td>
                                         </tr>
-                                        <?php } ?>
+                                       
                                       <?php } ?>
                                       </tbody>
                                     </table>

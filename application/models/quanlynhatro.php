@@ -2,6 +2,7 @@
 class quanlynhatro extends CI_Model {
 	public function __construct(){
         parent::__construct();
+        $this->load->database();
        
     }
    //Lấy danh sách người dùng
@@ -22,10 +23,9 @@ class quanlynhatro extends CI_Model {
         }
         return false;
     }
-    public function getPhongtro(){
-
+    function getPhongtro(){
         $MAND = $this->session->userdata("MAND");
-        $query =$this->db->query("select phongtro.* from phongtro join nhatro on phongtro.MANT = nhatro.MANT join nguoidung on nguoidung.MAND = nhatro.MAND where nguoidung.MAND=".$MAND.';');
+        $query =$this->db->query("select phongtro.* from phongtro join nhatro on nhatro.MANT = phongtro.MANT join nguoidung on nguoidung.MAND = nhatro.MAND where nguoidung.MAND=".$MAND.';');
         $data = array();
         foreach (@$query->result() as $row) {
             $data[] =$row;
@@ -33,7 +33,6 @@ class quanlynhatro extends CI_Model {
         }
         if(count($data))
         {
-
             return $data;
         }
         return false;

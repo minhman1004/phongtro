@@ -1,11 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Info extends CI_Controller {
+class phongtro extends CI_Controller {
 	public function index() {
 
 		$dsphongtro['phongtro']  = $this->quanlynhatro->getPhongtro();
 		print_r($dsphongtro['phongtro']);
+		//$dsNhaTro['chiphi']  = $this->quanlynhatro->getChiphi();
 		$metadata = array('title' => 'Nhà Trọ Việt - Trang Chủ', 'page' => 'home');
 		$this->load->helper('url');
 		$this->load->view('primary/meta',$metadata);
