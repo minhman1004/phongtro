@@ -12,5 +12,9 @@
     if ($('#manager-users-table').length) {
       $('#manager-users-table').tablesort();
     }
+    if ($('#chucvu-danh-sach').length) {
+      $('#chucvu-danh-sach').tablesort();
+    }
+    
   });
 })(jQuery);

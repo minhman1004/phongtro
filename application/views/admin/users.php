@@ -42,7 +42,7 @@
                             <table id="all-users-table" class="table table-striped">
                               <thead>
                                 <tr>
-                                  <th class="sortStyle">STT<i class="mdi mdi-chevron-down"></i></th>
+                                  <th>STT</th>
                                   <th class="sortStyle">Tên<i class="mdi mdi-chevron-down"></i></th>
                                   <th class="sortStyle">Email<i class="mdi mdi-chevron-down"></i></th>
                                   <th class="sortStyle">SĐT<i class="mdi mdi-chevron-down"></i></th>
@@ -57,7 +57,7 @@
                                   if($user_all->CHUCVU != 'Ở trọ') { $countAll += 1; ?>
                                     <tr>
                                       <td><?=$countAll?></td>
-                                      <td><?=$user_all->TenDN?></td>
+                                      <td><?=$user_all->HOTEN?></td>
                                       <td><?=$user_all->Email?></td>
                                       <td><?=$user_all->SDT?></td>
                                       <!-- <td><?=$user_all->GioiTinh?></td> -->
@@ -66,7 +66,6 @@
                                       <td>
                                         <div class="btn-group">
                                           <button class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="<?='#'.$user_all->MAND.'-all'?>">Xem</button>
-                                          <button class="btn btn-sm btn-outline-dark">Sửa</button>
                                           <button class="btn btn-sm btn-outline-danger">Cấm</button>
                                           <div class="modal fade" id="<?=$user_all->MAND.'-all'?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-lg" role="document">
@@ -78,11 +77,65 @@
                                                   </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                  <p>Modal body text goes here.</p>
+                                                  <div class="row">
+                                                    <div class="col-4">
+                                                      <div class="form-group">
+                                                        <label>Họ Tên</label>
+                                                        <input type="text" class="form-control form-control-sm" placeholder="Họ tên" id=<?='"hoten-'.$user_all->MAND.'"'?> aria-label="Họ tên" value=<?='"'.$user_all->HOTEN.'"'?>>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                      <div class="form-group">
+                                                        <label>Email</label>
+                                                        <input type="text" id=<?='"email-'.$user_all->MAND.'"'?> class="form-control form-control-sm" placeholder="Email" aria-label="Email" value=<?='"'.$user_all->Email.'"'?>>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                      <div class="form-group">
+                                                        <label>Số điện thoại</label>
+                                                        <input id=<?='"sdt-'.$user_all->MAND.'"'?> class="form-control form-control-sm" data-inputmask="'alias': 'phone'" value=<?='"'.$user_all->SDT.'"'?>>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-2">
+                                                      <div class="form-group">
+                                                        <label for="chucvu">Giới tính</label>
+                                                        <select class="form-control" id=<?='"gioitinh-'.$user_all->MAND.'"'?>>
+                                                          <option value='Nam' <?php if($user_all->GioiTinh == 'Nam') echo "selected"; ?> >Nam</option>
+                                                          <option value='Nữ' <?php if($user_all->GioiTinh == 'Nữ') echo "selected"; ?> >Nữ</option>
+                                                        </select>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-2">
+                                                      <div class="form-group">
+                                                        <label>Số CMND</label>
+                                                        <input id=<?='"cmnd-'.$user_all->MAND.'"'?> class="form-control form-control-sm" data-inputmask="'alias': 'cmnd'" value=<?=$user_all->CMND?>>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                      <div class="form-group">
+                                                        <label for="chucvu">Chức vụ</label>
+                                                        <select class="form-control" id=<?='"chucvu-'.$user_all->MAND.'"'?>>
+                                                          <?php if($chucvu != false) { ?>
+                                                            <?php foreach($chucvu as $chucvu_all) { ?>
+                                                              <option value="<?=$chucvu_all->MAVT?>"><?=$chucvu_all->TENVT?></option>
+                                                            <?php } ?>
+                                                          <?php } ?>
+                                                        </select>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                      <div class="form-group">
+                                                        <label>Ngày sinh</label>
+                                                        <input id=<?='"ngaysinh-'.$user_all->MAND.'"'?> class="form-control form-control-sm" data-inputmask="'alias': 'date'" value=<?=date_format(new Datetime($user_all->NgaySinh), 'd/m/Y')?>>
+                                                      </div>
+                                                    </div>
+                                                  </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                  <button type="button" class="btn btn-sm btn-success">Submit</button>
-                                                  <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                                                  <button type="button" class="btn btn-sm btn-success">Cập nhật</button>
+                                                  <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Hủy</button>
                                                 </div>
                                               </div>
                                             </div>
@@ -127,7 +180,7 @@
                             <table id="normal-users-table" class="table table-striped">
                               <thead>
                                 <tr>
-                                  <th class="sortStyle">STT<i class="mdi mdi-chevron-down"></i></th>
+                                  <th>STT</th>
                                   <th class="sortStyle">Tên<i class="mdi mdi-chevron-down"></i></th>
                                   <th class="sortStyle">Email<i class="mdi mdi-chevron-down"></i></th>
                                   <th class="sortStyle">SĐT<i class="mdi mdi-chevron-down"></i></th>
@@ -142,7 +195,7 @@
                                   if($user_all->CHUCVU != 'Ở trọ' && ($user_all->CHUCVU == 'đăng bài miễn phí' || $user_all->CHUCVU == 'Chủ trọ')) { $countAll += 1; ?>
                                     <tr>
                                       <td><?=$countAll?></td>
-                                      <td><?=$user_all->TenDN?></td>
+                                      <td><?=$user_all->HOTEN?></td>
                                       <td><?=$user_all->Email?></td>
                                       <td><?=$user_all->SDT?></td>
                                       <!-- <td><?=$user_all->GioiTinh?></td> -->
@@ -151,7 +204,6 @@
                                       <td>
                                         <div class="btn-group">
                                           <button class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="<?='#'.$user_all->MAND.'-normal'?>">Xem</button>
-                                          <button class="btn btn-sm btn-outline-dark">Sửa</button>
                                           <button class="btn btn-sm btn-outline-danger">Cấm</button>
                                           <div class="modal fade" id="<?=$user_all->MAND.'-normal'?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-lg" role="document">
@@ -163,11 +215,60 @@
                                                   </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                  <p>Modal body text goes here.</p>
+                                                  <div class="row">
+                                                    <div class="col-4">
+                                                      <div class="form-group">
+                                                        <label>Họ Tên</label>
+                                                        <input type="text" class="form-control form-control-sm" placeholder="Họ tên" aria-label="Họ tên" value=<?='"'.$user_all->HOTEN.'"'?>>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                      <div class="form-group">
+                                                        <label>Email</label>
+                                                        <input type="text" class="form-control form-control-sm" placeholder="Email" aria-label="Email" value=<?='"'.$user_all->Email.'"'?>>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                      <div class="form-group">
+                                                        <label>Số điện thoại</label>
+                                                        <input class="form-control form-control-sm" data-inputmask="'alias': 'phone'" value=<?='"'.$user_all->SDT.'"'?>>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-2">
+                                                      <div class="form-group">
+                                                        <label for="chucvu">Giới tính</label>
+                                                        <select class="form-control" id="gioitinh">
+                                                          <option value='Nam' <?php if($user_all->GioiTinh == 'Nam') echo "selected"; ?> >Nam</option>
+                                                          <option value='Nữ' <?php if($user_all->GioiTinh == 'Nữ') echo "selected"; ?> >Nữ</option>
+                                                        </select>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-2">
+                                                      <div class="form-group">
+                                                        <label>Số CMND</label>
+                                                        <input class="form-control form-control-sm" data-inputmask="'alias': 'cmnd'" value=<?=$user_all->CMND?>>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                      <div class="form-group">
+                                                        <label for="chucvu">Chức vụ</label>
+                                                        <select class="form-control" id="chucvu">
+                                                          <option disabled>Chức vụ</option>
+                                                        </select>
+                                                      </div>
+                                                    </div><div class="col-3">
+                                                      <div class="form-group">
+                                                        <label>Ngày sinh</label>
+                                                        <input class="form-control form-control-sm" data-inputmask="'alias': 'date'" value=<?=date_format(new Datetime($user_all->NgaySinh), 'd/m/Y')?>>
+                                                      </div>
+                                                    </div>
+                                                  </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                  <button type="button" class="btn btn-sm btn-success">Submit</button>
-                                                  <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                                                  <button type="button" class="btn btn-sm btn-success">Cập nhật</button>
+                                                  <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Hủy</button>
                                                 </div>
                                               </div>
                                             </div>
@@ -212,7 +313,7 @@
                             <table id="manager-users-table" class="table table-striped">
                               <thead>
                                 <tr>
-                                  <th class="sortStyle">STT<i class="mdi mdi-chevron-down"></i></th>
+                                  <th>STT</th>
                                   <th class="sortStyle">Tên<i class="mdi mdi-chevron-down"></i></th>
                                   <th class="sortStyle">Email<i class="mdi mdi-chevron-down"></i></th>
                                   <th class="sortStyle">SĐT<i class="mdi mdi-chevron-down"></i></th>
@@ -227,7 +328,7 @@
                                   if($user_all->CHUCVU != 'Ở trọ' && $user_all->CHUCVU == 'Admin') { $countAll += 1; ?>
                                     <tr>
                                       <td><?=$countAll?></td>
-                                      <td><?=$user_all->TenDN?></td>
+                                      <td><?=$user_all->HOTEN?></td>
                                       <td><?=$user_all->Email?></td>
                                       <td><?=$user_all->SDT?></td>
                                       <!-- <td><?=$user_all->GioiTinh?></td> -->
@@ -235,8 +336,7 @@
                                       <td><?=$user_all->CHUCVU?></td>
                                       <td>
                                         <div class="btn-group">
-                                          <button class="hello btn btn-sm btn-outline-info" data-toggle="modal" data-target="<?='#'.$user_all->MAND.'-admin'?>">Xem</button>
-                                          <button class="btn btn-sm btn-outline-dark">Sửa</button>
+                                          <button class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="<?='#'.$user_all->MAND.'-admin'?>">Xem</button>
                                           <button class="btn btn-sm btn-outline-danger">Cấm</button>
                                           <div class="modal fade" id="<?=$user_all->MAND.'-admin'?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-lg" role="document">
@@ -248,11 +348,60 @@
                                                   </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                  <p>Modal body text goes here.</p>
+                                                  <div class="row">
+                                                    <div class="col-4">
+                                                      <div class="form-group">
+                                                        <label>Họ Tên</label>
+                                                        <input type="text" class="form-control form-control-sm" placeholder="Họ tên" aria-label="Họ tên" value=<?='"'.$user_all->HOTEN.'"'?>>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                      <div class="form-group">
+                                                        <label>Email</label>
+                                                        <input type="text" class="form-control form-control-sm" placeholder="Email" aria-label="Email" value=<?='"'.$user_all->Email.'"'?>>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                      <div class="form-group">
+                                                        <label>Số điện thoại</label>
+                                                        <input class="form-control form-control-sm" data-inputmask="'alias': 'phone'" value=<?='"'.$user_all->SDT.'"'?>>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-2">
+                                                      <div class="form-group">
+                                                        <label for="chucvu">Giới tính</label>
+                                                        <select class="form-control" id="gioitinh">
+                                                          <option value='Nam' <?php if($user_all->GioiTinh == 'Nam') echo "selected"; ?> >Nam</option>
+                                                          <option value='Nữ' <?php if($user_all->GioiTinh == 'Nữ') echo "selected"; ?> >Nữ</option>
+                                                        </select>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-2">
+                                                      <div class="form-group">
+                                                        <label>Số CMND</label>
+                                                        <input class="form-control form-control-sm" data-inputmask="'alias': 'cmnd'" value=<?=$user_all->CMND?>>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                      <div class="form-group">
+                                                        <label for="chucvu">Chức vụ</label>
+                                                        <select class="form-control" id="chucvu">
+                                                          <option disabled>Chức vụ</option>
+                                                        </select>
+                                                      </div>
+                                                    </div><div class="col-3">
+                                                      <div class="form-group">
+                                                        <label>Ngày sinh</label>
+                                                        <input class="form-control form-control-sm" data-inputmask="'alias': 'date'" value=<?=date_format(new Datetime($user_all->NgaySinh), 'd/m/Y')?>>
+                                                      </div>
+                                                    </div>
+                                                  </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                  <button type="button" class="btn btn-sm btn-success">Submit</button>
-                                                  <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Cancel</button>
+                                                  <button type="button" class="btn btn-sm btn-success">Cập nhật</button>
+                                                  <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Hủy</button>
                                                 </div>
                                               </div>
                                             </div>
@@ -278,3 +427,4 @@
     </div>
   </div> 
   <script src="<?php echo base_url(); ?>assets/main/users.js"></script>
+  <script src="<?php echo base_url(); ?>assets/main/mask.js"></script>

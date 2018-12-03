@@ -17,4 +17,14 @@ class Users_model extends CI_Model {
     	if(count($query->result())) return $query->result();
     	return false;
     }
+
+    public function getChucVu() {
+    	$query = $this->db->get('vaitro');
+    	$data = array();
+    	foreach(@$query->result() as $row) {
+    		$data[] = $row;
+    	}
+    	if(count($data)) return $data;
+    	return false;
+    }
 }

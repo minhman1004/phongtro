@@ -37,6 +37,36 @@
         }
       })
 
+    } else if (type === 'them-thanh-cong') {
+      swal({
+        title: 'Thành công!',
+        text: 'Thêm chức vụ mới thành công',
+        icon: 'success',
+        button: {
+          text: "Tiếp tục",
+          value: true,
+          visible: true,
+          className: "btn btn-primary"
+        }
+      })
+
+    } else if (type === 'them-khong-thanh-cong') {
+      swal({
+        title: 'Thêm lỗi',
+        text: "Có lỗi, vui lòng kiểm tra lại",
+        icon: 'error',
+        cancelButtonColor: '#ff4081',
+        buttons: {
+          cancel: {
+            text: "Tiếp tục",
+            value: null,
+            visible: true,
+            className: "btn btn-danger",
+            closeModal: true,
+          }
+        }
+      })
+
     } else if (type === 'auto-close') {
       swal({
         title: 'Auto close alert!',
