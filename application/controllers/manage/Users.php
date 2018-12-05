@@ -16,10 +16,27 @@ class Users extends CI_Controller {
 		$this->load->view('primary/adminHeader');
 		$this->load->view('primary/adminMenu');
 		$this->load->view('admin/user/users', $data);
-		$this->load->view('admin/user/alluser', $data);
-		$this->load->view('admin/user/normaluser', $data);
-		$this->load->view('admin/user/adminuser', $data);
+		// $this->load->view('admin/user/alluser', $data);
+		// $this->load->view('admin/user/normaluser', $data);
+		// $this->load->view('admin/user/adminuser', $data);
 		$this->load->view('primary/adminFooter');
+	}
+
+	public function updateUserPass() {
+		$data['id'] = $this->input->post('id');
+		$data['hoten'] = $this->input->post('hoten');
+		$data['email'] = $this->input->post('email');
+		$data['sdt'] = $this->input->post('sdt');
+		$data['cmnd'] = $this->input->post('cmnd');
+		$data['ngaysinh'] = $this->input->post('ngaysinh');
+		$data['chucvu'] = $this->input->post('chucvu');
+		$data['gioitinh'] = $this->input->post('gioitinh');
+		$data['matkhau'] = $this->input->post('matkhau');
+		$result = $this->Users_model->updateUserPass($data);
+		if($result != false && $result > 0) {
+			echo 'true';
+		}
+		else echo 'false';
 	}
 
 	public function updateUser() {
@@ -45,5 +62,35 @@ class Users extends CI_Controller {
 		$data['users'] = $dsUsers;
 		$data['chucvu'] = $chucvu;
 		echo json_encode($data);
+	}
+
+	public function loadRow() {
+		$id['id'] = $this->input->post('id');
+		$data['chucvu'] = $this->Users_model->getChucVu();
+		$data['user'] = $this->Users_model->getUser($id['id']);
+		echo json_encode($data);
+	}
+
+	public function addUser() {
+		$data['hoten'] = $this->input->post('hoten');
+		$data['email'] = $this->input->post('email');
+		$data['sdt'] = $this->input->post('sdt');
+		$data['gioitinh'] = $this->input->post('gioitinh');
+		$data['cmnd'] = $this->input->post('cmnd');
+		$data['chucvu'] = $this->input->post('chucvu');
+		$data['ngaysinh'] = $this->input->post('ngaysinh');
+		$data['tendn'] = $this->input->post('tendn');
+		$data['matkhau'] = $this->input->post('matkhau');
+
+		$result = $this->Users_model->addUser($data);
+		if($result == true) echo 'true';
+		else echo 'false';
+	}
+
+	public function checkTenDN() {
+		$data['tendn'] = $this->input->post('tendn');
+		$result = $this->Users_model->checkTenDN($data['tendn']);
+		if($result == true) echo 'true';
+		else echo 'false';
 	}
 }

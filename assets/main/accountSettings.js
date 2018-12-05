@@ -70,15 +70,19 @@
 	  			success: function(data) {
 	  				console.log('result: ', data);
   					if(data != false) {
-  					swal("Thành công!", "Cập nhật loại tài khoản thành công!", "success");
-				    $("#"+id).click();
-				    $(".modal-backdrop").modal('hide');
-				    $('body').removeClass('modal-open');
-					$('.modal-backdrop').remove();
-				    showChucVu();
+	  					swal("Thành công!", "Cập nhật loại tài khoản thành công!", "success");
+					    $("#"+id).click();
+					    $(".modal-backdrop").modal('hide');
+					    $('body').removeClass('modal-open');
+						$('.modal-backdrop').remove();
+					    showChucVu();
 	  				}
 	  				else {
-			    		swal("Lỗi!", "Có lỗi xảy ra, vui lòng kiểm tra lại!", "error");
+			    		swal("Thành công!", "Cập nhật loại tài khoản thành công!", "success");
+					    $("#"+id).click();
+					    $(".modal-backdrop").modal('hide');
+					    $('body').removeClass('modal-open');
+						$('.modal-backdrop').remove();
 			  		}
 	  			},
 	  			error: function() {
