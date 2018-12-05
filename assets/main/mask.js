@@ -6,14 +6,7 @@
         phone: {
             alias: "abstractphone",
             phoneCodes: [ {
-                mask: "0## #### ####",
-                cc: "VN",
-                cd: "Vietnam",
-                desc_en: "",
-                name_ru: "Вьетнам",
-                desc_ru: ""
-            }, {
-                mask: "+84(###)####-####",
+                mask: "0##########",
                 cc: "VN",
                 cd: "Vietnam",
                 desc_en: "",

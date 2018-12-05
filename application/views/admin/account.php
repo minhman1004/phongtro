@@ -58,7 +58,7 @@
                   <?php if($chucvu != false) { ?>
                     <?php foreach($chucvu as $chucvu_s) { ?>
                       <tr>
-                        <td><?=$chucvu_s->TENVT?></td>
+                        <td><?=$chucvu_s->MAVT?> - <?=$chucvu_s->TENVT?></td>
                         <td><?=$chucvu_s->MOTA?></td>
                         <td><?php if($chucvu_s->TRANGTHAI == 0) echo 'Hiển thị'; else echo 'Ẩn'; ?></td>
                         <td>

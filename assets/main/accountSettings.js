@@ -111,10 +111,11 @@
 	                content += '</tbody>';
 	  			}
 	  			else {
+	  				content += '<tbody>';
 		  			_.forEach(data, function(chucvu, key) {
 		  				var trangthai = chucvu.TRANGTHAI == 0 ? 'Hiển thị' : 'Ẩn';
 		  				content += '<tr>';
-	                    content += '<td>'+chucvu.TENVT+'</td>';
+	                    content += '<td>'+chucvu.MAVT+' - '+chucvu.TENVT+'</td>';
 	                    content += '<td>'+chucvu.MOTA+'</td>';
 	                    content += '<td>'+trangthai+'</td>';
 	                    content += '<td>';
@@ -163,6 +164,7 @@
 						content += '</td>';
 						content += '</tr>';
 		  			});
+	  				content += '</tbody>';
 	  			}
 	  			$("#chucvu-danh-sach").html(content);
       			$('#chucvu-danh-sach').tablesort();
@@ -180,6 +182,7 @@
 	            content += '<tbody>';
 	            content += '<tr><td>Có lỗi xảy ra.</td></tr>';
 	            content += '</tbody>';
+	  			$("#chucvu-danh-sach").html(content);
 	  		}
 	  	});
 	}
