@@ -93,4 +93,11 @@ class Users extends CI_Controller {
 		if($result == true) echo 'true';
 		else echo 'false';
 	}
+
+	public function user() {
+		$data['id'] = $this->input->post('id');
+		$result = $this->Users_model->getUser($data['id']);
+		if($result != false) echo json_encode($result);
+		else echo 'false';
+	}
 }

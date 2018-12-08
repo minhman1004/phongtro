@@ -1,8 +1,37 @@
 (function($) {
 'use strict';
   
+  $(document).on('click', '.xem-taikhoan', function() {
+    var id = $(this).attr('id');
+    console.log('ID: ', id);
+    $.ajax({
+      type: 'post',
+      url: 'users/user',
+      dataType: 'json',
+      data: {
+        id: id
+      },
+      success: function(data) {
+        if(data != 'false') {
+          // console.log('data: ', data);
+          $('#hoten-all-'+id).val(data['HOTEN']);
+          $('#email-all-'+id).val(data['Email']);
+          $('#sdt-all-'+id).val(data['SDT']);
+          $('#gioitinh-all-'+id).val(data['GioiTinh']);
+          $('#cmnd-all-'+id).val(data['CMND']);
+          $('#chucvu-all-'+id).val(data['CHUCVU']);
+          $('#ngaysinh-all-'+id).val(data['NgaySinh'].split('-').reverse().join('/'));
+          $('#tendn-all-'+id).val(data['TenDN']);
+        }
+      },
+      error: function() {
+        console.log('error');
+      }
+    });
+  });
+
   // Ajax update user
-  $(document).on('click', '.update-item', function() {
+  $(document).on('click', '.update-item', function(e) {
     var id = $(this).attr('data');
     var email = $("#email-all-"+id).val();
     var gioitinh = $("#gioitinh-all-"+id).val();
@@ -82,6 +111,7 @@
             },
             success: function(data) {
               if(data == 'true') {
+                e.preventDefault();
                 swal('Thành công!', 'Cập nhật thông tin tài khoản thành công!', 'success');
                 $("#all-"+id).click();
                 $(".modal-backdrop").modal('hide');
@@ -128,19 +158,20 @@
             gioitinh: gioitinh
           },
           success: function(data) {
+            console.log('dataaaaa');
             if(data == 'true') {
               swal('Thành công!', 'Cập nhật thông tin tài khoản thành công!', 'success');
+              loadRow(id, stt);
               $("#all-"+id).click();
-              $(".modal-backdrop").modal('hide');
+              $(".modal-backdrop").hide();
               $('body').removeClass('modal-open');
               $('.modal-backdrop').remove();
-              loadRow(id, stt);
             }
             else {
               // Thường lỗi do dữ liệu không đổi mà vẫn cập nhật, lỗi bên SQL
               swal('Thành công!', 'Cập nhật thông tin tài khoản thành công!', 'success');
               $("#all-"+id).click();
-              $(".modal-backdrop").modal('hide');
+              $(".modal-backdrop").hide();
               $('body').removeClass('modal-open');
               $('.modal-backdrop').remove();
             }
@@ -253,6 +284,7 @@
             $("#add-matkhau-re").removeClass('form-control-danger');
             $.ajax({
               type: 'post',
+              async: false,
               url: 'users/addUser',
               data: {
                 hoten: hoten,
@@ -306,7 +338,7 @@
 
   // Filter all
   $(document).on('click', '#filter-all', function() {
-    showUser();
+    // showUser();
     $("tr.22").show();
     $("tr.21").show();
     $("tr.23").show();
@@ -314,11 +346,15 @@
     $("tr.24").show();
     $("tr.1").show();
     $("tr.2").show();
+    $(this).css({'background-color':'#282f3a', 'color' : '#ffffff'});
+    $('#filter-normal').css({'background-color':'', 'color' : ''});
+    $('#filter-admin').css({'background-color':'', 'color' : ''});
+    $('#filter-banned').css({'background-color':'', 'color' : ''});
   });
 
   // Filter for normal users
   $(document).on('click', '#filter-normal', function(){
-    showUser();
+    // showUser();
     // Hide admin
     $("tr.22").hide();
     $("tr.21").hide();
@@ -330,11 +366,15 @@
     // Show other
     $("tr.1").show();
     $("tr.2").show();
+    $(this).css({'background-color':'#282f3a', 'color' : '#ffffff'});
+    $('#filter-admin').css({'background-color':'', 'color' : ''});
+    $('#filter-banned').css({'background-color':'', 'color' : ''});
+    $('#filter-all').css({'background-color':'', 'color' : ''});
   });
 
   // Filter Admin user
   $(document).on('click', '#filter-admin', function() {
-    showUser();
+    // showUser();
     // Show admin
     $("tr.22").show();
     $("tr.21").show();
@@ -345,11 +385,15 @@
     $("tr.2").hide();
     $("tr.24").hide();
     $("tr.25").hide();
+    $(this).css({'background-color':'#282f3a', 'color' : '#ffffff'});
+    $('#filter-normal').css({'background-color':'', 'color' : ''});
+    $('#filter-banned').css({'background-color':'', 'color' : ''});
+    $('#filter-all').css({'background-color':'', 'color' : ''});
   });
 
   // Filter banned
   $(document).on('click', '#filter-banned', function() {
-    showUser();
+    // showUser();
     // Show admin
     $("tr.22").hide();
     $("tr.21").hide();
@@ -360,6 +404,10 @@
     $("tr.2").hide();
     $("tr.24").hide();
     $("tr.25").hide();
+    $(this).css({'background-color':'#282f3a', 'color' : '#ffffff'});
+    $('#filter-normal').css({'background-color':'', 'color' : ''});
+    $('#filter-admin').css({'background-color':'', 'color' : ''});
+    $('#filter-all').css({'background-color':'', 'color' : ''});
   });
 
   // Kiem tra ten dang nhap
@@ -388,6 +436,7 @@
     $.ajax({
       type: 'post',
       url: 'users/loadRow',
+      async: false,
       dataType: 'json',
       data: {
         id: id
@@ -408,7 +457,7 @@
           content += '<td>'+tenchucvu+'</td>';
           content += '<td>';
           content += '<div class="btn-group">';
-          content += '<button class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#'+user.MAND+'-all">Xem</button>';
+          content += '<button class="btn btn-sm btn-outline-info xem-taikhoan" data-toggle="modal" id="'+user.MAND+'" data-target="#'+user.MAND+'-all">Xem</button>';
           content += '<button class="btn btn-sm btn-outline-danger">Cấm</button>';
           content += '<div class="modal fade" id="'+user.MAND+'-all" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
           content += '<div class="modal-dialog modal-lg" role="document">';
@@ -424,19 +473,19 @@
           content += '<div class="col-4">';
           content += '<div class="form-group">';
           content += '<label>Họ Tên</label>';
-          content += '<input type="text" maxlength="30" class="form-control form-control-sm" placeholder="Họ tên" id="hoten-all-'+user.MAND+'" aria-label="Họ tên" value="'+user.HOTEN+'">';
+          content += '<input type="text" maxlength="30" class="form-control form-control-sm" placeholder="Họ tên" id="hoten-all-'+user.MAND+'" aria-label="Họ tên">';
           content += '</div>';
           content += '</div>';
           content += '<div class="col-4">';
           content += '<div class="form-group">';
           content += '<label>Email</label>';
-          content += '<input type="text" id="email-all-'+user.MAND+'" class="form-control form-control-sm" placeholder="Email" aria-label="Email" value="'+user.Email+'">';
+          content += '<input type="text" id="email-all-'+user.MAND+'" class="form-control form-control-sm" placeholder="Email" aria-label="Email">';
           content += '</div>';
           content += '</div>';
           content += '<div class="col-4">';
           content += '<div class="form-group">';
           content += '<label>Số điện thoại</label>';
-          content += '<input id="sdt-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'mask\': \'9999999999\'" value="'+user.SDT+'">';
+          content += '<input id="sdt-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'mask\': \'9999999999\'">';
           content += '</div>';
           content += '</div>';
           content += '</div>';
@@ -445,21 +494,15 @@
           content += '<div class="form-group">';
           content += '<label for="chucvu">Giới tính</label>';
           content += '<select class="form-control" id="gioitinh-all-'+user.MAND+'">';
-          if(user.GioiTinh == 'Nam') {
-            content += '<option value="Nam" selected>Nam</option>';
-            content += '<option value="Nữ">Nữ</option>';
-          }
-          else {
-            content += '<option value="Nam">Nam</option>';
-            content += '<option value="Nữ" selected>Nữ</option>';
-          }
+          content += '<option value="Nam">Nam</option>';
+          content += '<option value="Nữ">Nữ</option>';
           content += '</select>';
           content += '</div>';
           content += '</div>';
           content += '<div class="col-2">';
           content += '<div class="form-group">';
           content += '<label>Số CMND</label>';
-          content += '<input id="cmnd-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'alias\': \'cmnd\'" value="'+user.CMND+'">';
+          content += '<input id="cmnd-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'alias\': \'cmnd\'">';
           content += '</div>';
           content += '</div>';
           content += '<div class="col-3">';
@@ -467,17 +510,7 @@
           content += '<label for="chucvu">Chức vụ</label>';
           content += '<select class="form-control" id="chucvu-all-'+user.MAND+'">';
           _.forEach(chucvu, function(cv, key) {
-            if(user.CHUCVU != null) {
-              if(cv.MAVT == user.CHUCVU) {
-                content += '<option value="'+cv.MAVT+'" selected>'+cv.TENVT+'</option>';
-              }
-              else {
-                content += '<option value="'+cv.MAVT+'">'+cv.TENVT+'</option>';
-              }
-            }
-            else {
-              content += '<option value="'+cv.MAVT+'">'+cv.TENVT+'</option>';
-            }
+            content += '<option value="'+cv.MAVT+'">'+cv.TENVT+'</option>';
           });
           content += '</select>';
           content += '</div>';
@@ -485,9 +518,7 @@
           content += '<div class="col-3">';
           content += '<div class="form-group">';
           content += '<label>Ngày sinh</label>';
-          var ngaysinh = user.NgaySinh.split('-').reverse().join('/');
-          console.log("ngaysinh: ", ngaysinh);
-          content += '<input id="ngaysinh-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'alias\': \'date\'" value="'+ngaysinh+'">';
+          content += '<input id="ngaysinh-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'alias\': \'date\'">';
           content += '</div>';
           content += '</div>';
           content += '</div>';
@@ -495,7 +526,7 @@
           content += '<div class="col-2">';
           content += '<div class="form-group">';
           content += '<label>Tài khoản</label>';
-          content += '<input id="tendn-all-'+user.MAND+'" class="form-control form-control-sm" placeholder="Tài khoản" disabled value="'+user.TenDN+'">';
+          content += '<input id="tendn-all-'+user.MAND+'" class="form-control form-control-sm" placeholder="Tài khoản" disabled>';
           content += '</div>';
           content += '</div>';
           content += '<div class="col-2">';
@@ -522,6 +553,8 @@
           content += '</div>';
           content += '</td>';
           $("tr#"+id).html(content);
+          $("tr#"+id).removeClass();
+          $("tr#"+id).addClass(user.CHUCVU);
         }
       },
       error: function() {
@@ -575,7 +608,7 @@
               content += '<td>'+tenchucvu+'</td>';
               content += '<td>';
               content += '<div class="btn-group">';
-              content += '<button class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#'+user.MAND+'-all">Xem</button>';
+              content += '<button class="btn btn-sm btn-outline-info xem-taikhoan" data-toggle="modal" id="'+user.MAND+'" data-target="#'+user.MAND+'-all">Xem</button>';
               content += '<button class="btn btn-sm btn-outline-danger">Cấm</button>';
               content += '<div class="modal fade" id="'+user.MAND+'-all" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
               content += '<div class="modal-dialog modal-lg" role="document">';
@@ -591,19 +624,19 @@
               content += '<div class="col-4">';
               content += '<div class="form-group">';
               content += '<label>Họ Tên</label>';
-              content += '<input type="text" maxlength="30" class="form-control form-control-sm" placeholder="Họ tên" id="hoten-all-'+user.MAND+'" aria-label="Họ tên" value="'+user.HOTEN+'">';
+              content += '<input type="text" maxlength="30" class="form-control form-control-sm" placeholder="Họ tên" id="hoten-all-'+user.MAND+'" aria-label="Họ tên">';
               content += '</div>';
               content += '</div>';
               content += '<div class="col-4">';
               content += '<div class="form-group">';
               content += '<label>Email</label>';
-              content += '<input type="text" id="email-all-'+user.MAND+'" class="form-control form-control-sm" placeholder="Email" aria-label="Email" value="'+user.Email+'">';
+              content += '<input type="text" id="email-all-'+user.MAND+'" class="form-control form-control-sm" placeholder="Email" aria-label="Email">';
               content += '</div>';
               content += '</div>';
               content += '<div class="col-4">';
               content += '<div class="form-group">';
               content += '<label>Số điện thoại</label>';
-              content += '<input id="sdt-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'mask\': \'9999999999\'" value="'+user.SDT+'">';
+              content += '<input id="sdt-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'mask\': \'9999999999\'">';
               content += '</div>';
               content += '</div>';
               content += '</div>';
@@ -612,21 +645,15 @@
               content += '<div class="form-group">';
               content += '<label for="chucvu">Giới tính</label>';
               content += '<select class="form-control" id="gioitinh-all-'+user.MAND+'">';
-              if(user.GioiTinh == 'Nam') {
-                content += '<option value="Nam" selected>Nam</option>';
-                content += '<option value="Nữ">Nữ</option>';
-              }
-              else {
-                content += '<option value="Nam">Nam</option>';
-                content += '<option value="Nữ" selected>Nữ</option>';
-              }
+              content += '<option value="Nam">Nam</option>';
+              content += '<option value="Nữ">Nữ</option>';
               content += '</select>';
               content += '</div>';
               content += '</div>';
               content += '<div class="col-2">';
               content += '<div class="form-group">';
               content += '<label>Số CMND</label>';
-              content += '<input id="cmnd-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'alias\': \'cmnd\'" value="'+user.CMND+'">';
+              content += '<input id="cmnd-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'alias\': \'cmnd\'">';
               content += '</div>';
               content += '</div>';
               content += '<div class="col-3">';
@@ -634,17 +661,7 @@
               content += '<label for="chucvu">Chức vụ</label>';
               content += '<select class="form-control" id="chucvu-all-'+user.MAND+'">';
               _.forEach(chucvu, function(cv, key) {
-                if(user.CHUCVU != null) {
-                  if(cv.MAVT == user.CHUCVU) {
-                    content += '<option value="'+cv.MAVT+'" selected>'+cv.TENVT+'</option>';
-                  }
-                  else {
-                    content += '<option value="'+cv.MAVT+'">'+cv.TENVT+'</option>';
-                  }
-                }
-                else {
-                  content += '<option value="'+cv.MAVT+'">'+cv.TENVT+'</option>';
-                }
+                content += '<option value="'+cv.MAVT+'">'+cv.TENVT+'</option>'; 
               });
               content += '</select>';
               content += '</div>';
@@ -652,9 +669,7 @@
               content += '<div class="col-3">';
               content += '<div class="form-group">';
               content += '<label>Ngày sinh</label>';
-              var ngaysinh = user.NgaySinh.split('-').reverse().join('/');
-              // console.log("ngaysinh: ", ngaysinh);
-              content += '<input id="ngaysinh-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'alias\': \'date\'" value="'+ngaysinh+'">';
+              content += '<input id="ngaysinh-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'alias\': \'date\'">';
               content += '</div>';
               content += '</div>';
               content += '</div>';
@@ -662,7 +677,7 @@
               content += '<div class="col-2">';
               content += '<div class="form-group">';
               content += '<label>Tài khoản</label>';
-              content += '<input id="tendn-all-'+user.MAND+'" class="form-control form-control-sm" placeholder="Tài khoản" disabled value="'+user.TenDN+'">';
+              content += '<input id="tendn-all-'+user.MAND+'" class="form-control form-control-sm" placeholder="Tài khoản" disabled>';
               content += '</div>';
               content += '</div>';
               content += '<div class="col-2">';
@@ -694,6 +709,12 @@
           }
             $("#all-users-table").html(content);
             $("#all-users-table").tablesort();
+            _.forEach(users, function(user, key) {
+              $("#email-all-"+user.MAND).inputmask();
+              $("#sdt-all-"+user.MAND).inputmask();
+              $("#cmnd-all-"+user.MAND).inputmask();
+              $("#ngaysinh-all-"+user.MAND).inputmask();
+            });
         }
       },
       error: function() {
@@ -718,5 +739,11 @@
       }
     });
   }
+
+  $(document).on('keyup', '#search-name', function() {
+    $(this).attr('maxLength', '30');
+    var name = $(this).val();
+    console.log('name: ', name);
+  });
 
 })(jQuery);

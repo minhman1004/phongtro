@@ -4,11 +4,11 @@
       <div class="col-md-12 grid-margin">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Danh sách tài khoản</h4>
+            <h4 class="card-title" id="title-user">Danh sách tài khoản: Tất cả</h4>
             <div class="d-flex table-responsive">
               <!-- Lọc danh sách -->
               <div class="btn-group mr-2">
-                <button class="btn btn-sm btn-inverse-dark" id="filter-all">Tất cả</button>
+                <button class="btn btn-sm btn-inverse-dark" style="background-color:#282f3a; color:#ffffff" id="filter-all">Tất cả</button>
                 <button class="btn btn-sm btn-inverse-dark" id="filter-normal">Cơ bản</button>
                 <button class="btn btn-sm btn-inverse-dark" id="filter-admin">Quản trị viên</button>
                 <button class="btn btn-sm btn-inverse-dark" id="filter-banned">Bị phạt</button>
@@ -112,7 +112,7 @@
               </div>
               <!-- AutoComplete -->
               <div class="btn-group ml-auto mr-2 border-0 d-none d-md-block">
-                <input type="text" class="form-control" placeholder="Tìm kiếm">
+                <input type="text" id="search-name" class="form-control" placeholder="Tìm kiếm">
               </div>
             </div>
             <div class="row">
@@ -140,7 +140,7 @@
                           </td>
                         <td>
                           <div class="btn-group">
-                            <button class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="<?='#'.$user_all->MAND.'-all'?>">Xem</button>
+                            <button class="btn btn-sm btn-outline-info xem-taikhoan" data-toggle="modal" data-target="<?='#'.$user_all->MAND.'-all'?>" id="<?=$user_all->MAND?>">Xem</button>
                             <button class="btn btn-sm btn-outline-danger">Cấm</button>
                             <div class="modal fade" id="<?=$user_all->MAND.'-all'?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog modal-lg" role="document">
@@ -156,19 +156,19 @@
                                       <div class="col-4">
                                         <div class="form-group">
                                           <label>Họ Tên</label>
-                                          <input type="text" maxlength="30" class="form-control form-control-sm" placeholder="Họ tên" id=<?='"hoten-all-'.$user_all->MAND.'"'?> aria-label="Họ tên" value=<?='"'.$user_all->HOTEN.'"'?>>
+                                          <input type="text" maxlength="30" class="form-control form-control-sm" placeholder="Họ tên" id=<?='"hoten-all-'.$user_all->MAND.'"'?> aria-label="Họ tên">
                                         </div>
                                       </div>
                                       <div class="col-4">
                                         <div class="form-group">
                                           <label>Email</label>
-                                          <input type="text" id=<?='"email-all-'.$user_all->MAND.'"'?> class="form-control form-control-sm" placeholder="Email" aria-label="Email" value=<?='"'.$user_all->Email.'"'?>>
+                                          <input type="text" id=<?='"email-all-'.$user_all->MAND.'"'?> class="form-control form-control-sm" placeholder="Email" aria-label="Email">
                                         </div>
                                       </div>
                                       <div class="col-4">
                                         <div class="form-group">
                                           <label>Số điện thoại</label>
-                                          <input id=<?='"sdt-all-'.$user_all->MAND.'"'?> class="form-control form-control-sm" data-inputmask="'mask': '9999999999'" value=<?='"'.$user_all->SDT.'"'?>>
+                                          <input id=<?='"sdt-all-'.$user_all->MAND.'"'?> class="form-control form-control-sm" data-inputmask="'mask': '9999999999'">
                                         </div>
                                       </div>
                                     </div>
@@ -177,15 +177,15 @@
                                         <div class="form-group">
                                           <label for="chucvu">Giới tính</label>
                                           <select class="form-control" id=<?='"gioitinh-all-'.$user_all->MAND.'"'?>>
-                                            <option value='Nam' <?php if($user_all->GioiTinh == 'Nam') echo "selected"; ?> >Nam</option>
-                                            <option value='Nữ' <?php if($user_all->GioiTinh == 'Nữ') echo "selected"; ?> >Nữ</option>
+                                            <option value='Nam'>Nam</option>
+                                            <option value='Nữ'>Nữ</option>
                                           </select>
                                         </div>
                                       </div>
                                       <div class="col-2">
                                         <div class="form-group">
                                           <label>Số CMND</label>
-                                          <input id=<?='"cmnd-all-'.$user_all->MAND.'"'?> class="form-control form-control-sm" data-inputmask="'alias': 'cmnd'" value=<?=$user_all->CMND?>>
+                                          <input id=<?='"cmnd-all-'.$user_all->MAND.'"'?> class="form-control form-control-sm" data-inputmask="'alias': 'cmnd'">
                                         </div>
                                       </div>
                                       <div class="col-3">
@@ -194,11 +194,7 @@
                                           <select class="form-control" id=<?='"chucvu-all-'.$user_all->MAND.'"'?>>
                                             <?php if($chucvu != false) { ?>
                                               <?php foreach($chucvu as $chucvu_all) { ?>
-                                                <?php if($user_all->CHUCVU != null && $user_all->CHUCVU == $chucvu_all->MAVT) { ?>
-                                                  <option value="<?=$chucvu_all->MAVT?>" selected><?=$chucvu_all->TENVT?></option>
-                                                <?php } else { ?>
-                                                  <option value="<?=$chucvu_all->MAVT?>"><?=$chucvu_all->TENVT?></option>
-                                                <?php } ?>
+                                                <option value="<?=$chucvu_all->MAVT?>"><?=$chucvu_all->TENVT?></option>
                                               <?php } ?>
                                             <?php } ?>
                                           </select>
@@ -207,7 +203,7 @@
                                       <div class="col-3">
                                         <div class="form-group">
                                           <label>Ngày sinh</label>
-                                          <input id=<?='"ngaysinh-all-'.$user_all->MAND.'"'?> class="form-control form-control-sm" data-inputmask="'alias': 'date'" value=<?=date_format(new Datetime($user_all->NgaySinh), 'd/m/Y')?>>
+                                          <input id=<?='"ngaysinh-all-'.$user_all->MAND.'"'?> class="form-control form-control-sm" data-inputmask="'alias': 'date'">
                                         </div>
                                       </div>
                                     </div>
@@ -215,7 +211,7 @@
                                       <div class="col-2">
                                         <div class="form-group">
                                           <label>Tài khoản</label>
-                                          <input id="tendn-all-<?=$user_all->MAND?>" class="form-control form-control-sm" placeholder="Tài khoản" disabled value="<?=$user_all->TenDN?>">
+                                          <input id="tendn-all-<?=$user_all->MAND?>" class="form-control form-control-sm" placeholder="Tài khoản" disabled>
                                         </div>
                                       </div>
                                       <div class="col-2">
