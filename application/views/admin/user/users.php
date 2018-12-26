@@ -4,7 +4,7 @@
       <div class="col-md-12 grid-margin">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title" id="title-user">Danh sách tài khoản: Tất cả</h4>
+            <h4 class="card-title" id="title-user">Danh sách tài khoản</h4>
             <div class="d-flex table-responsive">
               <!-- Lọc danh sách -->
               <div class="btn-group mr-2">
@@ -117,7 +117,7 @@
             </div>
             <div class="row">
               <div class="table-sorter-wrapper col-lg-12 table-responsive">
-                <table id="all-users-table" class="table table-striped">
+                <table id="all-users-table" class="table">
                   <thead>
                     <tr>
                       <th>STT</th>
@@ -247,7 +247,6 @@
         </div>
       </div>
     </div>
-  </div> 
   </div>
   <script src="<?php echo base_url(); ?>assets/main/user.js"></script>
   <script src="<?php echo base_url(); ?>assets/main/mask.js"></script>

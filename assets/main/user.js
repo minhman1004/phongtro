@@ -160,6 +160,7 @@
           success: function(data) {
             console.log('dataaaaa');
             if(data == 'true') {
+              e.preventDefault();
               swal('Thành công!', 'Cập nhật thông tin tài khoản thành công!', 'success');
               loadRow(id, stt);
               $("#all-"+id).click();

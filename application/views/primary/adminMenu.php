@@ -56,6 +56,7 @@
           <li class="nav-item"> <a class="nav-link" href="<?php echo base_url()?>manage/settings/decent">Phân quyền</a></li>
           <li class="nav-item"> <a class="nav-link" href="<?php echo base_url()?>manage/settings/account">Loại tài khoản</a></li>
           <li class="nav-item"> <a class="nav-link" href="<?php echo base_url()?>manage/settings/service">Dịch vụ</a></li>
+          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url()?>manage/settings/punish">Quy định lỗi</a></li>
         </ul>
       </div>
     </li>

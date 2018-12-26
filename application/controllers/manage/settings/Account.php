@@ -11,7 +11,7 @@ class Account extends CI_Controller {
 		$this->load->view('primary/metaadmin', $metadata);
 		$this->load->view('primary/adminHeader');
 		$this->load->view('primary/adminMenu');
-		$this->load->view('admin/account', $data);
+		$this->load->view('admin/settings/account', $data);
 		$this->load->view('primary/adminFooter');
 	}
 
