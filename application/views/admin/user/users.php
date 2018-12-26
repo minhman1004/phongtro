@@ -248,6 +248,7 @@
       </div>
     </div>
   </div> 
+  </div>
   <script src="<?php echo base_url(); ?>assets/main/user.js"></script>
   <script src="<?php echo base_url(); ?>assets/main/mask.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/alerts.js"></script>

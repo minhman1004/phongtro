@@ -5,6 +5,7 @@ class session_1{
 	public function __construct() {
 		
 	}
+	//Login
 	public function login($user)
 	{
 		// var_dump($user);
@@ -21,6 +22,8 @@ class session_1{
 		$ci->session->userdata("ChuVu");
 		$ci->session->userdata("MAND");
 	}
+	
+	// Logout 
 	public function logout()
 	{
 		$ci = &get_instance();

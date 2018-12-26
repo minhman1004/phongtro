@@ -135,6 +135,10 @@
                               <i class="mdi mdi-logout text-primary"></i>
                               Logout
                             </a>
+                            <a class="dropdown-item" href="<?php echo base_url('matkhau'); ?>">
+                              <i class="mdi mdi-logout text-primary"></i>
+                              Đổi mật khẩu
+                            </a>
                           </div>
                         </li>
                         <li class="nav-item nav-settings d-none d-lg-block">

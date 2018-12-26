@@ -1,8 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class MainKetQua extends CI_Controller {
+class Result extends CI_Controller {
 	public function index() {
+
+		$this->load->view('main/login/login');
 		
 	}
 }

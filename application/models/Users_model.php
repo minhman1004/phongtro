@@ -11,6 +11,20 @@ class Users_model extends CI_Model {
     	return false;
     }
 
+  
+    public function CheckEmail($email)
+    {
+        $query = $this->db->get_where('nguoidung', array('Email' => $email));
+        return $query->result();
+
+    }
+       public function CheckSDT($SDT)
+    {
+        $query = $this->db->get_where('nguoidung', array('SDT' => $SDT));
+        return $query->result();
+
+    }
+
     // Get data user
     public function getUser($id) {
     	$query = $this->db->get_where('nguoidung', array('MAND'=>$id));
@@ -53,6 +67,20 @@ class Users_model extends CI_Model {
     	if($this->db->affected_rows() > 0) return $this->db->affected_rows();
     	return false;
     }
+      public function updatePass($MAND,$matkhau) {
+        $data = array('MAND' => $MAND, 'MatKhau' => $matkhau);
+        $this->db->where('MAND', $MAND);
+        $this->db->update('nguoidung', $data); 
+        if($this->db->affected_rows() > 0) return $this->db->affected_rows();
+        return 0;
+    }
+    function update_user2($mant, $username, $tennt)
+    {
+        $data = array('Username' => $username, 'TenNT' => $tennt);
+
+        $this->db->where('MaNT', $mant);
+        $this->db->update('nhatro', $data); 
+    }
 
     // Kiem tra ten dang nhap
     public function checkTenDN($tendn) {
@@ -84,9 +112,23 @@ class Users_model extends CI_Model {
     		$data[] = $row->MAND;
     	}
     	$mand = max($data)+1;
-    	$data = array('MAND'=>$mand, 'TenDN'=>$user['tendn'], 'MatKhau'=>$user['matkhau'], 'HOTEN'=>$user['hoten'], 'Email'=>$user['email'], 'SDT'=>$user['sdt'], 'GioiTinh'=>$user['gioitinh'], 'NgaySinh'=>$user['ngaysinh'], 'CMND'=>$user['cmnd'], 'CHUCVU'=>$user['chucvu']);
-    	$this->db->insert('nguoidung', $data);
-    	if($this->db->affected_rows() > 0) return true;
-    	return false;
+        $valueinsert = array('MAND'=>$mand, 'TenDN'=>$user['TenDN'], 'MatKhau'=>$user['MatKhau'], 'HoTen'=>$user['HoTen'], 'Email'=>$user['Email'], 'SDT'=>$user['SDT'], 'GioiTinh'=>$user['GioiTinh'], 'NgaySinh'=>$user['NgaySinh'], 'CMND'=>$user['CMND'], 'CHUCVU'=>$user['CHUCVU']);
+         $valueupdate = array('MAND'=>$mand, 'TenDN'=>$user['TenDN'], 'MatKhau'=>md5($user['MatKhau']), 'HoTen'=>$user['HoTen'], 'Email'=>$user['Email'], 'SDT'=>$user['SDT'], 'GioiTinh'=>$user['GioiTinh'], 'NgaySinh'=>$user['NgaySinh'], 'CMND'=>$user['CMND'], 'CHUCVU'=>$user['CHUCVU']);
+    	$this->db->insert('nguoidung', $valueinsert);
+    	if($this->db->affected_rows() > 0)
+        {
+            // đông thời chuyển mã thành md5 luôn.
+            $this->db->where('MAND', $mand);
+            $this->db->update('nguoidung', $valueupdate);
+            if($this->db->affected_rows() > 0) return $this->db->affected_rows();
+                      
+        } 
+    	return 0;
     }
+    function check_user($username)
+    {
+        $query = $this->db->get_where('nguoidung', array('Username' => $username));
+        return $query->result();
+    }
+
 }

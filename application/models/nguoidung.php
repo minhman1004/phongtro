@@ -40,8 +40,10 @@ class nguoidung extends CI_Model {
         $this->db->delete('nguoidung', array('employee_id' => $employee_id));
         return $this->db->affected_rows();
     }
+
     function checkLogin($taikhoan,$matkhau)
     {
+        //$newpass = md5($matkhau);
         $query = $this->db->get_where('nguoidung',array('TenDN' => $taikhoan, 'MatKhau'=>$matkhau));
         return $query->result();
         
@@ -49,6 +51,12 @@ class nguoidung extends CI_Model {
     function checkUser($taikhoan)
     {
         $query  = $this->db->get_where('nguoidung',array('TenDN' =>$taikhoan));
+        return $query->result();
+    }
+      function CheckMatKhau($MAND,$matkhau)
+    {
+        // check mat khau cua nguoi dung
+        $query  = $this->db->get_where('nguoidung',array('MAND'=>$MAND, 'MatKhau' =>$matkhau));
         return $query->result();
     }
 

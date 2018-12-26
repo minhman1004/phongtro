@@ -23,7 +23,7 @@
   <script src="<?php echo base_url(); ?>assets/js/dashboard.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/form-validation.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/bt-maxLength.js"></script>
-  <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnT63XUjqjPgXZ0lFTU_pdpfUX7swzTTM&amp;callback=initMap"></script>
+  <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaRUCOc4ddsl42iMKR588WkgYhpDuTSk&amp;callback=initMap"></script>
   <script src="<?php echo base_url(); ?>assets/js/google-maps.js"></script> -->
 
   <script src="<?php echo base_url(); ?>assets/js/formpickers.js"></script>

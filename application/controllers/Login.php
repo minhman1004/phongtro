@@ -16,33 +16,43 @@ class Login extends CI_Controller {
     }
 
 	public function index() {
+		// $this->check_login(); // kiểm tra nếu đã đăng nhập 
 
 				$taikhoan = $this->input->post("taikhoan");
 				$matkhau = $this->input->post("matkhau");
 				$viewdata= array();
-				if($taikhoan == null && $matkhau == null)
+				// kiểm tra xem có đúng tài khoản mật khẩu nhập vào không.	
+				if($taikhoan == null || $matkhau == null)
 				{
-					//echo ("aaaaa");
+					//  $viewdata["error"] = true;
+
 				}
 				else
 				{
-					
-					if($user = $this->nguoidung->checkLogin($taikhoan,$matkhau))
+
+				$matkhau = md5($matkhau);
+				//echo json_encode($matkhau);
+				 	$user = $this->nguoidung->checkLogin($taikhoan,$matkhau);
+				 	if($user !=null)
 					{
 						   $this->session_1->login($user);
+						   //Get session
 						   $chucvu = $this->session->userdata("ChuVu");
 						   //echo ($chucvu);
 						   redirect(base_url() ."member/info");
 					}
 					else
 						 $viewdata["error"] = true;
+
+
 				}
+
+
 		
 		$metadata = array('title' => 'Login');
 		$this->load->helper('url');
 		$this->load->view('primary/meta', $metadata);
-		$this->load->view('main/login/login', $viewdata);
-
+		$this->load->view('main/login/login',$viewdata);
 		
 	}	
 		  public function edit_info()
@@ -51,9 +61,9 @@ class Login extends CI_Controller {
 		    }
 		    
 		    public function logout() {
-		    $this->session->logout();
-			redirect(base_url()."login" );
-		    }
+			     $this->session_1->logout();
+				 redirect(base_url() ."login");
+    }
 
 
 }
