@@ -38,7 +38,7 @@ class Punish_model extends CI_Model {
 	}
 
 	public function addMucPhat($mp) {
-		$data = array('TENMD'=>$md['tenmd'], 'MUCDO'=>$md['mucdo'], 'DONVI'=>$md['donvi']);
+		$data = array('TENMD'=>$mp['tenmd'], 'MUCDO'=>$mp['mucdo'], 'DONVI'=>$mp['donvi']);
 		$this->db->insert('mucdo', $data);
 		if($this->db->affected_rows() > 0) return true;
 		return false;
@@ -66,6 +66,30 @@ class Punish_model extends CI_Model {
 	public function getMotLoi($id) {
 		$query = $this->db->get_where('loivipham', array('MALOI'=>$id));
 		if(count($query->result()) > 0) return $query->result()[0];
+		return false;
+	}
+
+	public function updateDonVi($donvi) {
+		$data = array('TENDV'=>$donvi['tendv'], 'KIEU'=>$donvi['kieu']);
+		$this->db->where('MADV', $donvi['id']);
+		$this->db->update('donvi', $data);
+		if($this->db->affected_rows() > 0) return true;
+		return false;
+	}
+
+	public function updateMucPhat($mp) {
+		$data = array('TENMD'=>$mp['ten'], 'MUCDO'=>$mp['mucdo'], 'DONVI'=>$mp['donvi']);
+		$this->db->where('MAMD', $mp['id']);
+		$this->db->update('mucdo', $data);
+		if($this->db->affected_rows() > 0) return true;
+		return false;
+	}
+
+	public function updateLoi($loi) {
+		$data = array('TEN'=>$loi['ten'], 'MOTA'=>$loi['mota']);
+		$this->db->where('MALOI', $loi['id']);
+		$this->db->update('loivipham', $data);
+		if($this->db->affected_rows() > 0) return true;
 		return false;
 	}
 }

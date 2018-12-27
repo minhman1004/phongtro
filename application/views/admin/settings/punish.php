@@ -100,7 +100,7 @@
           <div class="card-body">
             <h4 class="card-title">Mức phạt</h4>
             <div class="d-flex table-responsive">
-              <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-add-mucphat"><i class="mdi mdi-plus-circle-outline"></i> Thêm</button>
+              <button class="btn btn-sm btn-primary" id="open-modal-add-muc-phat" data-toggle="modal" data-target="#modal-add-mucphat"><i class="mdi mdi-plus-circle-outline"></i> Thêm</button>
               <div class="modal fade" id="modal-add-mucphat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -115,9 +115,16 @@
                         <label>Tên mức phạt</label>
                         <input type="text" maxlength="50" class="form-control form-control-sm" id="add-ten-mucphat">
                       </div>
-                      <div class="form-group">
-                        <label>Mức phạt</label>
-                        <input type="text" maxlength="50" class="form-control form-control-sm" id="add-mucphat-mucphat">
+                      <div class="row">
+                        <div class="form-group col-6">
+                          <label>Đơn vị</label>
+                          <select id="add-donvi-mucphat" class="form-control form-control-sm">
+                          </select>
+                        </div>
+                        <div class="form-group col-6">
+                          <label>Mức phạt</label>
+                          <input type="number" min="1" max="1000" class="form-control form-control-sm" id="add-mucphat-mucphat">
+                        </div>
                       </div>
                     </div>
                     <div class="modal-footer">
@@ -129,20 +136,65 @@
               </div>
             </div>
             <div class="table-responsive mt-2">
+              <!-- Edit muc phat -->
+              <div class="modal fade" id="modal-edit-mucphat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel-2">Thêm mức phạt</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label>Tên mức phạt</label>
+                        <input type="text" maxlength="50" class="form-control form-control-sm" id="edit-ten-mucphat">
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-6">
+                          <label>Đơn vị</label>
+                          <select id="edit-donvi-mucphat" class="form-control form-control-sm">
+                          </select>
+                        </div>
+                        <div class="form-group col-6">
+                          <label>Mức phạt</label>
+                          <input type="number" min="1" max="1000" class="form-control form-control-sm" id="edit-mucphat-mucphat">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-success" id="update-mucphat">Cập nhật</button>
+                      <button type="button" class="btn btn-light" id="cancel-mucphat" data-dismiss="modal">Hủy</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <table class="table mt-3 border-top" id="danh-sach-muc-phat">
                 <thead>
                   <tr>
                     <td>STT</td>
                     <td>Tên</td>
                     <td>Mức phạt</td>
+                    <td>Đơn vị</td>
                     <td>Thao tác</td>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php if($mucphat != false) { ?>
+                  <?php if($mucphat != false) { $count = 1; ?>
                     <?php foreach($mucphat as $mucphat_s) { ?>
                       <tr>
-                        <td>Hello</td>
+                        <td><?=$count++?></td>
+                        <td><?=$mucphat_s->TENMD?></td>
+                        <td><?=$mucphat_s->MUCDO?></td>
+                        <td>
+                          <?php foreach($donvi as $donvi_f) {
+                            if($mucphat_s->DONVI == $donvi_f->MADV) {
+                              echo $donvi_f->TENDV;
+                            }
+                          } ?>
+                        </td>
+                        <td><button class="btn btn-sm btn-outline-primary edit-mucphat" data="<?=$mucphat_s->MAMD?>">Sửa</button></td>
                       </tr>
                     <?php } ?>
                   <?php } else { ?>
@@ -224,8 +276,8 @@
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-success">Cập nhật</button>
-                      <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
+                      <button type="button" class="btn btn-success update-donvi">Cập nhật</button>
+                      <button type="button" class="btn btn-light cancel-donvi" data-dismiss="modal">Hủy</button>
                     </div>
                   </div>
                 </div>
@@ -240,14 +292,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php if($mucphat != false) { ?>
-                    <?php foreach($mucphat as $mucphat_s) { $count = 0; ?>
+                  <?php if($donvi != false) { $count = 1; ?>
+                    <?php foreach($donvi as $donvi_s) { ?>
                       <tr>
-                        <td><?=$count++?></td>
-                        <td><?=$mucphat_s->TENMD?></td>
-                        <td><?=$mucphat_s->MUCDO?></td>
+                        <td><?=$count++;?></td>
+                        <td><?=$donvi_s->TENDV?></td>
+                        <td><?=$donvi_s->KIEU?></td>
                         <td>
-                          <button class="btn btn-sm btn-outline-primary" data="<?=$mucphat_s->MALOI?>">Sửa</button>
+                          <button class="btn btn-sm btn-outline-primary edit-donvi" data="<?=$donvi_s->MADV?>">Sửa</button>
                         </td>
                       </tr>
                     <?php } ?>
