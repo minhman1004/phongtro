@@ -35,7 +35,8 @@
               </div>
             </div>
             <div class="table-responsive mt-2">
-              <div class="modal fade" id="edit-loi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
+              <!-- Edit loi vi pham -->
+              <div class="modal fade" id="modal-edit-loi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -55,7 +56,7 @@
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-success" id="add-loi-button">Thêm</button>
+                      <button type="button" class="btn btn-success" id="update-loi">Cập nhật</button>
                       <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
                     </div>
                   </div>
@@ -72,13 +73,13 @@
                 </thead>
                 <tbody>
                   <?php if($loi != false) { ?>
-                    <?php foreach($loi as $loi_s) { $count = 0; ?>
+                    <?php foreach($loi as $loi_s) { $count = 1; ?>
                       <tr>
                         <td><?=$count++?></td>
                         <td><?=$loi_s->TEN?></td>
                         <td><?=$loi_s->MOTA?></td>
                         <td>
-                          <button class="btn btn-sm btn-outline-primary" data="<?=$loi_s->MALOI?>">Sửa</button>
+                          <button class="btn btn-sm btn-outline-primary edit-loi" data="<?=$loi_s->MALOI?>">Sửa</button>
                         </td>
                       </tr>
                     <?php } ?>

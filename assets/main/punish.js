@@ -381,4 +381,167 @@
 		}
 	});
 
+
+	// ------------------------------------------------------------------------------------------
+	// ------------------------------------------------------------------------------------------
+
+	$(document).on('click', '#add-loi', function() {
+		var tenloi, mota;
+		tenloi = $("#add-ten-loi").val();
+		mota = $("#add-mota-loi").val();
+		if(tenloi == '') {
+			$("#add-ten-loi").parent().addClass('has-danger');
+			$("#add-ten-loi").addClass('form-control-danger');
+		}
+		else {
+			$("#add-ten-loi").parent().removeClass('has-danger');
+			$("#add-ten-loi").removeClass('form-control-danger');
+		}
+		if(mota == '') {
+			$("#add-mota-loi").parent().addClass('has-danger');
+			$("#add-mota-loi").addClass('form-control-danger');
+		}
+		else {
+			$("#add-mota-loi").parent().removeClass('has-danger');
+			$("#add-mota-loi").removeClass('form-control-danger');
+		}
+
+		if(tenloi != '' && mota != '') {
+			console.log('ten loi: ', tenloi);
+			console.log('mota: ', mota);
+			$.ajax({
+				type: 'post',
+				url: 'punish/addLoi',
+				data: {
+					ten: tenloi,
+					mota: mota
+				},
+				success: function(data) {
+					if(data != 'false') {
+						swal('Thành công!', 'Thêm quy định lỗi mới thành công!', 'success');
+						showLoi();
+						$("#add-ten-loi").val('');
+						$("#add-mota-loi").val('');
+					}
+					else {
+						swal('Lỗi!', 'Xảy ra lỗi, vui lòng kiểm tra lại!', 'error');
+					}
+				},
+				error: function() {
+					swal('Lỗi!', 'Xảy ra lỗi, vui lòng kiểm tra lại!', 'error');
+				}
+			});
+		}
+	});
+
+	// show Loi for edit
+	$(document).on('click', '.edit-loi', function() {
+		var id = $(this).attr('data');
+		$("#modal-edit-loi").modal();
+		$.ajax({
+			type: 'post',
+			url: 'punish/getLoi',
+			data: {
+				id: id
+			},
+			success: function(data) {
+				data = JSON.parse(data);
+				console.log('data: ', data);
+				if(data != 'false') {
+					$("#edit-ten-loi").val(data.TEN);
+					$("#edit-mota-loi").val(data.MOTA);
+					$("#update-loi").attr('data', data.MALOI);
+				}
+			},
+			error: function() {
+				swal('Lỗi!', 'Xảy ra lỗi, vui lòng kiểm tra lại!', 'error');
+			}
+		});
+	});
+
+	// update loi
+	$(document).on('click', '#update-loi', function() {
+		var id = $(this).attr('data');
+		var tenloi, mota;
+		tenloi = $("#edit-ten-loi").val();
+		mota = $("#edit-mota-loi").val();
+		if(tenloi == '') {
+			$("#edit-ten-loi").parent().addClass('has-danger');
+			$("#edit-ten-loi").addClass('form-control-danger');
+		}
+		else {
+			$("#edit-ten-loi").parent().removeClass('has-danger');
+			$("#edit-ten-loi").removeClass('form-control-danger');
+		}
+		if(mota == '') {
+			$("#edit-mota-loi").parent().addClass('has-danger');
+			$("#edit-mota-loi").addClass('form-control-danger');
+		}
+		else {
+			$("#edit-mota-loi").parent().removeClass('has-danger');
+			$("#edit-mota-loi").removeClass('form-control-danger');
+		}
+		// Update
+		if(tenloi != '' && mota != '') {
+			$.ajax({
+				type: 'post',
+				url: 'punish/updateLoi',
+				data: {
+					id: id,
+					ten: tenloi,
+					mota: mota
+				},
+				success: function(data) {
+					swal('Thành công!', 'Cập nhật thông tin thành công!', 'success');
+					showLoi();
+				},
+				error: function() {
+					swal('Lỗi!', 'Xảy ra lỗi, vui lòng kiểm tra lại!', 'error');
+				}
+			});
+		}
+	});
+
+	// Show all Loi
+	function showLoi() {
+		$.ajax({
+			type: 'ajax',
+			url: 'punish/showLoi',
+			async: false,
+			dataType: 'json',
+			success: function(data) {
+				console.log('data: ', data);
+				var content = '';
+				content += '<thead>';
+				content += '<tr>';
+				content += '<td>STT</td>';
+				content += '<td>Tên lỗi</td>';
+				content += '<td>Mô tả</td>';
+				content += '<td>Thao tác</td>';
+				content += '</tr>';
+				content += '</thead>';
+				content += '<tbody>';
+				if(data != 'false') {
+					_.forEach(data, function(loi, key) {
+						content += '<tr>';
+						content += '<td>'+(key+1)+'</td>';
+						content += '<td>'+loi.TEN+'</td>';
+						content += '<td>'+loi.MOTA+'</td>';
+						content += '<td><button class="btn btn-sm btn-outline-primary edit-loi" data="'+loi.MALOI+'">Sửa</button></td>';
+						content += '<tr>';
+					});
+				}
+				else {
+					content += '<tr>Danh sách rỗng!</tr>';	
+				}
+				content += '</tbody>';
+				$("#danh-sach-loi-vi-pham").html(content);
+				console.log(content);
+			},
+			error: function() {
+				swal('Lỗi!', 'Xảy ra lỗi, vui lòng kiểm tra lại!', 'error');
+			}
+		});
+	}
+
 })(jQuery);

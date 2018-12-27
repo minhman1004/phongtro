@@ -60,7 +60,12 @@ class Punish extends CI_Controller {
 	}
 
 	public function updateLoi() {
-
+		$data['id'] = $this->input->post('id');
+		$data['ten'] = $this->input->post('ten');
+		$data['mota'] = $this->input->post('mota');
+		$result = $this->Punish_model->updateLoi($data);
+		if($result == true) echo json_encode($result);
+		else echo 'false';
 	}
 
 	public function showDonVi() {
@@ -96,6 +101,19 @@ class Punish extends CI_Controller {
 		$rs['mucphat'] = $this->Punish_model->getMotMucPhat($data['id']);
 		$rs['donvi'] = $this->Punish_model->getDonVi();
 		if($rs['mucphat'] != false && $rs['donvi'] != false) echo json_encode($rs);
+		else echo 'false';
+	}
+
+	public function getLoi() {
+		$data['id'] = $this->input->post('id');
+		$result = $this->Punish_model->getMotLoi($data['id']);
+		if($result != false) echo json_encode($result);
+		else echo 'false';
+	}
+
+	public function showLoi() {
+		$loi = $this->Punish_model->getLoiViPham();
+		if($loi != false) echo json_encode($loi);
 		else echo 'false';
 	}
 }
