@@ -72,8 +72,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php if($loi != false) { ?>
-                    <?php foreach($loi as $loi_s) { $count = 1; ?>
+                  <?php if($loi != false) { $count = 1; ?>
+                    <?php foreach($loi as $loi_s) {?>
                       <tr>
                         <td><?=$count++?></td>
                         <td><?=$loi_s->TEN?></td>
