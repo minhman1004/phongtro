@@ -105,4 +105,42 @@ class Room_model extends CI_Model {
     	return false;
     }
 
+    // Get bang chi phi cho nha tro
+    public function getChiPhi($nhatro_id) {
+    	$query = $this->db->get_where('chiphi', array('MANT'=>$nhatro_id));
+    	$data = array();
+    	foreach(@$query->result() as $row) {
+    		$data[] = $row;
+    	}
+    	if(count($data)) return $data;
+    	return false;
+    }
+
+    // Add new chi phi
+    public function addChiPhi($chiphi) {
+    	$data = array('TENCP' => $chiphi['ten'], 'MANT' => $chiphi['nhatro'], 'GIANUOC' => $chiphi['nuoc'], 'GIADIEN' => $chiphi['dien'], 'GiaGXe' => $chiphi['giuxe'], 'GiaWifi' => $chiphi['wifi'], 'GiaRac' => $chiphi['rac'], 'XEDAP' => $chiphi['xedap'], 'XEMAY' => $chiphi['xemay'], 'OTO' => $chiphi['oto'], 'Selected' => 'no', 'TRANGTHAI' => $chiphi['trangthai']);
+    	$this->db->insert('chiphi', $data);
+    	if($this->db->affected_rows() > 0) return true;
+    	return false;
+    }
+
+    // Update chi phi
+    public function updateChiPhi($chiphi) {
+    	$data = array('MANT'=>$chiphi['nhatro'], 'GIANUOC'=>$chiphi['nuoc'], 'GIADIEN'=>$chiphi['dien'], 'GiaGXe'=>$chiphi['giuxe'], 'GiaWifi'=>$chiphi['wifi'], 'GiaRac'=>$chiphi['giarac']);
+    	$this->db->where('MACP', $chiphi['id']);
+    	$this->db->update('chiphi', $data);
+    	if($this->db->affected_rows() > 0) return true;
+    	return false;
+    }
+
+    // Get nhatro chiphi
+    public function getAllChiPhi() {
+    	$query = $this->db->get('chiphi');
+    	$data = array();
+    	foreach(@$query->result() as $row) {
+    		$data[] = $row;
+    	}
+    	if(count($data)) return $data;
+    	return false;
+    }
 }

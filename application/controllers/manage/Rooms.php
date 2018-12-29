@@ -106,7 +106,21 @@ class Rooms extends CI_Controller {
 		echo json_encode($data);
 	}
 
-	public function getPhongTro() {
-		
+	public function addChiPhi() {
+		$data['nhatro'] = $this->input->post('nhatro');
+		$data['ten'] = $this->input->post('ten');
+		$data['dien'] = $this->input->post('dien');
+		$data['nuoc'] = $this->input->post('nuoc');
+		$data['wifi'] = $this->input->post('wifi');
+		$data['rac'] = $this->input->post('rac');
+		$data['giuxe'] = $this->input->post('giuxe');
+		$data['xedap'] = $this->input->post('xedap');
+		$data['xemay'] = $this->input->post('xemay');
+		$data['oto'] = $this->input->post('oto');
+		$data['trangthai'] = $this->input->post('trangthai');
+
+		$result = $this->Room_model->addChiPhi($data);
+		if($result == true) echo 'true';
+		else echo 'false';
 	}
 }

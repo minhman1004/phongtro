@@ -15,6 +15,66 @@
 	$('#update-nha-tro').hide();
 	$('.add-ten-nhatro').val('');
 	$('.add-diachi-chinhxac').val('');
+
+	// Gia
+	$("#gia-dien").val('0');
+	$("#gia-nuoc").val('0');
+	$("#gia-wifi").val('0');
+	$("#gia-rac").val('0');
+	$("#gia-giu-xe").val('0');
+	$("#gia-giu-xe-dap").val('0');
+	$("#gia-giu-xe-oto").val('0');
+	$("#gia-giu-xe-may").val('0');
+
+	// Typing gia
+	// Gia dien
+	$(document).on('keyup', '#gia-dien', function() {
+		if($("#gia-dien").val() < 0) $("#gia-dien").val('0');
+		if($("#gia-dien").val().length == 0) $("#gia-dien").val('0');
+	});
+
+	// Nuoc
+	$(document).on('keyup', '#gia-nuoc', function(){
+		if($("#gia-nuoc").val().length == 0) $("#gia-nuoc").val('0');
+		if($("#gia-nuoc").val() < 0) $("#gia-nuoc").val('0');
+	});
+
+	// Wifi
+	$(document).on('keyup', '#gia-wifi', function(){
+		if($("#gia-wifi").val().length == 0) $("#gia-wifi").val('0');
+		if($("#gia-wifi").val() < 0) $("#gia-wifi").val('0');	
+	});
+
+	// Rac
+	$(document).on('keyup', '#gia-rac', function(){
+		if($("#gia-rac").val().length == 0) $("#gia-rac").val('0');
+		if($("#gia-rac").val() < 0) $("#gia-rac").val('0');	
+	});
+
+	// Giu xe
+	$(document).on('keyup', '#gia-giu-xe', function(){
+		if($("#gia-giu-xe").val().length == 0) $("#gia-giu-xe").val('0');
+		if($("#gia-giu-xe").val() < 0) $("#gia-giu-xe").val('0');	
+	});
+
+	// Xe dap
+	$(document).on('keyup', '#gia-giu-xe-dap', function(){
+		if($("#gia-giu-xe-dap").val().length == 0) $("#gia-giu-xe-dap").val('0');
+		if($("#gia-giu-xe-dap").val() < 0) $("#gia-giu-xe-dap").val('0');	
+	});
+
+	// Xe may
+	$(document).on('keyup', '#gia-giu-xe-may', function(){
+		if($("#gia-giu-xe-may").val().length == 0) $("#gia-giu-xe-may").val('0');
+		if($("#gia-giu-xe-may").val() < 0) $("#gia-giu-xe-may").val('0');	
+	});
+
+	// Oto
+	$(document).on('keyup', '#gia-giu-xe-oto', function(){
+		if($("#gia-giu-xe-oto").val().length == 0) $("#gia-giu-xe-oto").val('0');
+		if($("#gia-giu-xe-oto").val() < 0) $("#gia-giu-xe-oto").val('0');	
+	});
+
   	$.ajax({
   		type: 'get',
   		url: 'rooms/getDiaChi',
