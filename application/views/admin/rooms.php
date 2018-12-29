@@ -211,47 +211,45 @@
                           <div class="row">
                             <div class="form-group col-md-4">
                               <label>Giá điện</label>
-                              <input type="number" min="0" class="form-control form-control-sm" id="gia-dien">
+                              <input type="number" disabled min="0" class="form-control form-control-sm" id="gia-dien">
                             </div>
                             <div class="form-group col-md-4">
                               <label>Giá nước</label>
-                              <input type="number" min="0" class="form-control form-control-sm" id="gia-nuoc">
+                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-nuoc">
                             </div>
                             <div class="form-group col-md-4">
                               <label>Giá wifi</label>
-                              <input type="number" min="0" class="form-control form-control-sm" id="gia-wifi">
+                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-wifi">
                             </div>
                           </div>
                           <div class="row">
                             <div class="form-group col-md-4">
                               <label>Giá rác</label>
-                              <input type="number" min="0" max="1000000" class="form-control form-control-sm" id="gia-rac">
+                              <input type="number" min="0" disabled max="1000000" class="form-control form-control-sm" id="gia-rac">
                             </div>
                             <div class="form-group col-md-4">
                               <label>Giá giữ xe</label>
-                              <input type="number" min="0" class="form-control form-control-sm" id="gia-giu-xe">
+                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-giu-xe">
                             </div>
                             <div class="form-group col-md-4">
                               <label>Giá giữ xe đạp</label>
-                              <input type="number" min="0" class="form-control form-control-sm" id="gia-giu-xe-dap">
+                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-giu-xe-dap">
                             </div>
                           </div>
                           <div class="row">
                             <div class="form-group col-md-4">
                               <label>Giá giữ xe máy</label>
-                              <input type="number" min="0" class="form-control form-control-sm" id="gia-giu-xe-may">
+                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-giu-xe-may">
                             </div>
                             <div class="form-group col-md-4">
                               <label>Giá giữ xe Ô tô</label>
-                              <input type="number" min="0" class="form-control form-control-sm" id="gia-giu-xe-oto">
+                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-giu-xe-oto">
                             </div>
                           </div>
                           <div class="row">
                             <div class="form-group col-md-12" style="color:#ff0000;">
                               <label>* Chú ý:</label><br>
                               <label> - Đơn vị tính là Nghìn đồng (VND).</label><br>
-                              <label> - Giá giữ xe: nếu không tính giá theo từng loại xe.</label><br>
-                              <label> - Cho bằng 0 nếu không sử dụng.</label>
                             </div>
                           </div>
                         </div>

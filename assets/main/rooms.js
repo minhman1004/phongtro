@@ -81,7 +81,7 @@
   		dataType: 'json',
   		async: false,
   		success: function(data) {
-  			console.log('data : ', data);
+  			// console.log('data : ', data);
   			chutro = data.chutro;
   			tinhtp = data.tinhtp;
   			quanhuyen = _.sortBy(data.quanhuyen, 'TEN');
@@ -125,7 +125,7 @@
   			}
   			if(phuongxa.length > 0) {
   				var qh = $(".add-quan-huyen").val();
-  				console.log('quan huyen: ', qh);
+  				// console.log('quan huyen: ', qh);
   				_.forEach(phuongxa, function(px, key) {
   					if(px.MAQH == qh) {
   						content += '<option value="'+px.MAPX+'">'+px.TEN+'</option>';	
@@ -161,7 +161,7 @@
 	  			}
 	  			if(phuongxa.length > 0) {
 	  				var qh = $(".add-quan-huyen").val();
-	  				console.log('quan huyen: ', qh);
+	  				// console.log('quan huyen: ', qh);
 	  				_.forEach(phuongxa, function(px, key) {
 	  					if(px.MAQH == qh) {
 	  						content += '<option value="'+px.MAPX+'">'+px.TEN+'</option>';	
@@ -187,7 +187,7 @@
   			$(document).on('change', '.add-quan-huyen', function() {
   				if(phuongxa.length > 0) {
 	  				var qh = $(".add-quan-huyen").val();
-	  				console.log('quan huyen: ', qh);
+	  				// console.log('quan huyen: ', qh);
 	  				_.forEach(phuongxa, function(px, key) {
 	  					if(px.MAQH == qh) {
 	  						content += '<option value="'+px.MAPX+'">'+px.TEN+'</option>';	
@@ -230,7 +230,7 @@
   			});
   		},
   		error: function() {
-  			console.log('error');
+  			// console.log('error');
   		}
   	});
   });
@@ -252,7 +252,7 @@
 
 	// Add nha tro
 	$(document).on('click', '#add-nha-tro', function() {
-		var ten, chutro, kinhdo, vido, tinhtp, quanhuyen, phuongxa, duong, diachi;
+		var ten, chutro, kinhdo, vido, tinhtp, quanhuyen, phuongxa, duong, diachi, camera, parking, guard;
 		var cten, cdiachi;
 
 		cten = ".add-ten-nhatro";
@@ -264,11 +264,14 @@
 		quanhuyen = $('.add-quan-huyen').val();
 		phuongxa = $('.add-phuong-xa').val();
 		diachi = $('.add-diachi-chinhxac').val();
+		camera = $("input[name=camera]:checked").val();
+		parking = $("input[name=parking]:checked").val();
+		guard = $("input[name=guard]:checked").val();
 		if($('.add-duong').val() != 'null') {
 			duong = $(".add-duong").val();
 			checkEmpty(cten);
 			checkEmpty(cdiachi);
-			// console.log('data: ', _.concat([ten, chutro, tinhtp, quanhuyen, phuongxa, diachi]));
+			// // console.log('data: ', _.concat([ten, chutro, tinhtp, quanhuyen, phuongxa, diachi]));
 
 			if(ten != '' && diachi != '') {
 				$.ajax({
@@ -281,7 +284,10 @@
 						quanhuyen: quanhuyen,
 						phuongxa: phuongxa,
 						duong: duong,
-						diachi: diachi
+						diachi: diachi,
+						camera: camera,
+						parking: parking,
+						guard: guard
 					},
 					success: function(data) {
 						if(data != 'false') {
@@ -299,7 +305,7 @@
 		else {
 			checkEmpty(cten);
 			checkEmpty(cdiachi);
-			// console.log('data: ', _.concat([ten, chutro, tinhtp, quanhuyen, phuongxa, diachi]));
+			// // console.log('data: ', _.concat([ten, chutro, tinhtp, quanhuyen, phuongxa, diachi]));
 			if(ten != '' && diachi != '') {
 				$.ajax({
 					type: 'post',
@@ -310,7 +316,10 @@
 						tinhtp: tinhtp,
 						quanhuyen: quanhuyen,
 						phuongxa: phuongxa,
-						diachi: diachi
+						diachi: diachi,
+						camera: camera,
+						parking: parking,
+						guard: guard
 					},
 					success: function(data) {
 						if(data != 'false') {
@@ -349,7 +358,7 @@
 			dataType: 'json',
 			success: function(data) {
 				// data = JSON.parse(data);
-				console.log(data);
+				// console.log(data);
 
 				var content = '';
 				content += '<thead>';
@@ -389,32 +398,180 @@
 		});
 	}
 
+
 	// Open modal Edit nha tro
 	$(document).on('click', '.edit-nhatro', function() {
 		$("#modal-add-nha-tro").modal();
 		$('#add-nha-tro').hide();
 		$('#update-nha-tro').show();
-		var chutro, tinhtp, quanhuyen, phuongxa, duong, id, nhatro;
+		var chutro, tinhtp, quanhuyen, phuongxa, duong, id, nhatro, chiphi;
 		id = $(this).attr('data');
 		$('.update-nha-tro').attr('data', id);
+
+		// Gia
+		$("#gia-dien").val('0');
+		$("#gia-nuoc").val('0');
+		$("#gia-wifi").val('0');
+		$("#gia-rac").val('0');
+		$("#gia-giu-xe").val('0');
+		$("#gia-giu-xe-dap").val('0');
+		$("#gia-giu-xe-oto").val('0');
+		$("#gia-giu-xe-may").val('0');
+
+		// Typing gia
+		// Gia dien
+		$(document).on('keyup', '#gia-dien', function() {
+			if($("#gia-dien").val() < 0) $("#gia-dien").val('0');
+			if($("#gia-dien").val().length == 0) $("#gia-dien").val('0');
+		});
+
+		// Nuoc
+		$(document).on('keyup', '#gia-nuoc', function(){
+			if($("#gia-nuoc").val().length == 0) $("#gia-nuoc").val('0');
+			if($("#gia-nuoc").val() < 0) $("#gia-nuoc").val('0');
+		});
+
+		// Wifi
+		$(document).on('keyup', '#gia-wifi', function(){
+			if($("#gia-wifi").val().length == 0) $("#gia-wifi").val('0');
+			if($("#gia-wifi").val() < 0) $("#gia-wifi").val('0');	
+		});
+
+		// Rac
+		$(document).on('keyup', '#gia-rac', function(){
+			if($("#gia-rac").val().length == 0) $("#gia-rac").val('0');
+			if($("#gia-rac").val() < 0) $("#gia-rac").val('0');	
+		});
+
+		// Giu xe
+		$(document).on('keyup', '#gia-giu-xe', function(){
+			if($("#gia-giu-xe").val().length == 0) $("#gia-giu-xe").val('0');
+			if($("#gia-giu-xe").val() < 0) $("#gia-giu-xe").val('0');	
+		});
+
+		// Xe dap
+		$(document).on('keyup', '#gia-giu-xe-dap', function(){
+			if($("#gia-giu-xe-dap").val().length == 0) $("#gia-giu-xe-dap").val('0');
+			if($("#gia-giu-xe-dap").val() < 0) $("#gia-giu-xe-dap").val('0');	
+		});
+
+		// Xe may
+		$(document).on('keyup', '#gia-giu-xe-may', function(){
+			if($("#gia-giu-xe-may").val().length == 0) $("#gia-giu-xe-may").val('0');
+			if($("#gia-giu-xe-may").val() < 0) $("#gia-giu-xe-may").val('0');	
+		});
+
+		// Oto
+		$(document).on('keyup', '#gia-giu-xe-oto', function(){
+			if($("#gia-giu-xe-oto").val().length == 0) $("#gia-giu-xe-oto").val('0');
+			if($("#gia-giu-xe-oto").val() < 0) $("#gia-giu-xe-oto").val('0');	
+		});
+
+		$("#bang-chi-phi").attr('disabled', false);
+
 	  	$.ajax({
 	  		type: 'post',
 	  		url: 'rooms/getNhaTroVaDiaChi',
+	  		async: false,
 	  		data: {
 	  			id: id
 	  		},
 	  		async: false,
 	  		success: function(data) {
 	  			data = JSON.parse(data);
-	  			console.log('data : ', data);
+	  			// console.log('data : ', data);
 	  			nhatro = data.nhatro[0];
 	  			chutro = data.chutro;
 	  			tinhtp = data.tinhtp;
 	  			quanhuyen = _.sortBy(data.quanhuyen, 'TEN');
 	  			phuongxa = _.sortBy(data.phuongxa, 'TEN');
 	  			duong = data.duong;
+	  			chiphi = data.chiphi;
+	  			// console.log('chiphi: ', chiphi);
 
 	  			var content = '';
+
+	  			// Chi phi
+	  			if(chiphi.length > 0) {
+	  				content += '<option disabled selected value="null">Chọn bảng giá</option>';
+	  				_.forEach(chiphi, function(cp, key) {
+	  					if(cp.Selected == 'yes') {
+	  						content += '<option selected value="'+cp.MACP+'">'+cp.TENCP+'</option>';
+	  					}
+	  					else {
+	  						content += '<option value="'+cp.MACP+'">'+cp.TENCP+'</option>';
+	  					}
+	  				});
+	  				$("#bang-chi-phi").html(content);
+	  				var chiphi_s = _.find(chiphi, {'Selected':'yes'});
+	  				if(chiphi_s) {
+		  				$("#gia-dien").val(chiphi_s.GIADIEN);
+		  				$("#gia-nuoc").val(chiphi_s.GIANUOC);
+		  				$("#gia-wifi").val(chiphi_s.GiaWifi);
+		  				$("#gia-rac").val(chiphi_s.GiaRac);
+		  				$("#gia-giu-xe").val(chiphi_s.GiaGXe);
+		  				$("#gia-giu-xe-dap").val(chiphi_s.XEDAP);
+		  				$("#gia-giu-xe-may").val(chiphi_s.XEMAY);
+		  				$('#gia-giu-xe-oto').val(chiphi_s.OTO);
+	  				}
+	  				else {
+	  					chiphi_s = _.find(chiphi, {'MACP':$("#bang-chi-phi").val()});
+	  					if(chiphi_s) {
+		  					$("#gia-dien").val(chiphi_s.GIADIEN);
+			  				$("#gia-nuoc").val(chiphi_s.GIANUOC);
+			  				$("#gia-wifi").val(chiphi_s.GiaWifi);
+			  				$("#gia-rac").val(chiphi_s.GiaRac);
+			  				$("#gia-giu-xe").val(chiphi_s.GiaGXe);
+			  				$("#gia-giu-xe-dap").val(chiphi_s.XEDAP);
+			  				$("#gia-giu-xe-may").val(chiphi_s.XEMAY);
+			  				$('#gia-giu-xe-oto').val(chiphi_s.OTO);
+	  					}
+	  					else {
+	  						$("#gia-dien").val('0');
+			  				$("#gia-nuoc").val('0');
+			  				$("#gia-wifi").val('0');
+			  				$("#gia-rac").val('0');
+			  				$("#gia-giu-xe").val('0');
+			  				$("#gia-giu-xe-dap").val('0');
+			  				$("#gia-giu-xe-may").val('0');
+			  				$('#gia-giu-xe-oto').val('0');
+	  					}
+	  				}
+	  				content  = '';
+	  				// On change Chiphi
+	  				console.log('hello');
+					$(document).off("change").on('change', '#bang-chi-phi', function() {
+						console.log('change');
+						var cp = $(this).val();
+						$.ajax({
+							type: 'post',
+							url: 'rooms/getChiPhi',
+							async: false,
+							data: {
+								id: cp
+							},
+							success: function(rs) {
+								rs = JSON.parse(rs).chiphi[0];
+								// console.log(rs);
+
+								$("#gia-dien").val(rs.GIADIEN);
+								$("#gia-nuoc").val(rs.GIANUOC);
+								$("#gia-wifi").val(rs.GiaWifi);
+								$("#gia-rac").val(rs.GiaRac);
+								$("#gia-giu-xe").val(rs.GiaGXe);
+								$("#gia-giu-xe-dap").val(rs.XEDAP);
+								$("#gia-giu-xe-may").val(rs.XEMAY);
+								$('#gia-giu-xe-oto').val(rs.OTO);
+							},
+							error: function(e) {
+								console.log(e);
+							}
+						});
+					});
+	  			}
+	  			else {
+	  				$("#bang-chi-phi").attr('disabled', true);
+	  			}
 
 	  			// Danh sach chu tro
 	  			if(chutro.length > 0) {
@@ -440,10 +597,13 @@
 	  				content = '';
 	  			}
 	  			// Display data
-	  			console.log('nhatro: ', nhatro);
+	  			// console.log('nhatro: ', nhatro);
 	  			$(".add-ten-nhatro").val(nhatro.TENNT);
 	  			$('.add-chu-chungcu-nhatro').val(nhatro.MAND);
 	  			$('.add-tinh-thanhpho').val(nhatro.MATTP);
+	  			$('input[name=camera][value="'+nhatro.Camera+'"]').prop('checked', true);
+	  			$('input[name=parking][value="'+nhatro.Parking+'"]').prop('checked', true);
+	  			$('input[name=guard][value="'+nhatro.Guard+'"]').prop('checked', true);
 	  			
 	  			if(quanhuyen.length > 0) {
 	  				var tp = $('.add-tinh-thanhpho').val();
@@ -460,7 +620,7 @@
 	  			
 	  			if(phuongxa.length > 0) {
 	  				var qh = $(".add-quan-huyen").val();
-	  				console.log('quan huyen: ', qh);
+	  				// console.log('quan huyen: ', qh);
 	  				_.forEach(phuongxa, function(px, key) {
 	  					if(px.MAQH == qh) {
 	  						content += '<option value="'+px.MAPX+'">'+px.TEN+'</option>';	
@@ -507,7 +667,7 @@
 		  			}
 		  			if(phuongxa.length > 0) {
 		  				var qh = $(".add-quan-huyen").val();
-		  				console.log('quan huyen: ', qh);
+		  				// console.log('quan huyen: ', qh);
 		  				_.forEach(phuongxa, function(px, key) {
 		  					if(px.MAQH == qh) {
 		  						content += '<option value="'+px.MAPX+'">'+px.TEN+'</option>';	
@@ -533,7 +693,7 @@
 	  			$(document).on('change', '.add-quan-huyen', function() {
 	  				if(phuongxa.length > 0) {
 		  				var qh = $(".add-quan-huyen").val();
-		  				console.log('quan huyen: ', qh);
+		  				// console.log('quan huyen: ', qh);
 		  				_.forEach(phuongxa, function(px, key) {
 		  					if(px.MAQH == qh) {
 		  						content += '<option value="'+px.MAPX+'">'+px.TEN+'</option>';	
@@ -576,15 +736,16 @@
 	  			});
 	  		},
 	  		error: function() {
-	  			console.log('error');
+	  			// console.log('error');
 	  		}
 	  	});
 	});
 
 	// Update nha tro
 	$(document).on('click', '#update-nha-tro', function() {
-		var ten, chutro, kinhdo, vido, tinhtp, quanhuyen, phuongxa, duong, diachi, id;
+		var ten, chutro, kinhdo, vido, tinhtp, quanhuyen, phuongxa, duong, diachi, id, camera, parking, guard;
 		var cten, cdiachi;
+		var 
 
 		cten = ".add-ten-nhatro";
 		cdiachi = ".add-diachi-chinhxac";
@@ -596,11 +757,15 @@
 		quanhuyen = $('.add-quan-huyen').val();
 		phuongxa = $('.add-phuong-xa').val();
 		diachi = $('.add-diachi-chinhxac').val();
+		camera = $("input[name=camera]:checked").val();
+		parking = $("input[name=parking]:checked").val();
+		guard = $("input[name=guard]:checked").val();
+
 		if($('.add-duong').val() != 'null') {
 			duong = $(".add-duong").val();
 			checkEmpty(cten);
 			checkEmpty(cdiachi);
-			// console.log('data: ', _.concat([id, ten, chutro, tinhtp, quanhuyen, phuongxa, diachi]));
+			// // console.log('data: ', _.concat([id, ten, chutro, tinhtp, quanhuyen, phuongxa, diachi]));
 
 			if(ten != '' && diachi != '') {
 				$.ajax({
@@ -615,10 +780,13 @@
 						quanhuyen: quanhuyen,
 						phuongxa: phuongxa,
 						duong: duong,
-						diachi: diachi
+						diachi: diachi,
+						camera: camera,
+						parking: parking,
+						guard: guard
 					},
 					success: function(data) {
-						console.log('data: ', data);
+						// console.log('data: ', data);
 						swal('Thành công!', 'Cập nhật thông tin nhà trọ thành công!', 'success');
 						showNhaTro();
 					},
@@ -631,8 +799,8 @@
 		else {
 			checkEmpty(cten);
 			checkEmpty(cdiachi);
-			// console.log('data: ', _.concat([id, ten, chutro, tinhtp, quanhuyen, phuongxa, diachi]));
-			// console.log('data: ', _.concat([ten, chutro, tinhtp, quanhuyen, phuongxa, diachi]));
+			// // console.log('data: ', _.concat([id, ten, chutro, tinhtp, quanhuyen, phuongxa, diachi]));
+			// // console.log('data: ', _.concat([ten, chutro, tinhtp, quanhuyen, phuongxa, diachi]));
 			if(ten != '' && diachi != '') {
 				$.ajax({
 					type: 'post',
@@ -645,10 +813,13 @@
 						tinhtp: tinhtp,
 						quanhuyen: quanhuyen,
 						phuongxa: phuongxa,
-						diachi: diachi
+						diachi: diachi,
+						camera: camera,
+						parking: parking,
+						guard: guard
 					},
 					success: function(data) {
-						console.log('data: ', data);
+						// console.log('data: ', data);
 						swal('Thành công!', 'Cập nhật thông tin nhà trọ thành công!', 'success');
 						showNhaTro();
 					},
@@ -667,7 +838,7 @@
 			url: 'rooms/getNhaTroChuTro',
 			dataType: 'json',
 			success: function(data) {
-				console.log('data: ', data);
+				// console.log('data: ', data);
 				var nhatro, chutro, content = '';
 				nhatro = data.nhatro;
 				chutro = data.chutro;
@@ -684,7 +855,7 @@
 	  			}
 			},
 			error: function() {
-				console.log('error');
+				// console.log('error');
 			}
 		});
 	});
@@ -694,9 +865,12 @@
 		$("#modal-add-nha-tro").modal();
 		$('#add-nha-tro').hide();
 		$('#update-nha-tro').show();
-		var chutro, tinhtp, quanhuyen, phuongxa, duong, id, nhatro;
+		var chutro, tinhtp, quanhuyen, phuongxa, duong, id, nhatro, chiphi;
 		id = $('#search-chungcu-nhatro').val();
 		$('.update-nha-tro').attr('data', id);
+
+		$("#bang-chi-phi").attr('disabled', false);
+
 	  	$.ajax({
 	  		type: 'post',
 	  		url: 'rooms/getNhaTroVaDiaChi',
@@ -706,15 +880,69 @@
 	  		async: false,
 	  		success: function(data) {
 	  			data = JSON.parse(data);
-	  			console.log('data : ', data);
+	  			// console.log('data : ', data);
 	  			nhatro = data.nhatro[0];
 	  			chutro = data.chutro;
 	  			tinhtp = data.tinhtp;
 	  			quanhuyen = _.sortBy(data.quanhuyen, 'TEN');
 	  			phuongxa = _.sortBy(data.phuongxa, 'TEN');
 	  			duong = data.duong;
+	  			chiphi = data.chiphi;
+	  			// console.log('chiphi: ', chiphi);
 
 	  			var content = '';
+
+	  			// Chi phi
+	  			if(chiphi.length > 0) {
+	  				content += '<option selected disabled value="null">Chọn bảng giá</option>';
+	  				_.forEach(chiphi, function(cp, key) {
+	  					if(cp.Selected == 'yes') {
+	  						content += '<option selected value="'+cp.MACP+'">'+cp.TENCP+'</option>';
+	  					}
+	  					else {
+	  						content += '<option value="'+cp.MACP+'">'+cp.TENCP+'</option>';
+	  					}
+	  				});
+	  				$("#bang-chi-phi").html(content);
+	  				var chiphi_s = _.find(chiphi, {'Selected':'yes'});
+	  				if(chiphi_s) {
+		  				$("#gia-dien").val(chiphi_s.GIADIEN);
+		  				$("#gia-nuoc").val(chiphi_s.GIANUOC);
+		  				$("#gia-wifi").val(chiphi_s.GiaWifi);
+		  				$("#gia-rac").val(chiphi_s.GiaRac);
+		  				$("#gia-giu-xe").val(chiphi_s.GiaGXe);
+		  				$("#gia-giu-xe-dap").val(chiphi_s.XEDAP);
+		  				$("#gia-giu-xe-may").val(chiphi_s.XEMAY);
+		  				$('#gia-giu-xe-oto').val(chiphi_s.OTO);
+	  				}
+	  				else {
+	  					chiphi_s = _.find(chiphi, {'MACP':$("#bang-chi-phi").val()});
+	  					if(chiphi_s) {
+		  					$("#gia-dien").val(chiphi_s.GIADIEN);
+			  				$("#gia-nuoc").val(chiphi_s.GIANUOC);
+			  				$("#gia-wifi").val(chiphi_s.GiaWifi);
+			  				$("#gia-rac").val(chiphi_s.GiaRac);
+			  				$("#gia-giu-xe").val(chiphi_s.GiaGXe);
+			  				$("#gia-giu-xe-dap").val(chiphi_s.XEDAP);
+			  				$("#gia-giu-xe-may").val(chiphi_s.XEMAY);
+			  				$('#gia-giu-xe-oto').val(chiphi_s.OTO);
+	  					}
+	  					else {
+	  						$("#gia-dien").val('0');
+			  				$("#gia-nuoc").val('0');
+			  				$("#gia-wifi").val('0');
+			  				$("#gia-rac").val('0');
+			  				$("#gia-giu-xe").val('0');
+			  				$("#gia-giu-xe-dap").val('0');
+			  				$("#gia-giu-xe-may").val('0');
+			  				$('#gia-giu-xe-oto').val('0');
+	  					}
+	  				}
+	  				content  = '';
+	  			}
+	  			else {
+	  				$("#bang-chi-phi").attr('disabled', true);
+	  			}
 
 	  			// Danh sach chu tro
 	  			if(chutro.length > 0) {
@@ -740,10 +968,13 @@
 	  				content = '';
 	  			}
 	  			// Display data
-	  			console.log('nhatro: ', nhatro);
+	  			// console.log('nhatro: ', nhatro);
 	  			$(".add-ten-nhatro").val(nhatro.TENNT);
 	  			$('.add-chu-chungcu-nhatro').val(nhatro.MAND);
 	  			$('.add-tinh-thanhpho').val(nhatro.MATTP);
+	  			$('input[name=camera][value="'+nhatro.Camera+'"]').prop('checked', true);
+	  			$('input[name=parking][value="'+nhatro.Parking+'"]').prop('checked', true);
+	  			$('input[name=guard][value="'+nhatro.Guard+'"]').prop('checked', true);
 	  			
 	  			if(quanhuyen.length > 0) {
 	  				var tp = $('.add-tinh-thanhpho').val();
@@ -760,7 +991,7 @@
 	  			
 	  			if(phuongxa.length > 0) {
 	  				var qh = $(".add-quan-huyen").val();
-	  				console.log('quan huyen: ', qh);
+	  				// console.log('quan huyen: ', qh);
 	  				_.forEach(phuongxa, function(px, key) {
 	  					if(px.MAQH == qh) {
 	  						content += '<option value="'+px.MAPX+'">'+px.TEN+'</option>';	
@@ -807,7 +1038,7 @@
 		  			}
 		  			if(phuongxa.length > 0) {
 		  				var qh = $(".add-quan-huyen").val();
-		  				console.log('quan huyen: ', qh);
+		  				// console.log('quan huyen: ', qh);
 		  				_.forEach(phuongxa, function(px, key) {
 		  					if(px.MAQH == qh) {
 		  						content += '<option value="'+px.MAPX+'">'+px.TEN+'</option>';	
@@ -833,7 +1064,7 @@
 	  			$(document).on('change', '.add-quan-huyen', function() {
 	  				if(phuongxa.length > 0) {
 		  				var qh = $(".add-quan-huyen").val();
-		  				console.log('quan huyen: ', qh);
+		  				// console.log('quan huyen: ', qh);
 		  				_.forEach(phuongxa, function(px, key) {
 		  					if(px.MAQH == qh) {
 		  						content += '<option value="'+px.MAPX+'">'+px.TEN+'</option>';	
@@ -876,7 +1107,7 @@
 	  			});
 	  		},
 	  		error: function() {
-	  			console.log('error');
+	  			// console.log('error');
 	  		}
 	  	});
 	});

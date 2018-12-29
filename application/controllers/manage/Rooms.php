@@ -35,6 +35,9 @@ class Rooms extends CI_Controller {
 		$data['phuongxa'] = $this->input->post('phuongxa');
 		$data['duong'] = $this->input->post('duong');
 		$data['diachi'] = $this->input->post('diachi');
+		$data['camera'] = $this->input->post('camera');
+		$data['parking'] = $this->input->post('parking');
+		$data['guard'] = $this->input->post('guard');
 
 		$result = $this->Room_model->addNhaTroDuong($data);
 		if($result == true) echo 'true';
@@ -48,6 +51,9 @@ class Rooms extends CI_Controller {
 		$data['quanhuyen'] = $this->input->post('quanhuyen');
 		$data['phuongxa'] = $this->input->post('phuongxa');
 		$data['diachi'] = $this->input->post('diachi');
+		$data['camera'] = $this->input->post('camera');
+		$data['parking'] = $this->input->post('parking');
+		$data['guard'] = $this->input->post('guard');
 
 		$result = $this->Room_model->addNhaTro($data);
 		if($result == true) echo 'true';
@@ -68,6 +74,13 @@ class Rooms extends CI_Controller {
 		$data['phuongxa'] = $this->Home_model->getPhuongXa();
 		$data['duong'] = $this->Room_model->getDuong();
 		$data['chutro'] = $this->Room_model->getChuTro();
+		$data['chiphi'] = $this->Room_model->getChiPhi($id);
+		echo json_encode($data);
+	}
+
+	public function getChiPhi() {
+		$id = $this->input->post('id');
+		$data['chiphi'] = $this->Room_model->getTTChiPhi($id);
 		echo json_encode($data);
 	}
 
@@ -80,6 +93,9 @@ class Rooms extends CI_Controller {
 		$data['phuongxa'] = $this->input->post('phuongxa');
 		$data['duong'] = $this->input->post('duong');
 		$data['diachi'] = $this->input->post('diachi');
+		$data['camera'] = $this->input->post('camera');
+		$data['parking'] = $this->input->post('parking');
+		$data['guard'] = $this->input->post('guard');
 
 		$result = $this->Room_model->updateNhaTroDuong($data);
 		if($result == true) echo 'true';
@@ -94,6 +110,9 @@ class Rooms extends CI_Controller {
 		$data['quanhuyen'] = $this->input->post('quanhuyen');
 		$data['phuongxa'] = $this->input->post('phuongxa');
 		$data['diachi'] = $this->input->post('diachi');
+		$data['camera'] = $this->input->post('camera');
+		$data['parking'] = $this->input->post('parking');
+		$data['guard'] = $this->input->post('guard');
 
 		$result = $this->Room_model->updateNhaTro($data);
 		if($result == true) echo 'true';

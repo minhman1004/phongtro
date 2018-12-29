@@ -5,9 +5,9 @@
   	$("#search-phongtro").select2();
   }
 
-  if($('#bang-chi-phi').length) {
-  	$("#bang-chi-phi").select2();
-  }
+  // if($('#bang-chi-phi').length) {
+  // 	$("#bang-chi-phi").select2();
+  // }
   if($('#add-nhatro-chiphi').length) {
   	$("#add-nhatro-chiphi").select2();
   }
