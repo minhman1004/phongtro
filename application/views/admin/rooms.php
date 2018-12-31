@@ -211,45 +211,55 @@
                           <div class="row">
                             <div class="form-group col-md-4">
                               <label>Giá điện</label>
-                              <input type="number" disabled min="0" class="form-control form-control-sm" id="gia-dien">
+                              <input type="number" min="0" class="form-control form-control-sm" id="gia-dien">
+                              <input type="number" disabled min="0" class="form-control form-control-sm" id="gia-dien-hide" hidden>
                             </div>
                             <div class="form-group col-md-4">
                               <label>Giá nước</label>
-                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-nuoc">
+                              <input type="number" min="0" class="form-control form-control-sm" id="gia-nuoc">
+                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-nuoc-hide" hidden>
                             </div>
                             <div class="form-group col-md-4">
                               <label>Giá wifi</label>
-                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-wifi">
+                              <input type="number" min="0" class="form-control form-control-sm" id="gia-wifi">
+                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-wifi-hide" hidden>
                             </div>
                           </div>
                           <div class="row">
                             <div class="form-group col-md-4">
                               <label>Giá rác</label>
-                              <input type="number" min="0" disabled max="1000000" class="form-control form-control-sm" id="gia-rac">
+                              <input type="number" min="0" max="1000000" class="form-control form-control-sm" id="gia-rac">
+                              <input type="number" min="0" disabled max="1000000" class="form-control form-control-sm" id="gia-rac-hide" hidden>
                             </div>
                             <div class="form-group col-md-4">
                               <label>Giá giữ xe</label>
-                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-giu-xe">
+                              <input type="number" min="0" class="form-control form-control-sm" id="gia-giu-xe">
+                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-giu-xe-hide" hidden>
                             </div>
                             <div class="form-group col-md-4">
                               <label>Giá giữ xe đạp</label>
-                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-giu-xe-dap">
+                              <input type="number" min="0" class="form-control form-control-sm" id="gia-giu-xe-dap">
+                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-giu-xe-dap-hide" hidden>
                             </div>
                           </div>
                           <div class="row">
                             <div class="form-group col-md-4">
                               <label>Giá giữ xe máy</label>
-                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-giu-xe-may">
+                              <input type="number" min="0" class="form-control form-control-sm" id="gia-giu-xe-may">
+                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-giu-xe-may-hide" hidden>
                             </div>
                             <div class="form-group col-md-4">
                               <label>Giá giữ xe Ô tô</label>
-                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-giu-xe-oto">
+                              <input type="number" min="0" class="form-control form-control-sm" id="gia-giu-xe-oto">
+                              <input type="number" min="0" disabled class="form-control form-control-sm" id="gia-giu-xe-oto-hide" hidden>
                             </div>
                           </div>
                           <div class="row">
                             <div class="form-group col-md-12" style="color:#ff0000;">
                               <label>* Chú ý:</label><br>
                               <label> - Đơn vị tính là Nghìn đồng (VND).</label><br>
+                              <label> - Giá giữ xe: nếu không tính giá theo từng loại xe.</label><br>
+                              <label> - Cho bằng 0 nếu không sử dụng.</label>
                             </div>
                           </div>
                         </div>
@@ -312,7 +322,8 @@
 
     <!-- Danh sách phòng trọ -->
     <div class="row grid-margin">
-      <div class="col-12">
+      <!-- Danh sach phong tro -->
+      <div class="col-6">
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">Thông tin danh sách phòng, người ở</h4>
@@ -322,12 +333,24 @@
               <div class="form-group col-md-6">
                 <select id="search-phongtro" class="form-control form-control-md" style="width:100%"></select>
               </div>
-              <button class="btn btn-sm btn-outline-primary" id="open-modal-search-phongtro" style="height: 43px;"><i class="mdi mdi-open-in-app"></i> Xem danh sách phòng</button>
+              <button class="btn btn-sm btn-outline-primary" id="open-modal-search-phongtro" style="height: 43px;"><i class="mdi mdi-open-in-app"></i> Xem</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thong tin phong tro -->
+      <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Thông tin phòng</h4>
+            <div class="d-flex table-responsive">
             </div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
   <script src="<?php echo base_url(); ?>assets/main/rooms.js"></script>
   <script src="<?php echo base_url(); ?>assets/main/rooms2.js"></script>

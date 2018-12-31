@@ -126,7 +126,7 @@
 	});
 
 	$(document).on('click', '.add-chiphi-nhatro', function() {
-		var nhatro, ten, dien, nuoc, wifi, rac, giuxe, xedap, xemay, oto, trangthai, tenc;
+		var nhatro, ten, dien, nuoc, wifi, rac, giuxe, xedap, xemay, oto, tenc;
 		nhatro = $("#add-nhatro-chiphi").val();
 		ten = $("#add-ten-chiphi").val();
 		dien = $("#add-gia-dien").val();
@@ -137,12 +137,11 @@
 		xedap = $("#add-gia-giu-xe-dap").val();
 		xemay = $("#add-gia-giu-xe-may").val();
 		oto = $("#add-gia-giu-xe-oto").val();
-		trangthai = 'new';
 		tenc = '#add-ten-chiphi';
 		checkEmpty(tenc);
 
 		if(ten != '') {
-			console.log('Dataaa: ', _.concat([nhatro, ten,dien,nuoc,wifi,rac,giuxe,xedap,xemay,oto,trangthai]));
+			console.log('Dataaa: ', _.concat([nhatro, ten,dien,nuoc,wifi,rac,giuxe,xedap,xemay,oto]));
 			$.ajax({
 				type: 'post',
 				url: 'rooms/addChiPhi',
@@ -157,7 +156,8 @@
 					xedap: xedap,
 					xemay: xemay,
 					oto: oto,
-					trangthai: trangthai
+					trangthai: 'new',
+					selected: 'no'
 				},
 				success: function(data) {
 					console.log('DATAAA: ', data);

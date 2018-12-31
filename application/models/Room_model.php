@@ -77,7 +77,7 @@ class Room_model extends CI_Model {
     	// Insert new nhatro
     	$nhatro = array('MANT' => $id, 'TENNT' => $nt['ten'], 'MAND' => $nt['chutro'], 'DCTD' => $nt['diachi'], 'MATTP' => $nt['tinhtp'], 'MAQH' => $nt['quanhuyen'], 'MAPX' => $nt['phuongxa'], 'Camera'=>$nt['camera'], 'Parking'=>$nt['parking'], 'Guard'=>$nt['guard']);
     	$this->db->insert('nhatro', $nhatro);
-    	if($this->db->affected_rows() > 0) return true;
+    	if($this->db->affected_rows() > 0) return $id;
     	return false;
     }
 
@@ -129,7 +129,7 @@ class Room_model extends CI_Model {
 
     // Add new chi phi
     public function addChiPhi($chiphi) {
-    	$data = array('TENCP' => $chiphi['ten'], 'MANT' => $chiphi['nhatro'], 'GIANUOC' => $chiphi['nuoc'], 'GIADIEN' => $chiphi['dien'], 'GiaGXe' => $chiphi['giuxe'], 'GiaWifi' => $chiphi['wifi'], 'GiaRac' => $chiphi['rac'], 'XEDAP' => $chiphi['xedap'], 'XEMAY' => $chiphi['xemay'], 'OTO' => $chiphi['oto'], 'Selected' => 'no', 'TRANGTHAI' => $chiphi['trangthai']);
+    	$data = array('TENCP' => $chiphi['ten'], 'MANT' => $chiphi['nhatro'], 'GIANUOC' => $chiphi['nuoc'], 'GIADIEN' => $chiphi['dien'], 'GiaGXe' => $chiphi['giuxe'], 'GiaWifi' => $chiphi['wifi'], 'GiaRac' => $chiphi['rac'], 'XEDAP' => $chiphi['xedap'], 'XEMAY' => $chiphi['xemay'], 'OTO' => $chiphi['oto'], 'Selected' => $chiphi['selected'], 'TRANGTHAI' => $chiphi['trangthai']);
     	$this->db->insert('chiphi', $data);
     	if($this->db->affected_rows() > 0) return true;
     	return false;
@@ -137,7 +137,16 @@ class Room_model extends CI_Model {
 
     // Update chi phi
     public function updateChiPhi($chiphi) {
-    	$data = array('MANT'=>$chiphi['nhatro'], 'GIANUOC'=>$chiphi['nuoc'], 'GIADIEN'=>$chiphi['dien'], 'GiaGXe'=>$chiphi['giuxe'], 'GiaWifi'=>$chiphi['wifi'], 'GiaRac'=>$chiphi['giarac'], 'Selected' => $chiphi['selected'], 'TRANGTHAI' => $chiphi['trangthai']);
+    	$data = array('TENCP' => $chiphi['ten'], 'MANT'=>$chiphi['nhatro'], 'GIANUOC'=>$chiphi['nuoc'], 'GIADIEN'=>$chiphi['dien'], 'GiaGXe'=>$chiphi['giuxe'], 'GiaWifi'=>$chiphi['wifi'], 'GiaRac'=>$chiphi['giarac'], 'Selected' => $chiphi['selected'], 'TRANGTHAI' => $chiphi['trangthai']);
+    	$this->db->where('MACP', $chiphi['id']);
+    	$this->db->update('chiphi', $data);
+    	if($this->db->affected_rows() > 0) return true;
+    	return false;
+    }
+
+    // Update selected
+    public function updateSelectedTrangThaiChiPhi($chiphi) {
+    	$data = array('MANT'=>$chiphi['nhatro'], 'Selected'=>$chiphi['selected'], 'TRANGTHAI'=>$chiphi['trangthai']);
     	$this->db->where('MACP', $chiphi['id']);
     	$this->db->update('chiphi', $data);
     	if($this->db->affected_rows() > 0) return true;
