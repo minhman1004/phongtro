@@ -5,10 +5,52 @@ class Publish extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		// Call Publish_model
-		$this->load->Model("Publish_model");
+
 	}
 
 	public function index() {
+		// hinh anh
+		if(!empty($_FILES['userFiles']['name'])){
+            $filesCount = count($_FILES['userFiles']['name']);
+            for($i = 0; $i < $filesCount; $i++){
+                $_FILES['userFile']['name'] = $_FILES['userFiles']['name'][$i];
+                $_FILES['userFile']['type'] = $_FILES['userFiles']['type'][$i];
+                $_FILES['userFile']['tmp_name'] = $_FILES['userFiles']['tmp_name'][$i];
+                $_FILES['userFile']['error'] = $_FILES['userFiles']['error'][$i];
+                $_FILES['userFile']['size'] = $_FILES['userFiles']['size'][$i];
+
+                $uploadPath = 'img/';
+                $config['upload_path'] = $uploadPath;
+                $config['allowed_types'] = 'gif|jpg|png';
+                
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                if($this->upload->do_upload('userFile')){
+                    $fileData = $this->upload->data();
+                    $pathArr[$i]=$uploadPath.$fileData['file_name'];
+                } else{
+                	echo $this->upload->display_errors();
+                }
+            }
+            $imageArr = $this->quanlynhatro->getImage(1);
+			if(!empty($imageArr[0]->HINHANH)){
+				$images = explode(",", $imageArr[0]->HINHANH);
+				foreach ($images as $ima) {
+					unlink($ima);
+				}
+			}
+            $path = implode(",", $pathArr);
+
+
+            //Insert file information into the database
+            $insert = $this->sdf->uploadImage('thuan', 1);
+        }
+        $imageArr = $this->quanlynhatro->getImage(1);
+        echo json_encode($imageArr[0]->HINHANH);
+		if(!empty($imageArr[0]->HINHANH)){
+			$images = explode(",", $imageArr[0]->HINHANH);
+			//echo $imageArr[0];
+		}
 		// Lay thong tin dia diem
 		$dsTinhTp = $this->Publish_model->getTinhTp();
 		$dsQuanHuyen = $this->Publish_model->getQuanHuyen();
@@ -31,6 +73,9 @@ class Publish extends CI_Controller {
 		$datadisplay['filterQH'] = array_filter($dsQuanHuyen, 'filterQuanHuyen');
 		$datadisplay['filterPX'] = array_filter($dsPhuongXa, 'filterPhuongXa');
 		$datadisplay['nguoidung'] = $nguoidung[0];
+		$datadisplay['images'] = $images;
+
+
 
 		$metadata = array('title' => 'Đăng tin');
 		$this->load->helper('url');

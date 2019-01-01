@@ -119,6 +119,13 @@
               </div>
             </div>
 
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title" id="title-find">Bản Đồ</h4>               
+                <div id="map" style="width: 100%; height: 300px"></div>
+              </div>
+            </div>
+
             <!-- Thông tin nhà trọ -->
             <div class="card">
               <div class="card-body">
@@ -239,7 +246,25 @@
             </div>
 
             <!-- Hình ảnh -->
+
             <div class="card">
+                            <label for="hinhanh"><strong>Hình ảnh</strong></label>
+                            <!-- HTML code for form element and preview image element -->
+                            <div id="wrapper">
+                                  <input type="file" id="userFiles" name="userFiles[]" onchange="preview_image();" multiple/>
+                                  <!-- <input type="submit" name='submit_image' value="Upload Image"/> -->
+                                 <div id="image_preview">
+                                    <?  if(!empty($images))
+                                            foreach ($images as $ima) {
+                                                ?>
+                                                <img src='<?php echo base_url($ima); ?>' class='subimage'>
+                                                <?
+                                            }
+                                        ?>
+                                 </div>
+                                </div>
+                        </div> <!-- /field -->
+            <!-- <div class="card">
               <div class="card-body">
                 <h4 class="card-title d-flex">Hình ảnh</h4>
                 <div class="dropify-wrapper">
@@ -267,7 +292,7 @@
                     </div>
                   </div>
               </div>
-            </div>
+            </div> -->
 
             <!-- Hình thức đăng tin -->
             <div class="card">
@@ -314,6 +339,11 @@
             <div class="row" style="margin-left: 0">
               <button type="submit" id="publish" name="dangtin" class="btn btn-primary mr-2">Đăng tin</button>
             </div>
+            <div class="login-actions">
+                    
+                        <button id="luu" class="button btn btn-success btn-large">Lưu</button>
+                    
+             </div> 
           </div>
 
 
@@ -358,6 +388,185 @@
     </div>
   </div>
 </div>
+<script>
+      // This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+
+      var currentLocation;
+      var marker;
+      var myLatLng = {lat: -34.397, lng: 150.644};
+
+      function initAutocomplete() {
+       
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: myLatLng,
+          zoom: 15,
+          mapTypeId: 'roadmap'
+        });
+        marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    //draggable: true //make it draggable
+                });
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('dia-chi-chinh-xac-dang-tin');
+        $("dia-chi-chinh-xac-dang-tin").change(function(){
+            input = document.getElementById('dia-chi-chinh-xac-dang-tin');
+            var searchBox = new google.maps.places.SearchBox(input);
+        //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+          map.addListener('bounds_changed', function() {
+            searchBox.setBounds(map.getBounds());
+          });
+          });
+        var searchBox = new google.maps.places.SearchBox(input);
+        //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+          map.addListener('bounds_changed', function() {
+            searchBox.setBounds(map.getBounds());
+          });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          //Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.location,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            //Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              animation: google.maps.Animation.DROP,
+              title: place.name,
+              position: place.geometry.location
+            }));
+            
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+
+        });
+        function clearLocations() {
+            info_Window = new google.maps.InfoWindow();
+            info_Window.close();
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+            markers.length = 0;
+        }
+        
+        //Listen for any clicks on the map.
+        google.maps.event.addListener(map, 'click', function(event) { 
+
+            clearLocations();
+            //Get the location that the user clicked.
+            var clickedLocation = event.latLng;
+            var latitude = event.latLng.lat();
+            var longitude = event.latLng.lng();
+            // console.log( latitude + ', ' + longitude );
+            //If the marker hasn't been added.
+            if(marker == undefined){
+                //Create the marker.
+                marker = new google.maps.Marker({
+                    position: clickedLocation,
+                    map: map,
+                    //draggable: true //make it draggable
+                });
+               
+            } else{
+                //Marker has already been added, so just change its location.
+                marker.setPosition(clickedLocation);
+            }
+            map.setCenter(clickedLocation);
+            //Get the marker's location.
+            markerLocation();
+        });
+
+        function markerLocation(){
+            //Get location.
+            currentLocation = marker.getPosition();
+            var lt, ln;
+            lt = currentLocation.lat();
+            ln = currentLocation.lng();
+            console.log(lt + ' - ' + ln);
+           
+            $.ajax({
+                type: "POST",
+                //url: "<?php echo site_url('caidat/update_toado'); ?>",
+                data: {vd: currentLocation.lat(), kd: currentLocation.lng()},
+                //dataType: 'json',
+                success:function(data){
+                    //$('#quanhuyen').html(data);
+                    //$('#city').html('<option value="0">Select City</option>');
+                    //$('#state').append('<option value="' + id + '">' + name + '</option>');
+                    //console.log('Ok: dt');
+                    //alert('ok');
+                }
+                
+            });
+        };
+      }
+
+    </script>
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaRUCOc4ddsl42iMKR588WkgYhpDuTSk&libraries=places&callback=initAutocomplete"  async defer>   
+ </script>
+ <style type="text/css">
+    input{
+        width: 100%;
+    }
+    .wrap{width: 100%;margin-bottom: 20px;}
+    .gallery{ width:100%; float:left; margin-top:30px;}
+    .gallery ul{ margin:0; padding:0; list-style-type:none;}
+    .gallery ul li{ padding:7px; border:2px solid #ccc; float:left; margin:10px 7px; background:none; width:auto; height:auto;}
+    .gallery img{ width:250px;}
+    .none{ display:none;}
+    .upload_div{ margin-bottom:50px;}
+    .uploading{ margin-top:15px;}
+    .form_box{width:500px; margin:0 auto; margin-top:10px; margin-bottom: 40px; text-align: left;}
+    .fileinput{margin-left: 10px;}
+    .image_preview{width: 100%;background-position: center center;background-repeat: no-repeat;overflow: hidden;}
+    .subimage{width: 100px; height: 100px; padding-left: 10px;}
+</style>
 <script type="text/javascript">
   var tinhtp = <?php echo json_encode($tinhtp) ?>;
   var quanhuyen = <?php echo json_encode($quanhuyen) ?>;
@@ -365,3 +574,45 @@
   var diachitt = <?php echo json_encode($diachitt) ?>;
 </script>
 <script src="<?php echo base_url(); ?>assets/main/publish.js"></script>
+<script src="<?php echo base_url(); ?>assets/main/map.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#luu').on('click', function(){
+              var link;
+              link = 'jsdhgajdhbahsd';
+              //  var curLoc = currentLocation;
+                //console.log();
+                //alert(curLoc.lat() + ', ' + curLoc.lng());
+                $.ajax({
+                    type: "POST",
+                    url: 'publish/index',
+                  //  data: {vd: curLoc.lat(), kd: curLoc.lng()},
+                    //dataType: 'json',
+                    success:function(data){
+                      console.log(data);
+                        //$('#quanhuyen').html(data);
+                        //$('#city').html('<option value="0">Select City</option>');
+                        //$('#state').append('<option value="' + id + '">' + name + '</option>');
+                        //console.log('Ok: dt');
+                        //alert('ok');
+                    },error: function(e) {
+                      console.log(e);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+<script>
+function preview_image() 
+{
+ var total_file=document.getElementById("userFiles").files.length;
+ $('#image_preview').empty();
+ for(var i=0;i<total_file;i++)
+ {
+    $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"' class='subimage'>");
+ }
+}
+</script>

@@ -47,5 +47,19 @@ class quanlynhatro extends CI_Model {
             $this->db->update('loaiphong', $data); 
         }
 
+   function getImage($mant)
+    {
+        $query = $this->db->query('select HINHANH from test where MANT='.$mant.';');
+        return $query->result();
+    }
+    
+    function uploadImage($location, $mant)
+    {
+        $data = array('HINHANH' => $location);
+
+        $this->db->where('MANT', $mant);
+        $this->db->update('test', $data); 
+    }
+
 
 }
