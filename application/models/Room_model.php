@@ -58,7 +58,7 @@ class Room_model extends CI_Model {
     	$id = max($data) + 1;
     	
     	// Insert new nhatro
-    	$nhatro = array('MANT' => $id, 'TENNT' => $nt['ten'], 'MAND' => $nt['chutro'], 'DCTD' => $nt['diachi'], 'MATTP' => $nt['tinhtp'], 'MAQH' => $nt['quanhuyen'], 'MAPX' => $nt['phuongxa'], 'MAD' => $nt['duong'], 'Camera'=>$nt['camera'], 'Parking'=>$nt['parking'], 'Guard'=>$nt['guard']);
+    	$nhatro = array('MANT' => $id, 'TENNT' => $nt['ten'], 'MAND' => $nt['chutro'], 'DCTD' => $nt['diachi'], 'MATTP' => $nt['tinhtp'], 'MAQH' => $nt['quanhuyen'], 'MAPX' => $nt['phuongxa'], 'MAD' => $nt['duong'], 'Camera'=>$nt['camera'], 'Parking'=>$nt['parking'], 'Guard'=>$nt['guard'], 'KINHDO'=>$nt['kinhdo'], 'VIDO'=>$nt['vido']);
     	$this->db->insert('nhatro', $nhatro);
     	if($this->db->affected_rows() > 0) return true;
     	return false;
@@ -75,7 +75,7 @@ class Room_model extends CI_Model {
     	$id = max($data) + 1;
     	
     	// Insert new nhatro
-    	$nhatro = array('MANT' => $id, 'TENNT' => $nt['ten'], 'MAND' => $nt['chutro'], 'DCTD' => $nt['diachi'], 'MATTP' => $nt['tinhtp'], 'MAQH' => $nt['quanhuyen'], 'MAPX' => $nt['phuongxa'], 'Camera'=>$nt['camera'], 'Parking'=>$nt['parking'], 'Guard'=>$nt['guard']);
+    	$nhatro = array('MANT' => $id, 'TENNT' => $nt['ten'], 'MAND' => $nt['chutro'], 'DCTD' => $nt['diachi'], 'MATTP' => $nt['tinhtp'], 'MAQH' => $nt['quanhuyen'], 'MAPX' => $nt['phuongxa'], 'Camera'=>$nt['camera'], 'Parking'=>$nt['parking'], 'Guard'=>$nt['guard'], 'KINHDO'=>$nt['kinhdo'], 'VIDO'=>$nt['vido']);
     	$this->db->insert('nhatro', $nhatro);
     	if($this->db->affected_rows() > 0) return $id;
     	return false;
@@ -89,7 +89,7 @@ class Room_model extends CI_Model {
 
     // Update nha tro with MAD
     public function updateNhaTroDuong($nt) {
-    	$data = array('TENNT' => $nt['ten'], 'MAND' => $nt['chutro'], 'DCTD' => $nt['diachi'], 'MATTP' => $nt['tinhtp'], 'MAQH' => $nt['quanhuyen'], 'MAPX' => $nt['phuongxa'], 'MAD' => $nt['duong'], 'Camera'=>$nt['camera'], 'Parking'=>$nt['parking'], 'Guard'=>$nt['guard']);
+    	$data = array('TENNT' => $nt['ten'], 'MAND' => $nt['chutro'], 'DCTD' => $nt['diachi'], 'MATTP' => $nt['tinhtp'], 'MAQH' => $nt['quanhuyen'], 'MAPX' => $nt['phuongxa'], 'MAD' => $nt['duong'], 'Camera'=>$nt['camera'], 'Parking'=>$nt['parking'], 'Guard'=>$nt['guard'], 'KINHDO'=>$nt['kinhdo'], 'VIDO'=>$nt['vido']);
     	$this->db->where('MANT', $nt['id']);
     	$this->db->update('nhatro', $data);
     	if($this->db->affected_rows() > 0) return true;
@@ -98,7 +98,7 @@ class Room_model extends CI_Model {
 
     // Update nha tro without MAD
     public function updateNhaTro($nt) {
-    	$data = array('TENNT' => $nt['ten'], 'MAND' => $nt['chutro'], 'DCTD' => $nt['diachi'], 'MATTP' => $nt['tinhtp'], 'MAQH' => $nt['quanhuyen'], 'MAPX' => $nt['phuongxa'], 'Camera'=>$nt['camera'], 'Parking'=>$nt['parking'], 'Guard'=>$nt['guard']);
+    	$data = array('TENNT' => $nt['ten'], 'MAND' => $nt['chutro'], 'DCTD' => $nt['diachi'], 'MATTP' => $nt['tinhtp'], 'MAQH' => $nt['quanhuyen'], 'MAPX' => $nt['phuongxa'], 'MAD' => $nt['duong'], 'Camera'=>$nt['camera'], 'Parking'=>$nt['parking'], 'Guard'=>$nt['guard'], 'KINHDO'=>$nt['kinhdo'], 'VIDO'=>$nt['vido']);
     	$this->db->where('MANT', $nt['id']);
     	$this->db->update('nhatro', $data);
     	if($this->db->affected_rows() > 0) return true;
@@ -162,5 +162,12 @@ class Room_model extends CI_Model {
     	}
     	if(count($data)) return $data;
     	return false;
+    }
+
+    // Get Position
+    public function getPosition($id) {
+    	$this->db->select('KINHDO, VIDO');
+    	$query = $this->db->get_where('nhatro', array('MANT'=>$id));
+    	return $query->result()[0];
     }
 }

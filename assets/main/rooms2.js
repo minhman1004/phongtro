@@ -194,4 +194,8 @@
 		}
 	}
 
+	$(document).on('click', '.xemphong-nhatro', function() {
+		window.open('http://www.google.com', '_blank');
+	});
+
 })(jQuery);

@@ -38,6 +38,8 @@ class Rooms extends CI_Controller {
 		$data['camera'] = $this->input->post('camera');
 		$data['parking'] = $this->input->post('parking');
 		$data['guard'] = $this->input->post('guard');
+		$data['vido'] = $this->input->post('vido');
+		$data['kinhdo'] = $this->input->post('kinhdo');
 
 		$result = $this->Room_model->addNhaTroDuong($data);
 		if($result == true) echo 'true';
@@ -54,6 +56,8 @@ class Rooms extends CI_Controller {
 		$data['camera'] = $this->input->post('camera');
 		$data['parking'] = $this->input->post('parking');
 		$data['guard'] = $this->input->post('guard');
+		$data['vido'] = $this->input->post('vido');
+		$data['kinhdo'] = $this->input->post('kinhdo');
 
 		$cp['nhatro'] = $this->Room_model->addNhaTro($data);
 		if($cp['nhatro'] != false) {
@@ -111,6 +115,8 @@ class Rooms extends CI_Controller {
 		$data['camera'] = $this->input->post('camera');
 		$data['parking'] = $this->input->post('parking');
 		$data['guard'] = $this->input->post('guard');
+		$data['vido'] = $this->input->post('vido');
+		$data['kinhdo'] = $this->input->post('kinhdo');
 		
 		$cp['nhatro'] = $data['id'];
 		$cp['ten'] = $this->input->post('tencp');
@@ -171,6 +177,9 @@ class Rooms extends CI_Controller {
 		$data['camera'] = $this->input->post('camera');
 		$data['parking'] = $this->input->post('parking');
 		$data['guard'] = $this->input->post('guard');
+		$data['vido'] = $this->input->post('vido');
+		$data['kinhdo'] = $this->input->post('kinhdo');
+		$data['duong'] = null;
 		
 		// Thong tin chi phi
 		$cp['nhatro'] = $data['id'];
@@ -242,6 +251,13 @@ class Rooms extends CI_Controller {
 
 		$result = $this->Room_model->addChiPhi($data);
 		if($result == true) echo 'true';
+		else echo 'false';
+	}
+
+	public function getPosition() {
+		$data['id'] = $this->input->post('id');
+		$result = $this->Room_model->getPosition($data['id']);
+		if($result != false) echo json_encode($result);
 		else echo 'false';
 	}
 }
