@@ -8,11 +8,13 @@ class Publish extends CI_Controller {
 
 	}
 
-	public function index() {
-		// hinh anh
-		if(!empty($_FILES['userFiles']['name'])){
+	public function index()
+    {
+        if(!empty($_FILES['userFiles']['name']))
+        {
             $filesCount = count($_FILES['userFiles']['name']);
-            for($i = 0; $i < $filesCount; $i++){
+            for($i = 0; $i < $filesCount; $i++)
+            {
                 $_FILES['userFile']['name'] = $_FILES['userFiles']['name'][$i];
                 $_FILES['userFile']['type'] = $_FILES['userFiles']['type'][$i];
                 $_FILES['userFile']['tmp_name'] = $_FILES['userFiles']['tmp_name'][$i];
@@ -21,36 +23,40 @@ class Publish extends CI_Controller {
 
                 $uploadPath = 'img/';
                 $config['upload_path'] = $uploadPath;
-                $config['allowed_types'] = 'gif|jpg|png';
+                $config['allowed_types'] = 'gif|jpg|png|PNG';
                 
                 $this->load->library('upload', $config);
                 $this->upload->initialize($config);
                 if($this->upload->do_upload('userFile')){
                     $fileData = $this->upload->data();
                     $pathArr[$i]=$uploadPath.$fileData['file_name'];
-                } else{
-                	echo $this->upload->display_errors();
+                } 
+                else{
+                    echo $this->upload->display_errors();
                 }
             }
-            $imageArr = $this->quanlynhatro->getImage(1);
-			if(!empty($imageArr[0]->HINHANH)){
-				$images = explode(",", $imageArr[0]->HINHANH);
-				foreach ($images as $ima) {
-					unlink($ima);
-				}
-			}
+            $imageArr = $this->restaurant_m->getImage(2);
+            if(!empty($imageArr[0]->HinhAnh))
+            {
+                $images = explode(",", $imageArr[0]->HinhAnh);
+                foreach ($images as $ima) {
+                    unlink($ima);
+                }
+            }
             $path = implode(",", $pathArr);
-
-
             //Insert file information into the database
-            $insert = $this->sdf->uploadImage('thuan', 1);
+            $insert = $this->restaurant_m->uploadImage($path, 2);
+        }        
+        $imageArr = $this->restaurant_m->getImage(2);
+        if(!empty($imageArr[0]->HinhAnh)){
+            $images = explode(",", $imageArr[0]->HinhAnh);
+            //echo $imageArr[0];
         }
-        $imageArr = $this->quanlynhatro->getImage(1);
-        echo json_encode($imageArr[0]->HINHANH);
-		if(!empty($imageArr[0]->HINHANH)){
-			$images = explode(",", $imageArr[0]->HINHANH);
-			//echo $imageArr[0];
-		}
+        else
+        {
+            $images ='';
+        }
+
 		// Lay thong tin dia diem
 		$dsTinhTp = $this->Publish_model->getTinhTp();
 		$dsQuanHuyen = $this->Publish_model->getQuanHuyen();

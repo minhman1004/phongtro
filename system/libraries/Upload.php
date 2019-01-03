@@ -11,7 +11,7 @@
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
- * @filesource
+ * @
  */
 
 // ------------------------------------------------------------------------

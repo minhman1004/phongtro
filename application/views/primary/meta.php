@@ -10,11 +10,16 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendors/css/vendor.bundle.addons.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/horizontal-layout/style.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/horizontal-layout/mystyle.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/lightgallery/lightgallery.css">
   <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" />
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/lightgallery/lightgallery.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/vertical-layout-light/style.css">
   <script src="<?php echo base_url(); ?>assets/vendors/js/vendor.bundle.base.js"></script>
-  <script src="<?php echo base_url(); ?>assets/vendors/js/vendor.bundle.addons.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/vendor.bundle.addons.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/light-gallery.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/lightgallery-all.min.js"></script>
+   <script src="<?php echo base_url(); ?>assets/js/vendor.bundle.addons.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/off-canvas.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/hoverable-collapse.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/template.js"></script>
@@ -34,4 +39,9 @@
   <script src="<?php echo base_url(); ?>assets/js/dropzone.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/jquery-file-upload.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/lodash.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/light-gallery.js"></script>
+
+
+  <script src="<?php echo base_url(); ?>assets/js/lightgallery-all.min.js"></script>
+
 </head>

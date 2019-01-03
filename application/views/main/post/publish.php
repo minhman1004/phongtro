@@ -2,7 +2,7 @@
   <div class="main-panel">
     <div class="content-wrapper">
       <!-- Bread Crumb -->
-      <form action="<?php echo base_url()?>post/publish/index" method="post">
+      <form action="<?php echo base_url()?>post/publish/index" method="post" enctype="multipart/form-data">
         <div class="row">
           <!-- Left side -->
           <div class="col-9">
@@ -252,18 +252,23 @@
                             <!-- HTML code for form element and preview image element -->
                             <div id="wrapper">
                                   <input type="file" id="userFiles" name="userFiles[]" onchange="preview_image();" multiple/>
-                                  <!-- <input type="submit" name='submit_image' value="Upload Image"/> -->
+                    <div id="lightgallery" class="row lightGallery">
                                  <div id="image_preview">
                                     <?  if(!empty($images))
                                             foreach ($images as $ima) {
                                                 ?>
+                                                <a href='<?php echo base_url($ima); ?>' class="image-tile">
                                                 <img src='<?php echo base_url($ima); ?>' class='subimage'>
+                                                </a>
                                                 <?
                                             }
                                         ?>
                                  </div>
-                                </div>
-                        </div> <!-- /field -->
+                    </div>
+                        </div> 
+                  </div>
+    
+                      <!-- /field -->
             <!-- <div class="card">
               <div class="card-body">
                 <h4 class="card-title d-flex">Hình ảnh</h4>
@@ -605,14 +610,14 @@
     </script>
 
 
-<script>
-function preview_image() 
-{
- var total_file=document.getElementById("userFiles").files.length;
- $('#image_preview').empty();
- for(var i=0;i<total_file;i++)
- {
-    $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"' class='subimage'>");
- }
-}
+<script>  
+  function preview_image() 
+  {
+   var total_file=document.getElementById("userFiles").files.length;
+   $('#lightgallery').empty();
+   for(var i=0;i<total_file;i++)
+   {
+      $('#lightgallery').append("<img src='"+URL.createObjectURL(event.target.files[i])+"' class='subimage'>");
+   }
+  }
 </script>

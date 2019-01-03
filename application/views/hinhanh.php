@@ -1,91 +1,62 @@
-<div class="container-fluid page-body-wrapper">
-  <div class="main-panel">
-    <div class="content-wrapper">
-      <!-- Bread Crumb -->
-     
-      	 <div class="card">
+<form action="<?php echo base_url(); ?>hinhanh/index" method="post" enctype="multipart/form-data">
+       <div class="content-wrapper">
+          <div class="row grid-margin">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">light Gallery</h4>
+                  <p class="card-text">
+                    Click on any image to open in lightbox gallery
+                  </p>
+                  <div class="card">
                             <label for="hinhanh"><strong>Hình ảnh</strong></label>
                             <!-- HTML code for form element and preview image element -->
                             <div id="wrapper">
                                   <input type="file" id="userFiles" name="userFiles[]" onchange="preview_image();" multiple/>
-                                  <!-- <input type="submit" name='submit_image' value="Upload Image"/> -->
+                    <div id="lightgallery" class="row lightGallery">
                                  <div id="image_preview">
                                     <?  if(!empty($images))
                                             foreach ($images as $ima) {
                                                 ?>
+                                                <a href='<?php echo base_url($ima); ?>' class="image-tile">
                                                 <img src='<?php echo base_url($ima); ?>' class='subimage'>
+                                                </a>
                                                 <?
                                             }
                                         ?>
                                  </div>
-                                </div>
-                        </div>
-                        <div class="login-actions">
+                    </div>
+                        </div> 
+                  </div>
+    
+
+
+                        <div class="login-actions">                    
+                              <button id="luu" name = 'fileSubmit' class="button btn btn-success btn-large">Lưu</button>
                     
-                       <button id="luu" class="button btn btn-success btn-large">Lưu</button>
-                    
-             </div> 
+                       </div> 
+        
       
-  </div>
+          </div>
 </div>
 </div>
-<!-- set image  -->
+</div>
+</div>
+</form>
 
 
-<script type="text/javascript">
-        $(document).ready(function(){
-            $('#luu').on('click', function(){
-              //  var curLoc = currentLocation;
-                //console.log();
-                //alert(curLoc.lat() + ', ' + curLoc.lng());
-                $.ajax({
-                    type: "POST",
-                    url: 'hinhanh/hinhanh',
-                    success: function(data) {
-                    	console.log('data: ',data);
-                    },
-                    error: function(e) {
+</div>
+</form>
 
-                    }
 
-                   
-                });
-            });
-        });
-</script>
-
-   
-    <!-- jQuery read image data and show preview code -->
-    <script type="text/javascript">
-    $(document).ready(function(){
-        //Image file input change event
-        $("#image").change(function(){
-            readImageData(this);//Call image read and render function
-        });
-    });
-
-    function readImageData(imgData){
-        if (imgData.files && imgData.files[0]) {
-            var readerObj = new FileReader();
-            
-            readerObj.onload = function (element) {
-                $('#preview_img').attr('src', element.target.result);
-            }
-            
-            readerObj.readAsDataURL(imgData.files[0]);
-        }
-    }
-    </script>
-
-<<script>
-	
-	function preview_image() 
-	{
-	 var total_file=document.getElementById("userFiles").files.length;
-	 $('#image_preview').empty();
-	 for(var i=0;i<total_file;i++)
-	 {
-	    $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"' class='subimage'>");
-	 }
-	}
+<script>  
+  function preview_image() 
+  {
+   var total_file=document.getElementById("userFiles").files.length;
+   $('#lightgallery').empty();
+   for(var i=0;i<total_file;i++)
+   {
+      $('#lightgallery').append("<img src='"+URL.createObjectURL(event.target.files[i])+"' class='subimage'>");
+   }
+  }
 </script>

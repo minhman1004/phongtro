@@ -1,6 +1,10 @@
 (function($) {
   'use strict';
+
+$(document).ready(function() {
   if ($("#lightgallery").length) {
+    console.log('true');
+
     $("#lightgallery").lightGallery();
   }
 
@@ -15,4 +19,6 @@
   if ($("#video-gallery").length) {
     $("#video-gallery").lightGallery();
   }
+});
+   
 })(jQuery);
