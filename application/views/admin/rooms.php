@@ -308,7 +308,7 @@
                         <td title="<?=$nhatro_s->DCTD?>"><?=substr($nhatro_s->DCTD, 0, 50)?></td>
                         <td>
                           <button class="btn btn-sm btn-outline-primary edit-nhatro" data="<?=$nhatro_s->MANT?>">Xem</button>
-                          <button class="btn btn-sm btn-outline-primary xemphong-nhatro"  data="<?=$nhatro_s->MANT?>">DS Phòng</button>
+                          <button class="btn btn-sm btn-outline-primary xemphong-nhatro" onclick="window.open('rooms/detail/<?=$nhatro_s->MANT?>', '_blank')" data="<?=$nhatro_s->MANT?>">DS Phòng</button>
                         </td>
                       </tr>
                     <?php } ?>
@@ -320,27 +320,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Danh sách phòng trọ -->
-    <div class="row grid-margin">
-      <!-- Danh sach phong tro -->
-      <div class="col-12">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Thông tin danh sách phòng, người ở</h4>
-            <div class="d-flex table-responsive">
-              <button class="btn btn-sm btn-primary" id="open-modal-add-phongtro" data-toggle="modal" data-target="#modal-add-phongtro" style="height: 43px;"><i class="mdi mdi-plus-circle-outline"></i> Thêm</button>
-              <!-- Search -->
-              <div class="form-group col-md-6">
-                <select id="search-phongtro" class="form-control form-control-md" style="width:100%"></select>
-              </div>
-              <button class="btn btn-sm btn-outline-primary" id="open-modal-search-phongtro" style="height: 43px;"><i class="mdi mdi-open-in-app"></i> Xem</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
   <script src="<?php echo base_url(); ?>assets/main/rooms.js"></script>
   <script src="<?php echo base_url(); ?>assets/main/rooms2.js"></script>
@@ -429,7 +408,7 @@
         });
       });
 
-      $(document).on('change paste keyup', '#add-diachi-chinhxac', function() {
+      $(document).on('change paste keyup click', '#add-diachi-chinhxac', function() {
         var address = $("#add-diachi-chinhxac").val();
         geocoder.geocode({'address': address}, function(results, status) {
           if(status === 'OK') {

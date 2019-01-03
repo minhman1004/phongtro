@@ -260,4 +260,16 @@ class Rooms extends CI_Controller {
 		if($result != false) echo json_encode($result);
 		else echo 'false';
 	}
+
+	public function detail($id) {
+		$data['nhatro'] = $this->Room_model->getMotNhaTro($id);
+		$data['phongtro'] = $this->Room_model->getPhongTro($id);
+		$metadata = array('title'=>'Thông tin phòng, người ở.');
+		$this->load->helper('url');
+		$this->load->view('primary/metaadmin', $metadata);
+		$this->load->view('primary/adminHeader');
+		$this->load->view('primary/adminMenu');
+		$this->load->view('admin/roomdetails', $data);
+		$this->load->view('primary/adminFooter');
+	}
 }

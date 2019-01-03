@@ -170,4 +170,48 @@ class Room_model extends CI_Model {
     	$query = $this->db->get_where('nhatro', array('MANT'=>$id));
     	return $query->result()[0];
     }
+
+    // Get danh sach phong tro
+    public function getPhongTro($id) {
+    	// $id nha tro
+    	$query = $this->db->get_where('phongtro', array('MANT'=>$id));
+    	$data = array();
+    	foreach(@$query->result() as $row) {
+    		$data[] = $row;
+    	}
+    	if(count($data)) return $data;
+    	return false;
+    }
+
+    public function updatePhongTro($pt) {
+    	$data = array('TEN'=>$pt['ten'], 'MATT'=>$pt['matt'], 'DienTich'=>$pt['dientich'], 'SLTD'=>$pt['sltd'], 'SLNDO'=>$pt['slndo'], 'GhiChu'=>$pt['ghichu']);
+    	$this->db->where('MAPT', $pt['id']);
+    	$this->db->update('phongtro', $data);
+    	if($this->affected_rows() > 0) return $data['id'];
+    	return false;
+    }
+
+
+    public function addPhongTro($pt) {    	// Get max id for nhatro
+    	$query = $this->db->get('phongtro');
+    	$data = array();
+    	foreach(@$query->result() as $row) {
+    		$data[] = $row->MAPT;
+    	}
+    	$id = max($data) + 1;
+    	$data = array('MAPT'=>$id, 'MANT'=>$pt['mant'], 'TEN'=>$pt['ten'], 'MATT'=>$pt['matt'], 'DienTich'=>$pt['dientich'], 'SLTD'=>$pt['sltd'], 'SLNDO'=>$pt['slndo'], 'GhiChu'=>$pt['ghichu']);
+    	$this->db->insert('phongtro', $data);
+    	if($this->affected_rows() > 0) return $id;
+    	return false;
+    }
+
+    public function getGiaTien($pt) {
+    	$query = $this->db->get_where('tientro', array('MAPT'=>$pt));
+    	$data = array();
+    	foreach(@$query->result() as $row) {
+    		$data[] = $row;
+    	}
+    	if(count($data)) return $data;
+    	return false;
+    }
 }
