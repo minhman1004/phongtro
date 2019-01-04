@@ -187,7 +187,7 @@ class Room_model extends CI_Model {
     	$data = array('TEN'=>$pt['ten'], 'MATT'=>$pt['matt'], 'DienTich'=>$pt['dientich'], 'SLTD'=>$pt['sltd'], 'SLNDO'=>$pt['slndo'], 'GhiChu'=>$pt['ghichu']);
     	$this->db->where('MAPT', $pt['id']);
     	$this->db->update('phongtro', $data);
-    	if($this->affected_rows() > 0) return $data['id'];
+    	if($this->db->affected_rows() > 0) return $data['id'];
     	return false;
     }
 
@@ -199,19 +199,53 @@ class Room_model extends CI_Model {
     		$data[] = $row->MAPT;
     	}
     	$id = max($data) + 1;
-    	$data = array('MAPT'=>$id, 'MANT'=>$pt['mant'], 'TEN'=>$pt['ten'], 'MATT'=>$pt['matt'], 'DienTich'=>$pt['dientich'], 'SLTD'=>$pt['sltd'], 'SLNDO'=>$pt['slndo'], 'GhiChu'=>$pt['ghichu']);
+    	$data = array('MAPT'=>$id, 'MANT'=>$pt['mant'], 'TEN'=>$pt['ten'], 'DienTich'=>$pt['dientich'], 'SLTD'=>$pt['sltd'], 'SLNDO'=>$pt['slndo'], 'GhiChu'=>$pt['ghichu']);
     	$this->db->insert('phongtro', $data);
     	if($this->affected_rows() > 0) return $id;
     	return false;
     }
 
-    public function getGiaTien($pt) {
+    public function getTienTro($pt) {
     	$query = $this->db->get_where('tientro', array('MAPT'=>$pt));
     	$data = array();
     	foreach(@$query->result() as $row) {
     		$data[] = $row;
     	}
     	if(count($data)) return $data;
+    	return false;
+    }
+
+    public function addTienTro($tt) {
+    	$query = $this->db->get('tientro');
+    	$data = array();
+    	foreach(@$query->result() as $row) {
+    		$data[] = $row->MATT;
+    	}
+    	$id = max($data) + 1;
+    	$data = array('MATT'=>$id, 'MAPT'=>$tt['mapt'], 'GIA'=>$tt['gia'], 'NGAYTAO'=>$tt['ngaytao']);
+    	$this->db->insert('tientro', $data);
+    	if($this->db->affected_rows() > 0) return $id;
+    	return false;
+    }
+
+    public function updateTienTroPhongTro($pt) {
+    	$data = array('MATT'=>$pt['matt']);
+    	$this->db->where('MAPT', $pt['id']);
+    	$this->db->update('phongtro', $data);
+    	if($this->db->affected_rows() > 0) return true;
+    	return false;
+    }
+
+    public function addThanhVienTro($nt, $mapt) {
+    	$query = $this->db->get('thanhvientro');
+    	$data = array();
+    	foreach(@$query->result() as $row) {
+    		$data[] = $row->MANO;
+    	}
+    	$id = max($data) + 1;
+    	$data = array('MANO'=>$id, 'MAPT'=>$mapt, 'TEN'=>$nt['ten'], 'SDT'=>$nt['sdt'], 'CMND'=>$nt['cmnd'], 'DIACHI'=>$nt['diachi'], 'GIOITINH'=>$nt['gioitinh']);
+    	$this->db->insert('thanhvientro', $data);
+    	if($this->db->affected_rows() > 0) return $id;
     	return false;
     }
 }

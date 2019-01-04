@@ -272,4 +272,42 @@ class Rooms extends CI_Controller {
 		$this->load->view('admin/roomdetails', $data);
 		$this->load->view('primary/adminFooter');
 	}
+
+	public function addPhongTro() {
+		// Thong tin phong tro
+		$pt['ten'] = $this->input->post('ten');
+		$pt['nhatro'] = $this->input->post('nhatro');
+		$pt['dientich'] = $this->input->post('dientich');
+		$pt['sltd'] = $this->input->post('sltd');
+		$pt['slndo'] = $this->input->post('slndo');
+		$pt['tientro'] = $this->input->post('tientro');
+		$pt['ghichu'] = $this->input->post('mota');
+
+		// Thong tin tien tro
+		$tt['mapt'] = $this->Room_model->addPhongTro($data);
+		$tt['gia'] = $this->input->post('tientro');
+		$tt['ngaytao'] = date('Y-m-d h:m:s');
+
+		$upt['matt'] = $this->Room_model->addTienTro($tt);
+		$upt['id'] = $tt['mapt'];
+		$update_pt = $this->Room_model->updateTienTroPhongTro($upt);
+		// Thong tin nguoi o
+		$nt['nguoitro'] = array($this->input->post('dsTro'));
+	}
+
+	public function addThanhVienTro($nguoitro, $mapt) {
+		$result = $this->Room_model->addThanhVienTro($nguoitro, $mapt);
+		if($result == true) return true;
+		return false;
+	}
+
+	public function addThongTinTro($mano, $mapt) {
+		$ttt['mano'] = $mano;
+		$ttt['mapt'] = $mapt;
+		$ttt['trangthai'] = 'dango';
+		$ttt['ngayo'] = date('Y-m-d');
+		$result = $this->Room_model->addThongTinTro($ttt);
+		if($result == true) return true;
+		return false;
+	}
 }
