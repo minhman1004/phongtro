@@ -39,4 +39,5 @@
   <!-- ----- MAIN JS ----- -->
   <script src="<?php echo base_url(); ?>assets/main/sorttable.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/modal-demo.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/cookie.js"></script>
 </head>

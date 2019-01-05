@@ -55,7 +55,12 @@ class Room_model extends CI_Model {
     	foreach(@$query->result() as $row) {
     		$data[] = $row->MANT;
     	}
-    	$id = max($data) + 1;
+        $id = 1;
+        if(isset($data)) {
+            if(count($data)) {
+                $id = max($data) + 1;
+            }
+        }
     	
     	// Insert new nhatro
     	$nhatro = array('MANT' => $id, 'TENNT' => $nt['ten'], 'MAND' => $nt['chutro'], 'DCTD' => $nt['diachi'], 'MATTP' => $nt['tinhtp'], 'MAQH' => $nt['quanhuyen'], 'MAPX' => $nt['phuongxa'], 'MAD' => $nt['duong'], 'Camera'=>$nt['camera'], 'Parking'=>$nt['parking'], 'Guard'=>$nt['guard'], 'KINHDO'=>$nt['kinhdo'], 'VIDO'=>$nt['vido']);
@@ -72,7 +77,12 @@ class Room_model extends CI_Model {
     	foreach(@$query->result() as $row) {
     		$data[] = $row->MANT;
     	}
-    	$id = max($data) + 1;
+        $id = 1;
+        if(isset($data)) {
+            if(count($data)) {
+                $id = max($data) + 1;
+            }
+        }
     	
     	// Insert new nhatro
     	$nhatro = array('MANT' => $id, 'TENNT' => $nt['ten'], 'MAND' => $nt['chutro'], 'DCTD' => $nt['diachi'], 'MATTP' => $nt['tinhtp'], 'MAQH' => $nt['quanhuyen'], 'MAPX' => $nt['phuongxa'], 'Camera'=>$nt['camera'], 'Parking'=>$nt['parking'], 'Guard'=>$nt['guard'], 'KINHDO'=>$nt['kinhdo'], 'VIDO'=>$nt['vido']);
@@ -174,7 +184,11 @@ class Room_model extends CI_Model {
     // Get danh sach phong tro
     public function getPhongTro($id) {
     	// $id nha tro
-    	$query = $this->db->get_where('phongtro', array('MANT'=>$id));
+        $this->db->select('*');
+        $this->db->from('phongtro');
+        $this->db->join('tientro', 'tientro.MATT = phongtro.MATT');
+        $this->db->where('MANT', $id);
+    	$query = $this->db->get();
     	$data = array();
     	foreach(@$query->result() as $row) {
     		$data[] = $row;
@@ -184,11 +198,19 @@ class Room_model extends CI_Model {
     }
 
     public function updatePhongTro($pt) {
-    	$data = array('TEN'=>$pt['ten'], 'MATT'=>$pt['matt'], 'DienTich'=>$pt['dientich'], 'SLTD'=>$pt['sltd'], 'SLNDO'=>$pt['slndo'], 'GhiChu'=>$pt['ghichu']);
+    	$data = array('TEN'=>$pt['ten'], 'DienTich'=>$pt['dientich'], 'SLTD'=>$pt['sltd'], 'GhiChu'=>$pt['ghichu']);
     	$this->db->where('MAPT', $pt['id']);
     	$this->db->update('phongtro', $data);
     	if($this->db->affected_rows() > 0) return $data['id'];
     	return false;
+    }
+
+    public function updatePhongTroWithTienTro($pt) {
+        $data = array('TEN'=>$pt['ten'], 'MATT'=>$pt['matt'], 'DienTich'=>$pt['dientich'], 'SLTD'=>$pt['sltd'], 'GhiChu'=>$pt['ghichu']);
+        $this->db->where('MAPT', $pt['id']);
+        $this->db->update('phongtro', $data);
+        if($this->db->affected_rows() > 0) return $data['id'];
+        return false;
     }
 
 
@@ -198,10 +220,15 @@ class Room_model extends CI_Model {
     	foreach(@$query->result() as $row) {
     		$data[] = $row->MAPT;
     	}
-    	$id = max($data) + 1;
-    	$data = array('MAPT'=>$id, 'MANT'=>$pt['mant'], 'TEN'=>$pt['ten'], 'DienTich'=>$pt['dientich'], 'SLTD'=>$pt['sltd'], 'SLNDO'=>$pt['slndo'], 'GhiChu'=>$pt['ghichu']);
+        $id = 1;
+        if(isset($data)) {
+            if(count($data)) {
+                $id = max($data) + 1;
+            }
+        }
+    	$data = array('MAPT'=>$id, 'MANT'=>$pt['nhatro'], 'TEN'=>$pt['ten'], 'DienTich'=>$pt['dientich'], 'SLTD'=>$pt['sltd'], 'SLNDO'=>$pt['slndo'], 'GhiChu'=>$pt['ghichu']);
     	$this->db->insert('phongtro', $data);
-    	if($this->affected_rows() > 0) return $id;
+    	if($this->db->affected_rows() > 0) return $id;
     	return false;
     }
 
@@ -221,8 +248,13 @@ class Room_model extends CI_Model {
     	foreach(@$query->result() as $row) {
     		$data[] = $row->MATT;
     	}
-    	$id = max($data) + 1;
-    	$data = array('MATT'=>$id, 'MAPT'=>$tt['mapt'], 'GIA'=>$tt['gia'], 'NGAYTAO'=>$tt['ngaytao']);
+        $id = 1;
+        if(isset($data)) {
+            if(count($data)) {
+                $id = max($data) + 1;
+            }
+        }
+    	$data = array('MATT'=>$id, 'MAPT'=>$tt['mapt'], 'GIA'=>$tt['gia'], 'NGAYTAO'=>$tt['ngaytao'], 'CACHTINH'=>$tt['cachtinh']);
     	$this->db->insert('tientro', $data);
     	if($this->db->affected_rows() > 0) return $id;
     	return false;
@@ -242,10 +274,59 @@ class Room_model extends CI_Model {
     	foreach(@$query->result() as $row) {
     		$data[] = $row->MANO;
     	}
-    	$id = max($data) + 1;
-    	$data = array('MANO'=>$id, 'MAPT'=>$mapt, 'TEN'=>$nt['ten'], 'SDT'=>$nt['sdt'], 'CMND'=>$nt['cmnd'], 'DIACHI'=>$nt['diachi'], 'GIOITINH'=>$nt['gioitinh']);
+        $id = 1;
+        if(isset($data)) {
+            if(count($data)) {
+                $id = max($data) + 1;
+            }
+        }
+    	$data = array('MANO'=>$id, 'MAPT'=>$mapt, 'TEN'=>$nt['hoten'], 'SDT'=>$nt['sdt'], 'CMND'=>$nt['cmnd'], 'DIACHI'=>$nt['diachi'], 'GIOITINH'=>$nt['gioitinh']);
     	$this->db->insert('thanhvientro', $data);
     	if($this->db->affected_rows() > 0) return $id;
     	return false;
+    }
+
+    public function addThongTinTro($ttt) {
+    	$data = array('MANO'=>$ttt['mano'], 'MAPT'=>$ttt['mapt'], 'TRANGTHAI'=>$ttt['trangthai'], 'NGAYO'=>$ttt['ngayo']);
+    	$this->db->insert('thongtintro', $data);
+    	if($this->db->affected_rows() > 0) return true;
+    	return false;
+    }
+
+    public function getMotPhongTro($id) {
+        $this->db->select('*');
+        $this->db->from('phongtro');
+        $this->db->join('tientro', 'tientro.MATT = phongtro.MATT');
+        $this->db->where('phongtro.MAPT', $id);
+        $data = $this->db->get();
+        return $data->result()[0];
+    }
+
+    public function getNguoiTro($id) {
+        $this->db->select('*');
+        $this->db->from('thanhvientro');
+        $this->db->join('thongtintro', 'thanhvientro.MANO = thongtintro.MANO');
+        $this->db->join('phongtro', 'phongtro.MAPT = thanhvientro.MAPT');
+        $this->db->where(array('thanhvientro.MAPT'=>$id, 'thongtintro.TRANGTHAI'=>'dango'));
+
+        $result = $this->db->get();
+        if(count($result->result())) return $result->result();
+        return false;
+    }
+
+    public function updateNguoiTro($nt) {
+        $data = array('TEN'=>$nt['ten'], 'CMND'=>$nt['cmnd'], 'SDT'=>$nt['sdt'], 'GIOITINH'=>$nt['gioitinh'], 'DIACHI'=>$nt['diachi']);
+        $this->db->where('MANO', $nt['id']);
+        $this->db->update('thanhvientro', $data);
+        if($this->db->affected_rows() > 0) return true;
+        return false;
+    }
+
+    public function updateSoNguoiDangO($pt) {
+        $data = array('SLNDO'=>$pt['sldo']);
+        $this->db->where('MAPT',$pt['id']);
+        $this->db->update('phongtro', $data);
+        if($this->db->affected_rows() > 0) return true;
+        return false;
     }
 }

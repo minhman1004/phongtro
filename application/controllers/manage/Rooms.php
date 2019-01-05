@@ -262,8 +262,44 @@ class Rooms extends CI_Controller {
 	}
 
 	public function detail($id) {
+		$data['dsnhatro'] = $this->Room_model->getNhaTro();
 		$data['nhatro'] = $this->Room_model->getMotNhaTro($id);
 		$data['phongtro'] = $this->Room_model->getPhongTro($id);
+		if(!isset($data['phongtro'])) {
+			$data['phongtro'] = null;
+		}
+		if(!isset($data['dsnhatro'])) {
+			$data['dsnhatro'] = null;
+		}
+		else {
+			for($i = 0; $i < count($data['dsnhatro']); $i++) {
+				if($data['dsnhatro'][$i]->MANT == $data['nhatro'][0]->MANT) {
+					$data['nhatrohientai'] = $data['dsnhatro'][$i];
+					if($i == 0) {
+						$nhatro_t = null;
+						if(isset($data['dsnhatro'][$i+1])) {
+							$nhatro_s = $data['dsnhatro'][$i+1];
+						}
+						else {
+							$nhatro_s = null;
+						}
+						$data['nhatro_t'] = $nhatro_t;
+						$data['nhatro_s'] = $nhatro_s;
+					}
+					else {
+						$nhatro_t = $data['dsnhatro'][$i-1];
+						if(isset($data['dsnhatro'][$i+1])) {
+							$nhatro_s = $data['dsnhatro'][$i+1];
+						}
+						else {
+							$nhatro_s = null;
+						}
+						$data['nhatro_t'] = $nhatro_t;
+						$data['nhatro_s'] = $nhatro_s;
+					}
+				}
+			}
+		}
 		$metadata = array('title'=>'Thông tin phòng, người ở.');
 		$this->load->helper('url');
 		$this->load->view('primary/metaadmin', $metadata);
@@ -284,20 +320,43 @@ class Rooms extends CI_Controller {
 		$pt['ghichu'] = $this->input->post('mota');
 
 		// Thong tin tien tro
-		$tt['mapt'] = $this->Room_model->addPhongTro($data);
+		$tt['mapt'] = $this->Room_model->addPhongTro($pt);
+		$tt['cachtinh'] = $this->input->post('cachtinh');
 		$tt['gia'] = $this->input->post('tientro');
 		$tt['ngaytao'] = date('Y-m-d h:m:s');
 
-		$upt['matt'] = $this->Room_model->addTienTro($tt);
-		$upt['id'] = $tt['mapt'];
-		$update_pt = $this->Room_model->updateTienTroPhongTro($upt);
+		// Add tientro, update ma tientro into phongtro
+		if($tt['mapt'] != false) {
+			$upt['id'] = $tt['mapt'];
+			$upt['matt'] = $this->Room_model->addTienTro($tt);
+			if($upt['matt'] != false) {
+				$update_pt = $this->Room_model->updateTienTroPhongTro($upt);
+			}
+		}
+
 		// Thong tin nguoi o
-		$nt['nguoitro'] = array($this->input->post('dsTro'));
+		$nt['nguoitro'] = $this->input->post('dsTro');
+		$result = 0;
+		if(isset($nt['nguoitro'])) {
+			for($i = 0; $i< count($nt['nguoitro']); $i++) {
+				$addtvt = $this->addThanhVienTro($nt['nguoitro'][$i], $tt['mapt']);
+				if($addtvt != false) {
+					$addttt = $this->addThongTinTro($addtvt, $tt['mapt']);
+					if($addttt == true) $result ++;
+				}
+			}
+			if($result == count($nt['nguoitro'])) echo 'true';
+			else echo 'false';
+		}
+		else {
+			if($update_pt == true) echo 'true';
+			else echo 'false';
+		}
 	}
 
 	public function addThanhVienTro($nguoitro, $mapt) {
 		$result = $this->Room_model->addThanhVienTro($nguoitro, $mapt);
-		if($result == true) return true;
+		if($result != false) return $result;
 		return false;
 	}
 
@@ -309,5 +368,115 @@ class Rooms extends CI_Controller {
 		$result = $this->Room_model->addThongTinTro($ttt);
 		if($result == true) return true;
 		return false;
+	}
+
+	public function getMotPhongTro() {
+		$id = $this->input->post('id');
+		$data = $this->Room_model->getMotPhongTro($id);
+		if($data != false) echo json_encode($data);
+		else echo 'false';
+	}
+
+	public function updatePhongTro() {
+		$data['id'] = $this->input->post('id');
+		$data['ten'] = $this->input->post('ten');
+		$data['tientro'] = $this->input->post('tientro');
+		$data['cachtinh'] = $this->input->post('cachtinh');
+		$data['cachtinhcu'] = $this->input->post('cachtinhcu');
+		$data['giacu'] = $this->input->post('giacu');
+		$data['dientich'] = $this->input->post('dientich');
+		$data['ghichu'] = $this->input->post('mota');
+		$data['sltd'] = $this->input->post('sltd');
+
+		if(strcmp($data['giacu'], $data['tientro']) != 0 || strcmp($data['cachtinh'], $data['cachtinhcu']) != 0) {
+			$tt['mapt'] = $data['id'];
+			$tt['gia'] = $data['tientro'];
+			$tt['cachtinh'] = $data['cachtinh'];
+			$tt['ngaytao'] = date('Y-m-d h:m:s');
+			$data['matt'] = $this->Room_model->addTienTro($tt);
+		}
+
+		if(isset($data['matt'])) {
+			$result = $this->Room_model->updatePhongTroWithTienTro($data);
+		}
+		else {
+			$result = $this->Room_model->updatePhongTro($data);
+		}
+
+		if($result == true) echo 'true';
+		else echo 'false';
+	}
+
+	public function getNguoiTro() {
+		$id = $this->input->post('id');
+		$data['dsnguoitro'] = $this->Room_model->getNguoiTro($id);
+		$data['sltd'] = $data['dsnguoitro'][0]->SLTD;
+		if($data['dsnguoitro'] != false) echo json_encode($data);
+		else echo 'false';
+	}
+	public function updateNguoiTro() {
+		$data['id'] = $this->input->post('id');
+		$data['ten'] = $this->input->post('ten');
+		$data['cmnd'] = $this->input->post('cmnd');
+		$data['sdt'] = $this->input->post('sdt');
+		$data['diachi'] = $this->input->post('diachi');
+		$data['gioitinh'] = $this->input->post('gioitinh');
+
+		$result = $this->Room_model->updateNguoiTro($data);
+		if($result == true) echo 'true';
+		else echo 'false';
+	}
+
+	public function addNguoiTro() {
+		$data['mapt'] = $this->input->post('mapt');
+		$data['hoten'] = $this->input->post('ten');
+		$data['cmnd'] = $this->input->post('cmnd');
+		$data['sdt'] = $this->input->post('sdt');
+		$data['diachi'] = $this->input->post('diachi');
+		$data['gioitinh'] = $this->input->post('gioitinh');
+
+		$ttt['mano'] = $this->Room_model->addThanhVienTro($data, $data['mapt']);
+		if(isset($ttt['mano'])) {
+			$ttt['ngayo'] = date('Y-m-d h:m:s');
+			$ttt['trangthai'] = 'dango';
+			$ttt['mapt'] = $data['mapt'];
+			$result = $this->Room_model->addThongTinTro($ttt);
+		}
+		if(isset($result)) {
+		 	if($result != false) {
+		 		echo $ttt['mano'];
+		 		$this->updateSoNguoiDangO($data['mapt']);
+		 	}
+			else echo 'false';
+		}
+	}
+
+	public function updateSoNguoiDangO($mapt) {
+		$sldo = $this->Room_model->getNguoiTro($mapt);
+		if(isset($sldo)) {
+			$data['sldo'] = count($sldo);
+		}
+		else {
+			$data['sldo'] = 0;
+		}
+		$data['id'] = $mapt;
+		$result = $this->Room_model->updateSoNguoiDangO($data);
+		if($result == true) echo 'true';
+		else echo 'false';
+	}
+
+	public function showPhongTro() {
+		$id = $this->input->post('id');
+		$data = $this->Room_model->getPhongTro($id);
+		if(isset($data)) {
+			echo json_encode($data);
+		}
+		else {
+			echo 'false';
+		}
+	}
+
+	public function updateChuyenTro{} {
+		
 	}
 }
