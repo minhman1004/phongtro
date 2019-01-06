@@ -14,7 +14,7 @@
   <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" />
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/lightgallery/lightgallery.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/vertical-layout-light/style.css">
+    <!-- <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/vertical-layout-light/style.css"> -->
   <script src="<?php echo base_url(); ?>assets/vendors/js/vendor.bundle.base.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/vendor.bundle.addons.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/light-gallery.js"></script>

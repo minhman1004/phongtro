@@ -57,39 +57,53 @@ class Publish extends CI_Controller {
             $images ='';
         }
 
-		// Lay thong tin dia diem
-		$dsTinhTp = $this->Publish_model->getTinhTp();
-		$dsQuanHuyen = $this->Publish_model->getQuanHuyen();
-		$dsPhuongXa = $this->Publish_model->getPhuongXa();
-		$dsDuong = $this->Publish_model->getDiaChiTT();
-		$dsNhaTro = $this->Publish_model->getNhaTro(2);
-		$nguoidung = $this->Publish_model->getNguoiDung(2);
 
-		// Sap xep du lieu dia diem
-		usort($dsQuanHuyen, 'cmp');
-		usort($dsPhuongXa, 'cmp');
-		usort($dsDuong, 'cmp');
+        // lay thong tin nha tro da co
+        //session->userdata("MAND");
+        // check login
 
-		// Lay du lieu
-		$datadisplay['tinhtp'] = $dsTinhTp;
-		$datadisplay['quanhuyen'] = $dsQuanHuyen;
-		$datadisplay['phuongxa'] = $dsPhuongXa;
-		$datadisplay['diachitt'] = $dsDuong;
-		$datadisplay['nhatro'] = $dsNhaTro;
-		$datadisplay['filterQH'] = array_filter($dsQuanHuyen, 'filterQuanHuyen');
-		$datadisplay['filterPX'] = array_filter($dsPhuongXa, 'filterPhuongXa');
-		$datadisplay['nguoidung'] = $nguoidung[0];
-		$datadisplay['images'] = $images;
+        $MAND = $this->session->userdata("MAND");
+ 		if($MAND != null)
+ 		{
+				// Lay thong tin dia diem
+				$dsTinhTp = $this->Publish_model->getTinhTp();
+				$dsQuanHuyen = $this->Publish_model->getQuanHuyen();
+				$dsPhuongXa = $this->Publish_model->getPhuongXa();
+				$dsDuong = $this->Publish_model->getDiaChiTT();
+				$dsNhaTro = $this->Publish_model->getNhaTro($MAND);
+				$nguoidung = $this->Publish_model->getNguoiDung($MAND);
 
 
+				// Sap xep du lieu dia diem
+				usort($dsQuanHuyen, 'cmp');
+				usort($dsPhuongXa, 'cmp');
+				usort($dsDuong, 'cmp');
 
-		$metadata = array('title' => 'Đăng tin');
-		$this->load->helper('url');
-		$this->load->view('primary/meta', $metadata);
-		$this->load->view('primary/mainHeader');
-		$this->load->view('primary/mainMenu');
-		$this->load->view('main/post/publish', $datadisplay);
-		$this->load->view('primary/mainFooter');
+				// Lay du lieu
+				$datadisplay['tinhtp'] = $dsTinhTp;
+				$datadisplay['quanhuyen'] = $dsQuanHuyen;
+				$datadisplay['phuongxa'] = $dsPhuongXa;
+				$datadisplay['diachitt'] = $dsDuong;
+				$datadisplay['nhatro'] = $dsNhaTro;
+				$datadisplay['filterQH'] = array_filter($dsQuanHuyen, 'filterQuanHuyen');
+				$datadisplay['filterPX'] = array_filter($dsPhuongXa, 'filterPhuongXa');
+				$datadisplay['nguoidung'] = $nguoidung[0];
+				$datadisplay['images'] = $images;
+
+
+					
+				$metadata = array('title' => 'Đăng tin');
+				$this->load->helper('url');
+				$this->load->view('primary/meta', $metadata);
+				$this->load->view('primary/mainHeader');
+				$this->load->view('primary/mainMenu');
+				$this->load->view('main/post/publish', $datadisplay);
+				$this->load->view('primary/mainFooter');
+			}
+			else
+			{
+				redirect(base_url() ."login");
+			}
 
 		// Publish bai viet
 		// if(isset($_POST['dangtin'])) {
@@ -115,6 +129,42 @@ class Publish extends CI_Controller {
 
 		// 	// Phong tro
 		// }
+	}
+
+	public function hienthint() {
+				$id = $this->input->post('id');
+				$mattp = $this->Publish_model->getMotNhaTro($id);
+				$maquanhuyen = $this->Publish_model->getMotQuanHuyen($mattp);
+				$maphuongxa = $this->Publish_model->getMotPhuongXa($mattp);
+				$maduong = $this->Publish_model->getMotDuong($mattp);
+				$MAND = $this->session->userdata("MAND");
+				$dsTinhTp = $this->Publish_model->getTinhTp1($id);
+				$dsQuanHuyen = $this->Publish_model->getQuanHuyen1($id);
+				$dsPhuongXa = $this->Publish_model->getPhuongXa1($id);
+				$dsDuong = $this->Publish_model->getDiaChiTT1($id);	
+				$dsNhaTro = $this->Publish_model->getNhaTro($MAND);
+				$getnhatro1_ = $this->Publish_model->getnhatro1($id);
+				$position = $this->Room_model->getPosition($id);
+
+		
+				// Lay du lieu
+				$datadisplay['tinhtp'] = $dsTinhTp;
+				$datadisplay['quanhuyen'] = $dsQuanHuyen;
+				$datadisplay['phuongxa'] = $dsPhuongXa;
+				$datadisplay['diachitt'] = $dsDuong;
+				$datadisplay['motquanhuyen1'] = $maquanhuyen;
+				$datadisplay['maphuongxa1'] = $maphuongxa;
+				$datadisplay['motduong1'] = $maduong;
+				$datadisplay['getnhatro1'] = $getnhatro1_;
+				$datadisplay['position_gg'] = $position;
+				echo json_encode($datadisplay);
+		
+	}
+	public function ketqua()
+	{
+		$dsTinhTp = $this->Publish_model->getTinhTp();
+		$data['thuan'] = $dsTinhTp;
+		echo ($data);
 	}
 }
 

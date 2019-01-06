@@ -29,7 +29,6 @@ class Login extends CI_Controller {
 				}
 				else
 				{
-
 				$matkhau = md5($matkhau);
 				//echo json_encode($matkhau);
 				 	$user = $this->nguoidung->checkLogin($taikhoan,$matkhau);
@@ -39,14 +38,13 @@ class Login extends CI_Controller {
 						   //Get session
 						   $chucvu = $this->session->userdata("ChuVu");
 						   //echo ($chucvu);
-						   redirect(base_url() ."member/info");
+						   redirect(base_url() ."post/publish");
 					}
 					else
 						 $viewdata["error"] = true;
 
 
 				}
-
 
 		
 		$metadata = array('title' => 'Login');

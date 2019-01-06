@@ -27120,7 +27120,7 @@ div.tagsinput span.tag a {
 
 .main-panel {
   background: #f3f3f9;
-  width: 100%;
+  width: 100% !important
 }
 
 @media (max-width: 991.98px) {
