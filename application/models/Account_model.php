@@ -16,14 +16,14 @@ class Account_model extends CI_Model {
     }
 
     public function addChucVu($chucvu) {
-    	$data = array('TENVT'=>$chucvu['ten'], 'MOTA'=>$chucvu['mota'], 'TRANGTHAI'=>$chucvu['trangthai']);
+    	$data = array('TENVT'=>$chucvu['ten'], 'MOTA'=>$chucvu['mota'], 'TRANGTHAI'=>$chucvu['trangthai'], 'PL'=>$chucvu['phanloai']);
     	$this->db->insert('vaitro', $data);
         if($this->db->affected_rows() > 0) return $this->db->affected_rows();
         return false;
     }
 
     public function updateChucVu($chucvu) {
-        $data = array('TENVT'=>$chucvu['ten'], 'MOTA'=>$chucvu['mota'], 'TRANGTHAI'=>$chucvu['trangthai']);
+        $data = array('TENVT'=>$chucvu['ten'], 'MOTA'=>$chucvu['mota'], 'TRANGTHAI'=>$chucvu['trangthai'], 'PL'=>$chucvu['phanloai']);
         $this->db->where('MAVT', $chucvu['id']);
         $this->db->update('vaitro', $data);
         if($this->db->affected_rows() > 0) return $this->db->affected_rows();

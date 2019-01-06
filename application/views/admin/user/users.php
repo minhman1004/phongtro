@@ -110,10 +110,6 @@
                   </div>
                 </div>
               </div>
-              <!-- AutoComplete -->
-              <div class="btn-group ml-auto mr-2 border-0 d-none d-md-block">
-                <input type="text" id="search-name" class="form-control" placeholder="Tìm kiếm">
-              </div>
             </div>
             <div class="row">
               <div class="table-sorter-wrapper col-lg-12 table-responsive">

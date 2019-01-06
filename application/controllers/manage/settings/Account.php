@@ -18,6 +18,7 @@ class Account extends CI_Controller {
 	// Add Account
 	public function addaccount() {
 		$data['ten'] = $this->input->post('ten');
+		$data['phanloai'] = $this->input->post('phanloai');
 		$data['mota'] = $this->input->post('mota');
 		$cmp = $this->Account_model->compareTen($data['ten']);
 		if($cmp == false) {
@@ -34,6 +35,7 @@ class Account extends CI_Controller {
 		$data['id'] = $this->input->post('id');
 		$data['ten'] = $this->input->post('ten');
 		$data['mota'] = $this->input->post('mota');
+		$data['phanloai'] = $this->input->post('phanloai');
 		$data['trangthai'] = $this->input->post('trangthai');
 		$result = $this->Account_model->updateChucVu($data);
 		echo $result;

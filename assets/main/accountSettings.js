@@ -6,6 +6,7 @@
 		var ten = $("#add-chucvu-ten").val();
 		var trangthai = $("#add-chucvu-trang-thai").val();
 		var mota = $("#add-chucvu-mota").val();
+		var phanloai = $("#add-chucvu-phan-loai").val();
 		if(ten == '') {
 			swal("Lỗi!", "Vui lòng nhập đầy đủ thông tin", "error");
 		}
@@ -50,6 +51,7 @@
   		var ten = $("#ten-update-"+id).val();
   		var trangthai = $("#trangthai-update-"+id).val();
   		var mota = $("#mota-update-"+id).val();
+  		var phanloai = $("#phan-loai-update-"+id).val();
   		console.log("id: ", id);
   		console.log("ten: ", ten);
   		console.log("trangthai: ", trangthai);
@@ -65,7 +67,8 @@
 	  				id: id,
 	  				ten: ten,
 	  				mota: mota,
-	  				trangthai: trangthai
+	  				trangthai: trangthai,
+	  				phanloai, phanloai
 	  			},
 	  			success: function(data) {
 	  				console.log('result: ', data);
@@ -145,7 +148,24 @@
 						content += '<input type="text" id="mota-update-'+chucvu.MAVT+'" value="'+chucvu.MOTA+'" class="form-control form-control-sm" placeholder="Mô tả">';
 						content += '</div>';
 						content += '<div class="form-group">';
-						content += '<label for="chucvu">Trạng thái</label>';
+						content += '<label for="chucvu">Phân loại</label>';
+						content += '<select class="form-control" id="phan-loai-update-'+chucvu.MAVT+'">';
+						if(chucvu.PL == 'admin') {
+							content += '<option value="admin" selected>Admin</option>';
+							content += '<option value="user">User</option>';
+						}
+						else {
+							if(chucvu.PL == 'user') {
+								content += '<option value="admin">Admin</option>';
+								content += '<option value="user" selected>User</option>';
+							}
+							else {
+								content += '<option value="admin" selected>Admin</option>';
+								content += '<option value="user">User</option>';
+							}
+						}
+						content += '</select>';
+						content += '<label for="chucvu">Trang thái</label>';
 						content += '<select class="form-control" id="trangthai-update-'+chucvu.MAVT+'">';
 						if(chucvu.TRANGTHAI == 0) {
 							content += '<option value="0" selected>Hiển thị</option>';

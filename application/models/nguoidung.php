@@ -44,7 +44,11 @@ class nguoidung extends CI_Model {
     function checkLogin($taikhoan,$matkhau)
     {
         //$newpass = md5($matkhau);
-        $query = $this->db->get_where('nguoidung',array('TenDN' => $taikhoan, 'MatKhau'=>$matkhau));
+        $this->db->select('*');
+        $this->db->from('nguoidung');
+        $this->db->join('vaitro', 'vaitro.MAVT = nguoidung.CHUCVU');
+        $this->db->where(array('TenDN' => $taikhoan, 'MatKhau'=>$matkhau));
+        $query = $this->db->get();
         return $query->result();
         
     }

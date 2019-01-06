@@ -727,8 +727,9 @@
 		});
 	}
 
-	$(document).on('click', '.cancel-nguoio', function() {
+	$(document).off('change').on('click', '.cancel-nguoio', function() {
 		var id = $(this).attr('data');
+		$.cookie('mano', id);
 		swal({
 	        title: 'Vui lòng xác nhận!',
 	        text: "Xác nhận rằng người này không còn tiếp tục ở tại đây!",
@@ -738,14 +739,14 @@
 	        cancelButtonColor: '#ff4081',
 	        confirmButtonText: 'Great ',
 	        buttons: {
-	          cancel: {
+	          confirm: {
 	            text: "Đồng ý",
 	            value: true,
 	            visible: true,
 	            className: "btn btn-danger xacnhan-chuyentro",
 	            closeModal: true,
 	          },
-	          confirm: {
+	          cancel: {
 	            text: "Hủy bỏ",
 	            value: null,
 	            visible: true,
@@ -754,23 +755,34 @@
 	          }
 	        }
       	});
-
-      	$(document).on('click', '.xacnhan-chuyentro', function() {
-			console.log('data: ', id);
-			$.ajax({
-				type: 'post',
-				url: '../updateChuyenTro',
-				data: {
-					id: id
-				},
-				success: function(data) {
-
-				},
-				error: function(e) {
-					console.log(e);
-				}
-			});
-      	});
 	});
+
+  	$(document).on('click', '.xacnhan-chuyentro', function() {
+		var mapt = $.cookie('mapt');
+		var mano = $.cookie('mano');
+		$.ajax({
+			type: 'post',
+			url: '../updateChuyenTro',
+			data: {
+				mapt: mapt,
+				id: mano
+			},
+			success: function(data) {
+				if(data != 'false') {
+					swal('Thành công!', 'Cập nhật thành viên thành công!', 'success');
+					showNguoiTro(mapt);
+					loadPhongTro();
+				}
+				else {
+					swal('Lỗi!', 'Xảy ra lỗi, vi lòng kiểm tra lại!', 'error');
+					showNguoiTro(mapt);
+					loadPhongTro();
+				}
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		});
+  	});
 
 })(jQuery);

@@ -476,7 +476,14 @@ class Rooms extends CI_Controller {
 		}
 	}
 
-	public function updateChuyenTro{} {
-		
+	public function updateChuyenTro() {
+		$mapt = $this->input->post('mapt');
+		$id = $this->input->post('id');
+		$result = $this->Room_model->updateChuyenTro($mapt, $id);
+		if($result == true) {
+			$rs = $this->updateSoNguoiDangO($mapt);
+			echo $rs;
+		}
+		else echo 'false';
 	}
 }

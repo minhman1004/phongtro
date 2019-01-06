@@ -2,14 +2,6 @@
   <div class="main-panel">
     <div class="content-wrapper">
       <div class="row">
-        <div class="col-md-3">
-          <div class="form-group">
-            <label>Loại tin</label>
-            <select class="form-control" id="search-loai-tin">
-              <option value="all" selected>Tất cả</option>
-            </select>
-          </div>
-        </div>
         <div class="col-md-2">
           <div class="form-group">
             <label>Tỉnh / TP</label>
@@ -73,16 +65,15 @@
                 <!-- Result list here -->
                 <div id="danh-sach-bai-viet">
                   <?php foreach($baiviet as $ketqua_baiviet) { ?>
-                    <a href="<?php echo base_url(); ?><?='post/detail?name='.$ketqua_baiviet->slug?>">
+                    <a href="<?php echo base_url(); ?><?='post/detail?name='.$ketqua_baiviet->slug?>" class="post">
                       <div class="row">
                         <div class="col-md-4">
                           <img class="thumnail" src="<?php echo base_url(); ?>assets/images/faces/face1.jpg" alt="">
-                          <p>Giá: <?=$ketqua_baiviet->Gia?></p>
+                          <p>Giá: <?=number_format($ketqua_baiviet->GIA)?> VND</p>
                         </div>
                         <div class="col-md-8">
                           <h4><?=$ketqua_baiviet->TIEUDE?></h4>
                           <p>Địa chỉ: <?=$ketqua_baiviet->DCTD?></p>
-                          <p>Tình trạng: <?=$ketqua_baiviet->GhiChu?></p>
                           <p>Mô tả: <?=$ketqua_baiviet->MOTATHEM?></p>
                           <p>Ngày đăng: <?php echo date_format(new Datetime($ketqua_baiviet->TGDANG), 'd/m/Y'); ?></p>
                         </div>
@@ -95,17 +86,6 @@
               <!-- End post -->
             </div>
           </div>
-          <!-- Phân trang -->
-          <nav>
-            <ul class="pagination rounded">
-              <li class="page-item"><a class="page-link" href="#"><i class="mdi mdi-chevron-left"></i></a></li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item"><a class="page-link" href="#"><i class="mdi mdi-chevron-right"></i></a></li>
-            </ul>
-          </nav>
         </div>
         <div class="col-3">
           <div class="row">

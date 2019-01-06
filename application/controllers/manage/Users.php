@@ -31,7 +31,7 @@ class Users extends CI_Controller {
 		$data['ngaysinh'] = $this->input->post('ngaysinh');
 		$data['chucvu'] = $this->input->post('chucvu');
 		$data['gioitinh'] = $this->input->post('gioitinh');
-		$data['matkhau'] = $this->input->post('matkhau');
+		$data['matkhau'] = md5($this->input->post('matkhau'));
 		$result = $this->Users_model->updateUserPass($data);
 		if($result != false && $result > 0) {
 			echo 'true';
@@ -80,7 +80,7 @@ class Users extends CI_Controller {
 		$data['chucvu'] = $this->input->post('chucvu');
 		$data['ngaysinh'] = $this->input->post('ngaysinh');
 		$data['tendn'] = $this->input->post('tendn');
-		$data['matkhau'] = $this->input->post('matkhau');
+		$data['matkhau'] = md5($this->input->post('matkhau'));
 
 		$result = $this->Users_model->addUser($data);
 		if($result == true) echo 'true';

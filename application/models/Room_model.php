@@ -329,4 +329,11 @@ class Room_model extends CI_Model {
         if($this->db->affected_rows() > 0) return true;
         return false;
     }
+
+    public function updateChuyenTro($mapt, $id) {
+        $this->db->where(array('MANO'=>$id, 'MAPT'=>$mapt));
+        $this->db->update('thongtintro', array('TRANGTHAI'=>'dachuyen', 'NGAYTRA'=>date('Y-m-d h:m:s')));
+        if($this->db->affected_rows() > 0) return true;
+        return false;
+    }
 }

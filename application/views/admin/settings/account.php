@@ -28,6 +28,13 @@
                           <input type="text" id="add-chucvu-mota" class="form-control form-control-sm" placeholder="Mô tả" required>
                         </div>
                         <div class="form-group">
+                          <label for="chucvu">Phân loại</label>
+                          <select class="form-control" id="add-chucvu-phan-loai">
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
                           <label for="chucvu">Trạng thái</label>
                           <select class="form-control" id="add-chucvu-trang-thai">
                             <option value="0">Hiển thị</option>
@@ -82,6 +89,13 @@
                                   <div class="form-group">
                                     <label>Mô tả</label>
                                     <input type="text" id="mota-update-<?=$chucvu_s->MAVT?>" value="<?=$chucvu_s->MOTA?>" class="form-control form-control-sm" placeholder="Mô tả">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="chucvu">Phân loại</label>
+                                    <select class="form-control" id="phan-loai-update-<?=$chucvu_s->MAVT?>">
+                                      <option value="admin" <?php if($chucvu_s->PL == 'admin') echo 'selected';?>>Admin</option>
+                                      <option value="user" <?php if($chucvu_s->PL == 'user') echo 'selected';?>>User</option>
+                                    </select>
                                   </div>
                                   <div class="form-group">
                                     <label for="chucvu">Trạng thái</label>

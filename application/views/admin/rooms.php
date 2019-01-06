@@ -112,7 +112,7 @@
                         </div>
                         <div class="form-group col-md-6">
                           <label>Chủ sở hữu</label>
-                          <select id="add-chu-chungcu-nhatro" class="form-control form-control-sm add-chu-chungcu-nhatro" style="width:100%">
+                          <select id="add-chu-chungcu-nhatro" disabled class="form-control form-control-sm add-chu-chungcu-nhatro" style="width:100%">
                           </select>
                         </div>
                       </div>

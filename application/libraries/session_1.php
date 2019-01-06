@@ -13,14 +13,16 @@ class session_1{
 			'MAND'  => $user[0]->MAND,
 			'TenDN' => $user[0]->TenDN,
 			'MatKhau' => $user[0]->MatKhau,
-			'ChuVu' => $user[0]->ChucVu
+			'ChucVu' => $user[0]->PL,
+			'HoTen' => $user[0]->HOTEN
 			
 		);
 		$ci = &get_instance();
 		$ci->session->set_userdata($data);
 		$ci->session->userdata("TenDN");
-		$ci->session->userdata("ChuVu");
+		$ci->session->userdata("ChucVu");
 		$ci->session->userdata("MAND");
+		$ci->session->userdata("HoTen");
 	}
 	
 	// Logout 

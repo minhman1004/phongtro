@@ -9,6 +9,9 @@ class Detail extends CI_Controller {
 
 	public function index() {
 		$slug = $_GET['name'];
+		$data['mand'] = $this->session->userdata("MAND");
+		$data['chucvu'] = $this->session->userdata('ChucVu');
+		$data['hoten'] = $this->session->userdata('HoTen');
 		$id = getId($slug);
 		$name = getName($slug);
 
@@ -19,12 +22,12 @@ class Detail extends CI_Controller {
 			$data['chitiet'] = $baiviet;
 			$data['tinhtp'] = $dsTinhTp;
 			$data['slug'] = $slug;
-			$metadata = array('title' => 'NTV - '.$baiviet[0]->TIEUDE);
+			$metadata = array('title' => $baiviet[0]->TIEUDE);
 
 			$this->load->helper('url');
 			$this->load->view('primary/meta', $metadata);
-			$this->load->view('primary/mainHeader');
-			$this->load->view('primary/mainMenu');
+			$this->load->view('primary/mainHeader', $data);
+			$this->load->view('primary/mainMenu', $data);
 			$this->load->view('main/post/detail', $data);
 			$this->load->view('primary/mainFooter');
 		}

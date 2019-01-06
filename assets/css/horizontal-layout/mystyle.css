@@ -63,3 +63,11 @@ body > div > div.container-fluid.page-body-wrapper > div > div > div > div.col-9
 body > div > div.container-fluid.page-body-wrapper > div > div > div > div.col-9 > div {
 	margin-bottom: 2%;
 }
+
+.post{
+	color: #23211e;
+}
+
+.post:hover {
+	text-decoration: none;
+}

@@ -63,7 +63,8 @@ class Home_model extends CI_Model {
     	$query = $this->db->query('select * from baiviet join ctbv on baiviet.MABV = ctbv.MABV
                                     join nguoidung on nguoidung.MAND = ctbv.MAND
                                     join nhatro on nhatro.MANT = ctbv.MANT
-                                    join phongtro on phongtro.MAPT = ctbv.MAPT;');
+                                    join phongtro on phongtro.MANT = nhatro.MANT
+                                    join tientro on tientro.MATT = phongtro.MATT;');
     	$data = array();
     	foreach(@$query->result() as $row) {
             $row->slug = $row->MABV.'-'.$row->TIEUDE;
@@ -82,7 +83,7 @@ class Home_model extends CI_Model {
                                     join nguoidung on nguoidung.MAND = ctbv.MAND
                                     join nhatro on nhatro.MANT = ctbv.MANT
                                     join diachitt on diachitt.MAD = nhatro.DCTT
-                                    join phongtro on phongtro.MAPT = ctbv.MAPT
+                                    join phongtro on phongtro.MANT = nhatro.MANT
                                     where diachitt.MATTP = '.$ma_tinhtp.';');
         $data = array();
         foreach(@$query->result() as $row) {

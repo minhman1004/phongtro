@@ -14,17 +14,21 @@ class Home extends CI_Controller {
         $dsPhuongXa = $this->Home_model->getPhuongXa();
         $dsBaiViet = $this->Home_model->getBaiViet();
 
-        $metadata = array('title' => 'Nhà Trọ Việt - Trang Chủ', 'page' => 'home');
-        $dataDisplay['tinhtp'] = $dsTinhTp;
-        $dataDisplay['quanhuyen'] = $dsQuanHuyen;
-        $dataDisplay['phuongxa'] = $dsPhuongXa;
-        $dataDisplay['baiviet'] = $dsBaiViet;
+        $metadata = array('title' => 'Trang Chủ', 'page' => 'home');
+
+		$data['mand'] = $this->session->userdata("MAND");
+		$data['chucvu'] = $this->session->userdata('ChucVu');
+		$data['hoten'] = $this->session->userdata('HoTen');
+        $data['tinhtp'] = $dsTinhTp;
+        $data['quanhuyen'] = $dsQuanHuyen;
+        $data['phuongxa'] = $dsPhuongXa;
+        $data['baiviet'] = $dsBaiViet;
 
 		$this->load->helper('url');
 		$this->load->view('primary/meta', $metadata);
-		$this->load->view('primary/mainHeader');
-		$this->load->view('primary/mainMenu');
-		$this->load->view('main/home/mainHome', $dataDisplay);
+		$this->load->view('primary/mainHeader', $data);
+		$this->load->view('primary/mainMenu', $data);
+		$this->load->view('main/home/mainHome', $data);
 		$this->load->view('primary/mainFooter');
 	}
 
@@ -36,7 +40,7 @@ class Home extends CI_Controller {
         $tinhTp = $this->Home_model->getTinhTpOnly($id);
 		$dsBvTheoTinhTp = $this->Home_model->getBVKhuVuc($id);
 
-		if(@$tinhTp) $metadata = array('title' => 'NTV - Khu vực '.$tinhTp[0]->TEN, 'page' => 'home');
+		if(@$tinhTp) $metadata = array('title' => 'Khu vực '.$tinhTp[0]->TEN, 'page' => 'home');
 		else  $metadata = array('title' => 'Nhà Trọ Viêt', 'page' => 'home');
 
         $dataDisplay['tinhtp'] = $dsTinhTp;
