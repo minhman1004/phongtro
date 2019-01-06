@@ -19,7 +19,6 @@ class Restaurant_m extends CI_Model {
     function uploadImage($location, $mant)
     {
         $data = array('HinhAnh' => $location);
-
         $this->db->where('MaNT', $mant);
         $this->db->update('test', $data); 
     }

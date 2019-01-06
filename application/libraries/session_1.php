@@ -14,7 +14,8 @@ class session_1{
 			'TenDN' => $user[0]->TenDN,
 			'MatKhau' => $user[0]->MatKhau,
 			'ChucVu' => $user[0]->PL,
-			'HoTen' => $user[0]->HOTEN
+			'HoTen' => $user[0]->HOTEN,
+			'Quyen' => $user[0]->MAVT
 			
 		);
 		$ci = &get_instance();
@@ -23,6 +24,7 @@ class session_1{
 		$ci->session->userdata("ChucVu");
 		$ci->session->userdata("MAND");
 		$ci->session->userdata("HoTen");
+		$ci->session->userdata("Quyen");
 	}
 	
 	// Logout 

@@ -299,11 +299,12 @@
 
 	$(document).on('click', '#update-phongtro', function() {
 		loadPhongTro();
-		var ten, dientich, sltd, tientro, mota, cachtinh, giacu, cachtinhcu;
+		var ten, dientich, sltd, tientro, mota, cachtinh, giacu, cachtinhcu, dango;
 		var id = $(this).attr('data');
 		checkEmpty('#xem-ten-phongtro');
 		ten = $("#xem-ten-phongtro").val()
 		sltd = $("#xem-nguoio-phongtro").val();
+		dango = $("#xem-nguoidango-phongtro").val();
 		tientro = $("#xem-tientro-phongtro").val();
 		mota = $("#xem-mota-phongtro").val();
 		dientich = $("#xem-dientich-phongtro").val();
@@ -311,37 +312,43 @@
 		giacu = $("#xem-tientro-giacu-phongtro").val();
 		cachtinhcu = $("#xem-cachtinh-cu-phongtro").val();
 		console.log("data update: ", _.concat(ten, sltd, tientro, mota, dientich, cachtinh, giacu, cachtinhcu));
-		$.ajax({
-			type: 'post',
-			url: '../updatePhongTro',
-			data: {
-				id: id,
-				ten: ten,
-				sltd: sltd,
-				tientro: tientro,
-				mota: mota,
-				dientich: dientich,
-				cachtinh: cachtinh,
-				giacu: giacu,
-				cachtinhcu: cachtinhcu
-			},
-			success: function(data) {
-				if(data != 'false') {
-					swal('Thành công!', 'Cập nhật thông tin phòng trọ thành công!', 'success');
-					loadPhongTro();
-	                $('.cancel-update').click();
-	                $(".modal-backdrop").modal('hide');
-	                $('body').removeClass('modal-open');
-	                $('.modal-backdrop').remove();
+		if(sltd >= dango) {
+			$.ajax({
+				type: 'post',
+				url: '../updatePhongTro',
+				data: {
+					id: id,
+					ten: ten,
+					sltd: sltd,
+					tientro: tientro,
+					mota: mota,
+					dientich: dientich,
+					cachtinh: cachtinh,
+					giacu: giacu,
+					cachtinhcu: cachtinhcu
+				},
+				success: function(data) {
+					if(data != 'false') {
+						swal('Thành công!', 'Cập nhật thông tin phòng trọ thành công!', 'success');
+						loadPhongTro();
+		                $('.cancel-update').click();
+		                $(".modal-backdrop").modal('hide');
+		                $('body').removeClass('modal-open');
+		                $('.modal-backdrop').remove();
+					}
+					else {
+						swal('Thành công!', 'Cập nhật thông tin phòng trọ thành công!', 'success');
+					}
+				},
+				error: function(e) {
+					console.log(e);
 				}
-				else {
-					swal('Thành công!', 'Cập nhật thông tin phòng trọ thành công!', 'success');
-				}
-			},
-			error: function(e) {
-				console.log(e);
-			}
-		});
+			});
+		}
+		else {
+			swal('Lỗi!', 'Không thể giảm người ở tối đa nhỏ hơn số người đang ở!', 'warning');
+			$("#xem-nguoio-phongtro").val(sltd);
+		}	
 	});
 
 	$(document).on('click', '.xem-nguoio', function() {

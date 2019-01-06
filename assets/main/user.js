@@ -495,8 +495,8 @@
           content += '<div class="form-group">';
           content += '<label for="chucvu">Giới tính</label>';
           content += '<select class="form-control" id="gioitinh-all-'+user.MAND+'">';
-          content += '<option value="Nam">Nam</option>';
-          content += '<option value="Nữ">Nữ</option>';
+          content += '<option value="nam">Nam</option>';
+          content += '<option value="nu">Nữ</option>';
           content += '</select>';
           content += '</div>';
           content += '</div>';
@@ -646,8 +646,8 @@
               content += '<div class="form-group">';
               content += '<label for="chucvu">Giới tính</label>';
               content += '<select class="form-control" id="gioitinh-all-'+user.MAND+'">';
-              content += '<option value="Nam">Nam</option>';
-              content += '<option value="Nữ">Nữ</option>';
+              content += '<option value="nam">Nam</option>';
+              content += '<option value="nu">Nữ</option>';
               content += '</select>';
               content += '</div>';
               content += '</div>';

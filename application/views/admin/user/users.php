@@ -52,8 +52,8 @@
                           <div class="form-group">
                             <label for="chucvu">Giới tính</label>
                             <select class="form-control" id="add-gioitinh">
-                              <option value='Nam'>Nam</option>
-                              <option value='Nữ'>Nữ</option>
+                              <option value='nam'>Nam</option>
+                              <option value='nu'>Nữ</option>
                             </select>
                           </div>
                         </div>
@@ -173,8 +173,8 @@
                                         <div class="form-group">
                                           <label for="chucvu">Giới tính</label>
                                           <select class="form-control" id=<?='"gioitinh-all-'.$user_all->MAND.'"'?>>
-                                            <option value='Nam'>Nam</option>
-                                            <option value='Nữ'>Nữ</option>
+                                            <option value='nam'>Nam</option>
+                                            <option value='nu'>Nữ</option>
                                           </select>
                                         </div>
                                       </div>
