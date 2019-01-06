@@ -14,12 +14,13 @@
   <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png" />
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/lightgallery/lightgallery.css">
-    <!-- <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/vertical-layout-light/style.css"> -->
+  
   <script src="<?php echo base_url(); ?>assets/vendors/js/vendor.bundle.base.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/vendor.bundle.addons.js"></script>
+  <script src="<?php echo base_url(); ?>assets/vendors/js/vendor.bundle.addons.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/vendor.bundle.addons.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/light-gallery.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/lightgallery-all.min.js"></script>
-   <script src="<?php echo base_url(); ?>assets/js/vendor.bundle.addons.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/vendor.bundle.addons.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/off-canvas.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/hoverable-collapse.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/template.js"></script>
@@ -28,8 +29,6 @@
   <script src="<?php echo base_url(); ?>assets/js/dashboard.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/form-validation.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/bt-maxLength.js"></script>
-  <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaRUCOc4ddsl42iMKR588WkgYhpDuTSk&amp;callback=initMap"></script>
-  <script src="<?php echo base_url(); ?>assets/js/google-maps.js"></script> -->
 
   <script src="<?php echo base_url(); ?>assets/js/formpickers.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/form-repeater.js"></script>
