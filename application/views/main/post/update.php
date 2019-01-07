@@ -19,36 +19,15 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group">
-                    <label for="exampleFormControlSelect2">Chuyên mục tin</label>
-                    <select class="form-control" name="chuyenmuc" id="chuyen-muc-tin-dang-tin">
-                      <option>1</option>
-                    </select>
-                  </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-group">
                       <label for="exampleInputEmail1">Số điện thoại</label>
                       <input type="text" disabled value=<?='"'.$baiviet->SDT.'"'?> class="form-control" id="so-dien-thoai-dang-tin" name="sdt">
                     </div>
                   </div>
-                </div>
-
-                <!-- Giá cho thuê / Đơn vị -->
-                <div class="row">
                   <div class="col-6">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Giá cho thuê</label>
-                      <input type="number" value=<?='"'.$baiviet->Gia.'"'?> class="form-control" id="gia-cho-thue-dang-tin" placeholder="Giá cho thuê" name="gia">
+                      <input type="number" value="" class="form-control" id="gia-cho-thue-dang-tin" placeholder="Giá cho thuê" name="gia">
                     </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-group">
-                    <label for="exampleFormControlSelect2">Đơn vị</label>
-                    <select class="form-control" id="don-vi-dang-tin" name="donvi">
-                      <option selected="selected" value="trieuthang">Triệu / Tháng</option>
-                      <option value="nghinthang">Nghìn / Tháng</option>
-                    </select>
-                  </div>
                   </div>
                 </div>
               </div>
@@ -175,47 +154,6 @@
                       </div>
                     </div>
                   </div>
-              </div>
-            </div>
-
-            <!-- Hình thức đăng tin -->
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title" id="title-find">Hình thức đăng tin</h4>
-                <hr>
-                <!-- Bảng giá đăng tin -->
-                <h5 class="card-title" id="title-find">Bảng giá</h5>
-                <!-- Hình thức đăng tin -->
-                <h5 class="card-title" id="title-find">Hình thức</h5>
-                <div class="row">
-                  <div class="col-4">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect2">Loại tin</label>
-                      <select class="form-control" id="loai-tin-dang-tin" >
-                        <option disabled="disabled" selected="selected">Chọn loại tin</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-4">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect2">Gói thời gian</label>
-                      <select class="form-control" id="goi-thoi-gian-dang-tin">
-                        <option disabled="disabled" selected="selected">Chọn gói thời gian</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-4">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect2">Số tháng</label>
-                      <select class="form-control" id="so-thang-dang-tin">
-                        <option disabled="disabled" selected="selected">Chọn số tháng</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Thông tin thanh toán -->
-                <h5 class="card-title" id="title-find">Thông tin thanh toán</h5>
               </div>
             </div>
 

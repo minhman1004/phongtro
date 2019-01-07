@@ -70,8 +70,6 @@ class Update_model extends CI_Model {
     	$query = $this->db->query("select * from baiviet join ctbv on baiviet.MABV = ctbv.MABV
                                     join nguoidung on nguoidung.MAND = ctbv.MAND
                                     join nhatro on nhatro.MANT = ctbv.MANT
-                                    join phongtro on phongtro.MAPT = ctbv.MAPT
-                                    join diachitt on diachitt.MAD = nhatro.DCTT
                                     where baiviet.MABV = ".$id.";");
         if(postSlug($query->result()[0]->TIEUDE) == $name)
             return $query->result();
@@ -83,9 +81,7 @@ class Update_model extends CI_Model {
         $query = $this->db->query('select * from baiviet join ctbv on baiviet.MABV = ctbv.MABV
                                     join nguoidung on nguoidung.MAND = ctbv.MAND
                                     join nhatro on nhatro.MANT = ctbv.MANT
-                                    join diachitt on diachitt.MAD = nhatro.DCTT
-                                    join phongtro on phongtro.MAPT = ctbv.MAPT
-                                    where diachitt.MATTP = '.$ma_tinhtp.';');
+                                    where nhatro.MATTP = '.$ma_tinhtp.';');
         $data = array();
         foreach(@$query->result() as $row) {
             $row->slug = $row->MABV.'-'.$row->TIEUDE;

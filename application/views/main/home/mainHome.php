@@ -68,7 +68,7 @@
                     <a href="<?php echo base_url(); ?><?='post/detail?name='.$ketqua_baiviet->slug?>" class="post">
                       <div class="row">
                         <div class="col-md-4">
-                          <img class="thumnail" src="<?php echo base_url(); ?>assets/images/faces/face1.jpg" alt="">
+                          <img class="thumnail" src="<?php echo base_url(); ?>img/nhatro.jpg" alt="">
                           <p>Giá: <?=number_format($ketqua_baiviet->GIA)?> VND</p>
                         </div>
                         <div class="col-md-8">

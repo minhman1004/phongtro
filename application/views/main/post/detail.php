@@ -19,7 +19,7 @@
                 <p class="card-description">Giá: <?=number_format($chitiet[0]->GIA)?> VND</p>
                 <p class="card-description">Ngày đăng: <?=date_format(new Datetime($chitiet[0]->TGDANG), 'd/m/Y')?></p>
                 <div class="row" id="detail-post">
-                  <img class="thumnail" src="<?php echo base_url(); ?>assets/images/faces/face1.jpg" alt="">
+                  <img class="" src="<?php echo base_url(); ?>img/nhatro.jpg" alt="">
                 </div>
               </div>
             </div>

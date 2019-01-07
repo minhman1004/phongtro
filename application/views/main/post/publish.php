@@ -19,40 +19,15 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group">
-                    <label for="exampleFormControlSelect2">Chuyên mục tin</label>
-                    <select class="form-control" id="chuyen-muc-tin-dang-tin">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </select>
-                  </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-group">
                       <label for="exampleInputEmail1">Số điện thoại</label>
                       <input type="email" disabled class="form-control" id="so-dien-thoai-dang-tin" placeholder="Số điện thoại" value=<?='"'.$nguoidung->SDT.'"'?>>
                     </div>
                   </div>
-                </div>
-
-                <!-- Giá cho thuê / Đơn vị -->
-                <div class="row">
                   <div class="col-6">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Giá cho thuê</label>
                       <input type="number" name="giachothue" class="form-control" id="gia-cho-thue-dang-tin" placeholder="Số điện thoại" required>
                     </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-group">
-                    <label for="exampleFormControlSelect2">Đơn vị</label>
-                    <select class="form-control" id="don-vi-dang-tin">
-                      <option selected="selected">Triệu/Tháng</option>
-                      <option>Nghìn/Tháng</option>
-                    </select>
-                  </div>
                   </div>
                 </div>
               </div>
@@ -245,31 +220,8 @@
               </div>
             </div>
 
-            <!-- Hình ảnh -->
-
+            <!-- Hinh anh -->
             <div class="card">
-                            <label for="hinhanh"><strong>Hình ảnh</strong></label>
-                            <!-- HTML code for form element and preview image element -->
-                            <div id="wrapper">
-                                  <input type="file" id="userFiles" name="userFiles[]" onchange="preview_image();" multiple/>
-                    <div id="lightgallery" class="row lightGallery">
-                                 <div id="image_preview">
-                                    <?  if(!empty($images))
-                                            foreach ($images as $ima) {
-                                                ?>
-                                                <a href='<?php echo base_url($ima); ?>' class="image-tile">
-                                                <img src='<?php echo base_url($ima); ?>' class='subimage'>
-                                                </a>
-                                                <?
-                                            }
-                                        ?>
-                                 </div>
-                    </div>
-                        </div> 
-                  </div>
-    
-                      <!-- /field -->
-            <!-- <div class="card">
               <div class="card-body">
                 <h4 class="card-title d-flex">Hình ảnh</h4>
                 <div class="dropify-wrapper">
@@ -297,58 +249,12 @@
                     </div>
                   </div>
               </div>
-            </div> -->
-
-            <!-- Hình thức đăng tin -->
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title" id="title-find">Hình thức đăng tin</h4>
-                <hr>
-                <!-- Bảng giá đăng tin -->
-                <h5 class="card-title" id="title-find">Bảng giá</h5>
-                <!-- Hình thức đăng tin -->
-                <h5 class="card-title" id="title-find">Hình thức</h5>
-                <div class="row">
-                  <div class="col-4">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect2">Loại tin</label>
-                      <select class="form-control" id="loai-tin-dang-tin">
-                        <option disabled="disabled" selected="selected">Chọn loại tin</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-4">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect2">Gói thời gian</label>
-                      <select class="form-control" id="goi-thoi-gian-dang-tin">
-                        <option disabled="disabled" selected="selected">Chọn gói thời gian</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-4">
-                    <div class="form-group">
-                      <label for="exampleFormControlSelect2">Số tháng</label>
-                      <select class="form-control" id="so-thang-dang-tin">
-                        <option disabled="disabled" selected="selected">Chọn số tháng</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Thông tin thanh toán -->
-                <h5 class="card-title" id="title-find">Thông tin thanh toán</h5>
-              </div>
             </div>
 
             <!-- Publish Button -->
             <div class="row" style="margin-left: 0">
               <button type="submit" id="publish" name="dangtin" class="btn btn-primary mr-2">Đăng tin</button>
             </div>
-            <div class="login-actions">
-                    
-                        <button id="luu" class="button btn btn-success btn-large">Lưu</button>
-                    
-             </div> 
           </div>
 
 

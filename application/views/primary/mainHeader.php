@@ -5,7 +5,7 @@
             <div class="nav-top flex-grow-1">
               <div class="container d-flex flex-row h-100 align-items-center">
                 <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                    <a class="navbar-brand brand-logo" href="/phongtro/"><img src="<?php echo base_url(); ?>assets/images/logo.svg" alt="logo"/></a>
+                    <a class="navbar-brand brand-logo" href="/phongtro/">Nhà Trọ Việt</a>
                     <a class="navbar-brand brand-logo-mini" href="/phongtro/"><img src="<?php echo base_url(); ?>assets/images/logo-mini.svg" alt="logo"/></a>
                 </div>
                 <!-- Menu -->

@@ -7,7 +7,7 @@
             <div class="col-lg-4 mx-auto">
               <div class="auth-form-light text-left p-5">
                 <div class="brand-logo">
-                  <img src="<?php echo base_url(); ?>assets/images/logo.svg" alt="logo">
+                  Nhà Trọ Việt
                 </div>
                 <h6 class="font-weight-light">Vui lòng nhập đầy đủ và chính xác thông tin</h6>
                 <h6></h6>

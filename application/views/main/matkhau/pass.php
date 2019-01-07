@@ -7,7 +7,7 @@
               <div class="col-lg-4 mx-auto">
                 <div class="auth-form-light text-left p-5">
                   <div class="brand-logo">
-                    <img src="<?php echo base_url(); ?>assets/images/logo.svg" alt="logo">
+                    Nhà Trọ Việt
                   </div>
                  <?php if(!empty($success_message)) { ?> 
                   <div class="success-message"><?php if(isset($success_message)) echo $success_message; ?></div>
