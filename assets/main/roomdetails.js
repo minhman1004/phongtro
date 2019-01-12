@@ -458,8 +458,8 @@
 
 					content += '</tbody>';
 					$("#danhsach-nguoio-edit").html(content);
-					$(".dsnguoio-cmnd").inputmask('99999999');
-					$(".dsnguoio-sdt").inputmask('999999999');
+					$(".dsnguoio-cmnd").inputmask('999999999');
+					$(".dsnguoio-sdt").inputmask('9999999999');
 				}
 			},
 			error: function(e) {
@@ -724,8 +724,8 @@
 
 					content += '</tbody>';
 					$("#danhsach-nguoio-edit").html(content);
-					$(".dsnguoio-cmnd").inputmask('99999999');
-					$(".dsnguoio-sdt").inputmask('999999999');
+					$(".dsnguoio-cmnd").inputmask('999999999');
+					$(".dsnguoio-sdt").inputmask('9999999999');
 				}
 			},
 			error: function(e) {
