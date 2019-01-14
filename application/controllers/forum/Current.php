@@ -48,8 +48,6 @@ class Current extends CI_Controller {
 		$data['mant'] = $this->input->post('mant');
 		$data['noidung'] = $this->input->post('content');
 		$data['cpbinhluan'] = $this->input->post('allow');
-		$data['thich'] = 0;
-		$data['kthich'] = 0;
 		$data['ngaytao'] = $this->input->post('ngaytao');
 		$data['trangthai'] = 'show';
 		$data['mand'] = null;
@@ -61,8 +59,53 @@ class Current extends CI_Controller {
 
 	public function getTopic() {
 		$mant = $this->input->post('mant');
-		$result = $this->Forum_model->getTopic($mant);
-		if($result != false) echo json_encode($result);
+		$mano = $this->input->post('mano');
+		$rs['topic'] = $this->Forum_model->getTopic($mant, $mano);
+		if($rs['topic'] != false) {
+			$rs['nguoio'] = $this->Forum_model->getTVTCuaNhaTro($mant);
+			if($rs['nguoio'] != false) echo json_encode($rs);
+			else echo 'false';
+		}
+	}
+
+	public function getOneTopic() {
+		$topic = $this->input->post('topic');
+		$mant = $this->input->post('mant');
+		$rs['topic'] = $this->Forum_model->getOneTopic($topic);
+		$rs['binhluan'] = $this->Forum_model->getBinhLuan($topic);
+		$rs['thanhvientro'] = $this->Forum_model->getTVTCuaNhaTro($mant);
+		if($rs['topic'] != false) {
+			echo json_encode($rs);
+		}
+		else {
+			echo 'false';
+		}
+	}
+
+	public function addBinhLuan() {
+		$data['mano'] = $this->input->post('mano');
+		$data['mapt'] = $this->input->post('mapt');
+		$data['topic'] = $this->input->post('matp');
+		$data['noidung'] = $this->input->post('noidung');
+		$data['mand'] = null;
+		$data['ngaytao'] = $this->input->post('ngaytao');
+		$data['trangthai'] = $this->input->post('trangthai');
+
+		$rs = $this->Forum_model->addBinhLuan($data);
+		if($rs != false) echo 'true';
+		else echo 'false';
+	}
+
+	public function addThich() {
+		$data['mano'] = $this->input->post('mano');
+		$data['topic'] = $this->input->post('topic');
+		$data['mand'] = null;
+		$data['date'] = $this->input->post('date');
+		$data['kthich'] = null;
+		$data['thich'] = $this->input->post('thich');
+
+		$rs = $this->Forum_model->addThich($data);
+		if($rs != false) echo 'true';
 		else echo 'false';
 	}
 }

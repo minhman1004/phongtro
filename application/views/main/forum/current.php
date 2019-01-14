@@ -44,49 +44,26 @@
           <div class="card-body" id="danh-sach-topic">
           </div>
         </div>
+        <!-- Modal binh luan -->
         <div class="modal fade" id="binhluan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="ten-nguoio">Cập nhật thông tin cá nhân</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                <div>
+                  <h6 style="font-weight: bold" id="modal-ten-nguoidang"></h6>
+                  <p id="modal-post-content"></p>
+                  <p class="small text-muted mt-2 mb-0">
+                    <button type="button" data="8" class="btn btn-outline-secondary btn-rounded btn-icon thich-topic" id="modal-thich"></button>
+                    <button type="button" data="8" class="btn btn-outline-secondary btn-rounded btn-icon kthich-topic" id="modal-kthich"></button>
+                  </p>
+                </div>
               </div>
-              <div class="modal-body">
-                <div class="row">
-                  <div class="form-group col-8">
-                    <label>Họ tên</label>
-                    <input type="text" maxLength="30" class="form-control form-control-sm" id="edit-hoten">
-                  </div>
-                  <div class="form-group col-4">
-                    <label>Giới tính</label>
-                    <select class="form-control" id="edit-gioitinh">
-                      <option value="nam">Nam</option>
-                      <option value="nu">Nữ</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-6">
-                    <label>Email</label>
-                    <input type="text" maxlength="30" data-inputmask="'alias': 'email'" class="form-control form-control-sm" id="edit-email">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label>Số điện thoại</label>
-                    <input type="text" data-inputmask="'mask': '9999999999'" class="form-control form-control-sm" id="edit-sdt">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-4">
-                    <label>Ngày sinh</label>
-                    <input type="text" data-inputmask="'alias': 'date'" class="form-control form-control-sm" id="edit-ngaysinh">
-                  </div>
-                </div>
+              <div class="modal-body" id="danh-sach-binh-luan">
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-success save-info">Lưu</button>
-                <button type="button" class="btn btn-light cancel-info" data-dismiss="modal">Hủy</button>
+                <textarea class="form-control" id="noidung-binhluan" maxLength="100" placeholder="Nhập nội dung ..." rows="2" style="border: 2px solid #aba3a3;"></textarea>
+                <button type="button" class="btn btn-primary" id="post-binhluan">Gửi</button>
+                <button type="button" class="btn btn-light cancel-info" data-dismiss="modal">Đóng</button>
               </div>
             </div>
           </div>
