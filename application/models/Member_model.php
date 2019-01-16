@@ -50,7 +50,20 @@ class Member_model extends CI_Model {
         $result = $this->db->get();
     }
 
-    public function getBaiVietYesNhaTro($mand) {
+    public function getAllTopic($mant) {
 
+    }
+
+    public function getAllNhaTro($mand) {
+        $this->db->select('*');
+        $this->db->from('nhatro');
+        $this->db->where('MAND', $mand);
+        $query = $this->db->get();
+        $data = array();
+        foreach(@$query->result() as $row) {
+            $data[] = $row;
+        }
+        if(count($data)) return $data;
+        return false;
     }
 }

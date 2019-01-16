@@ -28649,3 +28649,7 @@ div.tagsinput span.tag a {
   background-color:gainsboro;
   color:black;
 }
+
+.delete-icon {
+  cursor: pointer;
+}

@@ -20,6 +20,8 @@
 		$.cookie('phongtro', JSON.stringify(phongtro));
 		$.cookie('chutro', JSON.stringify(chutro));
 		$.cookie('nhatro', JSON.stringify(nhatro));
+		console.log('nguoio: ', nguoio);
+		console.log('cookie nguoio: ', $.cookie('nguoio'));
 
 		$("#current-tennhatro").text('Nhà trọ: '+nhatro.TENNT);
 		$("#current-chutro").text('Chủ trọ: '+chutro.HOTEN);
@@ -157,6 +159,8 @@
 
 	$(document).on('click', '#post-topic', function() {
 		var nguoio = JSON.parse($.cookie('nguoio'));
+		var nhatro = JSON.parse($.cookie('nhatro'));
+		var chutro = JSON.parse($.cookie('chutro'));
 		console.log('nguoio:', nguoio);
 		var content, allow, mano, mant;
 		mano = localStorage.getItem('fr_mano');
@@ -179,7 +183,7 @@
 				success: function(data) {
 					if(data != 'false') {
 						swal('Thành công!', 'Đăng topic thành công!', 'success');
-						showTopic(mant, nguoio);
+						showTopic(mant, nguoio, nhatro, chutro);
 						$("#current-content").val('');
 					}
 				},
@@ -249,7 +253,9 @@
 						}
 						content += '<i class="mdi mdi-thumb-down-outline text-danger"></i> '+tp.countkthich+'</button>';
 						content += '<button type="button" data="'+tp.TOPIC+'-'+tp.MANO+'-'+tp.MAND+'" class="btn btn-outline-secondary btn-rounded btn-icon xem-binhluan">';
-						content += '<i class="mdi mdi-comment-outline text-dark"></i> '+tp.countbl+'</button></p></div></div>';
+						content += '<i class="mdi mdi-comment-outline text-dark"></i> '+tp.countbl+'</button>';
+						content += '<button type="button" data="'+tp.TOPIC+'-'+tp.MANO+'-'+tp.MAND+'" class="btn btn-outline-secondary btn-rounded btn-icon edit-topic">';
+						content += '<i class="mdi mdi-dots-horizontal text-dark"></i></button></p></div></div>';
 					});
 					$("#danh-sach-topic").html(content);
 				}
@@ -266,42 +272,69 @@
 
 		chutro = JSON.parse($.cookie('chutro'));
 		mano = JSON.parse($.cookie('nguoio')).MANO;
+		var nguoio = JSON.parse($.cookie('nguoio'));
+		console.log('nguoio: binhluan: ', nguoio);
+		console.log('mano: ', mano);
 		mapt = JSON.parse($.cookie('phongtro')).MAPT;
 		matopic = data[0];
 		nguoio_op = data[1];
 		nguoidung_op = data[2];
 		mant = localStorage.getItem('fr_mant');
 		
-		console.log('topic: ', _.concat([matopic, mano, mapt, nguoio_op, nguoidung_op, chutro, mant]));
 		$("#binhluan").modal();
 		$("#noidung-binhluan").val('');
+		$("#update-binhluan-button").prop('hidden', true);
+		$("#cancel-binhluan-button").prop('hidden', true);
+		$("#post-binhluan").prop('hidden', false);
+
+		// React
+		var thich = $("#topic-"+matopic+' > p > button.thich-topic').attr('data').split('-')[1];
+		var kthich = $("#topic-"+matopic+' > p > button.kthich-topic').attr('data').split('-')[1];
+
+		if(thich == 'yes') {
+			$("#modal-thich").addClass('click-thich');
+		}
+		else {
+			$("#modal-thich").removeClass('click-thich');
+		}
+
+		if(kthich == 'yes') {
+			$("#modal-kthich").addClass('click-thich');
+		}
+		else {
+			$("#modal-kthich").removeClass('click-thich');
+		}
+
+		$("#modal-thich").attr('data', matopic+'-'+thich);
+		$("#modal-kthich").attr('data', matopic+'-'+kthich);
 		
 		// Data: Topic, binhluan, thanhvientro
 		rs = getTopic(matopic, mant);
 		$("#post-binhluan").attr('data', matopic+'-'+rs.topic[0].MANO+'-'+rs.topic[0].MAND);
-		console.log('topiiic',rs);
 
 		// Xet chu bai viet
 		if(nguoio_op != 'null') {
 			op = _.find(rs.thanhvientro, {'MANO':nguoio_op});
-			console.log('op',op);
 			$("#modal-ten-nguoidang").html(op.TEN +' <i class="mdi mdi-check-circle mr-1 text-primary"></i>');
 		}
 		else {
 			if(nguoidung_op != 'null') {
 				op = chutro;
-				console.log('op',op);
-				$("#modal-ten-nguoidang").val(op.HOTEN);
+				$("#modal-ten-nguoidang").html(op.HOTEN +' <i class="mdi mdi-check-circle mr-1 text-primary"></i>');
 			}
 		}
 
 		$("#modal-post-content").text(rs.topic[0].NOIDUNG);
-		$("#modal-thich").html(rs.topic[0].countthich+ ' <i class="mdi mdi-thumb-up-outline text-primary"></i>');
-		$("#modal-kthich").html(rs.topic[0].countkthich+ ' <i class="mdi mdi-thumb-down-outline text-danger"></i>');
+		$("#modal-thich").html('<i class="mdi mdi-thumb-up-outline text-primary"></i> '+rs.topic[0].countthich);
+		$("#modal-kthich").html('<i class="mdi mdi-thumb-down-outline text-danger"></i> '+ rs.topic[0].countkthich);
 		
 		if(rs.topic[0].CPBINHLUAN == 'no') {
 			$("#noidung-binhluan").attr('hidden', true);
 			$("#post-binhluan").attr('hidden', true);
+		}
+		else {
+			$("#noidung-binhluan").attr('hidden', false);
+			$("#post-binhluan").attr('hidden', false);
 		}
 
 		// Danh sach binh luan
@@ -310,10 +343,11 @@
 			rs.binhluan = rs.binhluan.reverse();
 			_.forEach(rs.binhluan, function(bl, key) {
 				if(bl.TRANGTHAI == 'show' && bl.TOPIC == rs.topic[0].TOPIC) {
-					content += '<div>';
+					content += '<div id="binhluan-'+bl.MABL+'">';
 					if(bl.MAND != null) {
 						if(bl.MAND == nguoidung_op) {
-							content += '<h6 style="font-weight: bold">'+op.HOTEN+' <i class="mdi mdi-check-circle mr-1 text-primary"></i></h6>';
+							content += '<h6 style="font-weight: bold; color=#ff0000;">'+op.HOTEN+' <i class="mdi mdi-check-circle mr-1 text-primary"></i>';
+							content += '</h6>';
 						}
 						else {
 							content += '<h6 style="font-weight: bold">'+op.HOTEN+'</h6>';
@@ -321,16 +355,31 @@
 					}
 					else if(bl.MANO != null) {
 						if(bl.MANO == nguoio_op) {
-							content += '<h6 style="font-weight: bold">'+_.find(rs.thanhvientro, {'MANO': bl.MANO}).TEN+' <i class="mdi mdi-check-circle mr-1 text-primary"></i></h6>';
+							content += '<h6 style="font-weight: bold">'+_.find(rs.thanhvientro, {'MANO': bl.MANO}).TEN+' <i class="mdi mdi-check-circle mr-1 text-primary"></i>';
+							if(bl.MANO == mano) {
+								content += '<i data="'+bl.MABL+'" class="mdi mdi-delete-outline mr-1 text-danger delete-icon delete-comment"></i>';
+								content += '<i data="'+bl.MABL+'" class="mdi mdi-dots-horizontal-circle mr-1 text-dark delete-icon edit-comment"></i>';
+							}
+							content += '</h6>';
 						}
 						else {
-							content += '<h6 style="font-weight: bold">'+_.find(rs.thanhvientro, {'MANO': bl.MANO}).TEN+'</h6>';
+							content += '<h6 style="font-weight: bold">'+_.find(rs.thanhvientro, {'MANO': bl.MANO}).TEN;
+							if(bl.MANO == mano) {
+								content += ' <i data="'+bl.MABL+'" class="mdi mdi-delete-outline mr-1 text-danger delete-icon delete-comment"></i>';
+								content += '<i data="'+bl.MABL+'" class="mdi mdi-dots-horizontal-circle mr-1 text-dark delete-icon edit-comment"></i>';
+							}
+							else {
+								if(mano == nguoio_op) {
+									content += ' <i data="'+bl.MABL+'" class="mdi mdi-delete-outline mr-1 text-danger delete-icon delete-comment"></i>';
+								}
+							}
+							content +=' </h6>';
 						}
 						
 					}
-					content += '<p id="modal-post-content">'+bl.NOIDUNG+'</p>';
+					content += '<p class="noidung-binhluan">'+bl.NOIDUNG+'</p>';
 					content += '</div>';
-					content += '<hr>';
+					content += '<hr id="hr-'+bl.MABL+'">';
 				}
 			});
 
@@ -354,10 +403,6 @@
 		var kthich = $("#topic-"+topic+' > p > button.kthich-topic').attr('data').split('-')[1];
 		var dislike = parseInt($("#topic-"+topic+' > p > button.kthich-topic').text());
 
-		// React
-		var mar = $("#topic-"+topic).attr('data');
-		console.log('react: ', mar);
-
 		console.log('kthich: ', kthich);
 
 		var button = $(this);
@@ -370,6 +415,25 @@
 			$(this).html('<i class="mdi mdi-thumb-up-outline text-primary"></i> '+like);
 			$(this).attr('data', topic+'-'+thich);
 			$(this).removeClass('click-thich');
+			$.ajax({
+					type: 'post',
+					url: 'current/addThich',
+					data: {
+						mano: mano,
+						topic: topic,
+						date: Date.now(),
+						thich: 'no',
+						kthich: 'no'
+					},
+					success: function(data) {
+						if(data != 'false' && data != '') {
+							console.log('bo thich');
+						}
+					},
+					error: function(e) {
+						console.log(e);
+					}
+				});
 		}
 		else {
 			if(thich == 'no') {
@@ -387,25 +451,26 @@
 				$(this).attr('data', topic+'-'+thich);
 				$(this).addClass('click-thich');
 
-				// Add
-				// $.ajax({
-				// 	type: 'post',
-				// 	url: 'current/addThich',
-				// 	data: {
-				// 		mano: mano,
-				// 		topic: topic,
-				// 		date: Date.now(),
-				// 		thich: 'yes',
-				// 	},
-				// 	success: function(data) {
-				// 		if(data != 'false' && data != '') {
-				// 			console.log('da thich');
-				// 		}
-				// 	},
-				// 	error: function(e) {
-				// 		console.log(e);
-				// 	}
-				// });
+				// Add or update react
+				$.ajax({
+					type: 'post',
+					url: 'current/addThich',
+					data: {
+						mano: mano,
+						topic: topic,
+						date: Date.now(),
+						thich: 'yes',
+						kthich: 'no'
+					},
+					success: function(data) {
+						if(data != 'false' && data != '') {
+							console.log('da thich');
+						}
+					},
+					error: function(e) {
+						console.log(e);
+					}
+				});
 			}
 		}
 
@@ -437,6 +502,25 @@
 			$(this).removeClass('click-thich');
 			$(this).html('<i class="mdi mdi-thumb-down-outline text-danger"></i> '+dislike);
 			$(this).attr('data', topic+'-'+kthich);
+			$.ajax({
+				type: 'post',
+				url: 'current/addThich',
+				data: {
+					mano: mano,
+					topic: topic,
+					date: Date.now(),
+					thich: 'no',
+					kthich: kthich
+				},
+				success: function(data) {
+					if(data != 'false' && data != '') {
+						console.log('bo kthich');
+					}
+				},
+				error: function(e) {
+					console.log(e);
+				}
+			});
 		}
 		else {
 			if(kthich == 'no') {
@@ -454,6 +538,26 @@
 				$(this).addClass('click-thich');
 				$(this).html('<i class="mdi mdi-thumb-down-outline text-danger"></i> '+dislike);
 				$(this).attr('data', topic+'-'+kthich);
+
+				$.ajax({
+					type: 'post',
+					url: 'current/addThich',
+					data: {
+						mano: mano,
+						topic: topic,
+						date: Date.now(),
+						thich: thich,
+						kthich: kthich
+					},
+					success: function(data) {
+						if(data != 'false' && data != '') {
+							console.log('da kthich');
+						}
+					},
+					error: function(e) {
+						console.log(e);
+					}
+				});
 			}
 		}
 
@@ -498,19 +602,6 @@
 		matp = data[0];
 		chutopic = data[1];
 
-		var content = '';
-		if(nguoio.MANO == chutopic) {
-			content += '<div><h6 style="font-weight: bold">'+nguoio.TEN+' <i class="mdi mdi-check-circle mr-1 text-primary"></i></h6>';
-		}
-		else {
-			content += '<div><h6 style="font-weight: bold">'+nguoio.TEN+'</h6>';
-		}
-		content += '<p id="modal-post-content" class="d-flex align-items-center">'+noidungbl+'</p>';
-		content += '</div>';
-		content += '<hr>';
-		$("#danh-sach-binh-luan").append(content);
-		$("#noidung-binhluan").val('');
-
 		// Save
 		$.ajax({
 			type: 'post',
@@ -526,8 +617,168 @@
 			success: function(data) {
 				if(data != 'false') {
 					swal('Gửi bình luận thành công!', '', 'success');
+					var content = '';
+					if(nguoio.MANO == chutopic) {
+						content += '<div><h6 style="font-weight: bold">'+nguoio.TEN+' <i class="mdi mdi-check-circle mr-1 text-primary"></i>';
+						content += ' <i data="'+data+'" class="mdi mdi-delete-outline mr-1 text-danger delete-icon delete-comment"></i>';
+						content += '<i data="'+data+'" class="mdi mdi-dots-horizontal-circle mr-1 text-dark delete-icon edit-comment"></i></h6>';
+					}
+					else {
+						content += '<div><h6 style="font-weight: bold">'+nguoio.TEN;
+						content += ' <i data="'+data+'" class="mdi mdi-delete-outline mr-1 text-danger delete-icon delete-comment"></i>';
+						content += '<i data="'+data+'" class="mdi mdi-dots-horizontal-circle mr-1 text-dark delete-icon edit-comment"></i></h6>';
+					}
+					content += '<p id="modal-post-content" class="d-flex align-items-center">'+noidungbl+'</p>';
+					content += '</div>';
+					content += '<hr id="hr-"'+data+'>';
+					$("#danh-sach-binh-luan").append(content);
+					$("#noidung-binhluan").val('');
 					showTopic(mant, nguoio, nhatro, chutro);
 				}
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		});
+	});
+
+	$(document).on('click', '.edit-topic', function() {
+		$("#modal-edit-topic").modal();
+		var data = $(this).attr('data').split('-');
+		var topic = data[0];
+		$("#update-topic").attr('data', topic);
+		$.ajax({
+			type: 'post',
+			url: 'current/getEditTopic',
+			data: {
+				topic: topic
+			},
+			success: function(data) {
+				data = JSON.parse(data)[0];
+				$('input[name=update-binhluan][value="'+data.CPBINHLUAN+'"').prop('checked', true);
+				$("#update-current-content").val(data.NOIDUNG);
+				console.log('data topic: ', data);
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		});
+	});
+
+	$(document).on('click', '#update-topic', function() {
+		var nguoio = JSON.parse($.cookie('nguoio'));
+		var nhatro = JSON.parse($.cookie('nhatro'));
+		var chutro = JSON.parse($.cookie('chutro'));
+
+		console.log('showTopic: ', _.concat([nguoio, nhatro, chutro]));
+
+		var topic, content, allow;
+		topic = $(this).attr('data');
+		content = $("#update-current-content").val();
+		allow = $("input[name=update-binhluan]:checked").val();
+		$.ajax({
+			type: 'post',
+			url: 'current/updateTopic',
+			data: {
+				topic: topic,
+				content: content,
+				allow: allow
+			},
+			success: function(data) {
+				swal('Thành công!', 'Cập nhật topic thành công!', 'success');
+				showTopic(nhatro.MANT, nguoio, nhatro, chutro);
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		});
+	});
+
+	$(document).on('click', '.delete-comment', function() {
+		console.log('delete', $(this).attr('data'));
+		var mabl = $(this).attr('data');
+		var nguoio = JSON.parse($.cookie('nguoio'));
+		var nhatro = JSON.parse($.cookie('nhatro'));
+		var chutro = JSON.parse($.cookie('chutro'));
+
+		swal({
+		  title: "Bạn muốn xóa bình luận?",
+		  text: "Bình luận sẽ được xóa khỏi topic này ngay lập tức!",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+		  	$.ajax({
+		  		type: 'post',
+		  		url: 'current/deleteBinhLuan',
+		  		data: {
+		  			mabl: mabl
+		  		},
+		  		success: function(data) {
+					showTopic(nhatro.MANT, nguoio, nhatro, chutro);
+					$("#binhluan-"+mabl).prop('hidden', true);
+					$("#hr-"+mabl).prop('hidden', true);
+				    swal("Xóa bình luận thành công!", {
+				      icon: "success",
+				    });
+		  		}
+		  	});
+		  } else {
+		    swal("Bình luận chưa được xóa!");
+		  }
+		});
+	});
+
+	$(document).on('click', '.edit-comment', function() {
+		console.log('edit', $(this).attr('data'));
+		var bl = $(this).attr('data');
+		$("#update-binhluan-button").attr('data', bl);
+		$.ajax({
+			type: 'post',
+			url: 'current/getBinhLuan',
+			data: {
+				mabl: bl
+			},
+			success: function(data) {
+				data = JSON.parse(data)[0];
+				console.log('binhluan ',data);
+				$("#noidung-binhluan").val(data.NOIDUNG);
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		});
+		$("#update-binhluan-button").prop('hidden', false);
+		$("#cancel-binhluan-button").prop('hidden', false);
+		$("#post-binhluan").prop('hidden', true);
+	});
+
+	$(document).on('click', '#cancel-binhluan-button', function() {
+		$("#noidung-binhluan").val('');
+		$("#update-binhluan-button").prop('hidden', true);
+		$("#cancel-binhluan-button").prop('hidden', true);
+		$("#post-binhluan").prop('hidden', false);
+	});
+
+	$(document).on('click', '#update-binhluan-button', function() {
+		var mabl = $(this).attr('data');
+		var noidung = $("#noidung-binhluan").val();
+		$.ajax({
+			type: 'post',
+			url: 'current/updateBinhLuan',
+			data: {
+				mabl: mabl,
+				noidung: noidung
+			},
+			success: function(data) {
+				swal('Thành công!', 'Cập nhật thành công!', 'success');
+				$('#binhluan-'+mabl+' > p.noidung-binhluan').text(noidung);
+				$("#noidung-binhluan").val('');
+				$("#update-binhluan-button").prop('hidden', true);
+				$("#cancel-binhluan-button").prop('hidden', true);
+				$("#post-binhluan").prop('hidden', false);
 			},
 			error: function(e) {
 				console.log(e);

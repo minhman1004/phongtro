@@ -4,6 +4,18 @@
       <div class="col-8">
         <div class="card grid-margin">
           <div class="card-body">
+            <label>Chọn nhà trọ để xem forum</label>
+            <select class="form-control" id="select-nhatro">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+          </div>
+        </div>
+        <div class="card grid-margin">
+          <div class="card-body">
             <div class="row">
               <div class="col-lg-12">
                 <div class="d-flex justify-content-between">
@@ -151,9 +163,9 @@
             <table class="table mb-0" id="current-banggia">
               <tbody>
                 <tr>
-                  <td class="pl-0">Primary label</td>
+                  <td class="pl-0">Bảng giá</td>
                   <td class="pr-0 text-right">
-                    <div class="badge badge-outline-success badge-pill">Primary</div>
+                    <div class="badge badge-outline-success badge-pill">0</div>
                   </td>
                 </tr>
               </tbody>
@@ -163,4 +175,7 @@
       </div>
     </div>
   </div>
-  <script src="<?php echo base_url(); ?>assets/main/forum_current.js"></script>
+  <script src="<?php echo base_url(); ?>assets/main/memforum.js"></script>
+  <script>
+    var mand = <?php echo json_encode($mand); ?>;
+  </script>

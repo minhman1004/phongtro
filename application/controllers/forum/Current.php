@@ -92,7 +92,7 @@ class Current extends CI_Controller {
 		$data['trangthai'] = $this->input->post('trangthai');
 
 		$rs = $this->Forum_model->addBinhLuan($data);
-		if($rs != false) echo 'true';
+		if($rs != false) echo $rs;
 		else echo 'false';
 	}
 
@@ -101,11 +101,51 @@ class Current extends CI_Controller {
 		$data['topic'] = $this->input->post('topic');
 		$data['mand'] = null;
 		$data['date'] = $this->input->post('date');
-		$data['kthich'] = null;
+		$data['kthich'] = $this->input->post('kthich');
 		$data['thich'] = $this->input->post('thich');
 
 		$rs = $this->Forum_model->addThich($data);
 		if($rs != false) echo 'true';
+		else echo 'false';
+	}
+
+	public function getEditTopic() {
+		$topic = $this->input->post('topic');
+		$result = $this->Forum_model->getEditTopic($topic);
+		if($result != false) echo json_encode($result);
+		else echo 'false';
+	}
+
+	public function updateTopic() {
+		$data['topic'] = $this->input->post('topic');
+		$data['noidung'] = $this->input->post('content');
+		$data['cpbinhluan'] = $this->input->post('allow');
+
+		$result = $this->Forum_model->updateTopic($data);
+		if($result != false) echo 'true';
+		else echo 'false';
+	}
+
+	public function getBinhLuan() {
+		$mabl = $this->input->post('mabl');
+		$result = $this->Forum_model->getMotBinhLuan($mabl);
+		if($result != false) echo json_encode($result);
+		else echo 'false';
+	}
+
+	public function updateBinhLuan() {
+		$mabl = $this->input->post('mabl');
+		$noidung = $this->input->post('noidung');
+
+		$result = $this->Forum_model->updateBinhLuan($mabl, $noidung);
+		if($result != false) echo 'true';
+		else echo 'false';
+	}
+
+	public function deleteBinhLuan() {
+		$mabl = $this->input->post('mabl');
+		$result = $this->Forum_model->deleteBinhLuan($mabl);
+		if($result != false) echo 'true';
 		else echo 'false';
 	}
 }

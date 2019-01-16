@@ -108,8 +108,8 @@ class Forum_model extends CI_Model {
             $row->countbl = strval($this->countBinhLuan($row->TOPIC));
             $row->countthich = strval($this->countThich($row->TOPIC));
             $row->countkthich = strval($this->countKThich($row->TOPIC));
-            $row->thich = $this->checkThich($mano);
-            $row->kthich = $this->checkKThich($mano);
+            $row->thich = $this->checkThich($mano, $row->TOPIC);
+            $row->kthich = $this->checkKThich($mano, $row->TOPIC);
             $row->react = $this->getReact($mano);
             $data[] = $row;
         }
@@ -131,8 +131,8 @@ class Forum_model extends CI_Model {
         return false;
     }
 
-    public function checkThich($mano) {
-        $query = $this->db->get_where('react', array('MANO'=>$mano));
+    public function checkThich($mano, $topic) {
+        $query = $this->db->get_where('react', array('MANO'=>$mano, 'TOPIC'=>$topic));
         if(isset($query)) {
             $data = $query->result();
             if(count($data)) {
@@ -144,8 +144,8 @@ class Forum_model extends CI_Model {
         return 'no';
     }
 
-    public function checkKThich($mano) {
-        $query = $this->db->get_where('react', array('MANO'=>$mano));
+    public function checkKThich($mano, $topic) {
+        $query = $this->db->get_where('react', array('MANO'=>$mano, 'TOPIC'=>$topic));
         if(isset($query)) {
             $data = $query->result();
             if(count($data)) {
@@ -186,7 +186,7 @@ class Forum_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('binhluan');
         $this->db->join('topic', 'topic.TOPIC = binhluan.TOPIC');
-        $this->db->where('binhluan.TOPIC', $tp);
+        $this->db->where(array('binhluan.TOPIC'=>$tp, 'binhluan.TRANGTHAI'=>'show'));
         return $this->db->count_all_results();
     }
 
@@ -233,25 +233,50 @@ class Forum_model extends CI_Model {
 
         $binhluan = array('MABL'=>$id, 'MANO'=>$bl['mano'], 'MAND'=>$bl['mand'], 'MAPT'=>$bl['mapt'], 'TOPIC'=>$bl['topic'], 'NOIDUNG'=>$bl['noidung'], 'NGAYBL'=>$bl['ngaytao'], 'TRANGTHAI'=>$bl['trangthai']);
         $this->db->insert('binhluan', $binhluan);
-        if($this->db->affected_rows() > 0) return true;
+        if($this->db->affected_rows() > 0) return $id;
         return false;
     }
 
     public function addThich($t) {
-        $query = $this->db->get('react');
-        $data = array();
-        foreach(@$query->result() as $row) {
-            $data[] = $row->MAR;
-        }
-        $id = 1;
-        if(isset($data)) {
-            if(count($data)) {
-                $id = max($data) + 1;
-            }
-        }
+        $data = array('MANO'=>$t['mano'], 'MAND'=>$t['mand'], 'TOPIC'=>$t['topic'],'THICH'=>$t['thich'], 'KTHICH'=>$t['kthich'], 'NGAY'=>$t['date']);
+        $query = 'call INSERT_REACT_FORUM(?, ?, ?, ?, ?, ?)';
+        $this->db->query($query, $data);
+        if($this->db->affected_rows() > 0) return true;
+        return false;
+    }
 
-        $react = array('MAR'=>$id, 'MANO'=>$t['mano'], 'MAND'=>$t['mand'], 'TOPIC'=>$t['topic'], 'THICH'=>$t['thich'], 'KTHICH'=>$t['kthich'], 'DATE'=>$t['date']);
-        $this->db->insert('react', $react);
+    public function getEditTopic($topic) {
+        $query = $this->db->get_where('topic', array('TOPIC'=>$topic));
+        if(isset($query)) return $query->result();
+        return false;
+    }
+
+    public function updateTopic($tp) {
+        $data = array('CPBINHLUAN'=>$tp['cpbinhluan'], 'NOIDUNG'=>$tp['noidung']);
+        $this->db->where('TOPIC', $tp['topic']);
+        $this->db->update('topic', $data);
+        if($this->db->affected_rows() > 0) return true;
+        return false;
+    }
+
+    public function getMotBinhLuan($mabl) {
+        $query = $this->db->get_where('binhluan', array('MABL'=>$mabl));
+        if(isset($query)) return $query->result();
+        return false;
+    }
+
+    public function updateBinhLuan($mabl, $noidung) {
+        $data = array('NOIDUNG'=>$noidung);
+        $this->db->where('MABL', $mabl);
+        $this->db->update('binhluan', $data);
+        if($this->db->affected_rows() > 0) return true;
+        return false;
+    }
+
+    public function deleteBinhLuan($mabl) {
+        $data = array('TRANGTHAI'=>'hide');
+        $this->db->where('MABL',$mabl);
+        $this->db->update('binhluan', $data);
         if($this->db->affected_rows() > 0) return true;
         return false;
     }
