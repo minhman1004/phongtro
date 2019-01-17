@@ -166,6 +166,7 @@ class Forum_model extends CI_Model {
             }
             return false;
         }
+        return false;
     }
 
     public function getBinhLuan($matp) {

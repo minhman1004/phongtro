@@ -6,15 +6,10 @@
           <div class="card-body">
             <label>Chọn nhà trọ để xem forum</label>
             <select class="form-control" id="select-nhatro">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
+            </select>
           </div>
         </div>
-        <div class="card grid-margin">
+        <div class="card grid-margin" id="card-dang-topic">
           <div class="card-body">
             <div class="row">
               <div class="col-lg-12">
@@ -136,12 +131,9 @@
                   <div>
                     <h4>Thông tin chung</h4>
                     <hr>
-                    <h5 id="current-tennhatro"></h5>
-                    <h5 id="current-chutro"></h5>
-                    <h5 id="current-tenphong"></h5>
-                    <h5 id="current-ngayo"></h5>
-                    <h5 id="current-ngaydao"></h5>
-                    <h5></h5>
+                    <p id="forum-diachi"></p>
+                    <p id="forum-sophong"></p>
+                    <p id="forum-songuoidango"></p>
                   </div>
                 </div>
               </div>
@@ -150,25 +142,16 @@
         </div>
 
         <!-- Bang gia -->
-        <div class="card grid-margin">
+        <div class="card grid-margin" id="card-banggia">
           <div class="card-body">
             <div class="row">
               <div class="col-lg-12">
                 <div class="d-flex justify-content-between">
                     <h4>Bảng giá (đơn vị: nghìn đồng)</h4>
-                    <hr>          
                 </div>
               </div>
             </div>
-            <table class="table mb-0" id="current-banggia">
-              <tbody>
-                <tr>
-                  <td class="pl-0">Bảng giá</td>
-                  <td class="pr-0 text-right">
-                    <div class="badge badge-outline-success badge-pill">0</div>
-                  </td>
-                </tr>
-              </tbody>
+            <table class="table mb-0" id="forum-banggia">
             </table>
           </div>
         </div>
