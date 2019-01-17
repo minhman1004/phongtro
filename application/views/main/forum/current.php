@@ -53,8 +53,8 @@
                   <h6 style="font-weight: bold" id="modal-ten-nguoidang"></h6>
                   <p id="modal-post-content"></p>
                   <p class="small text-muted mt-2 mb-0">
-                    <button type="button" class="btn btn-outline-secondary btn-rounded btn-icon thich-topic" id="modal-thich"></button>
-                    <button type="button" class="btn btn-outline-secondary btn-rounded btn-icon kthich-topic" id="modal-kthich"></button>
+                    <button type="button" class="btn btn-outline-secondary btn-rounded btn-icon" id="modal-thich"></button>
+                    <button type="button" class="btn btn-outline-secondary btn-rounded btn-icon" id="modal-kthich"></button>
                   </p>
                 </div>
               </div>

@@ -84,7 +84,6 @@ class Current extends CI_Controller {
 
 	public function addBinhLuan() {
 		$data['mano'] = $this->input->post('mano');
-		$data['mapt'] = $this->input->post('mapt');
 		$data['topic'] = $this->input->post('matp');
 		$data['noidung'] = $this->input->post('noidung');
 		$data['mand'] = null;

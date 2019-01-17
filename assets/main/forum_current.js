@@ -268,14 +268,13 @@
 
 	$(document).on('click', '.xem-binhluan', function() {
 		var data = $(this).attr('data').split('-');
-		var mano, mapt, matopic, nguoio_op, nguoidung_op, rs, chutro, mant, op;
+		var mano, matopic, nguoio_op, nguoidung_op, rs, chutro, mant, op;
 
 		chutro = JSON.parse($.cookie('chutro'));
 		mano = JSON.parse($.cookie('nguoio')).MANO;
 		var nguoio = JSON.parse($.cookie('nguoio'));
 		console.log('nguoio: binhluan: ', nguoio);
 		console.log('mano: ', mano);
-		mapt = JSON.parse($.cookie('phongtro')).MAPT;
 		matopic = data[0];
 		nguoio_op = data[1];
 		nguoidung_op = data[2];
@@ -345,12 +344,12 @@
 				if(bl.TRANGTHAI == 'show' && bl.TOPIC == rs.topic[0].TOPIC) {
 					content += '<div id="binhluan-'+bl.MABL+'">';
 					if(bl.MAND != null) {
-						if(bl.MAND == nguoidung_op) {
-							content += '<h6 style="font-weight: bold; color=#ff0000;">'+op.HOTEN+' <i class="mdi mdi-check-circle mr-1 text-primary"></i>';
+						if(bl.MAND == nguoidung_op.MAND) {
+							content += '<h6 style="font-weight: bold; color=#ff0000;">'+chutro.HOTEN+'  <sup style="color:#ff0000;">[Chủ trọ]</sup><i class="mdi mdi-check-circle mr-1 text-primary"></i>';
 							content += '</h6>';
 						}
 						else {
-							content += '<h6 style="font-weight: bold">'+op.HOTEN+'</h6>';
+							content += '<h6 style="font-weight: bold">'+chutro.HOTEN+' <sup style="color:#ff0000;">[Chủ trọ]</sup></h6>';
 						}
 					}
 					else if(bl.MANO != null) {
@@ -391,13 +390,12 @@
 	});
 
 	$(document).on('click', '.thich-topic', function() {
-		var mano, mapt;
+		var mano;
 		var topic = $(this).attr('data').split('-')[0];
 		var thich = $(this).attr('data').split('-')[1];
 		var like = parseInt($(this).text());
 
 		mano = JSON.parse($.cookie('nguoio')).MANO;
-		mapt = JSON.parse($.cookie('phongtro')).MAPT;
 
 		// 
 		var kthich = $("#topic-"+topic+' > p > button.kthich-topic').attr('data').split('-')[1];
@@ -480,9 +478,8 @@
 	});
 
 	$(document).on('click', '.kthich-topic', function() {
-		var mano, mapt;
+		var mano;
 		mano = JSON.parse($.cookie('nguoio')).MANO;
-		mapt = JSON.parse($.cookie('phongtro')).MAPT;
 		var topic = $(this).attr('data').split('-')[0];
 		var kthich = $(this).attr('data').split('-')[1];
 		var dislike = parseInt($(this).text());
@@ -568,6 +565,182 @@
 		}, 1000);
 	});
 
+	$(document).on('click', '#modal-thich', function() {
+		var mano;
+		var topic = $(this).attr('data').split('-')[0];
+		var thich = $(this).attr('data').split('-')[1];
+		var like = parseInt($(this).text());
+
+		mano = JSON.parse($.cookie('nguoio')).MANO;
+
+		// 
+		var kthich = $("#modal-kthich").attr('data').split('-')[1];
+		var dislike = parseInt($("#modal-kthich").text());
+
+		console.log('kthich: ', kthich);
+
+		var button = $(this);
+		button.prop('disabled', true);
+
+		// Neu da like
+		if(thich == 'yes') {
+			thich = 'no';
+			like -= 1;
+			$(this).html('<i class="mdi mdi-thumb-up-outline text-primary"></i> '+like);
+			$(this).attr('data', topic+'-'+thich);
+			$(this).removeClass('click-thich');
+			$.ajax({
+					type: 'post',
+					url: 'current/addThich',
+					data: {
+						mano: mano,
+						topic: topic,
+						date: Date.now(),
+						thich: 'no',
+						kthich: 'no'
+					},
+					success: function(data) {
+						if(data != 'false' && data != '') {
+							console.log('bo thich');
+						}
+					},
+					error: function(e) {
+						console.log(e);
+					}
+				});
+		}
+		else {
+			if(thich == 'no') {
+
+				if(kthich == 'yes') {
+					kthich = 'no';
+					dislike -= 1;
+					$("#modal-kthich").removeClass('click-thich');
+					$("#modal-kthich").attr('data', topic+'-'+kthich);
+					$("#modal-kthich").html('<i class="mdi mdi-thumb-down-outline text-danger"></i> '+dislike);
+				}
+				thich = 'yes';
+				like += 1;
+				$(this).html('<i class="mdi mdi-thumb-up-outline text-primary"></i> '+like);
+				$(this).attr('data', topic+'-'+thich);
+				$(this).addClass('click-thich');
+
+				// Add or update react
+				$.ajax({
+					type: 'post',
+					url: 'current/addThich',
+					data: {
+						mano: mano,
+						topic: topic,
+						date: Date.now(),
+						thich: 'yes',
+						kthich: 'no'
+					},
+					success: function(data) {
+						if(data != 'false' && data != '') {
+							console.log('da thich');
+						}
+					},
+					error: function(e) {
+						console.log(e);
+					}
+				});
+			}
+		}
+
+		setTimeout(function() {
+			button.prop('disabled', false);
+		}, 1000);
+	});
+
+	$(document).on('click', '#modal-kthich', function() {
+		var mano;
+		mano = JSON.parse($.cookie('nguoio')).MANO;
+		var topic = $(this).attr('data').split('-')[0];
+		var kthich = $(this).attr('data').split('-')[1];
+		var dislike = parseInt($(this).text());
+		var thich = $("#modal-thich").attr('data').split('-')[1];
+		var like = parseInt($("#modal-thich").text());
+		console.log('thich: ', thich);
+		var mar = $("#topic-"+topic).attr('data');
+		console.log('react: ', mar);
+
+		var button = $(this);
+		button.prop('disabled', true);
+
+		if(kthich == 'yes') {
+			kthich = 'no';
+			dislike -= 1;
+
+			$(this).removeClass('click-thich');
+			$(this).html('<i class="mdi mdi-thumb-down-outline text-danger"></i> '+dislike);
+			$(this).attr('data', topic+'-'+kthich);
+			$.ajax({
+				type: 'post',
+				url: 'current/addThich',
+				data: {
+					mano: mano,
+					topic: topic,
+					date: Date.now(),
+					thich: 'no',
+					kthich: kthich
+				},
+				success: function(data) {
+					if(data != 'false' && data != '') {
+						console.log('bo kthich');
+					}
+				},
+				error: function(e) {
+					console.log(e);
+				}
+			});
+		}
+		else {
+			if(kthich == 'no') {
+				kthich = 'yes';
+				dislike += 1;
+
+				if(thich == 'yes') {
+					like -= 1;
+					thich = 'no';
+					$("#modal-thich").removeClass('click-thich');
+					$("#modal-thich").attr('data', topic+'-'+thich);
+					$("#modal-thich").html('<i class="mdi mdi-thumb-up-outline text-primary"></i> '+like);
+				}
+
+				$(this).addClass('click-thich');
+				$(this).html('<i class="mdi mdi-thumb-down-outline text-danger"></i> '+dislike);
+				$(this).attr('data', topic+'-'+kthich);
+
+				$.ajax({
+					type: 'post',
+					url: 'current/addThich',
+					data: {
+						mano: mano,
+						topic: topic,
+						date: Date.now(),
+						thich: thich,
+						kthich: kthich
+					},
+					success: function(data) {
+						if(data != 'false' && data != '') {
+							console.log('da kthich');
+						}
+					},
+					error: function(e) {
+						console.log(e);
+					}
+				});
+			}
+		}
+
+
+		// Enabled
+		setTimeout(function() {
+			button.prop('disabled', false);
+		}, 1000);
+	});
+
 	function getTopic(topic, mant) {
 		var rs;
 		$.ajax({
@@ -590,14 +763,13 @@
 	}
 
 	$(document).on('click', "#post-binhluan", function() {
-		var noidungbl, nguoio, mapt, matp, data, chutopic, nhatro, chutro, mant;
+		var noidungbl, nguoio, matp, data, chutopic, nhatro, chutro, mant;
 
 		nhatro = JSON.parse($.cookie('nhatro'));
 		chutro = JSON.parse($.cookie('chutro'));
 		mant = nhatro.MANT;
 		nguoio = JSON.parse($.cookie('nguoio'));
 		noidungbl = $("#noidung-binhluan").val();
-		mapt = JSON.parse($.cookie('phongtro')).MAPT;
 		data = $(this).attr('data').split('-');
 		matp = data[0];
 		chutopic = data[1];
@@ -609,7 +781,6 @@
 			data: {
 				noidung: noidungbl,
 				mano: nguoio.MANO,
-				mapt: mapt,
 				matp: matp,
 				ngaytao: Date.now(),
 				trangthai: 'show'

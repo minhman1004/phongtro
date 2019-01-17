@@ -54,7 +54,7 @@ class Member_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('topic');
         $this->db->join('nhatro', 'nhatro.MANT = topic.MANT');
-        $this->db->where('nhatro.MAND', $mand);
+        $this->db->where(array('nhatro.MAND'=>$mand, 'topic.TRANGTHAI'=>'show'));
         $query = $this->db->get();
         $data = array();
         foreach(@$query->result() as $row) {
@@ -137,11 +137,11 @@ class Member_model extends CI_Model {
             $data = $query->result();
             if(count($data)) {
                 if($data[0]->THICH == 'yes') return 'yes';
-                return 'no';
+                else return 'no';
             }
-            return 'no';
+            else return 'no';
         }
-        return 'no';
+        else return 'no';
     }
 
     public function checkKThich($mand, $topic) {
@@ -150,11 +150,11 @@ class Member_model extends CI_Model {
             $data = $query->result();
             if(count($data)) {
                 if($data[0]->KTHICH == 'yes') return 'yes';
-                return 'no';
+                else return 'no';
             }
-            return 'no';
+            else return 'no';
         }
-        return 'no';
+        else return 'no';
     }
 
     public function getReact($mand) {
@@ -186,13 +186,13 @@ class Member_model extends CI_Model {
     public function getTopicNhaTro($mant) {
         $this->db->select('*');
         $this->db->from('topic');
-        $this->db->where('MANT', $mant);
+        $this->db->where(array('MANT'=>$mant, 'TRANGTHAI'=>'show'));
         $query = $this->db->get();
         $data = array();
         foreach(@$query->result() as $row) {
-            $row->countbl = $this->countBinhLuan($row->TOPIC);
-            $row->countthich = $this->countThich($row->TOPIC);
-            $row->countkthich = $this->countKThich($row->TOPIC);
+            $row->countbl = strval($this->countBinhLuan($row->TOPIC));
+            $row->countthich = strval($this->countThich($row->TOPIC));
+            $row->countkthich = strval($this->countKThich($row->TOPIC));
             $row->thich = $this->checkThich($row->MAND, $row->TOPIC);
             $row->kthich = $this->checkKThich($row->MAND, $row->TOPIC);
             $row->react = $this->getReact($row->MAND);
@@ -225,6 +225,37 @@ class Member_model extends CI_Model {
             }
             return false;
         }
+        return false;
+    }
+
+    public function getTopic($topic, $mand) {
+        $query = $this->db->get_where('topic', array('TOPIC'=>$topic, 'TRANGTHAI'=>'show'));
+        $data = $query->result();
+        $data[0]->countthich = strval($this->countThich($topic));
+        $data[0]->countkthich = strval($this->countKThich($topic));
+        $data[0]->thich = $this->checkThich($mand, $data[0]->TOPIC);
+        $data[0]->kthich = $this->checkKThich($mand, $data[0]->TOPIC);
+        if(isset($data)) {
+            return $data;
+        }
+        return false;
+    }
+
+    public function getBinhLuan($topic) {
+        $query = $this->db->get_where('binhluan', array('TOPIC'=>$topic, 'TRANGTHAI'=>'show'));
+        $data = array();
+        foreach(@$query->result() as $row) {
+            $data[] = $row;
+        }
+        if(count($data)) return $data;
+        return false;
+    }
+
+    public function deleteTopic($topic) {
+        $data = array('TRANGTHAI'=>'hide');
+        $this->db->where('TOPIC',$topic);
+        $this->db->update('topic', $data);
+        if($this->db->affected_rows() > 0) return true;
         return false;
     }
 }

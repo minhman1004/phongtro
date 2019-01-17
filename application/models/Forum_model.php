@@ -232,7 +232,7 @@ class Forum_model extends CI_Model {
             }
         }
 
-        $binhluan = array('MABL'=>$id, 'MANO'=>$bl['mano'], 'MAND'=>$bl['mand'], 'MAPT'=>$bl['mapt'], 'TOPIC'=>$bl['topic'], 'NOIDUNG'=>$bl['noidung'], 'NGAYBL'=>$bl['ngaytao'], 'TRANGTHAI'=>$bl['trangthai']);
+        $binhluan = array('MABL'=>$id, 'MANO'=>$bl['mano'], 'MAND'=>$bl['mand'], 'TOPIC'=>$bl['topic'], 'NOIDUNG'=>$bl['noidung'], 'NGAYBL'=>$bl['ngaytao'], 'TRANGTHAI'=>$bl['trangthai']);
         $this->db->insert('binhluan', $binhluan);
         if($this->db->affected_rows() > 0) return $id;
         return false;
