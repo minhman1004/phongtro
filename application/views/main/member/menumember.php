@@ -13,12 +13,6 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="<?php echo base_url()?>member/posts">
-        <i class="mdi mdi-book-open-page-variant menu-icon"></i>
-        <span class="menu-title">Quản lý bài viết</span>
-      </a>
-    </li>
-    <li class="nav-item">
       <a class="nav-link" href="<?php echo base_url()?>member/rooms">
         <i class="mdi mdi-home-account menu-icon"></i>
         <span class="menu-title">Quản lý nhà trọ</span>

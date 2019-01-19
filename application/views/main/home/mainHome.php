@@ -44,11 +44,10 @@
           <div class="form-group">
             <label>Diện tích</label>
             <select class="form-control" id="search-dien-tich">
-                   <option value="all" selected>Tất cả</option>
-                   <option value="20" >Dưới 20 m2</option>
-                   <option value="230" >20 m2 - 30 m2</option>
-                   <option value="350" >30 m2 - 50 m2</option>          
-
+               <option value="all" selected>Tất cả</option>
+               <option value="20" >Dưới 20 m2</option>
+               <option value="230" >20 m2 - 30 m2</option>
+               <option value="350" >30 m2 - 50 m2</option>          
             </select>
           </div>
         </div>
@@ -62,14 +61,14 @@
           <div class="form-group">
             <label>Sắp xếp theo</label>
             <select class="form-control" id="search-gia-thue">
-                   <option value="all" selected>Ngày đăng mới</option>
-                   <option value="all" >Giá tiền giảm dần</option>
-                   <option value="all" >Giá tiền tăng dần</option>
-                   <option value="all" >Diện tích tăng dần</option>
-                   <option value="all" >Diện tích giảm dần</option>           
-
+             <option value="all" selected>Ngày đăng mới</option>
+             <option value="all" >Giá tiền giảm dần</option>
+             <option value="all" >Giá tiền tăng dần</option>
+             <option value="all" >Diện tích tăng dần</option>
+             <option value="all" >Diện tích giảm dần</option>           
             </select>
           </div>
+        </div>
       </div>
       <?php if(isset($tentinh)) { ?>
         <div class="row">

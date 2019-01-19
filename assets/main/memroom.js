@@ -24,9 +24,57 @@
 		$("#gia-giu-xe-oto").val('0');
 		$("#gia-giu-xe-may").val('0');
 
-		// Khu vuc
+		// Add chi phi
+		$("#add-gia-dien").val('0');
+		$("#add-gia-nuoc").val('0');
+		$("#add-gia-wifi").val('0');
+		$("#add-gia-rac").val('0');
+		$("#add-gia-giu-xe").val('0');
+		$("#add-gia-giu-xe-dap").val('0');
+		$("#add-gia-giu-xe-oto").val('0');
+		$("#add-gia-giu-xe-may").val('0');
+
+		// // Khu vuc
 		showTinhTp(tinhtp);
-		
+		// Show quan huyen
+		var mattp = $("#add-tinh-thanhpho").val();
+		showQuanhuyen(quanhuyen, mattp);
+		// show phuong xa
+		var maqh = $("#add-quan-huyen").val();
+		showPhuongxa(phuongxa, maqh);
+		// show duong
+		var mad = $("#add-phuong-xa").val();
+		showDuong(duong, mad);
+		diachichinhxac();
+
+		// Change khu vuc
+		$(document).on('change', "#add-tinh-thanhpho", function() {
+			mattp = $("#add-tinh-thanhpho").val();
+			showQuanhuyen(quanhuyen, mattp);
+			maqh = $("#add-quan-huyen").val();
+			showPhuongxa(phuongxa, maqh);
+			mad = $("#add-phuong-xa").val();
+			showDuong(duong, mad);
+			diachichinhxac();
+		});
+
+		$(document).on('change', '#add-quan-huyen', function() {
+			maqh = $("#add-quan-huyen").val();
+			showPhuongxa(phuongxa, maqh);
+			mad = $("#add-phuong-xa").val();
+			showDuong(duong, mad);
+			diachichinhxac();
+		});
+
+		$(document).on('change', '#add-phuong-xa', function() {
+			mad = $("#add-phuong-xa").val();
+			showDuong(duong, mad);
+			diachichinhxac();
+		});
+
+		$(document).on('change', '#add-duong', function() {
+			diachichinhxac();
+		});
 
 		// Hien thi danh sach select nhatro, phongtro
 		if(nhatro.length > 0) {
@@ -72,6 +120,27 @@
 		// Open modal
 		$(document).on('click', '#open-modal-add-nhatro', function() {
 			$("#modal-thongtin-nhatro").modal();
+
+			$('#add-nha-tro').show();
+			$('#update-nha-tro').hide();
+			$('.add-ten-nhatro').val('');
+			$('.add-diachi-chinhxac').val('');
+
+			// Khu vuc
+			showTinhTp(tinhtp);
+			// Show quan huyen
+			var mattp = $("#add-tinh-thanhpho").val();
+			showQuanhuyen(quanhuyen, mattp);
+			// show phuong xa
+			var maqh = $("#add-quan-huyen").val();
+			showPhuongxa(phuongxa, maqh);
+			// show duong
+			var mad = $("#add-phuong-xa").val();
+			showDuong(duong, mad);
+			diachichinhxac();
+			// Gia
+			resetBangGia();
+			$("#danh-sach-chi-phi").attr('hidden', true);
 		});
 
 		$(document).on('click', '#open-modal-thongtin-nhatro', function() {
@@ -79,7 +148,7 @@
 			$("#modal-thongtin-nhatro").modal();
 			mant_xem = $("#select-nhatro").val();
 			nhatro_info = getNhaTro(mant_xem);
-			chiphi_tro = getChiChi(mant_xem);
+			chiphi_tro = getChiPhi(mant_xem);
 			console.log(nhatro_info);
 			console.log(mant_xem);
 			console.log(chiphi_tro);
@@ -87,327 +156,691 @@
 			// show du lieu
 			$('#add-nha-tro').hide();
 			$('#update-nha-tro').show();
-			var chutro, tinhtp, quanhuyen, phuongxa, duong, id, nhatro, chiphi;
-			id = $(this).attr('data');
 			$('.update-nha-tro').attr('data', mant_xem);
-
 			$("#danh-sach-chi-phi").attr('hidden', false);
-
 			$("#bang-chi-phi").attr('disabled', false);
 
-		  	// $.ajax({
-		  	// 	type: 'post',
-		  	// 	url: 'rooms/getNhaTroVaDiaChi',
-		  	// 	async: false,
-		  	// 	data: {
-		  	// 		id: id
-		  	// 	},
-		  	// 	async: false,
-		  	// 	success: function(data) {
-		  	// 		data = JSON.parse(data);
-		  	// 		// console.log('data : ', data);
-		  	// 		nhatro = data.nhatro[0];
-		  	// 		chutro = data.chutro;
-		  	// 		tinhtp = data.tinhtp;
-		  	// 		quanhuyen = _.sortBy(data.quanhuyen, 'TEN');
-		  	// 		phuongxa = _.sortBy(data.phuongxa, 'TEN');
-		  	// 		duong = data.duong;
-		  	// 		chiphi = data.chiphi;
-		  	// 		// console.log('chiphi: ', chiphi);
+  			var content = '';
 
-		  	// 		var content = '';
+  			// Chi phi
+  			if(chiphi_tro.length > 0) {
+  				content += '<option disabled selected value="null">Chọn bảng giá</option>';
+  				_.forEach(chiphi_tro, function(cp, key) {
+  					if(cp.Selected == 'yes') {
+  						content += '<option selected value="'+cp.MACP+'">'+cp.TENCP+'</option>';
+  					}
+  					else {
+  						content += '<option value="'+cp.MACP+'">'+cp.TENCP+'</option>';
+  					}
+  				});
+  				$("#bang-chi-phi").html(content);
+  				var chiphi_s = _.find(chiphi_tro, {'Selected':'yes'});
+  				if(chiphi_s) {
+	  				$("#gia-dien").val(chiphi_s.GIADIEN);
+	  				$("#gia-nuoc").val(chiphi_s.GIANUOC);
+	  				$("#gia-wifi").val(chiphi_s.GiaWifi);
+	  				$("#gia-rac").val(chiphi_s.GiaRac);
+	  				$("#gia-giu-xe").val(chiphi_s.GiaGXe);
+	  				$("#gia-giu-xe-dap").val(chiphi_s.XEDAP);
+	  				$("#gia-giu-xe-may").val(chiphi_s.XEMAY);
+	  				$('#gia-giu-xe-oto').val(chiphi_s.OTO);
 
-		  	// 		// Chi phi
-		  	// 		if(chiphi.length > 0) {
-		  	// 			content += '<option disabled selected value="null">Chọn bảng giá</option>';
-		  	// 			_.forEach(chiphi, function(cp, key) {
-		  	// 				if(cp.Selected == 'yes') {
-		  	// 					content += '<option selected value="'+cp.MACP+'">'+cp.TENCP+'</option>';
-		  	// 				}
-		  	// 				else {
-		  	// 					content += '<option value="'+cp.MACP+'">'+cp.TENCP+'</option>';
-		  	// 				}
-		  	// 			});
-		  	// 			$("#bang-chi-phi").html(content);
-		  	// 			var chiphi_s = _.find(chiphi, {'Selected':'yes'});
-		  	// 			if(chiphi_s) {
-			  // 				$("#gia-dien").val(chiphi_s.GIADIEN);
-			  // 				$("#gia-nuoc").val(chiphi_s.GIANUOC);
-			  // 				$("#gia-wifi").val(chiphi_s.GiaWifi);
-			  // 				$("#gia-rac").val(chiphi_s.GiaRac);
-			  // 				$("#gia-giu-xe").val(chiphi_s.GiaGXe);
-			  // 				$("#gia-giu-xe-dap").val(chiphi_s.XEDAP);
-			  // 				$("#gia-giu-xe-may").val(chiphi_s.XEMAY);
-			  // 				$('#gia-giu-xe-oto').val(chiphi_s.OTO);
+					$("#gia-dien-hide").val(chiphi_s.GIADIEN);
+					$("#gia-nuoc-hide").val(chiphi_s.GIANUOC);
+					$("#gia-wifi-hide").val(chiphi_s.GiaWifi);
+					$("#gia-rac-hide").val(chiphi_s.GiaRac);
+					$("#gia-giu-xe-hide").val(chiphi_s.GiaGXe);
+					$("#gia-giu-xe-dap-hide").val(chiphi_s.XEDAP);
+					$("#gia-giu-xe-may-hide").val(chiphi_s.XEMAY);
+					$('#gia-giu-xe-oto-hide').val(chiphi_s.OTO);
+  				}
+  				else {
+  					chiphi_s = _.find(chiphi_tro, {'MACP':$("#bang-chi-phi").val()});
+  					if(chiphi_s) {
+	  					$("#gia-dien").val(chiphi_s.GIADIEN);
+		  				$("#gia-nuoc").val(chiphi_s.GIANUOC);
+		  				$("#gia-wifi").val(chiphi_s.GiaWifi);
+		  				$("#gia-rac").val(chiphi_s.GiaRac);
+		  				$("#gia-giu-xe").val(chiphi_s.GiaGXe);
+		  				$("#gia-giu-xe-dap").val(chiphi_s.XEDAP);
+		  				$("#gia-giu-xe-may").val(chiphi_s.XEMAY);
+		  				$('#gia-giu-xe-oto').val(chiphi_s.OTO);
 
-					// 		$("#gia-dien-hide").val(chiphi_s.GIADIEN);
-					// 		$("#gia-nuoc-hide").val(chiphi_s.GIANUOC);
-					// 		$("#gia-wifi-hide").val(chiphi_s.GiaWifi);
-					// 		$("#gia-rac-hide").val(chiphi_s.GiaRac);
-					// 		$("#gia-giu-xe-hide").val(chiphi_s.GiaGXe);
-					// 		$("#gia-giu-xe-dap-hide").val(chiphi_s.XEDAP);
-					// 		$("#gia-giu-xe-may-hide").val(chiphi_s.XEMAY);
-					// 		$('#gia-giu-xe-oto-hide').val(chiphi_s.OTO);
-		  	// 			}
-		  	// 			else {
-		  	// 				chiphi_s = _.find(chiphi, {'MACP':$("#bang-chi-phi").val()});
-		  	// 				if(chiphi_s) {
-			  // 					$("#gia-dien").val(chiphi_s.GIADIEN);
-				 //  				$("#gia-nuoc").val(chiphi_s.GIANUOC);
-				 //  				$("#gia-wifi").val(chiphi_s.GiaWifi);
-				 //  				$("#gia-rac").val(chiphi_s.GiaRac);
-				 //  				$("#gia-giu-xe").val(chiphi_s.GiaGXe);
-				 //  				$("#gia-giu-xe-dap").val(chiphi_s.XEDAP);
-				 //  				$("#gia-giu-xe-may").val(chiphi_s.XEMAY);
-				 //  				$('#gia-giu-xe-oto').val(chiphi_s.OTO);
+						$("#gia-dien-hide").val(chiphi_s.GIADIEN);
+						$("#gia-nuoc-hide").val(chiphi_s.GIANUOC);
+						$("#gia-wifi-hide").val(chiphi_s.GiaWifi);
+						$("#gia-rac-hide").val(chiphi_s.GiaRac);
+						$("#gia-giu-xe-hide").val(chiphi_s.GiaGXe);
+						$("#gia-giu-xe-dap-hide").val(chiphi_s.XEDAP);
+						$("#gia-giu-xe-may-hide").val(chiphi_s.XEMAY);
+						$('#gia-giu-xe-oto-hide').val(chiphi_s.OTO);
+  					}
+  					else {
+						resetBangGia();
+  					}
+  				}
+  				content  = '';
+  			}
+  			else {
+  				$("#danh-sach-chi-phi").attr('hidden', true);
+  				$("#bang-chi-phi").val('null');
+  				resetBangGia();
+  			}
 
-					// 			$("#gia-dien-hide").val(chiphi_s.GIADIEN);
-					// 			$("#gia-nuoc-hide").val(chiphi_s.GIANUOC);
-					// 			$("#gia-wifi-hide").val(chiphi_s.GiaWifi);
-					// 			$("#gia-rac-hide").val(chiphi_s.GiaRac);
-					// 			$("#gia-giu-xe-hide").val(chiphi_s.GiaGXe);
-					// 			$("#gia-giu-xe-dap-hide").val(chiphi_s.XEDAP);
-					// 			$("#gia-giu-xe-may-hide").val(chiphi_s.XEMAY);
-					// 			$('#gia-giu-xe-oto-hide').val(chiphi_s.OTO);
-		  	// 				}
-		  	// 				else {
-		  	// 					$("#gia-dien").val('0');
-				 //  				$("#gia-nuoc").val('0');
-				 //  				$("#gia-wifi").val('0');
-				 //  				$("#gia-rac").val('0');
-				 //  				$("#gia-giu-xe").val('0');
-				 //  				$("#gia-giu-xe-dap").val('0');
-				 //  				$("#gia-giu-xe-may").val('0');
-				 //  				$('#gia-giu-xe-oto').val('0');
-		  	// 				}
-		  	// 			}
-		  	// 			content  = '';
-		  	// 			// On change Chiphi
-		  	// 			console.log('hello');
-					// 	$(document).off("change").on('change', '#bang-chi-phi', function() {
-					// 		console.log('change');
-					// 		var cp = $(this).val();
-					// 		$.ajax({
-					// 			type: 'post',
-					// 			url: 'rooms/getChiPhi',
-					// 			async: false,
-					// 			data: {
-					// 				id: cp
-					// 			},
-					// 			success: function(rs) {
-					// 				rs = JSON.parse(rs).chiphi[0];
-					// 				// console.log(rs);
+  			// Display data
+  			$(".add-ten-nhatro").val(nhatro_info[0].TENNT);
+  			$('.add-chu-chungcu-nhatro').val(nhatro_info[0].MAND);
+  			$('input[name=camera][value="'+nhatro_info[0].Camera+'"]').prop('checked', true);
+  			$('input[name=parking][value="'+nhatro_info.Parking+'"]').prop('checked', true);
+  			$('input[name=guard][value="'+nhatro_info.Guard+'"]').prop('checked', true);
 
-					// 				$("#gia-dien").val(rs.GIADIEN);
-					// 				$("#gia-nuoc").val(rs.GIANUOC);
-					// 				$("#gia-wifi").val(rs.GiaWifi);
-					// 				$("#gia-rac").val(rs.GiaRac);
-					// 				$("#gia-giu-xe").val(rs.GiaGXe);
-					// 				$("#gia-giu-xe-dap").val(rs.XEDAP);
-					// 				$("#gia-giu-xe-may").val(rs.XEMAY);
-					// 				$('#gia-giu-xe-oto').val(rs.OTO);
+	  		// Khu vuc
+	  		showTinhTp(tinhtp);
+  			$('.add-tinh-thanhpho').val(nhatro_info[0].MATTP);
 
-					// 				$("#gia-dien-hide").val(rs.GIADIEN);
-					// 				$("#gia-nuoc-hide").val(rs.GIANUOC);
-					// 				$("#gia-wifi-hide").val(rs.GiaWifi);
-					// 				$("#gia-rac-hide").val(rs.GiaRac);
-					// 				$("#gia-giu-xe-hide").val(rs.GiaGXe);
-					// 				$("#gia-giu-xe-dap-hide").val(rs.XEDAP);
-					// 				$("#gia-giu-xe-may-hide").val(rs.XEMAY);
-					// 				$('#gia-giu-xe-oto-hide').val(rs.OTO);
-					// 				console.log('DIEN: ', $("#gia-dien-hide").val());
+			var mattp = $("#add-tinh-thanhpho").val();
+			showQuanhuyen(quanhuyen, mattp);
+  			$('.add-quan-huyen').val(nhatro_info[0].MAQH);
 
-					// 			},
-					// 			error: function(e) {
-					// 				console.log(e);
-					// 			}
-					// 		});
-					// 	});
-		  	// 		}
-		  	// 		else {
-		  	// 			$("#danh-sach-chi-phi").attr('hidden', true);
-		  	// 		}
+			// show phuong xa
+			var maqh = $("#add-quan-huyen").val();
+			showPhuongxa(phuongxa, maqh);
+  			$('.add-phuong-xa').val(nhatro_info[0].MAPX);
 
-		  	// 		// Danh sach chu tro
-		  	// 		if(chutro.length > 0) {
-			  // 			_.forEach(chutro, function(ct, key) {
-			  // 				content += '<option value="'+ct.MAND+'">'+ct.HOTEN +' - '+ct.Email+'</option>';
-		  	// 			});
-		  	// 			$("#add-chu-chungcu-nhatro").html(content);
-		  	// 			content = '';
-		  	// 		}
-		  	// 		else {
-		  	// 			content += '<option value="null">Danh sách rỗng</option>';
-		  	// 			$(".add-chu-chungcu-nhatro").html(content);
-		  	// 			content = '';
-		  	// 		}
+			// show duong
+			var mad = $("#add-phuong-xa").val();
+			showDuong(duong, mad);
+  			if(nhatro_info[0].MAD != null) $('.add-duong').val(nhatro_info[0].MATTP);
+  			else $('.add-duong').val('null');
+
+  			// DCTD
+  			$("#add-diachi-chinhxac").val(nhatro_info[0].DCTD);
+		});
+
+		$(document).on('click', '#update-nha-tro', function() {
+			var ten, chutro, kinhdo, vido, tp_update, qh_update, px_update, d_update, diachi, id, camera, parking, guard;
+			var cten, cdiachi;
+			var chiphi, dien, nuoc, wifi, rac, giuxe, xedap, xemay, oto;
+			var dienc, nuocc, wific, racc, giuxec, xedapc, xemayc, otoc, tencp;
+
+			var bando = $("#map-nhatro").attr('data');
+			vido = bando.split(',')[0];
+			kinhdo = bando.split(',')[1];
+
+			cten = ".add-ten-nhatro";
+			cdiachi = ".add-diachi-chinhxac";
+
+			id = $("#select-nhatro").val(); // id nha tro
+			ten = $(".add-ten-nhatro").val();
+			chutro = mand;
+			tp_update = $('.add-tinh-thanhpho').val();
+			qh_update = $('.add-quan-huyen').val();
+			px_update = $('.add-phuong-xa').val();
+			diachi = $('.add-diachi-chinhxac').val();
+			camera = $("input[name=camera]:checked").val();
+			parking = $("input[name=parking]:checked").val();
+			guard = $("input[name=guard]:checked").val();
+			
+			chiphi = $("#bang-chi-phi").val();
+			dien = $("#gia-dien").val();
+			nuoc = $("#gia-nuoc").val();
+			wifi = $("#gia-wifi").val();
+			rac = $("#gia-rac").val();
+			giuxe = $("#gia-giu-xe").val();
+			xedap = $("#gia-giu-xe-dap").val();
+			xemay = $("#gia-giu-xe-may").val();
+			oto = $("#gia-giu-xe-oto").val();
+			tencp = 'Bảng chi phí: ' + ten;
+
+			dienc = $("#gia-dien-hide").val();
+			nuocc = $("#gia-nuoc-hide").val();
+			wific = $("#gia-wifi-hide").val();
+			racc = $("#gia-rac-hide").val();
+			giuxec = $("#gia-giu-xe-hide").val();
+			xedapc = $("#gia-giu-xe-dap-hide").val();
+			xemayc = $("#gia-giu-xe-may-hide").val();
+			otoc = $("#gia-giu-xe-oto-hide").val();
+
+			if($('.add-duong').val() != 'null') {
+				d_update = $(".add-duong").val();
+				checkEmpty(cten);
+				checkEmpty(cdiachi);
+
+				if(ten != '' && diachi != '') {
+					$.ajax({
+						type: 'post',
+						url: 'rooms/updateNhaTroDuong',
+						async: false,
+						data: {
+							id: id,
+							ten: ten,
+							chutro: chutro,
+							tinhtp: tp_update,
+							quanhuyen: qh_update,
+							phuongxa: px_update,
+							duong: d_update,
+							diachi: diachi,
+							camera: camera,
+							parking: parking,
+							guard: guard,
+							chiphi: chiphi,
+							dien: dien,
+							dienc: dienc,
+							nuoc: nuoc,
+							nuocc: nuocc,
+							wifi: wifi,
+							wific: wific,
+							rac: rac,
+							racc: racc,
+							giuxe: giuxe,
+							giuxec: giuxec,
+							xedap: xedap,
+							xedapc: xedapc,
+							xemay: xemay,
+							xemayc: xemayc,
+							oto: oto,
+							otoc: otoc,
+							tencp: tencp,
+							vido: vido,
+							kinhdo: kinhdo
+						},
+						success: function(data) {
+							console.log('data: ', data);
+							swal('Thành công!', 'Cập nhật thông tin nhà trọ thành công!', 'success');
+			                $('#cancel-nha-tro').click();
+			                $(".modal-backdrop").modal('hide');
+			                $('body').removeClass('modal-open');
+			                $('.modal-backdrop').remove();
+						},
+						error: function(e) {
+							console.log(e);
+						}
+					});
+				}
+			}
+			else {
+				checkEmpty(cten);
+				checkEmpty(cdiachi);
+				if(ten != '' && diachi != '') {
+					$.ajax({
+						type: 'post',
+						url: 'rooms/updateNhaTro',
+						async: false,
+						data: {
+							id: id,
+							ten: ten,
+							chutro: chutro,
+							tinhtp: tp_update,
+							quanhuyen: qh_update,
+							phuongxa: px_update,
+							diachi: diachi,
+							camera: camera,
+							parking: parking,
+							guard: guard,
+							chiphi: chiphi,
+							dien: dien,
+							dienc: dienc,
+							nuoc: nuoc,
+							nuocc: nuocc,
+							wifi: wifi,
+							wific: wific,
+							rac: rac,
+							racc: racc,
+							giuxe: giuxe,
+							giuxec: giuxec,
+							xedap: xedap,
+							xedapc: xedapc,
+							xemay: xemay,
+							xemayc: xemayc,
+							oto: oto,
+							otoc: otoc,
+							tencp: tencp,
+							kinhdo: kinhdo,
+							vido: vido
+						},
+						success: function(data) {
+							console.log('data: ', data);
+							swal('Thành công!', 'Cập nhật thông tin nhà trọ thành công!', 'success');
+			                $('#cancel-nha-tro').click();
+			                $(".modal-backdrop").modal('hide');
+			                $('body').removeClass('modal-open');
+			                $('.modal-backdrop').remove();
+						},
+						error: function(e) {
+							console.log(e);
+						}
+					});
+				}
+			}
+		});
+
+		// Add nha tro
+		$(document).on('click', '#add-nha-tro', function() {
+			var ten, chutro, kinhdo, vido, tp_update, qh_update, px_update, d_update, diachi, camera, parking, guard;
+			var cten, cdiachi;
+			var dien, nuoc, wifi, rac, giuxe, xedap, xemay, oto, tencp;
+
+			var bando = $("#map-nhatro").attr('data');
+			vido = bando.split(',')[0];
+			kinhdo = bando.split(',')[1];
+
+			cten = ".add-ten-nhatro";
+			cdiachi = ".add-diachi-chinhxac";
+
+			ten = $(".add-ten-nhatro").val();
+			chutro = mand;
+			tp_update = $('.add-tinh-thanhpho').val();
+			qh_update = $('.add-quan-huyen').val();
+			px_update = $('.add-phuong-xa').val();
+			diachi = $('.add-diachi-chinhxac').val();
+			camera = $("input[name=camera]:checked").val();
+			parking = $("input[name=parking]:checked").val();
+			guard = $("input[name=guard]:checked").val();
+
+			dien = $("#gia-dien").val();
+			nuoc = $("#gia-nuoc").val();
+			wifi = $("#gia-wifi").val();
+			rac = $("#gia-rac").val();
+			giuxe = $("#gia-giu-xe").val();
+			xedap = $("#gia-giu-xe-dap").val();
+			xemay = $("#gia-giu-xe-may").val();
+			oto = $("#gia-giu-xe-oto").val();
+			tencp = 'Bảng chi phí: ' + ten;
 
 
-		  	// 		// Danh sach tinh tp, quan huyen, phuong xa, duong xa
-		  	// 		if(tinhtp.length > 0) {
-		  	// 			_.forEach(tinhtp, function(tp, key) {
-		  	// 				content += '<option value="'+tp.MATTP+'">'+tp.TEN+'</option>';
-		  	// 			});
-		  	// 			$(".add-tinh-thanhpho").html(content);
-		  	// 			content = '';
-		  	// 		}
-		  	// 		// Display data
-		  	// 		// console.log('nhatro: ', nhatro);
-		  	// 		$(".add-ten-nhatro").val(nhatro.TENNT);
-		  	// 		$('.add-chu-chungcu-nhatro').val(nhatro.MAND);
-		  	// 		$('.add-tinh-thanhpho').val(nhatro.MATTP);
-		  	// 		$('input[name=camera][value="'+nhatro.Camera+'"]').prop('checked', true);
-		  	// 		$('input[name=parking][value="'+nhatro.Parking+'"]').prop('checked', true);
-		  	// 		$('input[name=guard][value="'+nhatro.Guard+'"]').prop('checked', true);
-		  			
-		  	// 		if(quanhuyen.length > 0) {
-		  	// 			var tp = $('.add-tinh-thanhpho').val();
-		  	// 			_.forEach(quanhuyen, function(qh, key) {
-		  	// 				if(qh.MATTP == tp) {
-		  	// 					content += '<option value="'+qh.MAQH+'">'+qh.TEN+'</option>';
-		  	// 				}
-		  	// 			});
-		  	// 			$(".add-quan-huyen").html(content);
-		  	// 			content = '';
-		  	// 		}
+			if($('.add-duong').val() != 'null') {
+				d_update = $(".add-duong").val();
+				checkEmpty(cten);
+				checkEmpty(cdiachi);
 
-		  	// 		$('.add-quan-huyen').val(nhatro.MAQH);
-		  			
-		  	// 		if(phuongxa.length > 0) {
-		  	// 			var qh = $(".add-quan-huyen").val();
-		  	// 			// console.log('quan huyen: ', qh);
-		  	// 			_.forEach(phuongxa, function(px, key) {
-		  	// 				if(px.MAQH == qh) {
-		  	// 					content += '<option value="'+px.MAPX+'">'+px.TEN+'</option>';	
-		  	// 				}
-		  	// 			});
-		  	// 			$(".add-phuong-xa").html(content);
-		  	// 			content = '';
-		  	// 		}
+				if(ten != '' && diachi != '') {
+					$.ajax({
+						type: 'post',
+						url: 'rooms/addNhaTroDuong',
+						data: {
+							ten: ten,
+							chutro: chutro,
+							tinhtp: tp_update,
+							quanhuyen: qh_update,
+							phuongxa: px_update,
+							duong: d_update,
+							diachi: diachi,
+							camera: camera,
+							parking: parking,
+							guard: guard,
+							dien: dien,
+							nuoc: nuoc,
+							wifi: wifi,
+							rac: rac,
+							giuxe: giuxe,
+							xedap: xedap,
+							xemay: xemay,
+							oto: oto,
+							tencp: tencp,
+							kinhdo: kinhdo,
+							vido: vido
+						},
+						success: function(data) {
+							if(data != 'false') {
+								swal('Thành công!', 'Thêm nhà trọ mới thành công!', 'success');
+								$(".add-ten-nhatro").val('');
+								showSelectNhaTro();
+							}
+						},
+						error: function(e) {
+							console.log(e);
+						}
+					});
+				}
+			}
+			else {
+				checkEmpty(cten);
+				checkEmpty(cdiachi);
+				// // console.log('data: ', _.concat([ten, chutro, tinhtp, quanhuyen, phuongxa, diachi]));
+				if(ten != '' && diachi != '') {
+					$.ajax({
+						type: 'post',
+						url: 'rooms/addNhaTro',
+						data: {
+							ten: ten,
+							chutro: chutro,
+							tinhtp: tp_update,
+							quanhuyen: qh_update,
+							phuongxa: px_update,
+							diachi: diachi,
+							camera: camera,
+							parking: parking,
+							guard: guard,
+							dien: dien,
+							nuoc: nuoc,
+							wifi: wifi,
+							rac: rac,
+							tencp: tencp,
+							giuxe: giuxe,
+							xedap: xedap,
+							xemay: xemay,
+							oto: oto,
+							kinhdo: kinhdo,
+							vido: vido
+						},
+						success: function(data) {
+							if(data != 'false') {
+								swal('Thành công!', 'Thêm nhà trọ mới thành công!', 'success');
+								$(".add-ten-nhatro").val('');
+								showSelectNhaTro();
+							}
+						},
+						error: function(e) {
+							console.log(e);
+						}
+					});
+				}
+			}
+		});
 
-		  	// 		$('.add-phuong-xa').val(nhatro.MAPX);
-		  			
-		  	// 		if(duong.length > 0) {
-		  	// 			content += '<option value="null">Chọn đường</option>';
-		  	// 			var px = $('.add-phuong-xa').val();
-		  	// 			_.forEach(duong, function(d, key) {
-		  	// 				if(d.MAPX == px) {
-		  	// 					content += '<option value="'+d.MAD+'">'+d.TEN+'</option>';
-		  	// 				}
-		  	// 			});
-		  	// 			$('.add-duong').html(content);
-		  	// 			content = '';
-		  	// 		}
-		  	// 		if(nhatro.MAD != null) {
-		  	// 			$('.add-duong').val(nhatro.MAD);
-		  	// 			console.log('!=null', nhatro.MAD);
-		  	// 		}
-		  	// 		else {
-		  	// 			$('.add-duong').val('null');
-		  	// 			console.log('null: ', nhatro.MAD);
-		  	// 		}
+		// Change chiphi
+		$(document).on('change', '#bang-chi-phi', function() {
+			var id = $("#bang-chi-phi").val();
+			var rs = getMotChiPhi(id);
+			console.log(rs);
 
-		  	// 		diachichinhxac();
-		  	// 		$('.add-diachi-chinhxac').val(nhatro.DCTD);
+			$("#gia-dien").val(rs.GIADIEN);
+			$("#gia-nuoc").val(rs.GIANUOC);
+			$("#gia-wifi").val(rs.GiaWifi);
+			$("#gia-rac").val(rs.GiaRac);
+			$("#gia-giu-xe").val(rs.GiaGXe);
+			$("#gia-giu-xe-dap").val(rs.XEDAP);
+			$("#gia-giu-xe-may").val(rs.XEMAY);
+			$('#gia-giu-xe-oto').val(rs.OTO);
 
-		  	// 		// Select change
-		  	// 		$(document).on('change', '.add-tinh-thanhpho', function() {
-		  	// 			if(quanhuyen.length > 0) {
-			  // 				var tp = $('.add-tinh-thanhpho').val();
-			  // 				_.forEach(quanhuyen, function(qh, key) {
-			  // 					if(qh.MATTP == tp) {
-			  // 						content += '<option value="'+qh.MAQH+'">'+qh.TEN+'</option>';
-			  // 					}
-			  // 				});
-			  // 				$(".add-quan-huyen").html(content);
-			  // 				content = '';
-			  // 			}
-			  // 			if(phuongxa.length > 0) {
-			  // 				var qh = $(".add-quan-huyen").val();
-			  // 				// console.log('quan huyen: ', qh);
-			  // 				_.forEach(phuongxa, function(px, key) {
-			  // 					if(px.MAQH == qh) {
-			  // 						content += '<option value="'+px.MAPX+'">'+px.TEN+'</option>';	
-			  // 					}
-			  // 				});
-			  // 				$(".add-phuong-xa").html(content);
-			  // 				content = '';
-			  // 			}
-			  // 			if(duong.length > 0) {
-			  // 				content += '<option value="null">Chọn đường</option>';
-			  // 				var px = $('.add-phuong-xa').val();
-			  // 				_.forEach(duong, function(d, key) {
-			  // 					if(d.MAPX == px) {
-			  // 						content += '<option value="'+d.MAD+'">'+d.TEN+'</option>';
-			  // 					}
-			  // 				});
-			  // 				$('.add-duong').html(content);
-			  // 				content = '';
-			  // 			}
-			  // 			diachichinhxac();
-		  	// 		});
-
-		  	// 		$(document).on('change', '.add-quan-huyen', function() {
-		  	// 			if(phuongxa.length > 0) {
-			  // 				var qh = $(".add-quan-huyen").val();
-			  // 				// console.log('quan huyen: ', qh);
-			  // 				_.forEach(phuongxa, function(px, key) {
-			  // 					if(px.MAQH == qh) {
-			  // 						content += '<option value="'+px.MAPX+'">'+px.TEN+'</option>';	
-			  // 					}
-			  // 				});
-			  // 				$(".add-phuong-xa").html(content);
-			  // 				content = '';
-			  // 			}
-			  // 			if(duong.length > 0) {
-			  // 				content += '<option value="null">Chọn đường</option>';
-			  // 				var px = $('.add-phuong-xa').val();
-			  // 				_.forEach(duong, function(d, key) {
-			  // 					if(d.MAPX == px) {
-			  // 						content += '<option value="'+d.MAD+'">'+d.TEN+'</option>';
-			  // 					}
-			  // 				});
-			  // 				$('.add-duong').html(content);
-			  // 				content = '';
-			  // 			}
-			  // 			diachichinhxac();
-		  	// 		});
-
-		  	// 		$(document).on('change', '.add-phuong-xa', function() {
-		  	// 			if(duong.length > 0) {
-			  // 				content += '<option value="null">Chọn đường</option>';
-			  // 				var px = $('.add-phuong-xa').val();
-			  // 				_.forEach(duong, function(d, key) {
-			  // 					if(d.MAPX == px) {
-			  // 						content += '<option value="'+d.MAD+'">'+d.TEN+'</option>';
-			  // 					}
-			  // 				});
-			  // 				$('.add-duong').html(content);
-			  // 				content = '';
-			  // 			}
-			  // 			diachichinhxac();
-		  	// 		});
-
-		  	// 		$(document).on('change', '.add-duong', function() {
-			  // 			diachichinhxac();
-		  	// 		});
-		  	// 	},
-		  	// 	error: function() {
-		  	// 		// console.log('error');
-		  	// 	}
-		  	// });
+			$("#gia-dien-hide").val(rs.GIADIEN);
+			$("#gia-nuoc-hide").val(rs.GIANUOC);
+			$("#gia-wifi-hide").val(rs.GiaWifi);
+			$("#gia-rac-hide").val(rs.GiaRac);
+			$("#gia-giu-xe-hide").val(rs.GiaGXe);
+			$("#gia-giu-xe-dap-hide").val(rs.XEDAP);
+			$("#gia-giu-xe-may-hide").val(rs.XEMAY);
+			$('#gia-giu-xe-oto-hide').val(rs.OTO);
 		});
 		
+		// Open modal add chi phi
 		$(document).on('click', '#open-modal-add-chiphi', function() {
 			$("#modal-add-chiphi").modal();
+			resetAddBangGia();
+			showSelectNhaTroBangGia(nhatro);
+		});
+
+		// Add chi phi
+		$(document).on('click', '.add-chiphi-nhatro', function() {
+			var nhatro, ten, dien, nuoc, wifi, rac, giuxe, xedap, xemay, oto, tenc;
+			nhatro = $("#add-nhatro-chiphi").val();
+			ten = $("#add-ten-chiphi").val();
+			dien = $("#add-gia-dien").val();
+			nuoc = $("#add-gia-nuoc").val();
+			wifi = $('#add-gia-wifi').val();
+			rac = $("#add-gia-rac").val();
+			giuxe = $("#add-gia-giu-xe").val();
+			xedap = $("#add-gia-giu-xe-dap").val();
+			xemay = $("#add-gia-giu-xe-may").val();
+			oto = $("#add-gia-giu-xe-oto").val();
+			tenc = '#add-ten-chiphi';
+			checkEmpty(tenc);
+
+			if(ten != '') {
+				console.log('Dataaa: ', _.concat([nhatro, ten,dien,nuoc,wifi,rac,giuxe,xedap,xemay,oto]));
+				$.ajax({
+					type: 'post',
+					url: 'rooms/addChiPhi',
+					data: {
+						nhatro: nhatro,
+						ten: ten,
+						dien: dien,
+						nuoc: nuoc,
+						wifi: wifi,
+						rac: rac,
+						giuxe: giuxe,
+						xedap: xedap,
+						xemay: xemay,
+						oto: oto,
+						trangthai: 'new',
+						selected: 'no'
+					},
+					success: function(data) {
+						console.log('DATAAA: ', data);
+						if(data == 'true') {
+							swal('Thành công!', 'Thêm bảng chi phí mới thành công!', 'success');
+							resetAddBangGia();
+						}
+						else {
+							swal('Lỗi!', 'Nhập giá trị lớn hơn 0 để tạo bảng chi phí!', 'warning');
+						}
+					},
+					error: function(e) {
+						console.log(e);
+					}
+				});
+			}
 		});
 		
 		$(document).on('click', '#open-modal-add-phongtro', function() {
 			$("#modal-add-phongtro").modal();
+			$(".nguoio-phongtro").val('1');
+			$(".dientich-phongtro").val('1');
+			$(".tientro-phongtro").val('1');
+			showInput(parseInt($(".nguoio-phongtro").val(), 10));
+		});
+
+		// add phong tro
+		$(document).on('click', '.add-phongtro', function() {
+			var ten, dientich, sltd, tt_add, mota, mant, cachtinh;
+			var cmnd, sdt, hoten, gioitinh, diachi;
+			var cmnd_s, sdt_s, hoten_s, diachi_s;
+			var dsNguoi = [];
+			var complete = 0;
+
+			mant = $("#select-nhatro").val();
+			console.log('mant: ', mant);
+			ten = $('#ten-phongtro').val();
+			dientich = $("#dientich-phongtro").val();
+			sltd = $("#nguoio-phongtro").val();
+			tt_add = $("#tientro-phongtro").val();
+			mota = $("#mota-phongtro").val();
+			cachtinh = $("input[name=cachtinh-phongtro]").val();
+
+			cmnd_s = '.nguoio-cmnd';
+			sdt_s = '.nguoio-sdt';
+			hoten_s = '.nguoio-ten';
+			diachi_s = '.nguoio-diachi';
+
+			checkEmpty('.ten-phongtro');
+
+			if(ten != '') {
+				for(var i = 0; i < parseInt(sltd,10); i++) {
+					var nguoi = {};
+					// Element value
+					cmnd = $($(".nguoio-cmnd")[i]).val();
+					sdt = $($(".nguoio-sdt")[i]).val();
+					hoten = $($('.nguoio-ten')[i]).val();
+					diachi = $($(".nguoio-diachi")[i]).val();
+					gioitinh = $($(".nguoio-gioitinh")[i]).val();
+					if(cmnd != '' && sdt != '' && hoten != '') {
+						if($($(".nguoio-cmnd")[i]).inputmask('isComplete') && $($(".nguoio-sdt")[i]).inputmask('isComplete')) {
+							nguoi = {
+								cmnd: cmnd,
+								sdt: sdt,
+								hoten: hoten,
+								diachi: diachi,
+								gioitinh: gioitinh
+							};
+							dsNguoi.push(nguoi);
+						}
+						else {
+							swal('Lỗi!', 'Vui lòng nhập đẩy đủ thông tin CMND và Số điện thoại!', 'warning');
+							complete ++;
+						}
+					}
+				}
+				if(dsNguoi.length > 0 && complete == 0) {
+					$.ajax({
+						type: 'post',
+						url: 'rooms/addPhongTro',
+						async: false,
+						data: {
+							ten: ten,
+							nhatro: mant,
+							dientich: dientich,
+							sltd: sltd,
+							slndo: dsNguoi.length,
+							tientro: tt_add,
+							mota: mota,
+							cachtinh: cachtinh,
+							dsTro: dsNguoi
+						},
+						success: function(data) {
+							console.log('data ds co nguoio',data);
+							if(data == 'true') {
+								swal('Thành công!', 'Thêm phòng trọ mới thành công!', 'success');
+								phongtro = getDsPhongTro(mant);
+								showPhongTro(mant, tientro);
+								showSelectPhongTro(phongtro);
+							}
+							else {
+								swal('Lỗi!', 'Có lỗi xảy ra, vui lòng kiểm tra lại!', 'error');
+							}
+						},
+						error: function(e) {
+							console.log(e);
+						}
+					});
+				}
+				else {
+					$.ajax({
+						type: 'post',
+						url: 'rooms/addPhongTro',
+						async: false,
+						data: {
+							ten: ten,
+							nhatro: mant,
+							dientich: dientich,
+							sltd: sltd,
+							slndo: 0,
+							mota: mota,
+							cachtinh: cachtinh,
+							tientro: tt_add,
+							dsTro: []
+						},
+						success: function(data) {
+							console.log('data ds khong nguoi o',data);
+							if(data == 'true') {
+								swal('Thành công!', 'Thêm phòng trọ mới thành công!', 'success');
+								phongtro = getDsPhongTro(mant);
+								showPhongTro(mant, tientro);
+								showSelectPhongTro(phongtro);
+				                $('.cancel-add').click();
+				                $(".modal-backdrop").modal('hide');
+				                $('body').removeClass('modal-open');
+				                $('.modal-backdrop').remove();
+							}
+							else {
+								swal('Lỗi!', 'Có lỗi xảy ra, vui lòng kiểm tra lại!', 'error');
+							}
+						},
+						error: function(e) {
+							console.log(e);
+						}
+					});
+				}
+			}
 		});
 
 		$(document).on('click', '.edit-phongtro', function() {
 			$("#modal-xem-phongtro").modal();
+			var id = $(this).attr('data')[0];
+			$("#update-phongtro").attr('data', id);
+			$("#xem-ten-phongtro").parent().removeClass('has-danger');
+			$("#xem-ten-phongtro").removeClass('form-control-danger');
+			$.ajax({
+				type: 'post',
+				url: 'rooms/getMotPhongTro',
+				data: {
+					id: id
+				},
+				success: function(data) {
+					data = JSON.parse(data);
+					console.log('data: ', data);
+					if(data != 'false') {
+						$("#xem-ten-phongtro").val(data.Ten)
+						$("#xem-nguoio-phongtro").val(data.SLTD);
+						$("#xem-tientro-phongtro").val(data.GIA);
+						$("#xem-mota-phongtro").val(data.GhiChu);
+						$("#xem-dientich-phongtro").val(data.DienTich);
+						$("#xem-nguoidango-phongtro").val(data.SLNDO);
+						$("input[name=xem-cachtinh-phongtro][value='"+data.CACHTINH+"']").prop('checked', true);
+						$("#xem-tientro-giacu-phongtro").val(data.GIA);
+						$("#xem-cachtinh-cu-phongtro").val(data.CACHTINH);
+					}
+					else {
+						console.log('Something wrong!');
+					}
+				},
+				error: function(e) {
+					console.log(e);
+				}
+			});
+		});
+
+		// Update phong tro
+		$(document).on('click', '#update-phongtro', function() {
+			var ten, dientich, sltd, tt_update, mota, cachtinh, giacu, cachtinhcu, dango;
+			var id = $(this).attr('data');
+			checkEmpty('#xem-ten-phongtro');
+			ten = $("#xem-ten-phongtro").val()
+			sltd = $("#xem-nguoio-phongtro").val();
+			dango = $("#xem-nguoidango-phongtro").val();
+			tt_update = $("#xem-tientro-phongtro").val();
+			mota = $("#xem-mota-phongtro").val();
+			dientich = $("#xem-dientich-phongtro").val();
+			cachtinh = $("input[name=xem-cachtinh-phongtro]:checked").val();
+			giacu = $("#xem-tientro-giacu-phongtro").val();
+			cachtinhcu = $("#xem-cachtinh-cu-phongtro").val();
+			console.log("data update: ", _.concat(ten, sltd, tt_update, mota, dientich, cachtinh, giacu, cachtinhcu));
+			if(sltd >= dango) {
+				$.ajax({
+					type: 'post',
+					url: 'rooms/updatePhongTro',
+					data: {
+						id: id,
+						ten: ten,
+						sltd: sltd,
+						tientro: tt_update,
+						mota: mota,
+						dientich: dientich,
+						cachtinh: cachtinh,
+						giacu: giacu,
+						cachtinhcu: cachtinhcu
+					},
+					success: function(data) {
+						if(data != 'false') {
+							swal('Thành công!', 'Cập nhật thông tin phòng trọ thành công!', 'success');
+							showPhongTro($("#select-nhatro").val(), tientro);
+			                $('.cancel-update').click();
+			                $(".modal-backdrop").modal('hide');
+			                $('body').removeClass('modal-open');
+			                $('.modal-backdrop').remove();
+						}
+						else {
+							swal('Thành công!', 'Cập nhật thông tin phòng trọ thành công!', 'success');
+						}
+					},
+					error: function(e) {
+						console.log(e);
+					}
+				});
+			}
+			else {
+				swal('Lỗi!', 'Không thể giảm người ở tối đa nhỏ hơn số người đang ở!', 'warning');
+				$("#xem-nguoio-phongtro").val(sltd);
+			}	
 		});
 
 		// Cap nhat / Them nguoi o
@@ -461,7 +894,7 @@
 				ten = $("#add-nguoitro-ten-"+id[1]).val();
 				cmnd = $("#add-nguoitro-cmnd-"+id[1]).val();
 				sdt = $("#add-nguoitro-sdt-"+id[1]).val();
-				gioitinh = $("#add-nguoitro-gioitinh-"+id[1]).val();
+				gioitinh = $("#dsnguoio-gioitinh-"+id[1]).val();
 				diachi = $("#add-nguoitro-diachi-"+id[1]).val();
 				console.log('isComplete ', $("#add-nguoitro-cmnd-"+id[1]).inputmask('isComplete'));
 				if(ten != '') {
@@ -592,6 +1025,87 @@
 			if($("#gia-giu-xe-oto").val().length == 0) $("#gia-giu-xe-oto").val('0');
 			if($("#gia-giu-xe-oto").val() < 0) $("#gia-giu-xe-oto").val('0');	
 		});
+
+		// Typing gia
+		// Gia dien
+		$(document).on('keyup', '#add-gia-dien', function() {
+			if($("#add-gia-dien").val() < 0) $("#add-gia-dien").val('0');
+			if($("#add-gia-dien").val().length == 0) $("#add-gia-dien").val('0');
+		});
+
+		// Nuoc
+		$(document).on('keyup', '#add-gia-nuoc', function(){
+			if($("#add-gia-nuoc").val().length == 0) $("#add-gia-nuoc").val('0');
+			if($("#add-gia-nuoc").val() < 0) $("#add-gia-nuoc").val('0');
+		});
+
+		// Wifi
+		$(document).on('keyup', '#add-gia-wifi', function(){
+			if($("#add-gia-wifi").val().length == 0) $("#add-gia-wifi").val('0');
+			if($("#add-gia-wifi").val() < 0) $("#add-gia-wifi").val('0');	
+		});
+
+		// Rac
+		$(document).on('keyup', '#add-gia-rac', function(){
+			if($("#add-gia-rac").val().length == 0) $("#add-gia-rac").val('0');
+			if($("#add-gia-rac").val() < 0) $("#add-gia-rac").val('0');	
+		});
+
+		// Giu xe
+		$(document).on('keyup', '#add-gia-giu-xe', function(){
+			if($("#add-gia-giu-xe").val().length == 0) $("#add-gia-giu-xe").val('0');
+			if($("#add-gia-giu-xe").val() < 0) $("#add-gia-giu-xe").val('0');	
+		});
+
+		// Xe dap
+		$(document).on('keyup', '#add-gia-giu-xe-dap', function(){
+			if($("#add-gia-giu-xe-dap").val().length == 0) $("#add-gia-giu-xe-dap").val('0');
+			if($("#add-gia-giu-xe-dap").val() < 0) $("#add-gia-giu-xe-dap").val('0');	
+		});
+
+		// Xe may
+		$(document).on('keyup', '#add-gia-giu-xe-may', function(){
+			if($("#add-gia-giu-xe-may").val().length == 0) $("#add-gia-giu-xe-may").val('0');
+			if($("#add-gia-giu-xe-may").val() < 0) $("#add-gia-giu-xe-may").val('0');	
+		});
+
+		// Oto
+		$(document).on('keyup', '#add-gia-giu-xe-oto', function(){
+			if($("#add-gia-giu-xe-oto").val().length == 0) $("#add-gia-giu-xe-oto").val('0');
+			if($("#add-gia-giu-xe-oto").val() < 0) $("#add-gia-giu-xe-oto").val('0');	
+		});
+
+		var slnguoio;
+		$("input[name=cachtinh-phongtro][value=daunguoi]").prop('checked', true);
+		$(".nguoio-phongtro").val('1');
+		$(".dientich-phongtro").val('1');
+		$(".tientro-phongtro").val('1');
+		slnguoio = parseInt($(".nguoio-phongtro").val(), 10);
+		showInput(slnguoio);
+
+		$(document).on('change keyup',".nguoio-phongtro" , function() {
+			if($(this).val() < 1) $(this).val('1');
+			if($(this).val() > 10) $(this).val('10');
+			if($(this).val() == '') $(this).val('1');
+
+			slnguoio = parseInt($(this).val(), 10);
+			var dsNguoi = saveData(slnguoio);
+			showInput(slnguoio);
+			recover(dsNguoi);
+		});
+
+		$(".dientich-phongtro").on('change keyup', function() {
+			if($(this).val() < 1) $(this).val('1');
+			if($(this).val() > 1000000000) $(this).val('1000000000');
+			if($(this).val() == '') $(this).val('1');
+		});
+
+		$(".tientro-phongtro").on('change keyup', function() {
+			if($(this).val() < 1) $(this).val('1');
+			if($(this).val() > 1000000000) $(this).val('1000000000');
+			if($(this).val() == '') $(this).val('1');
+		});
+
 	});
 
 	// FUNCTION -------------------------------------------------------------------------------------
@@ -600,6 +1114,150 @@
 	// ----------------------------------------------------------------------------------------------
 	// ----------------------------------------------------------------------------------------------
 	
+		function saveData(num) {
+		var dsNguoi = [];
+		for(var i = 0; i < num; i++) {
+			var nguoi = {
+				cmnd: '',
+				sdt: '',
+				hoten: '',
+				gioitinh: 'nam',
+				diachi: ''
+			};
+			if($($('.nguoio-cmnd')[i]).val() != '') {
+				nguoi.cmnd = $($('.nguoio-cmnd')[i]).val();
+				if(_.isUndefined(nguoi.cmnd)) nguoi.cmnd = '';
+			}
+			if($($('.nguoio-sdt')[i]).val() != '') {
+				nguoi.sdt = $($('.nguoio-sdt')[i]).val();
+				if(_.isUndefined(nguoi.sdt)) nguoi.sdt = '';
+			}
+			if($($('.nguoio-hoten')[i]).val() != '') {
+				nguoi.hoten = $($('.nguoio-ten')[i]).val();
+				if(_.isUndefined(nguoi.hoten)) nguoi.hoten = '';
+			}
+			if($($('.nguoio-gioitinh')[i]).val() != '') {
+				nguoi.gioitinh = $($('.nguoio-gioitinh')[i]).val();
+				if(_.isUndefined(nguoi.gioitinh)) nguoi.gioitinh = 'nam';
+			}
+			if($($('.nguoio-diachi')[i]).val() != '') {
+				nguoi.diachi = $($('.nguoio-diachi')[i]).val();
+				if(_.isUndefined(nguoi.diachi)) nguoi.diachi = '';
+			}
+			dsNguoi.push(nguoi);
+		}
+		return dsNguoi;
+	}
+
+	function recover(dsNguoi) {
+		_.forEach(dsNguoi, function(nguoi, key) {
+			$($(".nguoio-cmnd")[key]).val(nguoi.cmnd);
+			$($(".nguoio-sdt")[key]).val(nguoi.sdt);
+			$($('.nguoio-ten')[key]).val(nguoi.hoten);
+			$($(".nguoio-diachi")[key]).val(nguoi.diachi);
+			$($(".nguoio-gioitinh")[key]).val(nguoi.gioitinh);
+		});
+	}
+
+	function showInput(num) {
+		var content = '';
+		for(var i = 0; i < num; i++) {
+      		content += '<label>Người thứ: '+(i+1)+'</label>';
+			content += '<div class="row">';
+			content += '<div class="form-group col-md-3">';
+			content += '<input class="form-control form-control-sm nguoio-cmnd" id="nguoio-cmnd-'+(i+1)+'" placeholder="CMND *">';
+			content += '</div>';
+			content += '<div class="form-group col-md-3">';
+			content += '<input class="form-control form-control-sm nguoio-sdt"  id="nguoio-sdt-'+(i+1)+'" placeholder="Số điện thoại *">';
+			content += '</div>';
+			content += '<div class="form-group  col-md-4">';
+			content += '<input type="text" maxlength="30" class="form-control form-control-sm nguoio-ten" placeholder="Họ và tên *">';
+			content += '</div>';
+			content += '<div class="form-group col-md-2">';
+			content += '<select class="form-control nguoio-gioitinh">';
+			content += '<option value="nam">Nam</option>';
+			content += '<option value="nu">Nữ</option>';
+			content += '</select>';
+			content += '</div>';
+			content += '<div class="form-group col-md-12">';
+			content += '<input type="text" maxlength="100" class="form-control form-control-sm nguoio-diachi" placeholder="Địa chỉ">';
+			content += '</div>';
+			if(i != num - 1) {
+				content += '</div><hr>';
+			}
+			if(i == num - 1) {
+			content += '<div class="form-group col-md-12">';
+          	content += '<label style="color:#ff0000; margin-top:1%;">* Chú ý</label><br>';
+          	content += '<label style="color:#ff0000; margin-top:1%;">- Thông tin người ở để trống nếu chưa có.</label><br>';
+          	content += '<label style="color:#ff0000; margin-top:1%;">- Nếu có người ở, vui lòng nhập đủ số CMND, Số điện thoại và Họ tên.</label>';
+			content += '</div>';
+			}
+		}
+		$("#danhsach-nguoio").html(content);
+		content = '';
+		$(".nguoio-cmnd").inputmask('999999999');
+		$(".nguoio-sdt").inputmask('9999999999');
+	}
+
+	// Check empty
+	function checkEmpty(string) {
+		if($(string).val() == '') {
+			$(string).parent().addClass('has-danger');
+			$(string).addClass('form-control-danger');
+			swal('Lỗi!', 'Vui lòng nhập đầy đủ thông tin và thử lại!', 'warning');
+		}
+		else {
+			$(string).parent().removeClass('has-danger');
+			$(string).removeClass('form-control-danger');
+		}
+	}
+
+	function resetAddBangGia() {
+		$("#add-gia-dien").val('0');
+		$("#add-gia-nuoc").val('0');
+		$("#add-gia-wifi").val('0');
+		$("#add-gia-rac").val('0');
+		$("#add-gia-giu-xe").val('0');
+		$("#add-gia-giu-xe-dap").val('0');
+		$("#add-gia-giu-xe-oto").val('0');
+		$("#add-gia-giu-xe-may").val('0');
+	}
+
+	function resetBangGia() {
+		$("#gia-dien").val('0');
+		$("#gia-nuoc").val('0');
+		$("#gia-wifi").val('0');
+		$("#gia-rac").val('0');
+		$("#gia-giu-xe").val('0');
+		$("#gia-giu-xe-dap").val('0');
+		$("#gia-giu-xe-may").val('0');
+		$('#gia-giu-xe-oto').val('0');
+
+		$("#gia-dien-hide").val('0');
+		$("#gia-nuoc-hide").val('0');
+		$("#gia-wifi-hide").val('0');
+		$("#gia-rac-hide").val('0');
+		$("#gia-giu-xe-hide").val('0');
+		$("#gia-giu-xe-dap-hide").val('0');
+		$("#gia-giu-xe-may-hide").val('0');
+		$('#gia-giu-xe-oto-hide').val('0');
+	}
+
+	function diachichinhxac() {
+		var diachi, tinhtp, quanhuyen, phuongxa, duong;
+		tinhtp = $('.add-tinh-thanhpho').children('option').filter(":selected").text();
+		quanhuyen = $('.add-quan-huyen').children('option').filter(":selected").text();
+		phuongxa = $('.add-phuong-xa').children('option').filter(":selected").text();
+		if($('.add-duong').val() != 'null') {
+			duong = $('.add-duong').children('option').filter(":selected").text();
+			diachi = duong + ', ' + phuongxa + ', ' + quanhuyen + ', ' + tinhtp;
+		}
+		else {
+			diachi = phuongxa + ', ' + quanhuyen + ', ' + tinhtp;
+		}
+		$('.add-diachi-chinhxac').val(diachi);
+	}
+
 	function showTinhTp(dstinhtp) {
 		var content = '';
 		_.forEach(dstinhtp, function(tp, key) {
@@ -631,8 +1289,8 @@
 
 	function showDuong(dsduong, mapx) {
 		var content = '';
-		var duong = _.filter(dsduong, {'MAPX':px});
-		content += '<option value="null">Chọn đường<option>';
+		var duong = _.filter(dsduong, {'MAPX':mapx});
+		content += '<option value="null">Chọn đường</option>';
 		_.forEach(duong, function(d, key) {
 			content += '<option value="'+d.MAD+'">'+d.TEN+'</option>';
 		});
@@ -665,7 +1323,7 @@
 		return nhatro;
 	}
 
-	function getChiChi(mant) {
+	function getChiPhi(mant) {
 		var chiphi;
 		$.ajax({
 			type: 'post',
@@ -678,6 +1336,32 @@
 			success: function(data) {
 				if(data != false) {
 					chiphi = data;
+				}
+				else {
+					chiphi = [];
+				}
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		});
+		return chiphi;
+	}
+
+	function getMotChiPhi(macp) {
+		var chiphi;
+		$.ajax({
+			type: 'post',
+			url: 'rooms/getMotChiPhi',
+			dataType: 'json',
+			async: false,
+			data: {
+				id: macp
+			},
+			success: function(data) {
+				if(data != false) {
+					chiphi = data.chiphi[0];
+					console.log('chiphi',data);
 				}
 				else {
 					chiphi = [];
@@ -818,6 +1502,17 @@
 		$("#select-nhatro").html(content);
 		if($("#select-nhatro").length) {
 			$("#select-nhatro").select2();
+		}
+	}
+
+	function showSelectNhaTroBangGia(dsnhatro) {
+		var content = '';
+		_.forEach(dsnhatro, function(nhatro, key) {
+			content += '<option value="'+nhatro.MANT+'">'+(key+1)+' - '+nhatro.TENNT+'</option>';
+		});
+		$("#add-nhatro-chiphi").html(content);
+		if($("#add-nhatro-chiphi").length) {
+			$("#add-nhatro-chiphi").select2();
 		}
 	}
 

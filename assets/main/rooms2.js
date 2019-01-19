@@ -173,6 +173,9 @@
 						$("#add-gia-giu-xe-oto").val('0');
 						$("#add-gia-giu-xe-may").val('0');
 					}
+					else {
+						swal('Lỗi!', 'Nhập giá trị lớn hơn 0 để tạo bảng chi phí!', 'warning');
+					}
 				},
 				error: function(e) {
 					swal('Lỗi!', 'Xảy ra lỗi, vui lòng kiểm tra lại!', 'error');

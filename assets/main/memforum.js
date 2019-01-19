@@ -1062,7 +1062,7 @@
 						content += '<i class="mdi mdi-thumb-down-outline text-danger"></i> '+tp.countkthich+'</button>';
 						content += '<button type="button" data="'+tp.TOPIC+'-'+tp.MANO+'-'+tp.MAND+'" class="btn btn-outline-secondary btn-rounded btn-icon xem-binhluan">';
 						content += '<i class="mdi mdi-comment-outline text-dark"></i> '+tp.countbl+'</button>';
-						content += '<button type="button" data="'+tp.TOPIC+'-'+tp.MANO+'-'+tp.MAND+'" class="btn btn-outline-danger btn-rounded btn-icon edit-topic">';
+						content += '<button type="button" data="'+tp.TOPIC+'-'+tp.MANO+'-'+tp.MAND+'" class="btn btn-outline-danger btn-rounded btn-icon delete-topic">';
 						content += '<i class="mdi mdi-delete text-danger"></i></button>';
 						content += '<button type="button" data="'+tp.TOPIC+'-'+tp.MANO+'-'+tp.MAND+'" class="btn btn-outline-secondary btn-rounded btn-icon edit-topic">';
 						content += '<i class="mdi mdi-dots-horizontal text-danger"></i></button>';

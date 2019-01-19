@@ -42,6 +42,22 @@ class Rooms extends CI_Controller {
 		$data['kinhdo'] = $this->input->post('kinhdo');
 
 		$result = $this->Room_model->addNhaTroDuong($data);
+		if($cp['nhatro'] != false) {
+			$cp['ten'] = $this->input->post('tencp');
+			$cp['dien'] = intval($this->input->post('dien'));
+			$cp['nuoc'] = intval($this->input->post('nuoc'));
+			$cp['wifi'] = intval($this->input->post('wifi'));
+			$cp['rac'] = intval($this->input->post('rac'));
+			$cp['giuxe'] = intval($this->input->post('giuxe'));
+			$cp['xedap'] = intval($this->input->post('xedap'));
+			$cp['xemay'] = intval($this->input->post('xemay'));
+			$cp['oto'] = intval($this->input->post('oto'));
+			$cp['selected'] = 'yes';
+			$cp['trangthai'] = 'new';
+			if($cp['dien'] != 0 || $cp['nuoc'] != 0 || $cp['wifi'] != 0 || $cp['rac'] != 0 || $cp['giuxe'] != 0 || $cp['xedap'] != 0 || $cp['xemay'] != 0 || $cp['oto'] != 0) {
+				$addcp = $this->Room_model->addChiPhi($cp);
+			}
+		}
 		if($result == true) echo 'true';
 		else echo 'false';
 	}
@@ -62,20 +78,21 @@ class Rooms extends CI_Controller {
 		$cp['nhatro'] = $this->Room_model->addNhaTro($data);
 		if($cp['nhatro'] != false) {
 			$cp['ten'] = $this->input->post('tencp');
-			$cp['dien'] = $this->input->post('dien');
-			$cp['nuoc'] = $this->input->post('nuoc');
-			$cp['wifi'] = $this->input->post('wifi');
-			$cp['rac'] = $this->input->post('rac');
-			$cp['giuxe'] = $this->input->post('giuxe');
-			$cp['xedap'] = $this->input->post('xedap');
-			$cp['xemay'] = $this->input->post('xemay');
-			$cp['oto'] = $this->input->post('oto');
+			$cp['dien'] = intval($this->input->post('dien'));
+			$cp['nuoc'] = intval($this->input->post('nuoc'));
+			$cp['wifi'] = intval($this->input->post('wifi'));
+			$cp['rac'] = intval($this->input->post('rac'));
+			$cp['giuxe'] = intval($this->input->post('giuxe'));
+			$cp['xedap'] = intval($this->input->post('xedap'));
+			$cp['xemay'] = intval($this->input->post('xemay'));
+			$cp['oto'] = intval($this->input->post('oto'));
 			$cp['selected'] = 'yes';
 			$cp['trangthai'] = 'new';
-			$addcp = $this->Room_model->addChiPhi($cp);
+			if($cp['dien'] != 0 || $cp['nuoc'] != 0 || $cp['wifi'] != 0 || $cp['rac'] != 0 || $cp['giuxe'] != 0 || $cp['xedap'] != 0 || $cp['xemay'] != 0 || $cp['oto'] != 0) {
+				$addcp = $this->Room_model->addChiPhi($cp);
+			}
 		}
-
-		if($result != false && $addcp == true) echo 'true';
+		if($result == true) echo 'true';
 		else echo 'false';
 	}
 
@@ -142,22 +159,24 @@ class Rooms extends CI_Controller {
 
 		$update = true;
 
-		if((strcmp($cp['dien'], $cp['dienc']) == 0) && (strcmp($cp['nuoc'], $cp['nuocc']) == 0) && (strcmp($cp['wifi'], $cp['wific']) == 0) && (strcmp($cp['rac'], $cp['racc']) == 0) && (strcmp($cp['giuxe'], $cp['giuxec']) == 0) && (strcmp($cp['xedap'], $cp['xedapc']) == 0) && (strcmp($cp['xemay'], $cp['xemayc']) == 0) && (strcmp($cp['oto'], $cp['otoc']) == 0)) {
+		if(intval($cp['dien']) != 0 || intval($cp['nuoc']) != 0 || intval($cp['wifi']) != 0 || intval($cp['rac']) != 0 || intval($cp['giuxe']) != 0 || intval($cp['xedap']) != 0 || intval($cp['xemay']) != 0 || intval($cp['oto']) != 0) {
+			if((strcmp($cp['dien'], $cp['dienc']) == 0) && (strcmp($cp['nuoc'], $cp['nuocc']) == 0) && (strcmp($cp['wifi'], $cp['wific']) == 0) && (strcmp($cp['rac'], $cp['racc']) == 0) && (strcmp($cp['giuxe'], $cp['giuxec']) == 0) && (strcmp($cp['xedap'], $cp['xedapc']) == 0) && (strcmp($cp['xemay'], $cp['xemayc']) == 0) && (strcmp($cp['oto'], $cp['otoc']) == 0)) {
 
-			$cp['trangthai'] = 'new';
-			$cp['selected'] = 'yes';
-			$update = $this->Room_model->updateSelectedTrangThaiChiPhi($cp);
-		}
-		else {
-			// Update trang thai chiphi cu
-			$cp['trangthai'] = 'old';
-			$cp['selected'] = 'no';
-			$update = $this->Room_model->updateSelectedTrangThaiChiPhi($cp);
+				$cp['trangthai'] = 'new';
+				$cp['selected'] = 'yes';
+				$update = $this->Room_model->updateSelectedTrangThaiChiPhi($cp);
+			}
+			else {
+				// Update trang thai chiphi cu
+				$cp['trangthai'] = 'old';
+				$cp['selected'] = 'no';
+				$update = $this->Room_model->updateSelectedTrangThaiChiPhi($cp);
 
-			// Create chiphi moi va selected yes
-			$cp['trangthai'] = 'new';
-			$cp['selected'] = 'yes';
-			$update = $this->Room_model->addChiPhi($cp);
+				// Create chiphi moi va selected yes
+				$cp['trangthai'] = 'new';
+				$cp['selected'] = 'yes';
+				$update = $this->Room_model->addChiPhi($cp);
+			}
 		}
 
 		$result = $this->Room_model->updateNhaTro($data);
@@ -206,22 +225,24 @@ class Rooms extends CI_Controller {
 
 		$update = true;
 
-		if((strcmp($cp['dien'], $cp['dienc']) == 0) && (strcmp($cp['nuoc'], $cp['nuocc']) == 0) && (strcmp($cp['wifi'], $cp['wific']) == 0) && (strcmp($cp['rac'], $cp['racc']) == 0) && (strcmp($cp['giuxe'], $cp['giuxec']) == 0) && (strcmp($cp['xedap'], $cp['xedapc']) == 0) && (strcmp($cp['xemay'], $cp['xemayc']) == 0) && (strcmp($cp['oto'], $cp['otoc']) == 0)) {
+		if(intval($cp['dien']) != 0 || intval($cp['nuoc']) != 0 || intval($cp['wifi']) != 0 || intval($cp['rac']) != 0 || intval($cp['giuxe']) != 0 || intval($cp['xedap']) != 0 || intval($cp['xemay']) != 0 || intval($cp['oto']) != 0) {
+			if((strcmp($cp['dien'], $cp['dienc']) == 0) && (strcmp($cp['nuoc'], $cp['nuocc']) == 0) && (strcmp($cp['wifi'], $cp['wific']) == 0) && (strcmp($cp['rac'], $cp['racc']) == 0) && (strcmp($cp['giuxe'], $cp['giuxec']) == 0) && (strcmp($cp['xedap'], $cp['xedapc']) == 0) && (strcmp($cp['xemay'], $cp['xemayc']) == 0) && (strcmp($cp['oto'], $cp['otoc']) == 0)) {
 
-			$cp['trangthai'] = 'new';
-			$cp['selected'] = 'yes';
-			$update = $this->Room_model->updateSelectedTrangThaiChiPhi($cp);
-		}
-		else {
-			// Update trang thai chiphi cu
-			$cp['trangthai'] = 'old';
-			$cp['selected'] = 'no';
-			$update = $this->Room_model->updateSelectedTrangThaiChiPhi($cp);
+				$cp['trangthai'] = 'new';
+				$cp['selected'] = 'yes';
+				$update = $this->Room_model->updateSelectedTrangThaiChiPhi($cp);
+			}
+			else {
+				// Update trang thai chiphi cu
+				$cp['trangthai'] = 'old';
+				$cp['selected'] = 'no';
+				$update = $this->Room_model->updateSelectedTrangThaiChiPhi($cp);
 
-			// Create chiphi moi va selected yes
-			$cp['trangthai'] = 'new';
-			$cp['selected'] = 'yes';
-			$update = $this->Room_model->addChiPhi($cp);
+				// Create chiphi moi va selected yes
+				$cp['trangthai'] = 'new';
+				$cp['selected'] = 'yes';
+				$update = $this->Room_model->addChiPhi($cp);
+			}
 		}
 
 		$result = $this->Room_model->updateNhaTro($data);
@@ -238,18 +259,19 @@ class Rooms extends CI_Controller {
 	public function addChiPhi() {
 		$data['nhatro'] = $this->input->post('nhatro');
 		$data['ten'] = $this->input->post('ten');
-		$data['dien'] = $this->input->post('dien');
-		$data['nuoc'] = $this->input->post('nuoc');
-		$data['wifi'] = $this->input->post('wifi');
-		$data['rac'] = $this->input->post('rac');
-		$data['giuxe'] = $this->input->post('giuxe');
-		$data['xedap'] = $this->input->post('xedap');
-		$data['xemay'] = $this->input->post('xemay');
-		$data['oto'] = $this->input->post('oto');
+		$data['dien'] = intval($this->input->post('dien'));
+		$data['nuoc'] = intval($this->input->post('nuoc'));
+		$data['wifi'] = intval($this->input->post('wifi'));
+		$data['rac'] = intval($this->input->post('rac'));
+		$data['giuxe'] = intval($this->input->post('giuxe'));
+		$data['xedap'] = intval($this->input->post('xedap'));
+		$data['xemay'] = intval($this->input->post('xemay'));
+		$data['oto'] = intval($this->input->post('oto'));
 		$data['trangthai'] = $this->input->post('trangthai');
 		$data['selected'] = $this->input->post('selected');
-
-		$result = $this->Room_model->addChiPhi($data);
+		if($data['dien'] != 0 || $data['nuoc'] != 0 || $data['wifi'] != 0 || $data['rac'] != 0 || $data['giuxe'] != 0 || $data['xedap'] != 0 || $data['xemay'] != 0 || $data['oto'] != 0) {
+			$result = $this->Room_model->addChiPhi($data);
+		}
 		if($result == true) echo 'true';
 		else echo 'false';
 	}

@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    
+
 
     <!-- Modal -->
     <div>
@@ -180,7 +180,7 @@
               </div>
               <div class="row">
                 <div class="form-group col-md-12">
-                  <label>Địa chỉ chính xác: gồm số nhà và thông tin khác</label>
+                  <label>Địa chỉ chính xác: gồm số nhà và thông tin khác (click vào trường bên dưới)</label>
                   <input type="text" maxlength="300" class="form-control form-control-sm add-diachi-chinhxac" id="add-diachi-chinhxac">
                 </div>
               </div>
@@ -387,7 +387,7 @@
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel-2">Thêm phòng trọ</h5>
+              <h5 class="modal-title" id="exampleModalLabel-2">Thông tin phòng trọ</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -396,46 +396,50 @@
               <div class="row">
                 <div class="form-group col-md-4">
                   <label>Tên phòng</label>
-                  <input type="text" maxlength="100" class="form-control form-control-sm ten-phongtro" id="ten-phongtro">
+                  <input type="text" maxlength="100" class="form-control form-control-sm ten-phongtro" id="xem-ten-phongtro">
                 </div>
                 <div class="form-group col-md-2">
                   <label>Diện tích (m<sup>2</sup>)</label>
-                  <input type="number" min="1" max="1000000000" class="form-control form-control-sm dientich-phongtro" id="dientich-phongtro">
+                  <input type="number" min="1" max="1000000000" class="form-control form-control-sm dientich-phongtro" id="xem-dientich-phongtro">
                 </div>
                 <div class="form-group col-md-2">
                   <label>Số người ở tối đa (10)</label>
-                  <input type="number" min="1" max="10" class="form-control form-control-sm nguoio-phongtro" id="nguoio-phongtro">
+                  <input type="number" min="1" max="10" class="form-control form-control-sm nguoio-phongtro" id="xem-nguoio-phongtro">
+                </div>
+                <div class="form-group col-md-2">
+                  <label>Số người đang ở</label>
+                  <input type="number" disabled min="1" max="10" class="form-control form-control-sm nguoidango-phongtro" id="xem-nguoidango-phongtro">
                 </div>
                 <div class="form-group col-md-2">
                   <label>Tiền trọ (nghìn đồng)</label>
-                  <input type="number" min="1" max="1000000000" class="form-control form-control-sm tientro-phongtro" id="tientro-phongtro">
-                </div>
-                <div class="form-group">
-                  <label>Tính theo</label>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input type="radio" class="form-check-input" name="cachtinh-phongtro" id="cachtinh-daunguoi" value="daunguoi" checked>Đầu người
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input type="radio" class="form-check-input" name="cachtinh-phongtro" id="cachtinh-codinh" value="codinh">Cố định
-                    </label>
-                  </div>
+                  <input type="number" min="1" max="1000000000" class="form-control form-control-sm tientro-phongtro" id="xem-tientro-phongtro">
+                  <input type="number" min="1" max="1000000000" class="form-control form-control-sm tientro-giacu-phongtro" id="xem-tientro-giacu-phongtro" hidden>
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-4">
                   <label>Mô tả</label>
-                  <textarea maxlength="500" class="form-control mota-phongtro" id="mota-phongtro" rows="4"></textarea>
+                  <textarea maxlength="500" class="form-control mota-phongtro" id="xem-mota-phongtro" rows="4"></textarea>
                 </div>
-                <div class="form-group col-md-8" id="danhsach-nguoio">
+                <div class="form-group">
+                  <label>Tiền trọ tính theo</label>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="xem-cachtinh-phongtro" id="xem-cachtinh-daunguoi" value="daunguoi" checked>Đầu người
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="xem-cachtinh-phongtro" id="xem-cachtinh-codinh" value="codinh">Cố định
+                    </label>
+                  </div>
+                  <input type="text" class="form-control form-control-sm cachtinh-cu-phongtro" id="xem-cachtinh-cu-phongtro" hidden>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-success add-phongtro">Thêm</button>
-              <button type="button" class="btn btn-light cancel-add" data-dismiss="modal">Hủy</button>
+              <button type="button" class="btn btn-success update-phongtro" id="update-phongtro">Cập nhật</button>
+              <button type="button" class="btn btn-light cancel-update" data-dismiss="modal">Hủy</button>
             </div>
           </div>
         </div>
@@ -473,4 +477,122 @@
   <script src="<?php echo base_url(); ?>assets/main/memroom.js"></script>
   <script>
     var mand = <?php echo json_encode($mand); ?>;
+  </script>
+  <script>
+    var marker;
+    function initMap() {
+      // New map
+      var map, position = {};
+      position = {
+        lat: 14.058324,
+        lng: 108.277199
+      }
+      // New geocoder
+      var geocoder = new google.maps.Geocoder();
+      map = new google.maps.Map(document.getElementById('map-nhatro'), {
+        center: position,
+        zoom: 15
+      });
+
+      // Ajax: Khi click Xem nhà trọ khi này lấy được data tại button Xem là ID nhà trọ. Từ đó
+      // Lấy được thông tin nhà trọ gồm kinh độ, vĩ độ. Sau đó xét để tạo bản đồ
+      $(document).on('click', "#open-modal-thongtin-nhatro", function() {
+        id = $("#select-nhatro").val();
+
+        $.ajax({
+          type: 'post',
+          url: 'rooms/getPosition',
+          data: {
+            id: id
+          },
+          success: function(data) {
+            console.log('position: ', data);
+            data = JSON.parse(data);
+            var lat = parseFloat(data.VIDO), lng = parseFloat(data.KINHDO);
+            if(marker) {
+              marker.setMap(null);
+            }
+            
+            // Nếu kinhdo và vido trong nhà trọ khác null
+            if(data.KINHDO != null && data.VIDO != null) {
+              position = {
+                lat: lat,
+                lng: lng
+              };
+              map.setCenter(position);
+              marker = new google.maps.Marker({
+                map: map,
+                draggable: true,
+                animation: google.maps.Animation.DROP,
+                position: position
+              });
+              google.maps.event.addListener(marker, 'position_changed', function() {
+                $("#map-nhatro").attr('data', marker.getPosition().lat() + ','+ marker.getPosition().lng());
+              });
+              $("#map-nhatro").attr('data', marker.getPosition().lat() + ','+ marker.getPosition().lng());
+            }
+            // Nếu kinhdo và vido null
+            else {
+              // Lấy địa chỉ tại ô địa chỉ chính xác
+              var address = $("#add-diachi-chinhxac").val();
+              geocoder.geocode({'address': address}, function(results, status) {
+                if(status === 'OK') {
+                  // Chuyển trung tâm map về result[0].geometry.location
+                  map.setCenter(results[0].geometry.location);
+                  // Sau khi chuyển trung tâm, thêm marker tại result[0].geometry.location
+                  marker = new google.maps.Marker({
+                    map: map,
+                    draggable: true,
+                    animation: google.maps.Animation.DROP,
+                    position: results[0].geometry.location
+                  });
+                  google.maps.event.addListener(marker, 'position_changed', function() {
+                    $("#map-nhatro").attr('data', marker.getPosition().lat() + ','+ marker.getPosition().lng());
+                  });
+                  $("#map-nhatro").attr('data', marker.getPosition().lat() + ','+ marker.getPosition().lng());
+                }
+                else {
+                  console.log(status);
+                }
+              });
+            }
+          },
+          error: function(e) {
+            console.log(e);
+          }
+        });
+      });
+
+      $(document).on('change paste keyup click', '#add-diachi-chinhxac', function() {
+        var address = $("#add-diachi-chinhxac").val();
+        geocoder.geocode({'address': address}, function(results, status) {
+          if(status === 'OK') {
+            if(marker) {
+              marker.setMap(null);
+            }
+            // Chuyển trung tâm map về result[0].geometry.location
+            map.setCenter(results[0].geometry.location);
+            // Sau khi chuyển trung tâm, thêm marker tại result[0].geometry.location
+            marker = new google.maps.Marker({
+              map: map,
+              draggable: true,
+              animation: google.maps.Animation.DROP,
+              position: results[0].geometry.location
+            });
+            google.maps.event.addListener(marker, 'position_changed', function() {
+              $("#map-nhatro").attr('data', marker.getPosition().lat() + ','+ marker.getPosition().lng());
+            });
+            $("#map-nhatro").attr('data', marker.getPosition().lat() + ','+ marker.getPosition().lng());
+          }
+          else {
+            console.log(status);
+          }
+        });
+      });
+    }
+
+  </script>
+
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaRUCOc4ddsl42iMKR588WkgYhpDuTSk&callback=initMap">
   </script>

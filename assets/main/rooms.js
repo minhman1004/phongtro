@@ -599,6 +599,15 @@
 			  				$("#gia-giu-xe-dap").val('0');
 			  				$("#gia-giu-xe-may").val('0');
 			  				$('#gia-giu-xe-oto').val('0');
+			  				
+			  				$("#gia-dien-hide").val('0');
+							$("#gia-nuoc-hide").val('0');
+							$("#gia-wifi-hide").val('0');
+							$("#gia-rac-hide").val('0');
+							$("#gia-giu-xe-hide").val('0');
+							$("#gia-giu-xe-dap-hide").val('0');
+							$("#gia-giu-xe-may-hide").val('0');
+							$('#gia-giu-xe-oto-hide').val('0');
 	  					}
 	  				}
 	  				content  = '';
@@ -645,8 +654,11 @@
 					});
 	  			}
 	  			else {
+	  				$("#bang-chi-phi").val('null');
 	  				$("#danh-sach-chi-phi").attr('hidden', true);
 	  			}
+
+				console.log('bang chi phi',$("#bang-chi-phi").val());
 
 	  			// Danh sach chu tro
 	  			if(chutro.length > 0) {
@@ -832,7 +844,7 @@
 		cten = ".add-ten-nhatro";
 		cdiachi = ".add-diachi-chinhxac";
 
-		id = $(this).attr('data');
+		id = $(this).attr('data'); // id nha tro
 		ten = $(".add-ten-nhatro").val();
 		chutro = $('.add-chu-chungcu-nhatro').val();
 		tinhtp = $('.add-tinh-thanhpho').val();
