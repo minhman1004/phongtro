@@ -21,27 +21,55 @@
             </select>
           </div>
         </div>
-        <div class="col-md-2">
+      <!--   <div class="col-md-2">
           <div class="form-group">
             <label>Phường, xã</label>
             <select class="form-control" id="search-phuong-xa">
               <option value="all" selected>Tất cả</option>
             </select>
           </div>
-        </div>
+        </div> -->
         <div class="col-md-2">
           <div class="form-group">
             <label>Mức giá</label>
             <select class="form-control" id="search-gia-thue">
               <option value="all" selected>Tất cả</option>
+              <option value="1" >Dưới 1 triệu</option>
+              <option value="12" >1 triệu - 2 triệu</option>
+              <option value="2" >Trên 2 triệu</option>
             </select>
           </div>
         </div>
-        <div class="col-md-1" style="padding:0px !important">
+        <div class="col-md-2">
           <div class="form-group">
-          <button type="button" style="margin-top: 22px;" class="btn btn-primary">Tìm</button>
+            <label>Diện tích</label>
+            <select class="form-control" id="search-dien-tich">
+                   <option value="all" selected>Tất cả</option>
+                   <option value="20" >Dưới 20 m2</option>
+                   <option value="230" >20 m2 - 30 m2</option>
+                   <option value="350" >30 m2 - 50 m2</option>          
+
+            </select>
           </div>
         </div>
+
+        <div class="col-md-1" style="padding:0px !important">
+          <div class="form-group">
+          <button id ="search-thongtin" type="button" style="margin-top: 22px;" class="btn btn-primary">Tìm</button>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>Sắp xếp theo</label>
+            <select class="form-control" id="search-gia-thue">
+                   <option value="all" selected>Ngày đăng mới</option>
+                   <option value="all" >Giá tiền giảm dần</option>
+                   <option value="all" >Giá tiền tăng dần</option>
+                   <option value="all" >Diện tích tăng dần</option>
+                   <option value="all" >Diện tích giảm dần</option>           
+
+            </select>
+          </div>
       </div>
       <?php if(isset($tentinh)) { ?>
         <div class="row">
@@ -60,7 +88,8 @@
             <div class="card-body">
               <?php if(!@$baiviet) { ?>
                 <h4 class="card-title" id="search-danh-sach-bai-viet">Không có kết quả nào</h4>
-              <?php } else { ?>
+              <?php } else 
+              { ?>
                 <h4 class="card-title" id="search-danh-sach-bai-viet">Kết quả tìm kiếm</h4>
                 <!-- Result list here -->
                 <div id="danh-sach-bai-viet">
@@ -68,13 +97,13 @@
                     <a href="<?php echo base_url(); ?><?='post/detail?name='.$ketqua_baiviet->slug?>" class="post">
                       <div class="row">
                         <div class="col-md-4">
-                          <img class="thumnail" src="<?php echo base_url(); ?>img/nhatro.jpg" alt="">
+                          <img style=" border-radius: 8px;height: 180px;padding-bottom: 5px" class="thumnail" src="<?php echo base_url(); ?>img/<?=$ketqua_baiviet->HINHANH?>" alt="">
                           <p>Giá: <?=number_format($ketqua_baiviet->GIA)?> VND</p>
                         </div>
                         <div class="col-md-8">
-                          <h4><?=$ketqua_baiviet->TIEUDE?></h4>
-                          <p>Địa chỉ: <?=$ketqua_baiviet->DCTD?></p>
-                          <p>Mô tả: <?=$ketqua_baiviet->MOTATHEM?></p>
+                          <h4 style="color: hsl(89, 63%, 51%); font-size:20px;"><?=$ketqua_baiviet->TIEUDE?></h4>
+                          <p><?=$ketqua_baiviet->DCTD?></p>
+                          <p><?=$ketqua_baiviet->MOTATHEM?></p>
                           <p>Ngày đăng: <?php echo date_format(new Datetime($ketqua_baiviet->TGDANG), 'd/m/Y'); ?></p>
                         </div>
                       </div>
@@ -113,6 +142,7 @@
     </div>
   </div>
 </div>
+</div>
 
 <!-- Gán biến PHP cho hàm javascript -->
 <script type="text/javascript">
@@ -124,3 +154,72 @@
 </script>
 <!-- Khai báo javascript cho từng trang riêng -->
 <script src="<?php echo base_url(); ?>assets/main/home.js"></script>
+
+<!-- <script>
+     $(document).on('change', '#search-tinh-thanh-pho', function() {
+      var mattp = $(this).val();
+          $.ajax({
+            type: 'post',
+            url: 'Home/search',
+            data: {
+                id: mattp
+              },
+            success: function(data) {
+              data = JSON.parse(data);
+              console.log('quan huyen: ', data);
+              $("#search-tinh-thanh-pho").val(data.baiviet[0].MATTP);
+              $("#search-tinh-thanh-pho").val(data.baiviet[0].MATTP);
+              $("#search-tinh-thanh-pho").val(data.baiviet[0].MATTP);
+              $("#search-tinh-thanh-pho").val(data.baiviet[0].MATTP);
+              $("#search-tinh-thanh-pho").val(data.baiviet[0].MATTP);
+              $("#search-tinh-thanh-pho").val(data.baiviet[0].MATTP);
+              $("#search-tinh-thanh-pho").val(data.baiviet[0].MATTP);
+
+
+
+
+
+              
+
+            },
+            error: function(e) {
+                console.log(e);
+              }
+            });
+        });
+
+</script> -->
+
+
+
+<script >
+    $(document).on('click', '#search-thongtin', function() {
+      //$("#danh-sach-bai-viet").html('');
+      var mattp = $("#search-tinh-thanh-pho").val();
+      var mqh = $("#search-quan-huyen").val();
+      var giathue = $("#search-gia-thue").val();
+      var dientich = $("#search-dien-tich").val();
+      //var mattp = $(this).val();
+      window.location.replace('home/search?mattp='+mattp+'&maqh='+mqh+'&giathue='+giathue+'&dientich='+dientich);
+          // $.ajax({
+          //   type: 'post',
+          //   url: 'Home/search',
+          //   data: {
+          //       ttp: mattp,
+          //       qh : mqh,
+          //       gia :giathue,
+          //       dientich :dientich
+          //     },
+          //   success: function(data) {
+          //      // data = JSON.parse(data);
+          //    console.log('thuan: ', data);
+          //    window.location.replace('http://www.google.com');
+           
+          //     },
+          //   error: function(e) {
+          //       console.log(e);
+          //     }
+          //   });
+        });
+
+</script>

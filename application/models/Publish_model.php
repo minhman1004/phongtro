@@ -74,6 +74,12 @@ class Publish_model extends CI_Model {
         return $query->result();
     }
 
+    public function getQuanHuyen2($id) {
+        $query = $this->db->query("select quanhuyen.* from quanhuyen join tinhtp on quanhuyen.MATTP = tinhtp.MATTP where quanhuyen.MATTP  = ".$id.";");
+        return $query->result();
+    }
+
+
     // Lấy danh sách phường xã
     public function getPhuongXa1($mant) {
         $query = $this->db->query("select phuongxa.* from phuongxa join nhatro on nhatro.MAPX = phuongxa.MAPX  where nhatro.MANT = ".$mant.";");
@@ -174,5 +180,25 @@ class Publish_model extends CI_Model {
         $query = $this->db->get_where('nguoidung', array('MAND'=>$id));
         if(count($query->result())) return $query->result();
         return false;
+    }
+
+    public function get_allnhatro()
+    {
+        $query = $this->db->query("select baiviet.MABV,MANT,MAND,KINHDO,VIDO,gia,HINHANH,sdt,dientich,baiviet.TIEUDE from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10");
+        $data = array();
+        foreach(@$query->result() as $row) {
+            $row->slug = $row->MABV.'-'.$row->TIEUDE;
+            $row->slug = postSlug($row->slug);
+            $data[] = $row;
+        }
+        if(count($data)) {
+            return $data;
+        }
+        return false;
+    }
+    public function get_allquanhuyen1($id)
+    {
+        $query = $this->db->query("select baiviet.MABV,MANT,MAND,KINHDO,VIDO,gia,HINHANH,sdt,dientich from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and MAQH  = ".$id.";");
+         return $query->result();
     }
 }

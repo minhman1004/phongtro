@@ -18,8 +18,10 @@
                 <p class="card-description">Địa chỉ: <?=$chitiet[0]->DCTD?></p>
                 <p class="card-description">Giá: <?=number_format($chitiet[0]->GIA)?> VND</p>
                 <p class="card-description">Ngày đăng: <?=date_format(new Datetime($chitiet[0]->TGDANG), 'd/m/Y')?></p>
-                <div class="row" id="detail-post">
-                  <img class="" src="<?php echo base_url(); ?>img/nhatro.jpg" alt="">
+                <p>Hình ảnh bài đăng</p>
+                <div class="row" id="lightgallery">
+                  <a href='<?php echo base_url(); ?>img/<?=$chitiet[0]->HINHANH?>'>
+                  <img style= "padding-left: 15px; width: 740px;height: 480px" src='<?php echo base_url(); ?>img/<?=$chitiet[0]->HINHANH?>' class='subimage'>
                 </div>
               </div>
             </div>
@@ -65,7 +67,7 @@
               <div class="card-body">
                 <h4 class="card-title" id="title-find">Nội dung chi tiết</h4>
                 <div class="media">
-                  <div class="media-body">
+                  <div >
                     <p><?=$chitiet[0]->MOTATHEM?></p>
                   </div>
                 </div>
@@ -82,6 +84,15 @@
               </div>
             </div>
           </div>
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title" id="title-find">Việc làm thêm cho sinh viên</h4>
+                <div class="map-container">
+                  <div id="map-baiviet_vieclam" class="google-map"></div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- Right Side -->
           <div class="col-3">
@@ -91,9 +102,11 @@
                 <div class="card-body">
                   <div class="d-flex flex-row flex-wrap">
                     <div class="form-group">
-                      <label>Người đăng</label>
-                      <h6><?=$chitiet[0]->HOTEN?></h6>
-                      <p class="text-muted"><?=$chitiet[0]->SDT?></p>
+                      
+                      <h6><i class='mdi mdi-human-greeting menu-icon text-success mdi-18px'></i><?=$chitiet[0]->HOTEN?></h6>
+                      <p class="text-muted"><i class='mdi mdi-cellphone-android menu-icon text-success mdi-18px'></i> <?=$chitiet[0]->SDT?></p>
+                      <p class="text-muted"><i class='mdi mdi-email-check-outline
+ menu-icon text-success mdi-18px  '></i> <?=$chitiet[0]->Email?></p>
                     </div>
                   </div>
                 </div>
@@ -181,6 +194,16 @@
       }
     }
   </script>
+
+<script >
+  
+
+
+
+
+
+  
+</script>
 
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaRUCOc4ddsl42iMKR588WkgYhpDuTSk&callback=initMap">
   </script>

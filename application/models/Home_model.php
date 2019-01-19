@@ -60,11 +60,8 @@ class Home_model extends CI_Model {
 
     // Lấy danh sách bài viết
     public function getBaiViet() {
-    	$query = $this->db->query('select * from baiviet join ctbv on baiviet.MABV = ctbv.MABV
-                                    join nguoidung on nguoidung.MAND = ctbv.MAND
-                                    join nhatro on nhatro.MANT = ctbv.MANT
-                                    join phongtro on phongtro.MANT = nhatro.MANT
-                                    join tientro on tientro.MATT = phongtro.MATT;');
+    	$query = $this->db->query("select baiviet.TIEUDE,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10
+order by baiviet.TGDANG DESC");
     	$data = array();
     	foreach(@$query->result() as $row) {
             $row->slug = $row->MABV.'-'.$row->TIEUDE;
@@ -75,6 +72,403 @@ class Home_model extends CI_Model {
     		return $data;
     	}
     	return false;
+    }
+    // neu gia =all, dien tich all, qh all, ttp !all
+    public function getBaiViet_ttp($ttp) {
+        $query = $this->db->query("select baiviet.TIEUDE,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp."
+order by baiviet.TGDANG DESC");
+        $data = array();
+        foreach(@$query->result() as $row) {
+            $row->slug = $row->MABV.'-'.$row->TIEUDE;
+            $row->slug = postSlug($row->slug);
+            $data[] = $row;
+        }
+        if(count($data)) {
+            return $data;
+        }
+        return false;
+    }
+    public function getBaiViet_ttp_qh($ttp,$qh) {
+        $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp." and ctbv.MAQH = ".$qh."
+order by baiviet.TGDANG DESC");
+        $data = array();
+        foreach(@$query->result() as $row) {
+            $row->slug = $row->MABV.'-'.$row->TIEUDE;
+            $row->slug = postSlug($row->slug);
+            $data[] = $row;
+        }
+        if(count($data)) {
+            return $data;
+        }
+        return false;
+    }
+
+    public function getBaiViet_ttphohon20($ttp,$qh,$dientich) {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp." and ctbv.MAQH = ".$qh." and ctbv.DIENTICH < ".$dientich."
+    order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+        public function getBaiViet_ttphohon230($ttp,$qh) {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp." and ctbv.MAQH = ".$qh." and ctbv.dientich BETWEEN 20 AND 30
+    order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+
+  public function getBaiViet_ttphohon30($ttp,$qh) {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp." and ctbv.MAQH = ".$qh." and ctbv.dientich > 30
+    order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+
+        public function getBaiViet_ttphohon20_() {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10  and ctbv.DIENTICH < 20
+    order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+        public function getBaiViet_ttphohon230_() {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and  ctbv.dientich BETWEEN 20 AND 30
+    order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+
+  public function getBaiViet_ttphohon30_() {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.dientich > 30
+    order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+
+
+  public function getBaiViet_gianhohon_1trieu($ttp,$qh) {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp." and ctbv.MAQH = ".$qh." and ctbv.gia < 1000000
+    order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+
+  public function getBaiViet_gianhohon_1trieu_2trieu($ttp,$qh) {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp." and ctbv.MAQH = ".$qh." and (ctbv.gia >= 1000000 and ctbv.gia <=2000000)   order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+    public function getBaiViet_gianhohon_2trieu($ttp,$qh) {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp." and ctbv.MAQH = ".$qh." and ctbv.gia > 2000000   
+                order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+
+public function getBaiViet_gianhohon_1trieu_() {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.gia < 1000000
+    order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+
+  public function getBaiViet_gianhohon_1trieu_2trieu_() {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet'  and (ctbv.gia >= 1000000 and ctbv.gia <=2000000)   order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+    public function getBaiViet_gianhohon_2trieu_() {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.gia > 2000000   
+                order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+
+
+    public function getBaiViet_gia_1_dientich_20($ttp,$qh) {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp." and ctbv.MAQH = ".$qh." and ctbv.gia < 1000000 and ctbv.dientich < 20
+    order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+
+    public function getBaiViet_gia_1_dientich_230($ttp,$qh) {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp." and ctbv.MAQH = ".$qh." and ctbv.gia < 1000000 and ctbv.dientich BETWEEN 20 AND 30
+    order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+
+        public function getBaiViet_gia_1_dientich_350($ttp,$qh) {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp." and ctbv.MAQH = ".$qh." and ctbv.gia < 1000000 and ctbv.dientich >30
+    order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+        
+         public function getBaiViet_gia_12_dientich_20($ttp,$qh) {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp." and ctbv.MAQH = ".$qh." and ctbv.gia  BETWEEN 1000000 AND 2000000 and ctbv.dientich <20
+    order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+    public function getBaiViet_gia_12_dientich_230($ttp,$qh) {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp." and ctbv.MAQH = ".$qh." and ctbv.gia  BETWEEN 1000000 AND 2000000 and ctbv.dientich BETWEEN 20 AND 30
+    order by baiviet.TGDANG DESC;");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+
+        public function getBaiViet_gia_12_dientich_350($ttp,$qh) {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp." and ctbv.MAQH = ".$qh." and ctbv.gia  BETWEEN 1000000 AND 2000000 and ctbv.dientich >30
+    order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+
+         public function getBaiViet_gia_2_dientich_20($ttp,$qh) {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp." and ctbv.MAQH = ".$qh." and ctbv.gia > 2000000 and ctbv.dientich <20
+    order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+    public function getBaiViet_gia_2_dientich_230($ttp,$qh) {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp." and ctbv.MAQH = ".$qh." and ctbv.gia > 2000000 and ctbv.dientich BETWEEN 20 AND 30
+    order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+
+        public function getBaiViet_gia_2_dientich_350($ttp,$qh) {
+            $query = $this->db->query("select baiviet.TIEUDE,ctbv.dientich,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp." and ctbv.MAQH = ".$qh." and ctbv.gia  > 2000000 and ctbv.dientich >30
+    order by baiviet.TGDANG DESC");
+            $data = array();
+            foreach(@$query->result() as $row) {
+                $row->slug = $row->MABV.'-'.$row->TIEUDE;
+                $row->slug = postSlug($row->slug);
+                $data[] = $row;
+            }
+            if(count($data)) {
+                return $data;
+            }
+            return false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//     public function getBaiViet_ttp($mattp) {
+//         $query = $this->db->query("select baiviet.TIEUDE,ctbv.GIA,baiviet.TGDANG,ctbv.DCTD, ctbv.MOTATHEM,ctbv.HINHANH,baiviet.MABV from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10
+// order by baiviet.TGDANG DESC");
+//         $data = array();
+//         foreach(@$query->result() as $row) {
+//             $row->slug = $row->MABV.'-'.$row->TIEUDE;
+//             $row->slug = postSlug($row->slug);
+//             $data[] = $row;
+//         }
+//         if(count($data)) {
+//             return $data;
+//         }
+//         return false;
+//     }
+
+
+    public function getBaiViet1($ttp) {
+        $query = $this->db->query("select * from baiviet join ctbv on baiviet.MABV = ctbv.MABV and baiviet.TRANGTHAI ='daduyet' and baiviet.TGDANG <= now() - 10 and ctbv.MATTP = ".$ttp.";");
+        $data = array();
+        foreach(@$query->result() as $row) {
+            $row->slug = $row->MABV.'-'.$row->TIEUDE;
+            $row->slug = postSlug($row->slug);
+            $data[] = $row;
+        }
+        if(count($data)) {
+            return $data;
+        }
+        return false;
     }
 
     // Lấy danh sách bài viết theo tỉnh/tp

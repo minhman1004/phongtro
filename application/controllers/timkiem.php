@@ -32,9 +32,22 @@ class Timkiem extends CI_Controller {
 	public function lietkeqh()
 	{
 		$id = $this->input->post('id');
-		$mattp = $this->Publish_model->getMotNhaTro($id);
-		$maquanhuyen = $this->Publish_model->getMotQuanHuyen($mattp);
+		//$mattp = $this->Publish_model->getMotNhaTro($id);
+		$maquanhuyen = $this->Publish_model->getQuanHuyen2($id);
 		$datadisplay['tinhqh'] = $maquanhuyen;
+		echo json_encode($datadisplay);
+	}
+	public function get_quanhuyenchange_ttp()
+	{
+		$id = $this->input->post('id');
+		$danhsach = $this->Publish_model->get_allquanhuyen1($id);
+		$datadisplay['danhsach'] = $danhsach;
+		echo json_encode($datadisplay);
+	}
+	public function get_allnhatro()
+	{
+		$danhsach = $this->Publish_model->get_allnhatro();
+		$datadisplay['danhsach'] = $danhsach;
 		echo json_encode($datadisplay);
 	}
 		

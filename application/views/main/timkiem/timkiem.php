@@ -27,10 +27,10 @@
               </div>
               </div>
             </div>
-            <div class="form-group">
+      <!--       <div class="form-group">
               <label for="exampleInputUsername1">Địa chỉ chính xác</label>
               <input type="text" class="form-control" id="dia-chi-chinh-xac-modal" placeholder="Địa chỉ chính xác" required="required">
-            </div>
+            </div> -->
             <div class="map-container">
                   <div id="map-nhatro" class="google-map"></div>
                 </div>
@@ -44,40 +44,162 @@
 
 <script>
   function initMap() {
-         var map, position = {};
-              position = {
-                lat: 14.058324,
-                lng: 108.277199
-              }
-  var geocoder = new google.maps.Geocoder();
-  map = new google.maps.Map(document.getElementById('map-nhatro'), {
-    center: position,
-    zoom: 15
-  });
-  marker = new google.maps.Marker({
-    map: map,
-    draggable: true,
-    animation: google.maps.Animation.DROP,
-    position: position
-  });
-  var contentString = "<div style ='width: 160px;height: 150px;'id='lightgaller'>"+                                    
-  "<a href='http://localhost/phongtro/img/phong-tro.jpg' class='image-tile'>'"+
-  "<img style = 'border: 1px solid #ddd;border-radius: 4px;padding: 5px; width: 150px;height: 100px;margin-right:  5px;' src='http://localhost/phongtro/img/phong-tro.jpg'>"+"<p style='color:#000000;'>Nhà trọ suối tiên</p>"+"<p  style='color:#000000;'>1.5 Triệu/tháng</p>" 
-   "</div>";
-  var infowindow = new google.maps.InfoWindow({
-              content: contentString
+    $(document).on('change', '#quan-huyen-modal', function() {
+      var maqh = $(this).val();
+          $.ajax({
+            type: 'post',
+            url: 'timkiem/get_quanhuyenchange_ttp',
+            data: {
+                id: maqh
+              },
+            success: function(data) {
+              data = JSON.parse(data);
+              console.log('quan huyen: ', data);
+              var map, toado = [];
+              _.forEach(data.danhsach, function(vitri, key) {
+                  var position = {
+                    mabv : vitri.MABV,
+                    mant: vitri.MANT,
+                    kinhdo: vitri.KINHDO,
+                    vido: vitri.VIDO,
+                    hinhanh: vitri.HINHANH,
+                    gia : vitri.gia,
+                    SDT: vitri.sdt,
+                    dientich :vitri.dientich,
+                    slug :vitri.slug
+                  };
+                  toado.push(position);
+              });
+
+            
+            var map = new google.maps.Map(document.getElementById('map-nhatro'), {
+              zoom: 12,
+              center: new google.maps.LatLng(10.8546085, 106.7181448),
+              mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
-            var marker = new google.maps.Marker({
-              position: position,
-              map: map,
-              title: 'Test'
+            var infowindow = new google.maps.InfoWindow();
+
+            var marker, i;
+
+            for (i = 0; i < toado.length; i++) { 
+              marker = new google.maps.Marker({
+                position: new google.maps.LatLng(toado[i].vido, toado[i].kinhdo),
+                map: map, 
+               //icon:"img/thuan.png"
+              });
+
+              google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    var contentString = "<div style ='width: 240px;height: 215px;'id='lightgaller'><a href=<?php echo base_url()?>post/detail?name="+toado[i].slug+"><img style = 'border: 1px solid #ddd;border-radius: 4px;padding: 5px; width: 220px;height: 150px;margin-right: 5px;' src='<?php echo base_url(); ?>img/"+toado[i].hinhanh+"'><p></p><p style='color:#000000;font-size: 14px;'><i class='mdi mdi-cellphone-android menu-icon text-success mdi-18px'></i> "+toado[i].SDT+"</p><p  style='color:#000000;font-size: 14px;'><i class='mdi mdi-cash menu-icon text-success mdi-18px '></i> "+toado[i].gia+" Nghìn/tháng</p></div>";
+                  infowindow.setContent(contentString);
+                  infowindow.open(map, marker);
+                }
+              })(marker, i));
+            }
+            },
+
+            error: function(e) {
+                console.log(e);
+              }
             });
-            marker.addListener('click', function() {
-              infowindow.open(map, marker);
             });
-}
+
+
+    // $(document).on('change', '#quan-huyen-modal', function() {
+    //   var maqh = $("#quan-huyen-modal").val();
+    // });
+
+    $.ajax({
+    type: 'get',
+    url: 'timkiem/get_allnhatro',
+    dataType: 'json',
+    success: function(data) {
+      console.log('danh sach: ', data);
+      var map, toado = [];
+      _.forEach(data.danhsach, function(vitri, key) {
+          var position = {
+            mabv : vitri.MABV,
+            mant: vitri.MANT,
+            kinhdo: vitri.KINHDO,
+            vido: vitri.VIDO,
+            hinhanh: vitri.HINHANH,
+            gia : vitri.gia,
+            SDT: vitri.sdt,
+            dientich :vitri.dientich,
+            slug :vitri.slug
+          };
+          toado.push(position);
+      });
+
+    
+    var map = new google.maps.Map(document.getElementById('map-nhatro'), {
+      zoom: 12,
+      center: new google.maps.LatLng(10.8546085, 106.7181448),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < toado.length; i++) { 
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(toado[i].vido, toado[i].kinhdo),
+        map: map, 
+       //icon:"img/thuan.png"
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+            var contentString = "<div style ='width: 240px;height: 215px;'id='lightgaller'><a href=<?php echo base_url()?>post/detail?name="+toado[i].slug+"><img style = 'border: 1px solid #ddd;border-radius: 4px;padding: 5px; width: 220px;height: 150px;margin-right: 5px;' src='<?php echo base_url(); ?>img/"+toado[i].hinhanh+"'><p></p><p style='color:#000000;font-size: 14px;'><i class='mdi mdi-cellphone-android menu-icon text-success mdi-18px'></i> "+toado[i].SDT+"</p><p  style='color:#000000;font-size: 14px;'><i class='mdi mdi-cash menu-icon text-success mdi-18px '></i> "+toado[i].gia+" Nghìn/tháng</p></div>";
+          infowindow.setContent(contentString);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+    },
+
+    error: function(e) {
+        console.log(e);
+      }
+    });
+    };
+
+  
 </script>
+<!-- <script >
+  $("#tinh-thanh-pho-dang-tin").val(data.tinhtp[0].MATTP);
+        $.ajax({
+      type: 'post',
+      url: 'timkiem/lietkeqh',
+      data: {
+        id: idmttp
+      },
+      success: function(data) 
+      {
+        data = JSON.parse(data);
+        console.log('data: ', data)
+      },
+      error: function(e) {
+      console.log(e)
+    }
+  });
+      //  Quan Huyen
+      // var content = '';
+      // if(data.motquanhuyen1.length > 0) {
+      //   _.forEach(data.motquanhuyen1, function(quanhuyen, key) {
+      //     content += "<option value=" + quanhuyen.MAQH + '>'+ quanhuyen.TEN + '</option><br>';
+      //   });
+      // }
+      // else {
+      //   content += '<option value="non">Chọn Quận / Huyện</option>';
+      // }
+      // $("#quan-huyen-dang-tin").html(content);
+
+
+</script> -->
+
 <script>
   $(document).on('change', '#tinh-thanh-pho-modal', function() {
       var idmttp = $(this).val();
@@ -105,6 +227,7 @@
             }
             $("#quan-huyen-modal").html(content);
             },
+
        // $("#quan-huyen-modal").val(data.tinhqh[0].MAQH);
       error: function(e) {
       console.log(e)
@@ -113,5 +236,11 @@
   });
 
 </script>
+
+
+
+
+
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaRUCOc4ddsl42iMKR588WkgYhpDuTSk&libraries=places&callback=initMap"  async defer>   
 </script>
