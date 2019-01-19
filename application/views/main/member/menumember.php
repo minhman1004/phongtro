@@ -25,12 +25,6 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="<?php echo base_url()?>member/rentors">
-        <i class="mdi mdi-account-search-outline menu-icon"></i>
-        <span class="menu-title">Quản lý người trọ</span>
-      </a>
-    </li>
-    <li class="nav-item">
       <a class="nav-link" href="<?php echo base_url()?>member/payments">
         <i class="mdi mdi-progress-check menu-icon"></i>
         <span class="menu-title">Quản lý thanh toán</span>

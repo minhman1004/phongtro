@@ -1,7 +1,7 @@
 <div class="main-panel">
   <div class="content-wrapper">
     <div class="row grid-margin">
-      <div class="col-8">
+      <div class="col-8" id="left-card">
         <div class="card grid-margin">
           <div class="card-body">
             <div class="row">
@@ -114,7 +114,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-4" id="right-card">
         <!-- Thong tin chung -->
         <div class="card grid-margin">
           <div class="card-body">
@@ -158,6 +158,21 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-12" id="no-nhatro">
+        <div class="card grid-margin">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <h4>Hiện tại bạn không ở nhà trọ nào!</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

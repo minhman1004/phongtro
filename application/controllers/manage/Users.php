@@ -16,9 +16,6 @@ class Users extends CI_Controller {
 		$this->load->view('primary/adminHeader');
 		$this->load->view('primary/adminMenu');
 		$this->load->view('admin/user/users', $data);
-		// $this->load->view('admin/user/alluser', $data);
-		// $this->load->view('admin/user/normaluser', $data);
-		// $this->load->view('admin/user/adminuser', $data);
 		$this->load->view('primary/adminFooter');
 	}
 
@@ -49,7 +46,7 @@ class Users extends CI_Controller {
 		$data['chucvu'] = $this->input->post('chucvu');
 		$data['gioitinh'] = $this->input->post('gioitinh');
 		$result = $this->Users_model->updateUser($data);
-		if($result != false && $result > 0) {
+		if($result != false) {
 			echo 'true';
 		}
 		else echo 'false';
@@ -72,15 +69,15 @@ class Users extends CI_Controller {
 	}
 
 	public function addUser() {
-		$data['hoten'] = $this->input->post('hoten');
-		$data['email'] = $this->input->post('email');
-		$data['sdt'] = $this->input->post('sdt');
-		$data['gioitinh'] = $this->input->post('gioitinh');
-		$data['cmnd'] = $this->input->post('cmnd');
-		$data['chucvu'] = $this->input->post('chucvu');
-		$data['ngaysinh'] = $this->input->post('ngaysinh');
-		$data['tendn'] = $this->input->post('tendn');
-		$data['matkhau'] = md5($this->input->post('matkhau'));
+		$data['HoTen'] = $this->input->post('hoten');
+		$data['Email'] = $this->input->post('email');
+		$data['SDT'] = $this->input->post('sdt');
+		$data['GioiTinh'] = $this->input->post('gioitinh');
+		$data['CMND'] = $this->input->post('cmnd');
+		$data['CHUCVU'] = $this->input->post('chucvu');
+		$data['NgaySinh'] = $this->input->post('ngaysinh');
+		$data['TenDN'] = $this->input->post('tendn');
+		$data['MatKhau'] = $this->input->post('matkhau');
 
 		$result = $this->Users_model->addUser($data);
 		if($result == true) echo 'true';
@@ -95,9 +92,10 @@ class Users extends CI_Controller {
 	}
 
 	public function user() {
-		$data['id'] = $this->input->post('id');
-		$result = $this->Users_model->getUser($data['id']);
-		if($result != false) echo json_encode($result);
+		$id = $this->input->post('id');
+		$data['user'] = $this->Users_model->getUser($id);
+		$data['chucvu'] = $this->Users_model->getChucVu();
+		if($data != false) echo json_encode($data);
 		else echo 'false';
 	}
 }

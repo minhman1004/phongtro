@@ -1,100 +1,72 @@
 (function($) {
 'use strict';
-  
-  $(document).on('click', '.xem-taikhoan', function() {
-    var id = $(this).attr('id');
-    console.log('ID: ', id);
-    $.ajax({
-      type: 'post',
-      url: 'users/user',
-      dataType: 'json',
-      data: {
-        id: id
-      },
-      success: function(data) {
-        if(data != 'false') {
-          // console.log('data: ', data);
-          $('#hoten-all-'+id).val(data['HOTEN']);
-          $('#email-all-'+id).val(data['Email']);
-          $('#sdt-all-'+id).val(data['SDT']);
-          $('#gioitinh-all-'+id).val(data['GioiTinh']);
-          $('#cmnd-all-'+id).val(data['CMND']);
-          $('#chucvu-all-'+id).val(data['CHUCVU']);
-          $('#ngaysinh-all-'+id).val(data['NgaySinh'].split('-').reverse().join('/'));
-          $('#tendn-all-'+id).val(data['TenDN']);
-        }
-      },
-      error: function() {
-        console.log('error');
-      }
-    });
-  });
 
   // Ajax update user
   $(document).on('click', '.update-item', function(e) {
     var id = $(this).attr('data');
-    var email = $("#email-all-"+id).val();
-    var gioitinh = $("#gioitinh-all-"+id).val();
-    var chucvu = $("#chucvu-all-"+id).val();
+    var email = $("#modal-email").val();
+    var gioitinh = $("#modal-gioitinh").val();
+    var chucvu = $("#modal-chucvu").val();
     var stt = $("td."+id).text();
 
     // Hoten
-    if($("#hoten-all-"+id).val()) {
-      var hoten = $("#hoten-all-"+id).val();
-      $("#hoten-all-"+id).parent().removeClass('has-danger');
-      $("#hoten-all-"+id).removeClass('form-control-danger');
+    if($("#modal-hoten").val()) {
+      var hoten = $("#modal-hoten").val();
+      $("#modal-hoten").parent().removeClass('has-danger');
+      $("#modal-hoten").removeClass('form-control-danger');
     }
     else {
-      $("#hoten-all-"+id).parent().addClass('has-danger');
-      $("#hoten-all-"+id).addClass('form-control-danger');
+      $("#modal-hoten").parent().addClass('has-danger');
+      $("#modal-hoten").addClass('form-control-danger');
     }
     // SDT Validate
-    if($("#sdt-all-"+id).inputmask('isComplete')) {
-      var sdt = $("#sdt-all-"+id).val();
-      $("#sdt-all-"+id).parent().removeClass('has-danger');
-      $("#sdt-all-"+id).removeClass('form-control-danger');
+    if($("#modal-sdt").inputmask('isComplete')) {
+      var sdt = $("#modal-sdt").val();
+      $("#modal-sdt").parent().removeClass('has-danger');
+      $("#modal-sdt").removeClass('form-control-danger');
     }
     else {
-      $("#sdt-all-"+id).parent().addClass('has-danger');
-      $("#sdt-all-"+id).addClass('form-control-danger');
+      $("#modal-sdt").parent().addClass('has-danger');
+      $("#modal-sdt").addClass('form-control-danger');
     }
 
     // CMND Validate
-    if($("#cmnd-all-"+id).inputmask('isComplete')) {
-      var cmnd = $("#cmnd-all-"+id).val();
-      $("#cmnd-all-"+id).parent().removeClass('has-danger');
-      $("#cmnd-all-"+id).removeClass('form-control-danger');
+    if($("#modal-cmnd").inputmask('isComplete')) {
+      var cmnd = $("#modal-cmnd").val();
+      $("#modal-cmnd").parent().removeClass('has-danger');
+      $("#modal-cmnd").removeClass('form-control-danger');
     }
     else {
-      $("#cmnd-all-"+id).parent().addClass('has-danger');
-      $("#cmnd-all-"+id).addClass('form-control-danger');
+      $("#modal-cmnd").parent().addClass('has-danger');
+      $("#modal-cmnd").addClass('form-control-danger');
     }
 
     // Ngay sinh Validate
-    if($("#ngaysinh-all-"+id).inputmask('isComplete')) {
-      var ngaysinh = $("#ngaysinh-all-"+id).val().replace(/[/]/gi,'-').split('-').reverse().join('-');
-      $("#ngaysinh-all-"+id).parent().removeClass('has-danger');
-      $("#ngaysinh-all-"+id).removeClass('form-control-danger');
+    if($("#modal-ngaysinh").inputmask('isComplete')) {
+      var ngaysinh = $("#modal-ngaysinh").val().replace(/[/]/gi,'-').split('-').reverse().join('-');
+      $("#modal-ngaysinh").parent().removeClass('has-danger');
+      $("#modal-ngaysinh").removeClass('form-control-danger');
     }
     else {
-      $("#ngaysinh-all-"+id).parent().addClass('has-danger');
-      $("#ngaysinh-all-"+id).addClass('form-control-danger');
+      $("#modal-ngaysinh").parent().addClass('has-danger');
+      $("#modal-ngaysinh").addClass('form-control-danger');
     }
 
     // Mat khau
-    var matkhau = $("#matkhau-all-"+id).val();
-    var rematkhau = $("#matkhau-all-retype-"+id).val();
-
+    var matkhau = $("#modal-matkhau").val();
+    var rematkhau = $("#modal-matkhau-retype").val();
+    console.log('data update: ', _.concat([id, hoten, email, sdt, cmnd, ngaysinh, chucvu, gioitinh, matkhau]));
     // Ajax update user
-    if($("#sdt-all-"+id).inputmask('isComplete') && $("#cmnd-all-"+id).inputmask('isComplete') && $("#ngaysinh-all-"+id).inputmask('isComplete') && $("#hoten-all-"+id).inputmask('isComplete')) {
-      if(matkhau != '' && rematkhau != '') {
+    if($("#modal-sdt").inputmask('isComplete') && $("#modal-cmnd").inputmask('isComplete') && $("#modal-ngaysinh").inputmask('isComplete') && $("#modal-hoten").inputmask('isComplete')) {
+      if(matkhau != '' || rematkhau != '') {
         if(matkhau == rematkhau) {
-          $("#matkhau-all-"+id).parent().removeClass('has-danger');
-          $("#matkhau-all-"+id).removeClass('form-control-danger');
-          $("#matkhau-all-retype-"+id).parent().removeClass('has-danger');
-          $("#matkhau-all-retype-"+id).removeClass('form-control-danger');
+          $("#modal-matkhau").parent().removeClass('has-danger');
+          $("#modal-matkhau").removeClass('form-control-danger');
+          $("#modal-matkhau-retype").parent().removeClass('has-danger');
+          $("#modal-matkhau-retype").removeClass('form-control-danger');
           
           console.log('with password: ', matkhau);
+
           $.ajax({
             type: 'post',
             url: 'users/updateUserPass',
@@ -113,7 +85,7 @@
               if(data == 'true') {
                 e.preventDefault();
                 swal('Thành công!', 'Cập nhật thông tin tài khoản thành công!', 'success');
-                $("#all-"+id).click();
+                $("#modal-cancel-edit").click();
                 $(".modal-backdrop").modal('hide');
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
@@ -122,23 +94,23 @@
               else {
                 // Thường lỗi do dữ liệu không đổi mà vẫn cập nhật, lỗi bên SQL
                 swal('Thành công!', 'Cập nhật thông tin tài khoản thành công!', 'success');
-                $("#all-"+id).click();
+                $("#modal-cancel-edit").click();
                 $(".modal-backdrop").modal('hide');
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
               }
             },
-            error: function() {
-              swal('Lỗi!', 'Có lỗi xảy ra, vui lòng kiểm tra lại!', 'error');
+            error: function(e) {
+              console.log(e);
             }
           });
         }
         // matkhau == rematkhau
         else {
-          $("#matkhau-all-"+id).parent().addClass('has-danger');
-          $("#matkhau-all-"+id).addClass('form-control-danger');
-          $("#matkhau-all-retype-"+id).parent().addClass('has-danger');
-          $("#matkhau-all-retype-"+id).addClass('form-control-danger');
+          $("#modal-matkhau").parent().addClass('has-danger');
+          $("#modal-matkhau").addClass('form-control-danger');
+          $("#modal-matkhau-retype").parent().addClass('has-danger');
+          $("#modal-matkhau-retype").addClass('form-control-danger');
           swal('Lỗi mật khẩu!', 'Mật khẩu không trùng nhau, vui lòng nhập lại!', 'warning');
         }
       }
@@ -158,12 +130,12 @@
             gioitinh: gioitinh
           },
           success: function(data) {
-            console.log('dataaaaa');
+            console.log('dataaaaa: ', data);
             if(data == 'true') {
               e.preventDefault();
               swal('Thành công!', 'Cập nhật thông tin tài khoản thành công!', 'success');
               loadRow(id, stt);
-              $("#all-"+id).click();
+              $("#modal-cancel-edit").click();
               $(".modal-backdrop").hide();
               $('body').removeClass('modal-open');
               $('.modal-backdrop').remove();
@@ -171,14 +143,14 @@
             else {
               // Thường lỗi do dữ liệu không đổi mà vẫn cập nhật, lỗi bên SQL
               swal('Thành công!', 'Cập nhật thông tin tài khoản thành công!', 'success');
-              $("#all-"+id).click();
+              $("#modal-cancel-edit").click();
               $(".modal-backdrop").hide();
               $('body').removeClass('modal-open');
               $('.modal-backdrop').remove();
             }
           },
-          error: function() {
-            swal('Lỗi!', 'Có lỗi xảy ra, vui lòng kiểm tra lại!', 'error');
+          error: function(e) {
+            console.log(e);
           }
         });
       }
@@ -306,10 +278,11 @@
                 }
                 else {
                   swal('Lỗi', 'Xảy ra lỗi khi thêm tài khoản mới, vui lòng kiểm tra lại!', 'error');
+                  console.log('data: them user', data);
                 }
               },
-              error: function() {
-                swal('Lỗi', 'Xảy ra lỗi khi thêm tài khoản mới, vui lòng kiểm tra lại2!', 'error');
+              error: function(e) {
+                console.log(e);
               }
             });
           }
@@ -424,8 +397,8 @@
       success: function(data) {
         rs = data;
       },
-      error: function() {
-        return 'error';
+      error: function(e) {
+        console.log(e);
       }
     });
     return rs;
@@ -460,93 +433,6 @@
           content += '<div class="btn-group">';
           content += '<button class="btn btn-sm btn-outline-info xem-taikhoan" data-toggle="modal" id="'+user.MAND+'" data-target="#'+user.MAND+'-all">Xem</button>';
           content += '<button class="btn btn-sm btn-outline-danger">Cấm</button>';
-          content += '<div class="modal fade" id="'+user.MAND+'-all" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-          content += '<div class="modal-dialog modal-lg" role="document">';
-          content += '<div class="modal-content">';
-          content += '<div class="modal-header">';
-          content += '<h5 class="modal-title" id="exampleModalLabel">Thông tin</h5>';
-          content += '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
-          content += '<span aria-hidden="true">&times;</span>';
-          content += '</button>';
-          content += '</div>';
-          content += '<div class="modal-body">';
-          content += '<div class="row">';
-          content += '<div class="col-4">';
-          content += '<div class="form-group">';
-          content += '<label>Họ Tên</label>';
-          content += '<input type="text" maxlength="30" class="form-control form-control-sm" placeholder="Họ tên" id="hoten-all-'+user.MAND+'" aria-label="Họ tên">';
-          content += '</div>';
-          content += '</div>';
-          content += '<div class="col-4">';
-          content += '<div class="form-group">';
-          content += '<label>Email</label>';
-          content += '<input type="text" id="email-all-'+user.MAND+'" class="form-control form-control-sm" placeholder="Email" aria-label="Email">';
-          content += '</div>';
-          content += '</div>';
-          content += '<div class="col-4">';
-          content += '<div class="form-group">';
-          content += '<label>Số điện thoại</label>';
-          content += '<input id="sdt-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'mask\': \'9999999999\'">';
-          content += '</div>';
-          content += '</div>';
-          content += '</div>';
-          content += '<div class="row">';
-          content += '<div class="col-2">';
-          content += '<div class="form-group">';
-          content += '<label for="chucvu">Giới tính</label>';
-          content += '<select class="form-control" id="gioitinh-all-'+user.MAND+'">';
-          content += '<option value="nam">Nam</option>';
-          content += '<option value="nu">Nữ</option>';
-          content += '</select>';
-          content += '</div>';
-          content += '</div>';
-          content += '<div class="col-2">';
-          content += '<div class="form-group">';
-          content += '<label>Số CMND</label>';
-          content += '<input id="cmnd-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'alias\': \'cmnd\'">';
-          content += '</div>';
-          content += '</div>';
-          content += '<div class="col-3">';
-          content += '<div class="form-group">';
-          content += '<label for="chucvu">Chức vụ</label>';
-          content += '<select class="form-control" id="chucvu-all-'+user.MAND+'">';
-          _.forEach(chucvu, function(cv, key) {
-            content += '<option value="'+cv.MAVT+'">'+cv.TENVT+'</option>';
-          });
-          content += '</select>';
-          content += '</div>';
-          content += '</div>';
-          content += '<div class="col-3">';
-          content += '<div class="form-group">';
-          content += '<label>Ngày sinh</label>';
-          content += '<input id="ngaysinh-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'alias\': \'date\'">';
-          content += '</div>';
-          content += '</div>';
-          content += '</div>';
-          content += '<div class="row">';
-          content += '<div class="col-2">';
-          content += '<div class="form-group">';
-          content += '<label>Tài khoản</label>';
-          content += '<input id="tendn-all-'+user.MAND+'" class="form-control form-control-sm" placeholder="Tài khoản" disabled>';
-          content += '</div>';
-          content += '</div>';
-          content += '<div class="col-2">';
-          content += '<div class="form-group">';
-          content += '<label>Mật khẩu</label>';
-          content += '<input placeholder="Mật khẩu" type="password" id="matkhau-all-'+user.MAND+'" class="form-control form-control-sm" maxlength="25">';
-          content += '</div>';
-          content += '</div>';
-          content += '<div class="col-2">';
-          content += '<div class="form-group">';
-          content += '<label>Nhập lại mật khẩu</label>';
-          content += '<input placeholder="Nhập lại mật khẩu" type="password" id="matkhau-all-retype-'+user.MAND+'" class="form-control form-control-sm" maxlength="25">';
-          content += '</div>';
-          content += '</div>';
-          content += '</div>';
-          content += '</div>';
-          content += '<div class="modal-footer">';
-          content += '<button type="button" class="btn btn-sm btn-success update-item" data="'+user.MAND+'">Cập nhật</button>';
-          content += '<button type="button" class="btn btn-sm btn-light" id="'+user.MAND+'" data-dismiss="modal">Hủy</button>';
           content += '</div>';
           content += '</div>';
           content += '</div>';
@@ -558,8 +444,8 @@
           $("tr#"+id).addClass(user.CHUCVU);
         }
       },
-      error: function() {
-        console.log('error');
+      error: function(e) {
+       console.log(e);
       }
     });
   }
@@ -611,93 +497,6 @@
               content += '<div class="btn-group">';
               content += '<button class="btn btn-sm btn-outline-info xem-taikhoan" data-toggle="modal" id="'+user.MAND+'" data-target="#'+user.MAND+'-all">Xem</button>';
               content += '<button class="btn btn-sm btn-outline-danger">Cấm</button>';
-              content += '<div class="modal fade" id="'+user.MAND+'-all" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-              content += '<div class="modal-dialog modal-lg" role="document">';
-              content += '<div class="modal-content">';
-              content += '<div class="modal-header">';
-              content += '<h5 class="modal-title" id="exampleModalLabel">Thông tin</h5>';
-              content += '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
-              content += '<span aria-hidden="true">&times;</span>';
-              content += '</button>';
-              content += '</div>';
-              content += '<div class="modal-body">';
-              content += '<div class="row">';
-              content += '<div class="col-4">';
-              content += '<div class="form-group">';
-              content += '<label>Họ Tên</label>';
-              content += '<input type="text" maxlength="30" class="form-control form-control-sm" placeholder="Họ tên" id="hoten-all-'+user.MAND+'" aria-label="Họ tên">';
-              content += '</div>';
-              content += '</div>';
-              content += '<div class="col-4">';
-              content += '<div class="form-group">';
-              content += '<label>Email</label>';
-              content += '<input type="text" id="email-all-'+user.MAND+'" class="form-control form-control-sm" placeholder="Email" aria-label="Email">';
-              content += '</div>';
-              content += '</div>';
-              content += '<div class="col-4">';
-              content += '<div class="form-group">';
-              content += '<label>Số điện thoại</label>';
-              content += '<input id="sdt-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'mask\': \'9999999999\'">';
-              content += '</div>';
-              content += '</div>';
-              content += '</div>';
-              content += '<div class="row">';
-              content += '<div class="col-2">';
-              content += '<div class="form-group">';
-              content += '<label for="chucvu">Giới tính</label>';
-              content += '<select class="form-control" id="gioitinh-all-'+user.MAND+'">';
-              content += '<option value="nam">Nam</option>';
-              content += '<option value="nu">Nữ</option>';
-              content += '</select>';
-              content += '</div>';
-              content += '</div>';
-              content += '<div class="col-2">';
-              content += '<div class="form-group">';
-              content += '<label>Số CMND</label>';
-              content += '<input id="cmnd-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'alias\': \'cmnd\'">';
-              content += '</div>';
-              content += '</div>';
-              content += '<div class="col-3">';
-              content += '<div class="form-group">';
-              content += '<label for="chucvu">Chức vụ</label>';
-              content += '<select class="form-control" id="chucvu-all-'+user.MAND+'">';
-              _.forEach(chucvu, function(cv, key) {
-                content += '<option value="'+cv.MAVT+'">'+cv.TENVT+'</option>'; 
-              });
-              content += '</select>';
-              content += '</div>';
-              content += '</div>';
-              content += '<div class="col-3">';
-              content += '<div class="form-group">';
-              content += '<label>Ngày sinh</label>';
-              content += '<input id="ngaysinh-all-'+user.MAND+'" class="form-control form-control-sm" data-inputmask="\'alias\': \'date\'">';
-              content += '</div>';
-              content += '</div>';
-              content += '</div>';
-              content += '<div class="row">';
-              content += '<div class="col-2">';
-              content += '<div class="form-group">';
-              content += '<label>Tài khoản</label>';
-              content += '<input id="tendn-all-'+user.MAND+'" class="form-control form-control-sm" placeholder="Tài khoản" disabled>';
-              content += '</div>';
-              content += '</div>';
-              content += '<div class="col-2">';
-              content += '<div class="form-group">';
-              content += '<label>Mật khẩu</label>';
-              content += '<input placeholder="Mật khẩu" type="password" id="matkhau-all-'+user.MAND+'" class="form-control form-control-sm" maxlength="25">';
-              content += '</div>';
-              content += '</div>';
-              content += '<div class="col-2">';
-              content += '<div class="form-group">';
-              content += '<label>Nhập lại mật khẩu</label>';
-              content += '<input placeholder="Nhập lại mật khẩu" type="password" id="matkhau-all-retype" class="form-control form-control-sm" maxlength="25">';
-              content += '</div>';
-              content += '</div>';
-              content += '</div>';
-              content += '</div>';
-              content += '<div class="modal-footer">';
-              content += '<button type="button" class="btn btn-sm btn-success update-item" data="'+user.MAND+'">Cập nhật</button>';
-              content += '<button type="button" class="btn btn-sm btn-light" id="'+user.MAND+'" data-dismiss="modal">Hủy</button>';
               content += '</div>';
               content += '</div>';
               content += '</div>';
@@ -711,32 +510,15 @@
             $("#all-users-table").html(content);
             $("#all-users-table").tablesort();
             _.forEach(users, function(user, key) {
-              $("#email-all-"+user.MAND).inputmask();
-              $("#sdt-all-"+user.MAND).inputmask();
-              $("#cmnd-all-"+user.MAND).inputmask();
-              $("#ngaysinh-all-"+user.MAND).inputmask();
+              $("#modal-email").inputmask();
+              $("#modal-sdt").inputmask();
+              $("#modal-cmnd").inputmask();
+              $("#modal-ngaysinh").inputmask();
             });
         }
       },
-      error: function() {
-        swal('Error', 'Errorrrrrrrrrr', 'warning');
-        var content = '';
-        content += '<thead>';
-        content += '<tr>';
-        content += '<th>STT</th>';
-        content += '<th class="sortStyle">Tên<i class="mdi mdi-chevron-down"></i></th>';
-        content += '<th class="sortStyle">Email<i class="mdi mdi-chevron-down"></i></th>';
-        content += '<th class="sortStyle">SĐT<i class="mdi mdi-chevron-down"></i></th>';
-        content += '<th class="sortStyle">Chức vụ<i class="mdi mdi-chevron-down"></i></th>';
-        content += '<th class="sortStyle">Thao tác<i class="mdi mdi-chevron-down"></i></th>';
-        content += '</tr>';
-        content += '</thead>';
-        content += '<tbody>';
-        content += '<tr>';
-        content += '<td>Không có tài khoản nào trong danh sách</td>';
-        content += '</tr>';
-        content += '</tbody>';
-        $("#all-users-table").html(content);
+      error: function(e) {
+        console.log(e);
       }
     });
   }
@@ -745,6 +527,58 @@
     $(this).attr('maxLength', '30');
     var name = $(this).val();
     console.log('name: ', name);
+  });
+
+
+  $(document).on('click', '.xem-taikhoan', function() {
+    var id = $(this).attr('id');
+    $("#modal-edit-taikhoan").modal();
+    $(".update-item").attr('data', id);
+    console.log('ID: ', id);
+    $.ajax({
+      type: 'post',
+      url: 'users/user',
+      dataType: 'json',
+      data: {
+        id: id
+      },
+      success: function(data) {
+        if(data != false) {
+          console.log('data: ', data);
+          var user = data.user;
+          var chucvu = data.chucvu;
+          $('#modal-hoten').val(user['HOTEN']);
+          $('#modal-email').val(user['Email']);
+          $('#modal-sdt').val(user['SDT']);
+          $('#modal-gioitinh').val(user['GioiTinh']);
+          $('#modal-cmnd').val(user['CMND']);
+          $('#modal-ngaysinh').val(user['NgaySinh'].split('-').reverse().join('/'));
+          $('#modal-tendn').val(user['TenDN']);
+
+          $("#modal-matkhau").val('');
+          $("#modal-matkhau-retype").val('');
+
+          // Show chuc vu
+          var content = '';
+          _.forEach(chucvu, function(cv, key) {
+            if(cv.MAVT == user.CHUCVU) {
+              content += '<option value="'+cv.MAVT+'" selected>'+cv.TENVT+'</option>';
+            }
+            else {
+              content += '<option value="'+cv.MAVT+'">'+cv.TENVT+'</option>';
+            }
+          });
+          $('#modal-chucvu').html(content);
+        }
+      },
+      error: function(e) {
+        console.log(e);
+      }
+    });
+  });
+
+  $(document).on('change', '#modal-chucvu', function() {
+    console.log($(this).val());
   });
 
 })(jQuery);

@@ -56,7 +56,7 @@ class Users_model extends CI_Model {
     	$data = array('HOTEN'=>$user['hoten'], 'Email'=>$user['email'], 'SDT'=>$user['sdt'], 'GioiTinh'=>$user['gioitinh'], 'NgaySinh'=>$user['ngaysinh'], 'CMND'=>$user['cmnd'], 'CHUCVU'=>$user['chucvu']);
     	$this->db->where('MAND', $user['id']);
     	$this->db->update('nguoidung', $data);
-    	if($this->db->affected_rows() > 0) return $this->db->affected_rows();
+    	if($this->db->affected_rows() > 0) return true;
     	return false;
     }
 

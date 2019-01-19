@@ -9,80 +9,91 @@
 		nhatro = rs.nhatro[0];
 		chutro = rs.chutro[0];
 		thongtintro = rs.thongtintro[0];
-		tientro = getTienTro(phongtro.MAPT, phongtro.MATT)[0];
-		chiphi = getChiPhi(nhatro.MANT)[0];
-		ngayo = new Date(thongtintro.NGAYO);
-		ngayht = new Date();
 
-		localStorage.setItem('fr_mano', nguoio.MANO);
-		localStorage.setItem('fr_mant', nhatro.MANT);
-		$.cookie('nguoio', JSON.stringify(nguoio));
-		$.cookie('phongtro', JSON.stringify(phongtro));
-		$.cookie('chutro', JSON.stringify(chutro));
-		$.cookie('nhatro', JSON.stringify(nhatro));
-		console.log('nguoio: ', nguoio);
-		console.log('cookie nguoio: ', $.cookie('nguoio'));
+		if(thongtintro.TRANGTHAI == 'dango') {			
+			$("#left-card").prop('hidden', false);
+			$("#right-card").prop('hidden', false);
+			$("#no-nhatro").prop('hidden', true);
+			tientro = getTienTro(phongtro.MAPT, phongtro.MATT)[0];
+			chiphi = getChiPhi(nhatro.MANT)[0];
+			ngayo = new Date(thongtintro.NGAYO);
+			ngayht = new Date();
 
-		$("#current-tennhatro").text('Nhà trọ: '+nhatro.TENNT);
-		$("#current-chutro").text('Chủ trọ: '+chutro.HOTEN);
-		$("#current-tenphong").text('Phòng: '+phongtro.Ten);
-		$("#current-ngayo").text('Ngày vào ở: '+ngayo.toLocaleDateString());
-		$("#current-ngaydao").text('Ngày đã ở: '+_.round((ngayht.getTime() - ngayo.getTime())/100000000));
+			localStorage.setItem('fr_mano', nguoio.MANO);
+			localStorage.setItem('fr_mant', nhatro.MANT);
+			$.cookie('nguoio', JSON.stringify(nguoio));
+			$.cookie('phongtro', JSON.stringify(phongtro));
+			$.cookie('chutro', JSON.stringify(chutro));
+			$.cookie('nhatro', JSON.stringify(nhatro));
+			console.log('nguoio: ', nguoio);
+			console.log('cookie nguoio: ', $.cookie('nguoio'));
 
-		// Bang gia
-		var banggia = '';
-		banggia = '<tr><td class="pl-0">Tiền trọ</td><td class="pr-0 text-right"><div class="badge badge-outline-success badge-pill">'+tientro.GIA+'</div></td></tr>';
-		if(chiphi.GIADIEN != '0') {
-			banggia += '<tr>';
-			banggia += '<td class="pl-0">Giá điện</td>';
-			banggia += '<td class="pr-0 text-right">';
-			banggia += '<div class="badge badge-outline-success badge-pill">'+chiphi.GIADIEN+'</div></td></tr>';
-		}
-		if(chiphi.GIANUOC != '0') {
-			banggia += '<tr>';
-			banggia += '<td class="pl-0">Giá nước</td>';
-			banggia += '<td class="pr-0 text-right">';
-			banggia += '<div class="badge badge-outline-success badge-pill">'+chiphi.GIANUOC+'</div></td></tr>';
-		}
-		if(chiphi.GiaWifi != '0') {
-			banggia += '<tr>';
-			banggia += '<td class="pl-0">Giá Wifi</td>';
-			banggia += '<td class="pr-0 text-right">';
-			banggia += '<div class="badge badge-outline-success badge-pill">'+chiphi.GiaWifi+'</div></td></tr>';
-		}
-		if(chiphi.GiaRac != '0') {
-			banggia += '<tr>';
-			banggia += '<td class="pl-0">Giá rác</td>';
-			banggia += '<td class="pr-0 text-right">';
-			banggia += '<div class="badge badge-outline-success badge-pill">'+chiphi.GiaRac+'</div></td></tr>';
-		}
-		if(chiphi.GiaGXe != '0') {
-			banggia += '<tr>';
-			banggia += '<td class="pl-0">Giữ xe</td>';
-			banggia += '<td class="pr-0 text-right">';
-			banggia += '<div class="badge badge-outline-success badge-pill">'+chiphi.GiaGXe+'</div></td></tr>';
-		}
-		if(chiphi.XEDAP != '0') {
-			banggia += '<tr>';
-			banggia += '<td class="pl-0">Giữ xe đạp</td>';
-			banggia += '<td class="pr-0 text-right">';
-			banggia += '<div class="badge badge-outline-success badge-pill">'+chiphi.XEDAP+'</div></td></tr>';
-		}
-		if(chiphi.XEMAY != '0') {
-			banggia += '<tr>';
-			banggia += '<td class="pl-0">Giữ xe máy</td>';
-			banggia += '<td class="pr-0 text-right">';
-			banggia += '<div class="badge badge-outline-success badge-pill">'+chiphi.XEMAY+'</div></td></tr>';
-		}
-		if(chiphi.OTO != '0') {
-			banggia += '<tr>';
-			banggia += '<td class="pl-0">Giữ Oto</td>';
-			banggia += '<td class="pr-0 text-right">';
-			banggia += '<div class="badge badge-outline-success badge-pill">'+chiphi.OTO+'</div></td></tr>';
-		}
-		$("#current-banggia").html(banggia);
+			$("#current-tennhatro").text('Nhà trọ: '+nhatro.TENNT);
+			$("#current-chutro").text('Chủ trọ: '+chutro.HOTEN);
+			$("#current-tenphong").text('Phòng: '+phongtro.Ten);
+			$("#current-ngayo").text('Ngày vào ở: '+ngayo.toLocaleDateString());
+			$("#current-ngaydao").text('Ngày đã ở: '+_.round((ngayht.getTime() - ngayo.getTime())/100000000));
 
-		showTopic(nhatro.MANT, nguoio, nhatro, chutro);
+			// Bang gia
+			var banggia = '';
+			banggia = '<tr><td class="pl-0">Tiền trọ</td><td class="pr-0 text-right"><div class="badge badge-outline-success badge-pill">'+tientro.GIA+'</div></td></tr>';
+			if(chiphi.GIADIEN != '0') {
+				banggia += '<tr>';
+				banggia += '<td class="pl-0">Giá điện</td>';
+				banggia += '<td class="pr-0 text-right">';
+				banggia += '<div class="badge badge-outline-success badge-pill">'+chiphi.GIADIEN+'</div></td></tr>';
+			}
+			if(chiphi.GIANUOC != '0') {
+				banggia += '<tr>';
+				banggia += '<td class="pl-0">Giá nước</td>';
+				banggia += '<td class="pr-0 text-right">';
+				banggia += '<div class="badge badge-outline-success badge-pill">'+chiphi.GIANUOC+'</div></td></tr>';
+			}
+			if(chiphi.GiaWifi != '0') {
+				banggia += '<tr>';
+				banggia += '<td class="pl-0">Giá Wifi</td>';
+				banggia += '<td class="pr-0 text-right">';
+				banggia += '<div class="badge badge-outline-success badge-pill">'+chiphi.GiaWifi+'</div></td></tr>';
+			}
+			if(chiphi.GiaRac != '0') {
+				banggia += '<tr>';
+				banggia += '<td class="pl-0">Giá rác</td>';
+				banggia += '<td class="pr-0 text-right">';
+				banggia += '<div class="badge badge-outline-success badge-pill">'+chiphi.GiaRac+'</div></td></tr>';
+			}
+			if(chiphi.GiaGXe != '0') {
+				banggia += '<tr>';
+				banggia += '<td class="pl-0">Giữ xe</td>';
+				banggia += '<td class="pr-0 text-right">';
+				banggia += '<div class="badge badge-outline-success badge-pill">'+chiphi.GiaGXe+'</div></td></tr>';
+			}
+			if(chiphi.XEDAP != '0') {
+				banggia += '<tr>';
+				banggia += '<td class="pl-0">Giữ xe đạp</td>';
+				banggia += '<td class="pr-0 text-right">';
+				banggia += '<div class="badge badge-outline-success badge-pill">'+chiphi.XEDAP+'</div></td></tr>';
+			}
+			if(chiphi.XEMAY != '0') {
+				banggia += '<tr>';
+				banggia += '<td class="pl-0">Giữ xe máy</td>';
+				banggia += '<td class="pr-0 text-right">';
+				banggia += '<div class="badge badge-outline-success badge-pill">'+chiphi.XEMAY+'</div></td></tr>';
+			}
+			if(chiphi.OTO != '0') {
+				banggia += '<tr>';
+				banggia += '<td class="pl-0">Giữ Oto</td>';
+				banggia += '<td class="pr-0 text-right">';
+				banggia += '<div class="badge badge-outline-success badge-pill">'+chiphi.OTO+'</div></td></tr>';
+			}
+			$("#current-banggia").html(banggia);
+
+			showTopic(nhatro.MANT, nguoio, nhatro, chutro);
+		}
+		else {
+			$("#no-nhatro").prop('hidden', false);
+			$("#left-card").prop('hidden', true);
+			$("#right-card").prop('hidden', true);
+		}
 
 	});
 
