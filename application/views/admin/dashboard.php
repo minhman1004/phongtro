@@ -6,7 +6,7 @@
         <div class="card bg-gradient-primary text-white text-center card-shadow-primary">
           <div class="card-body">
             <h6 class="font-weight-normal">Tổng số bài viết</h6>
-            <h2 class="mb-0">28893</h2>
+            <h2 class="mb-0"><?=$baiviet->baiviet?></h2>
           </div>
         </div>
       </div>
@@ -14,7 +14,7 @@
         <div class="card bg-gradient-danger text-white text-center card-shadow-danger">
           <div class="card-body">
             <h6 class="font-weight-normal">Tổng số người dùng</h6>
-            <h2 class="mb-0">28893</h2>
+            <h2 class="mb-0"><?=$nguoidung->nguoidung?></h2>
           </div>
         </div>
       </div>
@@ -22,7 +22,7 @@
         <div class="card bg-gradient-warning text-white text-center card-shadow-warning">
           <div class="card-body">
             <h6 class="font-weight-normal">Tổng số nhà trọ</h6>
-            <h2 class="mb-0">28893</h2>
+            <h2 class="mb-0"><?=$nhatro->nhatro?></h2>
           </div>
         </div>
       </div>
@@ -30,11 +30,11 @@
         <div class="card bg-gradient-info text-white text-center card-shadow-info">
           <div class="card-body">
             <h6 class="font-weight-normal">Tổng số hóa đơn</h6>
-            <h2 class="mb-0">28893</h2>
+            <h2 class="mb-0"><?=$hoadon->hoadon?></h2>
           </div>
         </div>
       </div>
-    </div>
+ <!--    </div>
     <div class="row">
       <div class="col-lg-4 grid-margin stretch-card">
         <div class="card">
@@ -229,6 +229,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
     

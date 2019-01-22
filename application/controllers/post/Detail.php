@@ -16,14 +16,18 @@ class Detail extends CI_Controller {
 		$name = getName($slug);
 
 		$baiviet = $this->Detail_model->getBaiViet($id, $name);
+		$vieclam = $this->Detail_model->getViecLam($id, $name);
+		$tt =  $this->Detail_model->thongtinnhatro($id);
+
 		if($baiviet != false) {
 			$dsTinhTp = $this->Detail_model->getTinhTp();
 			
 			$data['chitiet'] = $baiviet;
+			$data['vieclam'] = $vieclam;
 			$data['tinhtp'] = $dsTinhTp;
+			$data['tt'] = $tt;
 			$data['slug'] = $slug;
 			$metadata = array('title' => $baiviet[0]->TIEUDE);
-
 			$this->load->helper('url');
 			$this->load->view('primary/meta', $metadata);
 			$this->load->view('primary/mainHeader', $data);
@@ -35,8 +39,19 @@ class Detail extends CI_Controller {
 			header("Location: https://google.com", true);
 		}
 	}
-}
 
+// public function getvieclam($slug)
+// {
+// 	$slug = $_GET['name'];
+// 	$id = getId($slug);
+// 	$name = getName($slug);
+// 	$vieclam = $this->Detail_model->getBaiViet1($id);
+// 	$data['vieclam'] = $vieclam;
+// 	echo json_encode($data);
+
+// }
+
+}
 // Hàm lấy id trong đường dẫn
 function getId($slug) {
 	$slugLength = strlen($slug);

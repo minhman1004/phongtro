@@ -9,13 +9,7 @@
     <li class="nav-item" id="nhatro-dango">
       <a class="nav-link" href="<?php echo base_url()?>forum/current">
         <i class="mdi mdi-home-circle menu-icon"></i>
-        <span class="menu-title">Nhà trọ đang ở</span>
-      </a>
-    </li>
-    <li class="nav-item" id="nhatro-tungo">
-      <a class="nav-link" href="<?php echo base_url()?>forum/history">
-        <i class="mdi mdi-home-circle menu-icon"></i>
-        <span class="menu-title">Nhà trọ từng ở</span>
+        <span class="menu-title">Nhà trọ</span>
       </a>
     </li>
     <li class="nav-item" id="thongtin-thanhtoan">

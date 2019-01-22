@@ -169,7 +169,10 @@ class Home extends CI_Controller {
 						}
 							
 				}
-			
+			else
+			{
+				$ttp = $this->Home_model->getBaiViet();
+			}
 			
 			// if($gia !="all" && $dientich ="all" && $ttp ="all" && $qh="all")	
 			// $dsBaiViet = $this->Home_model->getBaiViet1($id);
@@ -178,7 +181,7 @@ class Home extends CI_Controller {
 		$dsTinhTp = $this->Home_model->getTinhTp();
         $dsQuanHuyen = $this->Home_model->getQuanHuyen();
         $dsPhuongXa = $this->Home_model->getPhuongXa();
-        $dsBaiViet = $this->Home_model->getBaiViet();
+        
 
         $metadata = array('title' => 'Trang Chủ', 'page' => 'home');
 

@@ -487,6 +487,23 @@ public function getBaiViet_gianhohon_1trieu_() {
             return $data;
         return false;
     }
+  
+    public function tongsobaiviet() {
+        $query = $this->db->query("select count(*) as 'baiviet' from baiviet");
+        return $query->result();
+    }
+    public function tongsonguoidung() {
+        $query = $this->db->query("select count(*) as 'nguoidung' from nguoidung");
+        return $query->result();
+    }
+    public function tongsohoadon() {
+        $query = $this->db->query("select count(*) as 'hoadon' from hoadon");
+        return $query->result();
+    }
+    public function tongsonhatro() {
+        $query = $this->db->query("select count(distinct (MANT)) as 'nhatro' from nhatro");
+        return $query->result();
+    }
 
     // Lấy thông tin 1 tỉnh/tp cụ thể
     public function getTinhTpOnly($ma_tinhtp) {

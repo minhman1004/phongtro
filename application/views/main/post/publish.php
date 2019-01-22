@@ -2,14 +2,38 @@
   <div class="main-panel">
     <div class="content-wrapper">
       <!-- Bread Crumb -->
-      <form action="<?php echo base_url()?>post/publish/index" method="post" enctype="multipart/form-data">
+      <!-- <form action="<?php echo base_url()?>post/publish/index" method="post" enctype="multipart/form-data"> -->
+        <div class="card">
+              <div class="card-body">
+                
+                <!-- Chọn địa chỉ -->
+                  <div class="form-group">
+                    <label for="">Chọn nhà trọ</label>
+                    <select class="form-control" id="nha-tro-dang-tin">
+                      <option value="" >Chọn nhà trọ</option>
+                      <?php foreach(@$nhatro as $nhatro_publish) { ?>
+                        <option value=<?=$nhatro_publish->MANT?>><?=$nhatro_publish->TENNT?> - <?=$nhatro_publish->DCTD?></option>
+                      <?php } ?>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputUsername1">Địa chỉ nhà trọ</label>
+                    
+                  </div>
+     
+                <!-- Bản đồ -->
+                <!-- <div class="map-container">
+                  <div id="map-with-marker_nha_tro" class="google-map"></div>
+                </div> -->
+              </div>
+            </div>
         <div class="row">
           <!-- Left side -->
           <div class="col-9">
             <!-- Thông tin cơ bản -->
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title" id="title-find">Thông tin cơ bản</h4>
+                <h5  id="title-find">Thông tin cơ bản</h5>
                 <div class="form-group">
                   <label for="exampleInputUsername1">Tiêu đề tin</label>
                   <input type="text" class="form-control" name="tieude" id="tieu-de-tin-dang-tin" placeholder="Tiêu đề tin" required>
@@ -19,15 +43,35 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group">
+                    <label for="exampleFormControlSelect2">Diện tích</label>
+                   <input type="text" class="form-control" name="gia" id="dientich" placeholder="m²" required>
+                  </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="form-group">
                       <label for="exampleInputEmail1">Số điện thoại</label>
                       <input type="email" disabled class="form-control" id="so-dien-thoai-dang-tin" placeholder="Số điện thoại" value=<?='"'.$nguoidung->SDT.'"'?>>
                     </div>
                   </div>
+                </div>
+
+                <!-- Giá cho thuê / Đơn vị -->
+                <div class="row">
                   <div class="col-6">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Giá cho thuê</label>
-                      <input type="number" name="giachothue" class="form-control" id="gia-cho-thue-dang-tin" placeholder="Số điện thoại" required>
+                      <input type="number" name="giachothue" class="form-control" id="gia-cho-thue-dang-tin" placeholder="Nhập giá nhà trọ" required>
                     </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                    <label for="exampleFormControlSelect2">Đơn vị</label>
+                    <select class="form-control" id="don-vi-dang-tin">
+                      <option selected="selected">Triệu/Tháng</option>
+                      <option>Nghìn/Tháng</option>
+                    </select>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -35,7 +79,7 @@
             <!-- Địa chỉ -->
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title" id="title-find">Địa chỉ</h4>
+                <h5 id="title-find">Địa chỉ</h4>
                 <!-- Chọn địa chỉ -->
                 <div class="row">
                   <div class="col-6">
@@ -96,165 +140,72 @@
 
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title" id="title-find">Bản Đồ</h4>               
-                <div id="map" style="width: 100%; height: 300px"></div>
+                <h4  id="title-find">Bản Đồ</h4>  
+                <p>
+                  <p style="margin-bottom: 10px; padding: 10px; border-radius: 5px;background-color: #dff0d8;">Để tăng độ tin cậy và tin rao được nhiều người quan tâm hơn, hãy sửa vị trí tin rao của bạn trên bản đồ bằng cách kéo icon <img style="width: 35px; height: 35px;border-style:none;" src="http://localhost/phongtro/img/local.png"> tới đúng vị trí của tin rao.</p></p>
+
+                <div class="map-container">
+                  <div id="map-nhatro" class="google-map"></div>
+                </div>
               </div>
             </div>
 
             <!-- Thông tin nhà trọ -->
-            <div class="card">
-              <div class="card-body">
-                <?php if($nhatro == false) { ?>
-                  <!-- Thêm nhà trọ mới nếu chưa có -->
-                  <h4 class="card-title" id="title-find">Nhà trọ</h4>
-                  <label for="">Bạn chưa có nhà trọ nào trong danh sách</label>
-                  <div class="modal fade" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-                    <div class="modal-dialog  modal-lg" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="ModalLabel">Thông tin nhà trọ</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <form>
-                            <div class="form-group">
-                              <label for="exampleInputUsername1">Tên nhà trọ</label>
-                              <input type="text" class="form-control" id="ten-nha-tro-modal" placeholder="Tên nhà trọ" required="required">
-                            </div>
-                            <div class="row">
-                              <div class="col-6">
-                                <div class="form-group">
-                                  <label for="exampleFormControlSelect2">Tỉnh/Thành phố</label>
-                                  <select class="form-control" id="tinh-thanh-pho-modal">
-                                    <?php foreach(@$tinhtp as $tinhtp_publish) { ?>
-                                      <option value=<?=$tinhtp_publish->MATTP?>><?=$tinhtp_publish->TEN?></option>
-                                    <?php } ?>
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="col-6">
-                                <div class="form-group">
-                                  <label for="exampleFormControlSelect2">Quận/Huyện</label>
-                                  <select required class="form-control" id="quan-huyen-modal">
-                                    <?php foreach(@$quanhuyen as $quanhuyen_publish) {
-                                      if($quanhuyen_publish->MATTP == $tinhtp[0]->MATTP) { ?>
-                                        <option value=<?=$quanhuyen_publish->MAQH?>><?=$quanhuyen_publish->TEN?></option>
-                                      <?php } ?>
-                                    <?php } ?>
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-6">
-                                <div class="form-group">
-                                  <label for="exampleFormControlSelect2">Phường, Xã</label>
-                                  <select class="form-control" id="phuong-xa-modal">
-                                    <?php foreach(@$phuongxa as $phuongxa_publish) {
-                                      if($phuongxa_publish->MAQH == $quanhuyen[0]->MAQH) { ?>
-                                        <option value=<?=$phuongxa_publish->MAPX?>><?=$phuongxa_publish->TEN?></option>
-                                      <?php } ?>
-                                    <?php } ?>
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="col-6">
-                                <div class="form-group">
-                                  <label for="exampleFormControlSelect2">Đường</label>
-                                  <select class="form-control" id="duong-modal">
-                                    <option value="non">Chọn Đường</option>
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleInputUsername1">Địa chỉ chính xác</label>
-                              <input type="text" class="form-control" id="dia-chi-chinh-xac-modal" placeholder="Địa chỉ chính xác" required="required">
-                            </div>
-                          </form>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-success" id="them-nha-tro-moi-modal">Thêm mới</button>
-                          <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button style="display: block" type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Thêm nhà trọ mới</button>
-                <?php } else { ?>
-                <!-- Chọn địa chỉ -->
-                  <div class="form-group">
-                    <label for="">Chọn nhà trọ</label>
-                    <select required class="form-control" id="nha-tro-dang-tin">
-                      <option value="" required>Chọn nhà trọ</option>
-                      <?php foreach(@$nhatro as $nhatro_publish) { ?>
-                        <option value=<?=$nhatro_publish->MANT?>><?=$nhatro_publish->TENNT?> - <?=$nhatro_publish->DCTD?></option>
-                      <?php } ?>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputUsername1">Địa chỉ nhà trọ</label>
-                    <input type="text" class="form-control" id="dia-chi-nha-tro" placeholder="Địa chỉ nhà trọ" required="required" disabled>
-                  </div>
-                <?php } ?>
-                <!-- Bản đồ -->
-                <!-- <div class="map-container">
-                  <div id="map-with-marker_nha_tro" class="google-map"></div>
-                </div> -->
-              </div>
-            </div>
+            
 
             <!-- Mô tả chi tiết -->
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title" id="title-find">Mô tả chi tiết</h4>
+                <h5  id="title-find">Mô tả chi tiết</h5>
                 <!-- Chọn địa chỉ -->
-                <form class="forms-sample">
+                <!-- <form class="forms-sample"> -->
                   <div class="form-group">
                     <label for="mo-ta-chi-tiet-dang-tin">Mô tả chi tiết</label>
                     <textarea class="form-control" name="mota" id="mo-ta-chi-tiet-dang-tin" rows="10"></textarea>
                   </div>
-                </form>
+                <!-- </form> -->
               </div>
             </div>
 
-            <!-- Hinh anh -->
+            <!-- Hình ảnh -->
+
             <div class="card">
-              <div class="card-body">
-                <h4 class="card-title d-flex">Hình ảnh</h4>
-                <div class="dropify-wrapper">
-                  <div class="dropify-message">
-                    <span class="file-icon"></span>
-                    <p>Kéo thả hình ảnh hoặc click vào đây</p>
-                    <p class="dropify-error">Có lỗi xảy ra, vui lòng thử lại.</p>
+             <div class="card-body">
+              <h4 class="card-title" id="title-find">
+                   <h5  id="title-find">Hình Ảnh</h5>
+                    <p></p>
+                    <input type="file" id="userFiles" name="userFiles[]" onchange="lightgallery();" multiple/>             
+              </h4>
+              <div id="lightgallery">
+                    <?php  if(!empty($images))
+                                            foreach ($images as $ima) {
+                                                ?>
+                                                <a href='<?php echo base_url($ima); ?>' class="image-tile">
+                                                <img src='<?php echo base_url($ima); ?>' class='subimage'>
+                                                </a>
+                                                <?php
+                                            }
+                                        ?>
+                    
                   </div>
-                  <div class="dropify-loader"></div>
-                  <div class="dropify-errors-container">
-                    <ul></ul>
-                  </div>
-                  <input type="file" class="dropify">
-                  <button type="button" class="dropify-clear">Xóa</button>
-                  <div class="dropify-preview">
-                    <span class="dropify-render"></span>
-                    <div class="dropify-infos">
-                      <div class="dropify-infos-inner">
-                        <p class="dropify-filename">
-                          <span class="file-icon"></span> 
-                          <span class="dropify-filename-inner"></span></p>
-                          <p class="dropify-infos-message">Kéo thả hoặc click vào để thay thế</p>
-                        </div>
-                      </div>
-                    </div>
                   </div>
               </div>
+            <div class="row" style="margin-left: 0">
+              <select required class="form-control" id="chon">
+                      <option value="" required>test</option>                      
+                        <option value=1></option>
+                
+                    </select>
             </div>
-
             <!-- Publish Button -->
             <div class="row" style="margin-left: 0">
-              <button type="submit" id="publish" name="dangtin" class="btn btn-primary mr-2">Đăng tin</button>
+              <button type="" id="publish" name="dangtin" class="btn btn-primary mr-2">Đăng tin</button>
             </div>
+            <div class="row" style="margin-left: 0">
+              <button type="" id="test" name="dangtin1" class="btn btn-primary mr-2">Đăng tin test</button>
+            </div>
+
+             
           </div>
 
 
@@ -295,195 +246,180 @@
             </div>
           </div>
         </div>
-      </form>
+    
+      <!-- </form> -->
     </div>
   </div>
 </div>
 <script>
-      // This example adds a search box to a map, using the Google Place Autocomplete
-      // feature. People can enter geographical searches. The search box will return a
-      // pick list containing a mix of places and predicted search terms.
-
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
-
-      var currentLocation;
-      var marker;
-      var myLatLng = {lat: -34.397, lng: 150.644};
-
-      function initAutocomplete() {
-       
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: myLatLng,
-          zoom: 15,
-          mapTypeId: 'roadmap'
+  $(document).on('click', '#chon', function() {
+      var id = 123;
+      console.log('MANT: ', $(this).val());
+      $.ajax({
+      type: 'post',
+      url: 'publish/showketqua',
+      data: {
+        id: id
+      },
+      success: function(data) {
+        data = JSON.parse(data);
+        console.log('data: ', data);
+       },
+      error: function(e) {
+      console.log(e);
+  }
+});
+});
+</script>
+<script>
+var tinhtp = <?php echo json_encode($tinhtp) ?>;
+var quanhuyen = <?php echo json_encode($quanhuyen) ?>;
+var phuongxa  = <?php echo json_encode($phuongxa) ?>;
+var diachitt = <?php echo json_encode($diachitt) ?>;
+var marker;
+function initMap() {
+  // New map
+  var map, position = {};
+  position = {
+    lat: 14.058324,
+    lng: 108.277199
+  }
+  // New geocoder
+  var geocoder = new google.maps.Geocoder();
+  map = new google.maps.Map(document.getElementById('map-nhatro'), {
+    center: position,
+    zoom: 15
+  });
+  marker = new google.maps.Marker({
+    map: map,
+    draggable: true,
+    animation: google.maps.Animation.DROP,
+    position: position
+  });
+  $(document).on('change', '#nha-tro-dang-tin', function() {
+    var id = $(this).val();
+    console.log('MANT: ', $(this).val());
+    $.ajax({
+    type: 'post',
+    url: 'publish/hienthint',
+    data: {
+      id: id
+    },
+    success: function(data) {
+      data = JSON.parse(data);
+      console.log('data: ', data);
+      $("#tinh-thanh-pho-dang-tin").val(data.tinhtp[0].MATTP);
+      //  Quan Huyen
+      var content = '';
+      if(data.motquanhuyen1.length > 0) {
+        _.forEach(data.motquanhuyen1, function(quanhuyen, key) {
+          content += "<option value=" + quanhuyen.MAQH + '>'+ quanhuyen.TEN + '</option><br>';
         });
-        marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    //draggable: true //make it draggable
-                });
-        // Create the search box and link it to the UI element.
-        var input = document.getElementById('dia-chi-chinh-xac-dang-tin');
-        $("dia-chi-chinh-xac-dang-tin").change(function(){
-            input = document.getElementById('dia-chi-chinh-xac-dang-tin');
-            var searchBox = new google.maps.places.SearchBox(input);
-        //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-        // Bias the SearchBox results towards current map's viewport.
-          map.addListener('bounds_changed', function() {
-            searchBox.setBounds(map.getBounds());
-          });
-          });
-        var searchBox = new google.maps.places.SearchBox(input);
-        //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-        // Bias the SearchBox results towards current map's viewport.
-          map.addListener('bounds_changed', function() {
-            searchBox.setBounds(map.getBounds());
-          });
-
-        var markers = [];
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
-        searchBox.addListener('places_changed', function() {
-          var places = searchBox.getPlaces();
-
-          if (places.length == 0) {
-            return;
-          }
-
-          //Clear out the old markers.
-          markers.forEach(function(marker) {
-            marker.setMap(null);
-          });
-          markers = [];
-
-          
-          // For each place, get the icon, name and location.
-          var bounds = new google.maps.LatLngBounds();
-          places.forEach(function(place) {
-            if (!place.geometry) {
-              console.log("Returned place contains no geometry");
-              return;
-            }
-            var icon = {
-              url: place.location,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25)
-            };
-
-            //Create a marker for each place.
-            markers.push(new google.maps.Marker({
-              map: map,
-              icon: icon,
-              animation: google.maps.Animation.DROP,
-              title: place.name,
-              position: place.geometry.location
-            }));
-            
-
-            if (place.geometry.viewport) {
-              // Only geocodes have viewport.
-              bounds.union(place.geometry.viewport);
-            } else {
-              bounds.extend(place.geometry.location);
-            }
-          });
-          map.fitBounds(bounds);
-
+      }
+      else {
+        content += '<option value="non">Chọn Quận / Huyện</option>';
+      }
+      $("#quan-huyen-dang-tin").html(content);
+      // Phuong Xa
+      content = '';
+      if(data.maphuongxa1.length > 0) {
+        _.forEach(data.maphuongxa1, function(phuongxa, key) {
+          content += "<option value=" + phuongxa.MAPX + ">" + phuongxa.TEN + "</option>";
         });
-        function clearLocations() {
-            info_Window = new google.maps.InfoWindow();
-            info_Window.close();
-            for (var i = 0; i < markers.length; i++) {
-                markers[i].setMap(null);
-            }
-            markers.length = 0;
-        }
-        
-        //Listen for any clicks on the map.
-        google.maps.event.addListener(map, 'click', function(event) { 
+      }
+      else {
+        content += '<option value="non">Chọn Phường, Xã</option>';
+      }
+      $("#phuong-xa-dang-tin").html(content);
 
-            clearLocations();
-            //Get the location that the user clicked.
-            var clickedLocation = event.latLng;
-            var latitude = event.latLng.lat();
-            var longitude = event.latLng.lng();
-            // console.log( latitude + ', ' + longitude );
-            //If the marker hasn't been added.
-            if(marker == undefined){
-                //Create the marker.
-                marker = new google.maps.Marker({
-                    position: clickedLocation,
-                    map: map,
-                    //draggable: true //make it draggable
-                });
-               
-            } else{
-                //Marker has already been added, so just change its location.
-                marker.setPosition(clickedLocation);
-            }
-            map.setCenter(clickedLocation);
-            //Get the marker's location.
-            markerLocation();
+      // Duong
+      content = '';
+      if(data.motduong1.length  > 0) {
+        content += '<option value="non">Chọn Đường</option>';
+        _.forEach(data.motduong1, function(duongpho) {
+          content += '<option value=' + duongpho.MAD + '>' + duongpho.TEN + '</option>';
         });
+      }
+      else {
+      content += '<option value="non">Chọn Đường</option>';
+      }
+      $("#duong-dang-tin").html(content);
 
-        function markerLocation(){
-            //Get location.
-            currentLocation = marker.getPosition();
-            var lt, ln;
-            lt = currentLocation.lat();
-            ln = currentLocation.lng();
-            console.log(lt + ' - ' + ln);
-           
-            $.ajax({
-                type: "POST",
-                //url: "<?php echo site_url('caidat/update_toado'); ?>",
-                data: {vd: currentLocation.lat(), kd: currentLocation.lng()},
-                //dataType: 'json',
-                success:function(data){
-                    //$('#quanhuyen').html(data);
-                    //$('#city').html('<option value="0">Select City</option>');
-                    //$('#state').append('<option value="' + id + '">' + name + '</option>');
-                    //console.log('Ok: dt');
-                    //alert('ok');
-                }
-                
-            });
-        };
+      // Truyen tham so sau khi chon nha tro
+      $("#quan-huyen-dang-tin").val(data.quanhuyen[0].MAQH);
+      $("#phuong-xa-dang-tin").val(data.phuongxa[0].MAPX);
+      if(data.diachitt.length > 0) 
+      {
+      $("#duong-dang-tin").val(data.diachitt[0].MAD);
+
+      }
+      if(data.getnhatro1.length > 0) 
+      {
+        $("#dia-chi-chinh-xac-dang-tin").val(data.getnhatro1[0].DCTD);
       }
 
-    </script>
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaRUCOc4ddsl42iMKR588WkgYhpDuTSk&libraries=places&callback=initAutocomplete"  async defer>   
- </script>
- <style type="text/css">
-    input{
-        width: 100%;
+      // Google Map
+      if(marker) {
+        marker.setMap(null);
+      }
+    
+      // Nếu kinhdo và vido trong nhà trọ khác null
+      if(data.position_gg.KINHDO != null && data.position_gg.VIDO != null) {
+        position = {
+          lat: parseFloat(data.position_gg.VIDO),
+          lng: parseFloat(data.position_gg.KINHDO)
+        };
+        map.setCenter(position);
+        marker = new google.maps.Marker({
+          map: map,
+          draggable: true,
+          animation: google.maps.Animation.DROP,
+          position: position
+        });
+        google.maps.event.addListener(marker, 'position_changed', function() {
+          $("#map-nhatro").attr('data', marker.getPosition().lat() + ','+ marker.getPosition().lng());
+          });
+          $("#map-nhatro").attr('data', marker.getPosition().lat() + ','+ marker.getPosition().lng());
+        }
+        $(document).on('change paste keyup click', '#dia-chi-chinh-xac-dang-tin', function() {
+        var address = $("#dia-chi-chinh-xac-dang-tin").val();
+        geocoder.geocode({'address': address}, function(results, status) {
+          if(status === 'OK') {
+            if(marker) {
+              marker.setMap(null);
+            }
+            // Chuyển trung tâm map về result[0].geometry.location
+            map.setCenter(results[0].geometry.location);
+            // Sau khi chuyển trung tâm, thêm marker tại result[0].geometry.location
+            marker = new google.maps.Marker({
+              map: map,
+              draggable: true,
+              animation: google.maps.Animation.DROP,
+              position: results[0].geometry.location
+            });
+            google.maps.event.addListener(marker, 'position_changed', function() {
+              $("#map-nhatro").attr('data', marker.getPosition().lat() + ','+ marker.getPosition().lng());
+            });
+            $("#map-nhatro").attr('data', marker.getPosition().lat() + ','+ marker.getPosition().lng());
+          }
+          else {
+            console.log(status);
+          }
+        });
+      });
+    },
+    error: function(e) {
+      console.log(e);
     }
-    .wrap{width: 100%;margin-bottom: 20px;}
-    .gallery{ width:100%; float:left; margin-top:30px;}
-    .gallery ul{ margin:0; padding:0; list-style-type:none;}
-    .gallery ul li{ padding:7px; border:2px solid #ccc; float:left; margin:10px 7px; background:none; width:auto; height:auto;}
-    .gallery img{ width:250px;}
-    .none{ display:none;}
-    .upload_div{ margin-bottom:50px;}
-    .uploading{ margin-top:15px;}
-    .form_box{width:500px; margin:0 auto; margin-top:10px; margin-bottom: 40px; text-align: left;}
-    .fileinput{margin-left: 10px;}
-    .image_preview{width: 100%;background-position: center center;background-repeat: no-repeat;overflow: hidden;}
-    .subimage{width: 100px; height: 100px; padding-left: 10px;}
-</style>
-<script type="text/javascript">
-  var tinhtp = <?php echo json_encode($tinhtp) ?>;
-  var quanhuyen = <?php echo json_encode($quanhuyen) ?>;
-  var phuongxa  = <?php echo json_encode($phuongxa) ?>;
-  var diachitt = <?php echo json_encode($diachitt) ?>;
-</script>
+
+  });
+});
+}
+ </script>
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaRUCOc4ddsl42iMKR588WkgYhpDuTSk&libraries=places&callback=initMap"  async defer>   
+ </script>
+ 
+
 <script src="<?php echo base_url(); ?>assets/main/publish.js"></script>
 <script src="<?php echo base_url(); ?>assets/main/map.js"></script>
 
@@ -516,14 +452,84 @@
     </script>
 
 
+
 <script>  
-  function preview_image() 
+  function lightgallery() 
   {
    var total_file=document.getElementById("userFiles").files.length;
-   $('#lightgallery').empty();
+   $('#lightgallery').empty(); // loai hinh anh dau tien
    for(var i=0;i<total_file;i++)
    {
+
       $('#lightgallery').append("<img src='"+URL.createObjectURL(event.target.files[i])+"' class='subimage'>");
    }
+   //$('#lightgallery').lightGallery();
   }
 </script>
+<script >
+
+    $(document).on('click', '#test', function() {
+      var mant = $('#nha-tro-dang-tin').val();
+      var tieude = $('#tieu-de-tin-dang-tin').val();
+      var dientich = $('#dientich').val();
+      var sdt = $('#so-dien-thoai-dang-tin').val();
+      var gia = $('#gia-cho-thue-dang-tin').val();
+      var donvi = $('#don-vi-dang-tin').val();
+      var ttp =  $('#tinh-thanh-pho-dang-tin').val();
+      var px =  $('phuong-xa-dang-tin').val();
+      var qh =  $('quan-huyen-dang-tin').val();
+      var dccx =  $('dia-chi-chinh-xac-dang-tin').val();
+      var mota =  $('mo-ta-chi-tiet-dang-tin').val();
+      var hinhanh =  $_FILES['userFiles']['name']');
+          $.ajax({
+            type: 'post',
+            url: 'Publish/dangtin',
+            data: {
+                mant: mant,
+                tieude: tieude,
+                dientich: dientich,
+                sdt :sdt,
+                gia : gia,
+                donvi : donvi,
+                ttp :ttp,
+                px : px,
+                qh : qh,
+                dccx : dccx,
+                mota : mota,
+                hinhanh :hinhanh
+               },
+            success: function(data) {
+              data = JSON.parse(data);
+              console.log('data: ', data);
+              },
+            error: function(e) {
+                console.log(e);
+              }
+            });
+        });
+</script>
+
+
+
+
+<style type="text/css">
+img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+  height: 150px;
+  margin-right:  5px;
+}
+h5
+{
+  background-color:Lavender;
+  height:45px;
+  text-transform:uppercase;
+  padding-top: 15px;
+  padding-left: 5px;
+  font-size: 16px;
+  color: #000000;
+
+}
+</style>

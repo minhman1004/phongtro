@@ -2,8 +2,8 @@
   <div class="main-panel">
     <div class="content-wrapper">
       <div class="row">
-        <div class="col-md-2">
-          <div class="form-group">
+        <div style="padding-left: 1px" class="col-md-2">
+          <div  class="form-group">
             <label>Tỉnh / TP</label>
             <select class="form-control" id="search-tinh-thanh-pho">
               <option value="all" selected>Tất cả</option>
@@ -40,36 +40,44 @@
             </select>
           </div>
         </div>
-        <div class="col-md-2">
+        <div style="width: 141px; padding-right: 10px" class="col-md-2">
           <div class="form-group">
             <label>Diện tích</label>
             <select class="form-control" id="search-dien-tich">
-               <option value="all" selected>Tất cả</option>
-               <option value="20" >Dưới 20 m2</option>
-               <option value="230" >20 m2 - 30 m2</option>
-               <option value="350" >30 m2 - 50 m2</option>          
+                   <option value="all" selected>Tất cả</option>
+                   <option value="20" >Dưới 20 m2</option>
+                   <option value="230" >20 m2 - 30 m2</option>
+                   <option value="350" >30 m2 - 50 m2</option>          
+
             </select>
           </div>
         </div>
 
-        <div class="col-md-1" style="padding:0px !important">
+        <div class="col-md-1" style="padding-left: 10px">
           <div class="form-group">
           <button id ="search-thongtin" type="button" style="margin-top: 22px;" class="btn btn-primary">Tìm</button>
           </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1" style="padding-left: 10px">
           <div class="form-group">
-            <label>Sắp xếp theo</label>
-            <select class="form-control" id="search-gia-thue">
-             <option value="all" selected>Ngày đăng mới</option>
-             <option value="all" >Giá tiền giảm dần</option>
-             <option value="all" >Giá tiền tăng dần</option>
-             <option value="all" >Diện tích tăng dần</option>
-             <option value="all" >Diện tích giảm dần</option>           
-            </select>
+          <a  href="timkiem" class="text-primary">
+          <button id ="search-gg_maps" type="button" style="margin-top: 22px;" class="btn btn-primary">Tìm google maps</button>
+          </a>
           </div>
         </div>
-      </div>
+        <!-- <div class="col-md-2">
+          <div class="form-group">
+            <label>Sắp xếp theo</label>
+            <select class="form-control" id="search-sort">
+             <option value="all" selected>Ngày đăng mới</option>
+             <option value="tiengiam" >Giá tiền giảm dần</option>
+             <option value="tientang" >Giá tiền tăng dần</option>
+             <option value="dtgiam" >Diện tích tăng dần</option>
+             <option value="dttang" >Diện tích giảm dần</option>           
+
+            </select>
+          </div>
+        </div> -->
       <?php if(isset($tentinh)) { ?>
         <div class="row">
           <nav aria-label="breadcrumb">
@@ -82,24 +90,26 @@
       <?php } ?>
       <div class="row">
         <!-- Left side -->
-        <div class="col-9">
+        <div style="width: 790.500px;height: auto" class="col-9">
           <div class="card">
-            <div class="card-body">
-              <?php if(!@$baiviet) { ?>
-                <h4 class="card-title" id="search-danh-sach-bai-viet">Không có kết quả nào</h4>
-              <?php } else 
-              { ?>
-                <h4 class="card-title" id="search-danh-sach-bai-viet">Kết quả tìm kiếm</h4>
+            <div  class="card-body">
+             
+                <?php if($baiviet == false) { ?>
+                  <h4 class="card-title" id="search-danh-sach-bai-viet">Không có kết quả nào</h4>
+                <?php } else 
+                { ?>
+              
+                <!-- <h4 class="card-title" id="search-danh-sach-bai-viet">Kết quả tìm kiếm</h4> -->
                 <!-- Result list here -->
                 <div id="danh-sach-bai-viet">
                   <?php foreach($baiviet as $ketqua_baiviet) { ?>
                     <a href="<?php echo base_url(); ?><?='post/detail?name='.$ketqua_baiviet->slug?>" class="post">
                       <div class="row">
                         <div class="col-md-4">
-                          <img style=" border-radius: 8px;height: 180px;padding-bottom: 5px" class="thumnail" src="<?php echo base_url(); ?>img/<?=$ketqua_baiviet->HINHANH?>" alt="">
-                          <p>Giá: <?=number_format($ketqua_baiviet->GIA)?> VND</p>
+                          <img style=" border-radius: 8px;height: 170px;padding-bottom: 5px" class="thumnail" src="<?php echo base_url(); ?>img/<?=$ketqua_baiviet->HINHANH?>" alt="">
+                          <p style="font-size: 15px">Giá: <?=number_format($ketqua_baiviet->GIA)?> VND</p>
                         </div>
-                        <div class="col-md-8">
+                        <div style="padding-left: 28px; padding-top:10px " class="col-md-8">
                           <h4 style="color: hsl(89, 63%, 51%); font-size:20px;"><?=$ketqua_baiviet->TIEUDE?></h4>
                           <p><?=$ketqua_baiviet->DCTD?></p>
                           <p><?=$ketqua_baiviet->MOTATHEM?></p>
@@ -111,11 +121,12 @@
                   <?php } ?>
                 </div>
               <?php } ?>
+            
               <!-- End post -->
             </div>
           </div>
         </div>
-        <div class="col-3">
+        <div style="width:  252.656px" class="col-3">
           <div class="row">
             <div class="card">
               <div class="card-body">
@@ -155,14 +166,14 @@
 <script src="<?php echo base_url(); ?>assets/main/home.js"></script>
 
 <!-- <script>
-     $(document).on('change', '#search-tinh-thanh-pho', function() {
-      var mattp = $(this).val();
+     $(document).on('change', '#search-sort', function() {
+      //var mattp = $(this).val();
           $.ajax({
             type: 'post',
             url: 'Home/search',
-            data: {
-                id: mattp
-              },
+            // data: {
+            //     id: mattp
+            //   },
             success: function(data) {
               data = JSON.parse(data);
               console.log('quan huyen: ', data);
@@ -187,8 +198,8 @@
             });
         });
 
-</script> -->
-
+</script>
+ -->
 
 
 <script >
@@ -199,7 +210,7 @@
       var giathue = $("#search-gia-thue").val();
       var dientich = $("#search-dien-tich").val();
       //var mattp = $(this).val();
-      window.location.replace('home/search?mattp='+mattp+'&maqh='+mqh+'&giathue='+giathue+'&dientich='+dientich);
+      window.location.replace('<?php echo base_url(); ?>home/search?mattp='+mattp+'&maqh='+mqh+'&giathue='+giathue+'&dientich='+dientich);
           // $.ajax({
           //   type: 'post',
           //   url: 'Home/search',
