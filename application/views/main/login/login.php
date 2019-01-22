@@ -26,18 +26,7 @@
                       <button class="button btn btn-success btn-large" id="dangnhap">Đăng nhập</button>
                     </div>
                     <div class="my-2 d-flex justify-content-between align-items-center">
-                      <div class="form-check">
-                        <label class="form-check-label text-muted">
-                          <input type="checkbox" class="form-check-input">
-                          Giữ tôi đăng nhập
-                        </label>
-                      </div>
                       <a href="matkhau" class="auth-link text-black">Quên mật khẩu?</a>
-                    </div>
-                    <div class="mb-2">
-                      <button type="button" class="btn btn-block btn-facebook auth-form-btn">
-                        <i class="mdi mdi-facebook mr-2"></i>Đăng nhập bằng Facebook
-                      </button>
                     </div>
                     <div class="text-center mt-4 font-weight-light">
                       Nếu chưa có tài khoản hãy <a href="register" class="text-primary">Đăng ký</a>

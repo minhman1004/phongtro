@@ -163,6 +163,14 @@ class Room_model extends CI_Model {
     	return false;
     }
 
+    public function updateOtherChiPhi($chiphi) {
+        $data = array('Selected'=>'no');
+        $this->db->where(array('MACP !='=>$chiphi['id'], 'MANT'=>$chiphi['nhatro'], 'TRANGTHAI'=>'new'));
+        $this->db->update('chiphi', $data);
+        if($this->db->affected_rows() > 0) return true;
+        return false;
+    }
+
     // Get nhatro chiphi
     public function getAllChiPhi() {
     	$query = $this->db->get('chiphi');

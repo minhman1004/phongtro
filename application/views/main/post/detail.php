@@ -263,7 +263,7 @@
               marker = new google.maps.Marker({
                 position: new google.maps.LatLng(toado[i].vido, toado[i].kinhdo),
                 map: map, 
-                icon:"http://localhost/phongtro/img/thuan.png"
+                icon:"<?php echo base_url(); ?>img/thuan.png"
               });
 
               google.maps.event.addListener(marker, 'click', (function(marker, i) {

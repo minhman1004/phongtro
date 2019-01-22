@@ -165,6 +165,7 @@ class Rooms extends CI_Controller {
 				$cp['trangthai'] = 'new';
 				$cp['selected'] = 'yes';
 				$update = $this->Room_model->updateSelectedTrangThaiChiPhi($cp);
+				$updateOther = $this->Room_model->updateOtherChiPhi($cp);
 			}
 			else {
 				// Update trang thai chiphi cu
@@ -231,6 +232,7 @@ class Rooms extends CI_Controller {
 				$cp['trangthai'] = 'new';
 				$cp['selected'] = 'yes';
 				$update = $this->Room_model->updateSelectedTrangThaiChiPhi($cp);
+				$updateOther = $this->Room_model->updateOtherChiPhi($cp);
 			}
 			else {
 				// Update trang thai chiphi cu
