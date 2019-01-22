@@ -3,11 +3,6 @@
       <div class="container">
         <ul class="nav page-navigation">
           <li class="nav-item">
-            <a class="nav-link" href="<?php echo base_url(); ?>post/publish">
-              <span class="menu-title">Đăng tin</span>
-            </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="<?php echo base_url(); ?>forum/find">
               <span class="menu-title">Xem thông tin trọ</span>
             </a>

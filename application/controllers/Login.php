@@ -38,7 +38,7 @@ class Login extends CI_Controller {
 						   //Get session
 						   $chucvu = $this->session->userdata("ChuVu");
 						   //echo ($chucvu);
-						   redirect(base_url() ."post/publish");
+						   redirect(base_url() ."member/info");
 					}
 					else
 						 $viewdata["error"] = true;

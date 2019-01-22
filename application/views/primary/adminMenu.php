@@ -19,12 +19,6 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="<?php echo base_url()?>manage/payments">
-        <i class="mdi mdi-checkbox-multiple-marked-outline menu-icon"></i>
-        <span class="menu-title">Thanh toán</span>
-      </a>
-    </li>
-    <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#caidat" aria-expanded="false" aria-controls="e-commerce">
         <i class="mdi mdi-settings-outline menu-icon"></i>
         <span class="menu-title">Cài đặt</span>

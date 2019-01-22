@@ -3,7 +3,7 @@
 
 	$(document).ready(function() {
 		console.log('MAND_login: ', mand);
-		var nhatro, phongtro, tientro;
+		var nhatro, phongtro, tientro, hoadon;
 		nhatro = getAllNhaTro(mand);
 		tientro = getAllTienTro();
 		if(nhatro.length > 0) {
@@ -11,6 +11,9 @@
 			console.log('mant', $("#select-nhatro").val());
 			phongtro = getAllPhongTro($("#select-nhatro").val());
 			showPhongTro(phongtro, tientro);
+			hoadon = getAllHoaDon($("#select-nhatro-thanhtoan").val());
+			console.log('hoadon: ', hoadon);
+			showAllHoaDon(hoadon, phongtro);
 		}
 
 		// Bang chi phi
@@ -194,7 +197,116 @@
 			phongtro = getAllPhongTro($("#select-nhatro").val());
 			showPhongTro(phongtro, tientro);
 		});
+
+		$(document).on('click', '.xacnhan-thanhtoan', function() {
+			var mahd = $(this).attr('data');
+			swal("Xác nhận thanh toán cho hóa đơn này?", {
+			  buttons: {
+			    cancel: "Hủy!",
+			    paid: {
+			      text: "Thanh toán!",
+			      value: "paid",
+			    }
+			  },
+			})
+			.then((value) => {
+			  switch (value) {
+			 
+			    case "paid":
+			    	$.ajax({
+			    		type: 'post',
+			    		url: 'payments/completeHoaDon',
+			    		async: false,
+			    		data: {
+			    			mahd: mahd,
+			    			trangthai: 'dathanhtoan'
+			    		},
+			    		success: function(data) {
+			    			console.log('completeHoaDon',data);
+			    			if(data != false) {
+			    				hoadon = getAllHoaDon($("#select-nhatro-thanhtoan").val());
+			    				showAllHoaDon(hoadon, phongtro);
+								swal("Thành công!", "Hoàn tất thanh toán!", "success");
+			    			}
+			    			else {
+			    				swal("Lỗi!", "Có lỗi xảy ra, vui lòng kiểm tra lại!", "warning");
+			    			}
+			    		},
+			    		error: function(e) {
+			    			console.log(e);
+			    		}
+			    	});
+			      	break;
+			 
+			    default:
+			      	swal("Hóa đơn chưa được thanh toán!");
+			  }
+			});
+		});
+
+		$(document).on('change', '#select-nhatro-thanhtoan', function() {
+			var phongtro_thanhtoan = getAllPhongTro($("#select-nhatro-thanhtoan").val());
+			console.log('phongtro_thanhtoan: ', phongtro_thanhtoan);
+			hoadon = getAllHoaDon($("#select-nhatro-thanhtoan").val());
+			showAllHoaDon(hoadon, phongtro_thanhtoan);
+		});
 	});
+
+	// --------------------------------------------------------------------------
+	// --------------------------------------------------------------------------
+	// --------------------------------------------------------------------------
+	// --------------------------------------------------------------------------
+	// --------------------------------------------------------------------------
+	// --------------------------------------------------------------------------
+
+	function getAllHoaDon(mant) {
+		var hoadon;
+		$.ajax({
+			type: 'post',
+			url: 'payments/getAllHoaDon',
+			dataType: 'json',
+			async: false,
+			data: {
+				mant: mant
+			},
+			success: function(data) {
+				if(data != false) {
+					hoadon = data;
+				}
+				else hoadon = [];
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		});
+		return hoadon;
+	}
+
+	function showAllHoaDon(dshoadon, phongtro) {
+		var content = '', ngaylap, trangthai;
+		var pt;
+		if(dshoadon.length > 0) {
+			_.forEach(dshoadon, function(hd, key) {
+				var pt = _.find(phongtro, {'MAPT': hd.MAPT});
+				ngaylap = hd.NgayLap.split('-').reverse().join('/');
+				if(hd.TrangThai == 'chuathanhtoan') trangthai = '<label class="badge badge-warning">Chưa thanh toán</label>';
+				if(hd.TrangThai == 'dathanhtoan') trangthai = '<label class="badge badge-success">Đã thanh toán</label>';
+				if(hd.TrangThai == 'dahuy') trangthai = '<label class="badge badge-danger">Đã hủy</label>';
+				content += '<tr>';
+				content += '<td>'+(key+1)+'</td>';
+				content += '<td>'+pt.Ten+'</td>';
+				content += '<td>'+hd.SOTIEN+'</td>';
+				content += '<td>'+ngaylap+'</td>';
+				content += '<td>'+trangthai+'</td>';
+				if(hd.TrangThai == 'dathanhtoan') {
+					content += '<td><button disabled class="btn btn-sm btn-outline-primary xacnhan-thanhtoan" data="'+hd.MAHD+'">Thanh toán</button></td>';
+				}
+				else content += '<td><button class="btn btn-sm btn-outline-primary xacnhan-thanhtoan" data="'+hd.MAHD+'">Thanh toán</button></td>';
+				content += '</tr>';
+			});
+		}
+		$("#danhsach-hoadon").html(content);
+	}
 
 	function dangerForm(cu, moi) {
 		if(parseInt($(cu).val()) >= parseInt($(moi).val())) {
@@ -345,9 +457,11 @@
 		});
 
 		$("#select-nhatro").html(content);
+		$("#select-nhatro-thanhtoan").html(content);
 		if($("#select-nhatro").length) {
 			$("#select-nhatro").select2();
 		}
+		if($("#select-nhatro-thanhtoan").length) $("#select-nhatro-thanhtoan").select2();
 	}
 
 	function getAllTienTro() {

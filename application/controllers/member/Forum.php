@@ -7,14 +7,26 @@ class Forum extends CI_Controller {
 		$data['chucvu'] = $this->session->userdata('ChucVu');
 		$data['hoten'] = $this->session->userdata('HoTen');
 		$data['quyen'] = $this->session->userdata('Quyen');
+		
+		if($data['mand'] != null $data['mand'] != 2) {
+			$metadata = array('title' => 'Forum');
+			$this->load->helper('url');
+			$this->load->view('main/member/metamember',$metadata);
+			$this->load->view('main/member/headermember');
+			$this->load->view('main/member/menumember');
+			$this->load->view('main/member/forum', $data);
+			$this->load->view('main/member/footermember');
+		}
+		else {
+			$this->comeback();
+		}
+	}
 
-		$metadata = array('title' => 'Forum');
+	public function comeback() {
+		$metadata = array('title' => 'Lỗi');
 		$this->load->helper('url');
 		$this->load->view('main/member/metamember',$metadata);
-		$this->load->view('main/member/headermember');
-		$this->load->view('main/member/menumember');
-		$this->load->view('main/member/forum', $data);
-		$this->load->view('main/member/footermember');
+		$this->load->view('errors/comback');
 	}
 
 	public function getAllNhaTro() {

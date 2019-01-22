@@ -15,7 +15,7 @@
   		showQuanHuyen(dsQuanHuyen);
   	}
   	if(ma_tinhtp == 'all') {
-		$("#search-quan-huyen").html("<option selected>Tất cả</option>");
+		$("#search-quan-huyen").html("<option value='all' selected>Tất cả</option>");
   		$("#search-phuong-xa").html("<option selected>Tất cả</option>");
   	}
   });
@@ -28,11 +28,11 @@
 
   // Hien thi quan huyen ra Select
   function showQuanHuyen(dsQuanHuyen) {
-	$("#search-quan-huyen").html("<option selected>Tất cả</option>");
+	$("#search-quan-huyen").html("<option value='all' selected>Tất cả</option>");
 	$("#search-phuong-xa").html("<option selected>Tất cả</option>");
   	if(dsQuanHuyen.length > 0) {
   		var content;
-  		content += "<option selected>Tất cả</option>";
+  		content += "<option value='all' selected>Tất cả</option>";
   		_.forEach(dsQuanHuyen, function(quanhuyen) {
   			content += "<option value=" + quanhuyen.MAQH + ">" + quanhuyen.TEN + "</option>";
   		});

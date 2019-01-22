@@ -3,19 +3,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Rooms extends CI_Controller {
 	public function index() {
-		$data['tinhtp'] = $this->Home_model->getTinhTp();
-		$data['quanhuyen'] = $this->Home_model->getQuanHuyen();
-		$data['phuongxa'] = $this->Home_model->getPhuongXa();
-		$data['duong'] = $this->Room_model->getDuong();
-		$data['chutro'] = $this->Room_model->getChuTro();
-		$data['nhatro'] = $this->Room_model->getNhaTro();
-		$metadata = array('title'=>'Quản trị: Nhà trọ');
+		$data['mand'] = $this->session->userdata("MAND");
+		$data['chucvu'] = $this->session->userdata('ChucVu');
+		$data['hoten'] = $this->session->userdata('HoTen');
+		$data['quyen'] = $this->session->userdata('Quyen');
+		
+		if($data['mand'] != null && ($data['quyen'] == 21 || $data['quyen'] == 22 || $data['quyen'] == 23)) {
+			$data['tinhtp'] = $this->Home_model->getTinhTp();
+			$data['quanhuyen'] = $this->Home_model->getQuanHuyen();
+			$data['phuongxa'] = $this->Home_model->getPhuongXa();
+			$data['duong'] = $this->Room_model->getDuong();
+			$data['chutro'] = $this->Room_model->getChuTro();
+			$data['nhatro'] = $this->Room_model->getNhaTro();
+			$metadata = array('title'=>'Quản trị: Nhà trọ');
+			$this->load->helper('url');
+			$this->load->view('primary/metaadmin', $metadata);
+			$this->load->view('primary/adminHeader');
+			$this->load->view('primary/adminMenu');
+			$this->load->view('admin/rooms', $data);
+			$this->load->view('primary/adminFooter');
+		}
+		else {
+			$this->comeback();
+		}
+	}
+
+	public function comeback() {
+		$metadata = array('title' => 'Lỗi');
 		$this->load->helper('url');
-		$this->load->view('primary/metaadmin', $metadata);
-		$this->load->view('primary/adminHeader');
-		$this->load->view('primary/adminMenu');
-		$this->load->view('admin/rooms', $data);
-		$this->load->view('primary/adminFooter');
+		$this->load->view('main/member/metamember',$metadata);
+		$this->load->view('errors/comback');
 	}
 
 	public function getDiaChi() {
@@ -286,51 +303,60 @@ class Rooms extends CI_Controller {
 	}
 
 	public function detail($id) {
-		$data['dsnhatro'] = $this->Room_model->getNhaTro();
-		$data['nhatro'] = $this->Room_model->getMotNhaTro($id);
-		$data['phongtro'] = $this->Room_model->getPhongTro($id);
-		if(!isset($data['phongtro'])) {
-			$data['phongtro'] = null;
-		}
-		if(!isset($data['dsnhatro'])) {
-			$data['dsnhatro'] = null;
-		}
-		else {
-			for($i = 0; $i < count($data['dsnhatro']); $i++) {
-				if($data['dsnhatro'][$i]->MANT == $data['nhatro'][0]->MANT) {
-					$data['nhatrohientai'] = $data['dsnhatro'][$i];
-					if($i == 0) {
-						$nhatro_t = null;
-						if(isset($data['dsnhatro'][$i+1])) {
-							$nhatro_s = $data['dsnhatro'][$i+1];
+		$data['mand'] = $this->session->userdata("MAND");
+		$data['chucvu'] = $this->session->userdata('ChucVu');
+		$data['hoten'] = $this->session->userdata('HoTen');
+		$data['quyen'] = $this->session->userdata('Quyen');
+		if($data['mand'] != null && ($data['quyen'] == 21 || $data['quyen'] == 22 || $data['quyen'] == 23)) {
+			$data['dsnhatro'] = $this->Room_model->getNhaTro();
+			$data['nhatro'] = $this->Room_model->getMotNhaTro($id);
+			$data['phongtro'] = $this->Room_model->getPhongTro($id);
+			if(!isset($data['phongtro'])) {
+				$data['phongtro'] = null;
+			}
+			if(!isset($data['dsnhatro'])) {
+				$data['dsnhatro'] = null;
+			}
+			else {
+				for($i = 0; $i < count($data['dsnhatro']); $i++) {
+					if($data['dsnhatro'][$i]->MANT == $data['nhatro'][0]->MANT) {
+						$data['nhatrohientai'] = $data['dsnhatro'][$i];
+						if($i == 0) {
+							$nhatro_t = null;
+							if(isset($data['dsnhatro'][$i+1])) {
+								$nhatro_s = $data['dsnhatro'][$i+1];
+							}
+							else {
+								$nhatro_s = null;
+							}
+							$data['nhatro_t'] = $nhatro_t;
+							$data['nhatro_s'] = $nhatro_s;
 						}
 						else {
-							$nhatro_s = null;
+							$nhatro_t = $data['dsnhatro'][$i-1];
+							if(isset($data['dsnhatro'][$i+1])) {
+								$nhatro_s = $data['dsnhatro'][$i+1];
+							}
+							else {
+								$nhatro_s = null;
+							}
+							$data['nhatro_t'] = $nhatro_t;
+							$data['nhatro_s'] = $nhatro_s;
 						}
-						$data['nhatro_t'] = $nhatro_t;
-						$data['nhatro_s'] = $nhatro_s;
-					}
-					else {
-						$nhatro_t = $data['dsnhatro'][$i-1];
-						if(isset($data['dsnhatro'][$i+1])) {
-							$nhatro_s = $data['dsnhatro'][$i+1];
-						}
-						else {
-							$nhatro_s = null;
-						}
-						$data['nhatro_t'] = $nhatro_t;
-						$data['nhatro_s'] = $nhatro_s;
 					}
 				}
 			}
+			$metadata = array('title'=>'Thông tin phòng, người ở.');
+			$this->load->helper('url');
+			$this->load->view('primary/metaadmin', $metadata);
+			$this->load->view('primary/adminHeader');
+			$this->load->view('primary/adminMenu');
+			$this->load->view('admin/roomdetails', $data);
+			$this->load->view('primary/adminFooter');
 		}
-		$metadata = array('title'=>'Thông tin phòng, người ở.');
-		$this->load->helper('url');
-		$this->load->view('primary/metaadmin', $metadata);
-		$this->load->view('primary/adminHeader');
-		$this->load->view('primary/adminMenu');
-		$this->load->view('admin/roomdetails', $data);
-		$this->load->view('primary/adminFooter');
+		else {
+			$this->comeback();
+		}
 	}
 
 	public function addPhongTro() {

@@ -7,12 +7,13 @@ class Payments extends CI_Controller {
 		$data['chucvu'] = $this->session->userdata('ChucVu');
 		$data['hoten'] = $this->session->userdata('HoTen');
 		$data['quyen'] = $this->session->userdata('Quyen');
+
 		if($data['mand'] != null && $data['quyen'] == 1) {
 			$metadata = array('title' => 'Quản lý thanh toán');
 			$this->load->helper('url');
 			$this->load->view('main/member/metamember',$metadata);
 			$this->load->view('main/member/headermember');
-			$this->load->view('main/member/menumember');
+			$this->load->view('main/member/menumember', $data);
 			$this->load->view('main/member/payment', $data);
 			$this->load->view('main/member/footermember');
 		}
@@ -79,6 +80,22 @@ class Payments extends CI_Controller {
 		$data['wifi'] = intval($this->input->post('wifi'));
 
 		$result = $this->Mempayment_model->createThanhToan($data);
+		if($result != false) echo 'true';
+		else echo 'false';
+	}
+
+	public function getAllHoaDon() {
+		$mant = $this->input->post('mant');
+		$result = $this->Mempayment_model->getAllHoaDon($mant);
+		if($result != false) echo json_encode($result);
+		else echo 'false';
+	}
+
+	public function completeHoaDon() {
+		$data['mahd'] = $this->input->post('mahd');
+		$data['trangthai'] = $this->input->post('trangthai');
+		$data['ngaytra'] = date('Y-m-d');
+		$result = $this->Mempayment_model->completeHoaDon($data);
 		if($result != false) echo 'true';
 		else echo 'false';
 	}

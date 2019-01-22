@@ -6,6 +6,7 @@ class Info extends CI_Controller {
 		$data['mand'] = $this->session->userdata("MAND");
 		$data['chucvu'] = $this->session->userdata('ChucVu');
 		$data['hoten'] = $this->session->userdata('HoTen');
+		$data['quyen'] = $this->session->userdata('Quyen');
 
 		if($data['mand'] != null) {
 			$data['nguoidung'] = $this->Member_model->getNguoiDung($data['mand']);

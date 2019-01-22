@@ -35,4 +35,26 @@ class Mempayment_model extends CI_Model {
     	if($this->db->affected_rows() > 0) return true;
     	return false;
     }
+
+    public function getAllHoaDon($mant) {
+    	$this->db->select('*');
+    	$this->db->from('hoadon');
+    	$this->db->join('cthd', 'cthd.MAHD = hoadon.MAHD');
+    	$this->db->where('cthd.MANT', $mant);
+    	$data = array();
+    	$query = $this->db->get();
+    	foreach(@$query->result() as $row) {
+    		$data[] = $row;
+    	}
+    	if(count($data)) return $data;
+    	return false;
+    }
+
+    public function completeHoaDon($hd) {
+    	$data = array('TrangThai'=>$hd['trangthai'], 'NgayTra'=>$hd['ngaytra']);
+    	$this->db->where('MAHD', $hd['mahd']);
+    	$this->db->update('hoadon', $data);
+    	if($this->db->affected_rows() > 0) return true;
+    	return false;
+    }
 }

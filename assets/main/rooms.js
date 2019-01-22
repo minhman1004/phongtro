@@ -425,7 +425,7 @@
 						content += '<td>'+_.find(data.chutro, {'MAND':nt.MAND}).HOTEN +'</td>';
 						content += '<td title="'+nt.DCTD+'">'+nt.DCTD.substr(0, 30)+'</td>';
 						content += '<td><button class="btn btn-sm btn-outline-primary edit-nhatro" data="'+nt.MANT+'">Xem</button>\n';
-						content += '<button class="btn btn-sm btn-outline-primary xemphong-nhatro" onclick="window.open("rooms/detail/'+nt.MANT+'", "_blank")" data="'+nt.MANT+'">DS Phòng</button></td>';
+						content += '<button class="btn btn-sm btn-outline-primary xemphong-nhatro" onclick="window.open("rooms'/'detail'/'"'+nt.MANT+'", "_blank")" data="'+nt.MANT+'">DS Phòng</button></td>';
 						content += '</tr>';
 					});
 				}

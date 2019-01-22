@@ -13,17 +13,10 @@
       </a>
     </li>
     <li class="nav-item" id="thongtin-thanhtoan">
-      <a class="nav-link" data-toggle="collapse" href="#caidat" aria-expanded="false" aria-controls="e-commerce">
+      <a class="nav-link" href="<?php echo base_url()?>forum/payments">
         <i class="mdi mdi-checkbox-multiple-marked-outline menu-icon"></i>
         <span class="menu-title">Thanh toán</span>
-        <i class="menu-arrow"></i>
       </a>
-      <div class="collapse" id="caidat">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url()?>member/bills">Hóa đơn</a></li>
-          <li class="nav-item"> <a class="nav-link" href="<?php echo base_url()?>member/price">Bảng chi phí</a></li>
-        </ul>
-      </div>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="<?php echo base_url()?>">

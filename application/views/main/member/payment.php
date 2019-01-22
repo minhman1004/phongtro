@@ -169,63 +169,23 @@
             <h4 class="card-title">Danh sách các thanh toán / hóa đơn</h4>
             <div class="d-flex table-responsive">
               <div class="form-group col-md-3">
-                <select class="form-control" id="select-thang">
-                  <option>Chọn nhà trọ</option>
+                <select class="form-control" id="select-nhatro-thanhtoan">
                 </select>
-              </div>
-              <div class="form-group col-md-3">
-                <select class="form-control" id="select-thang">
-                  <option>Chọn phòng trọ</option>
-                </select>
-              </div>
-              <div class="form-group col-md-2">
-                <select class="form-control" id="select-thang">
-                  <option>Chọn Năm</option>
-                </select>
-              </div>              
-              <div class="form-group col-md-2">
-                <select class="form-control" id="select-thang">
-                  <option>Chọn tháng</option>
-                </select>
-              </div>
-              <div class="form-group col-md-1">
-                <button class="btn btn-sm btn-primary" id="open-modal-add-nhatro" style="height: 43px;"><i class="mdi mdi-plus-circle-outline"></i> Xem</button>
               </div>
             </div>
             <div class="table-responsive mt-2">
-              <!-- Modal xem chi tiet thanh toan -->
-              <div class="modal fade" id="modal-chitiet-thanhtoan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <p>Modal body text goes here.</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-success">Submit</button>
-                      <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <table class="table mt-3 border-top table-striped">
                 <thead>
                   <tr>
                     <th>STT</th>
                     <th>Phòng</th>
-                    <th>Ngày</th>
-                    <th>Đã trả</th>
-                    <th>Phải trả</th>
+                    <th>Số tiền (VNĐ)</th>
+                    <th>Ngày tạo</th>
                     <th>Trạng thái</th>
                     <th>Thao tác</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="danhsach-hoadon">
                 </tbody>
               </table>
             </div>

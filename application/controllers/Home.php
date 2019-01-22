@@ -22,7 +22,7 @@ class Home extends CI_Controller {
         $data['tinhtp'] = $dsTinhTp;
         $data['quanhuyen'] = $dsQuanHuyen;
         $data['phuongxa'] = $dsPhuongXa;
-        $data['baiviet'] = $dsBaiViet;
+        $data['baiviet'] = $this->Home_model->getBaiViet();
 
 		$this->load->helper('url');
 		$this->load->view('primary/meta', $metadata);
@@ -58,6 +58,7 @@ class Home extends CI_Controller {
 	}
 
 	public function search() {
+			$data['mand'] = $this->session->userdata("MAND");
 			$ttp = $_GET['mattp'];
 			$qh = $_GET['maqh'];
 			$gia = $_GET['giathue'];
@@ -194,8 +195,8 @@ class Home extends CI_Controller {
 		$data['baiviet'] = $ttp;
 		$this->load->helper('url');
 		$this->load->view('primary/meta',$metadata);
-		$this->load->view('primary/mainHeader');
-		$this->load->view('primary/mainMenu');
+		$this->load->view('primary/mainHeader', $data);
+		$this->load->view('primary/mainMenu', $data);
 		$this->load->view('main/home/mainHome', $data);
 		$this->load->view('primary/mainFooter');
 

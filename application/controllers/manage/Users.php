@@ -3,22 +3,39 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users extends CI_Controller {
 	public function index() {
-		$dsUsers = $this->Users_model->getAllUser();
-		$chucvu = $this->Users_model->getChucVu();
-
-
-		$metadata = array('title'=>'Quản trị: Người dùng');
-		$data['users'] = $dsUsers;
-		$data['chucvu'] = $chucvu;
+		$data['mand'] = $this->session->userdata("MAND");
+		$data['chucvu'] = $this->session->userdata('ChucVu');
+		$data['hoten'] = $this->session->userdata('HoTen');
+		$data['quyen'] = $this->session->userdata('Quyen');
 		
-		$this->load->helper('url');
-		$this->load->view('primary/metaadmin', $metadata);
-		$this->load->view('primary/adminHeader');
-		$this->load->view('primary/adminMenu');
-		$this->load->view('admin/user/users', $data);
-		$this->load->view('primary/adminFooter');
+		if($data['mand'] != null && ($data['quyen'] == 21 || $data['quyen'] == 22 || $data['quyen'] == 23)) {
+			$dsUsers = $this->Users_model->getAllUser();
+			$chucvu = $this->Users_model->getChucVu();
+
+
+			$metadata = array('title'=>'Quản trị: Người dùng');
+			$data['users'] = $dsUsers;
+			$data['chucvu'] = $chucvu;
+			
+			$this->load->helper('url');
+			$this->load->view('primary/metaadmin', $metadata);
+			$this->load->view('primary/adminHeader');
+			$this->load->view('primary/adminMenu');
+			$this->load->view('admin/user/users', $data);
+			$this->load->view('primary/adminFooter');
+		}
+		else {
+			$this->comeback();
+		}
 	}
 
+	public function comeback() {
+		$metadata = array('title' => 'Lỗi');
+		$this->load->helper('url');
+		$this->load->view('main/member/metamember',$metadata);
+		$this->load->view('errors/comback');
+	}
+	
 	public function updateUserPass() {
 		$data['id'] = $this->input->post('id');
 		$data['hoten'] = $this->input->post('hoten');

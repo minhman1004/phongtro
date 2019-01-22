@@ -281,4 +281,31 @@ class Forum_model extends CI_Model {
         if($this->db->affected_rows() > 0) return true;
         return false;
     }
+
+    public function getPhongTro2($mano) {
+        $this->db->select('*');
+        $this->db->from('thongtintro');
+        $this->db->where('MANO', $mano);
+        $rs = $this->db->get();
+        $data = array();
+        foreach(@$rs->result() as $row) {
+            $data[] = $row;
+        }
+        if(count($data)) return $data;
+        return false;
+    }
+
+    public function getHoaDon($mapt, $thang, $nam) {
+        $this->db->select('*');
+        $this->db->from('hoadon');
+        $this->db->join('cthd', 'cthd.MAHD = hoadon.MAHD');
+        $this->db->where(array('cthd.MAPT'=>$mapt,'cthd.THANG >='=>$thang, 'cthd.NAM >='=>$nam));
+        $rs = $this->db->get();
+        $data = array();
+        foreach(@$rs->result() as $row) {
+            $data[] = $row;
+        }
+        if(count($data)) return $data;
+        return false;
+    }
 }

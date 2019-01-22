@@ -4,15 +4,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Account extends CI_Controller {
 	// Loai tai khoan
 	public function index() {
-		$chucvu = $this->Account_model->getChucVu();
-		$data['chucvu'] = $chucvu;
-		$metadata = array('title'=>'Cài đặt: Loại tài khoản');
+		$data['mand'] = $this->session->userdata("MAND");
+		$data['chucvu'] = $this->session->userdata('ChucVu');
+		$data['hoten'] = $this->session->userdata('HoTen');
+		$data['quyen'] = $this->session->userdata('Quyen');
+		
+		if($data['mand'] != null && ($data['quyen'] == 21 || $data['quyen'] == 22 || $data['quyen'] == 23)) {
+			$chucvu = $this->Account_model->getChucVu();
+			$data['chucvu'] = $chucvu;
+			$metadata = array('title'=>'Cài đặt: Loại tài khoản');
+			$this->load->helper('url');
+			$this->load->view('primary/metaadmin', $metadata);
+			$this->load->view('primary/adminHeader');
+			$this->load->view('primary/adminMenu');
+			$this->load->view('admin/settings/account', $data);
+			$this->load->view('primary/adminFooter');
+		}
+		else {
+			$this->comeback();
+		}
+	}
+
+	public function comeback() {
+		$metadata = array('title' => 'Lỗi');
 		$this->load->helper('url');
-		$this->load->view('primary/metaadmin', $metadata);
-		$this->load->view('primary/adminHeader');
-		$this->load->view('primary/adminMenu');
-		$this->load->view('admin/settings/account', $data);
-		$this->load->view('primary/adminFooter');
+		$this->load->view('main/member/metamember',$metadata);
+		$this->load->view('errors/comback');
 	}
 
 	// Add Account

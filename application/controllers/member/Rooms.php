@@ -7,6 +7,7 @@ class Rooms extends CI_Controller {
 		$data['chucvu'] = $this->session->userdata('ChucVu');
 		$data['hoten'] = $this->session->userdata('HoTen');
 		$data['quyen'] = $this->session->userdata('Quyen');
+		
 		if($data['mand'] != null && $data['quyen'] == 1) {
 			$metadata = array('title' => 'Danh sách nhà trọ - phòng trọ');
 			$this->load->helper('url');
